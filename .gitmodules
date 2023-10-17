@@ -1,0 +1,3 @@
+[submodule "docker-compose-essentials"]
+	path = docker-compose-essentials
+	url = ../../ops/docker-compose-essentials.git
