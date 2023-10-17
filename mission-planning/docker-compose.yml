@@ -1,0 +1,15 @@
+x-maps-mount: &maps-mount ../map-provisioning/maps:/data/maps
+
+# ==============================================================================
+
+services:
+
+  route-planner:
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
+    command: ros2 launch lanelet2_route_planning ll2_route_planning.launch.py
+    volumes:
+      - *maps-mount
+      - ./lanelet2_route_planning/params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
+    extends:
+      file: ../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
