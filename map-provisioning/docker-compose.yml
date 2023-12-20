@@ -2,7 +2,7 @@ services:
  
   map-server:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/lanelet2_map_server:latest
-    command: ros2 launch lanelet2_map_server default_map_and_ll2_map_server.launch.py ll2_map_filename:=aldenhoven.osm origin_lat:=0.0 origin_lon:=0.0
+    command: ros2 launch lanelet2_map_server default_map_and_ll2_map_server.launch.py ll2_map_filename:=ATC.osm origin_lat:=0.0 origin_lon:=0.0
     volumes:
       - map:/data/maps/
     extends:
@@ -10,9 +10,9 @@ services:
       service: ros2-service
   
   map-provider:
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.unicaragil-atlatec:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.ika-carla
     volumes:
-      - map:/locations/germany-aldenhoven-atc/lanelet2/unicaragil-atlatec
+      - map:/locations/germany-aldenhoven-atc/lanelet2/ika-carla
 
 volumes:
   map:
