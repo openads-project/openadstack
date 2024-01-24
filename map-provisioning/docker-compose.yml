@@ -12,12 +12,12 @@ services:
   map-provider-atc:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.ika-carla
     volumes:
-      - map:/locations/germany-aldenhoven-atc/lanelet2/ika-carla/
+      - map:/data/
 
   # map-provider-melaten:
   #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aachen-campusmelaten.lanelet2.ika-campus-vaals-halifax
   #   volumes:
-  #     - map:/locations/germany-aachen-campusmelaten/lanelet2/ika-campus-vaals-halifax/
+  #     - map:/data/
 
 volumes:
   map:
