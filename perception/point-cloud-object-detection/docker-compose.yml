@@ -1,0 +1,12 @@
+services:
+
+  perception.point-cloud-object-detection:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-gpu-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:amd64_deprecated-model-gier_ci
+    command: ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:="/drivers/ouster_lidar/points" startup_state:=3
+    volumes:
+      - ./config/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
+    environment:
+      - CUDA_VISIBLE_DEVICES=""

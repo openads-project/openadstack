@@ -1,0 +1,12 @@
+/perception/point_cloud_object_detection:
+  ros__parameters:
+    model_path: models/model_gier/lidar_detection.pb
+    model_config: models/model_gier/Config/config.yml
+
+    inference_frame: base_link          # frame for inference
+                                        # (here: ego_vehicle - geometric center)
+    # output_frame: object_list_frame   # frame for object list
+
+    # variances
+    # x, y, z, vel_x, vel_y, acc_x, acc_y, yaw_angle, yaw_rate, width, length, height
+    variances: [0.2, 0.2, 0.1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 0.3, 0.3, 0.3]
