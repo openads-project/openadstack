@@ -1,0 +1,38 @@
+x-image-segmentation-base: &image-segmentation-base
+  extends:
+    file: ../../docker-compose-essentials/docker-compose.template.yml
+    service: ros2-gpu-service
+  image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/image_segmentation:latest
+  volumes:
+    - ./launch/image_segmentation_launch.py:/docker-ros/ws/install/image_segmentation/share/image_segmentation/launch/image_segmentation_launch.py
+    - ./config/params.yaml:/docker-ros/ws/install/image_segmentation/share/image_segmentation/config/params.yaml
+    - ./models:/docker-ros/ws/install/image_segmentation/share/image_segmentation/models
+    - ./one-hot-conversion:/docker-ros/ws/install/image_segmentation/share/image_segmentation/one-hot-conversion
+
+# ==============================================================================
+
+services:
+
+  # perception.image-segmentation.front-left:
+  #   <<: *image-segmentation-base
+  #   command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/front_left/driver/left/image_rect_color segmented_image:=~/front_left/driver/left/image_rect_color
+
+  perception.image-segmentation.front-center:
+    <<: *image-segmentation-base
+    command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/front_center/driver/left/image_rect_color segmented_image:=~/front_center/driver/left/image_rect_color
+
+  # perception.image-segmentation.front-right:
+  #   <<: *image-segmentation-base
+  #   command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/front_right/driver/left/image_rect_color segmented_image:=~/front_right/driver/left/image_rect_color
+
+  # perception.image-segmentation.rear-left:
+  #   <<: *image-segmentation-base
+  #   command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/rear_left/driver/left/image_rect_color segmented_image:=~/rear_left/driver/left/image_rect_color
+
+  # perception.image-segmentation.rear-center:
+  #   <<: *image-segmentation-base
+  #   command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/rear_center/driver/left/image_rect_color segmented_image:=~/rear_center/driver/left/image_rect_color
+
+  # perception.image-segmentation.rear-right:
+  #   <<: *image-segmentation-base
+  #   command: ros2 launch image_segmentation image_segmentation_launch.py image:=/drivers/zed_camera/rear_right/driver/left/image_rect_color segmented_image:=~/rear_right/driver/left/image_rect_color

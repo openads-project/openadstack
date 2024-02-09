@@ -1,0 +1,3 @@
+include:
+  - image-segmentation/docker-compose.yml
+  - point-cloud-object-detection/docker-compose.yml
