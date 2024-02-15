@@ -15,24 +15,20 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        DeclareLaunchArgument(
-            "image",
-            default_value="~/image"
-        ),
-        DeclareLaunchArgument(
-            "segmented_image",
-            default_value="~/segmented_image"
-        ),
+        DeclareLaunchArgument("namespace", default_value=""),
+        DeclareLaunchArgument("name", default_value="image_segmentation"),
+        DeclareLaunchArgument("image", default_value="~/image"),
+        DeclareLaunchArgument("segmentation",default_value="~/segmentation"),
         Node(
             package="image_segmentation",
             executable="image_segmentation",
-            namespace="/perception",
-            name="image_segmentation",
+            namespace=LaunchConfiguration("namespace"),
+            name=LaunchConfiguration("name"),
             parameters=[config],
             output="screen",
             remappings=[
                 ("~/image", LaunchConfiguration("image")),
-                ("~/segmented_image", LaunchConfiguration("segmented_image"))
+                ("~/segmentation", LaunchConfiguration("segmentation"))
             ]
         )
     ])

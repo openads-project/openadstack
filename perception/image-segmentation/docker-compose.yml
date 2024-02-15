@@ -21,4 +21,4 @@ services:
 
   perception.image-segmentation:
     <<: *image-segmentation-base
-    command: ros2 launch image_segmentation image_segmentation_launch.py image:=${IMAGE} segmented_image:=${SEGMENTED_IMAGE}
+    command: ros2 launch image_segmentation image_segmentation_launch.py namespace:=/perception name:=image_segmentation image:=${IMAGE:-~/image} segmented_image:=${SEGMENTED_IMAGE:-~/segmented_image}
