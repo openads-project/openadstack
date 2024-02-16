@@ -1,0 +1,6 @@
+/**:
+  ros__parameters:
+    model: models/mobilenetv3_small_os32_deeplabv3plus_65miou
+    one_hot_palette: one-hot-conversion/cityscapes.xml
+    input_image_encoding: rgb8
+    normalize_input: true

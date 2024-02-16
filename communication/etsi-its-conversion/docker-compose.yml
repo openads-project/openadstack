@@ -1,0 +1,8 @@
+services:
+
+  communication.etsi-its-conversion:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:latest
+    command: ros2 run etsi_its_conversion etsi_its_conversion_node --ros-args -r __ns:=/communication -r __node:=etsi_its_conversion
