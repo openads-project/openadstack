@@ -1,0 +1,38 @@
+<IKALabelDefinition>
+	<!-- [https://github.com/mcordts/cityscapesScripts/blob/master/cityscapesscripts/helpers/labels.py#L52-L99] -->
+  	<SLabel Name="None"          fromColour="  0   0   0" fromValue="0"  toValue="19" />
+	<SLabel Name="Ego Vehicle"   fromColour="  0   0   0" fromValue="1"  toValue="19" />
+	<SLabel Name="Rect. Border"  fromColour="  0   0   0" fromValue="2"  toValue="19" />
+	<SLabel Name="Out of ROI"    fromColour="  0   0   0" fromValue="3"  toValue="19" />
+	<SLabel Name="Static"        fromColour=" 20  20  20" fromValue="4"  toValue="19" />
+	<SLabel Name="Dynamic"       fromColour="111  74   0" fromValue="5"  toValue="19" />
+	<SLabel Name="Ground"        fromColour=" 81   0  81" fromValue="6"  toValue="19" />
+	<SLabel Name="Road"          fromColour="128  64 128" fromValue="7"   toValue=" 0" />
+	<SLabel Name="Sidewalk"      fromColour="244  35 232" fromValue="8"   toValue=" 1" />
+	<SLabel Name="Parking"       fromColour="250 170 160" fromValue="9"   toValue="19" />
+	<SLabel Name="Rail track"    fromColour="230 150 140" fromValue="10"  toValue="19" />
+	<SLabel Name="Building"      fromColour=" 70  70  70" fromValue="11"  toValue="2" />
+	<SLabel Name="Wall"          fromColour="102 102 156" fromValue="12"  toValue="3" />
+	<SLabel Name="Fence"         fromColour="190 153 153" fromValue="13"  toValue="4" />
+	<SLabel Name="Guard rail"    fromColour="180 165 180" fromValue="14"  toValue="19" />
+	<SLabel Name="Bridge"        fromColour="150 100 100" fromValue="15"  toValue="19" />
+	<SLabel Name="Tunnel"        fromColour=" 50 120  90" fromValue="16"  toValue="19" />
+	<SLabel Name="Pole"          fromColour="153 153 153" fromValue="17"  toValue="5" />
+	<SLabel Name="Pole Group"    fromColour="153 153 153" fromValue="18"  toValue="19" />
+	<SLabel Name="Traffic light" fromColour="250 170  30" fromValue="19"  toValue="6" />
+	<SLabel Name="Traffic sign"  fromColour="220 220   0" fromValue="20"  toValue="7" />
+	<SLabel Name="Vegetation"    fromColour="107 142  35" fromValue="21"  toValue="8" />
+	<SLabel Name="Terrain"       fromColour="152 251 152" fromValue="22"  toValue="9" />
+	<SLabel Name="Sky"           fromColour=" 70 130 180" fromValue="23"  toValue="10" />
+	<SLabel Name="Person"        fromColour="220  20  60" fromValue="24"  toValue="11" />
+	<SLabel Name="Rider"         fromColour="255   0   0" fromValue="25"  toValue="12" />
+	<SLabel Name="Car"           fromColour="  0   0 142" fromValue="26"  toValue="13" />
+	<SLabel Name="Truck"         fromColour="  0   0  70" fromValue="27"  toValue="14" />
+	<SLabel Name="Bus"           fromColour="  0  60 100" fromValue="28"  toValue="15" />
+	<SLabel Name="Caravan"       fromColour="  0   0  90" fromValue="29"  toValue="19" />
+	<SLabel Name="Trailer"       fromColour="  0   0 110" fromValue="30"  toValue="19" />
+	<SLabel Name="On rails"      fromColour="  0  80 100" fromValue="31"  toValue="16" />
+	<SLabel Name="Motorcycle"    fromColour="  0   0 230" fromValue="32"  toValue="17" />
+	<SLabel Name="Bicycle"       fromColour="119  11  32" fromValue="33"  toValue="18" />
+	<SLabel Name="License Plate" fromColour="  0   0 142" fromValue="-1"  toValue="19" />
+</IKALabelDefinition>
