@@ -2,4 +2,3 @@
   ros__parameters:
     frequency: 10.0
     drivable_mode: False
-    use_sim_time: False
