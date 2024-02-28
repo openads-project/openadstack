@@ -2,6 +2,7 @@
 # - INPUT_TOPIC
 # - OUTPUT_TOPIC
 # - USE_SIM_TIME
+# - PARAMS_YML
 # ==============================================================================
 
 services:
@@ -9,6 +10,8 @@ services:
   trajectory-supervision:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_supervision:latest
     command: ros2 launch trajectory_supervision trajectory_supervision.launch.py input_topic:=${INPUT_TOPIC:-/planning/reference_trajectory} output_topic:=${OUTPUT_TOPIC:-/planning/drivable_trajectory} use_sim_time_arg:=${USE_SIM_TIME:-false}
+    volumes:
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/trajectory_supervision/share/trajectory_supervision/config/params.yml
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
