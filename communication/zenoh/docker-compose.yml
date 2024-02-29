@@ -1,0 +1,18 @@
+# === Environment Variables ====================================================
+# - CONFIG_JSON
+# ==============================================================================
+
+services:
+
+  communication.zenoh-router:
+    image: eclipse/zenoh:latest
+    ports:
+      - 7447:7447
+
+  communication.zenoh-bridge:
+    image: eclipse/zenoh-bridge-ros2dds:latest
+    command: -c /config.json5
+    environment:
+      ROS_DISTRO: humble
+    volumes:
+      - ${CONFIG_JSON:-./config/config.json5}:/config.json5
