@@ -1,4 +1,4 @@
-trajectory_supervision_node:
+/**:
   ros__parameters:
     ### Supervisor settings parameters
     supervisor_timer_frequency: 4.0               # frequency for timer callback of supervisor in Hz
