@@ -19,5 +19,10 @@ services:
   #   volumes:
   #     - map:/data/
 
+  # map-provider-town10hd:
+  #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/synthetic-carla.lanelet2.town10hd
+  #   volumes:
+  #     - map:/data/
+
 volumes:
   map:
