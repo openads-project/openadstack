@@ -1,0 +1,14 @@
+# === Environment Variables ====================================================
+# - INPUT_TOPIC
+# - OUTPUT_TOPIC
+# - USE_SIM_TIME
+# ==============================================================================
+
+services:
+
+  planning.trajectory-suggestion:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yaml
+      service: ros2-gpu-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_suggestion:latest
+    command: ros2 launch trajectory_suggestion trajectory_suggestion.launch.py input_topic:=${INPUT_TOPIC:-/environment_model/rgb_bev_image} output_topic:=${OUTPUT_TOPIC:-/planning/reference_trajectory} use_sim_time_arg:=${USE_SIM_TIME:-false}

@@ -1,0 +1,13 @@
+# === Environment Variables ====================================================
+# - PARAMS_YML
+# ==============================================================================
+
+services:
+
+  environment-interpreation.environment-model:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/environment_model:latest
+    volumes:
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/environment_model/share/environment_model/config/params.yaml
