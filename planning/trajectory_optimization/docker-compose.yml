@@ -1,0 +1,18 @@
+# === Environment Variables ====================================================
+# - INPUT_TOPIC
+# - OUTPUT_TOPIC
+# - USE_SIM_TIME
+# - PARAMS_YML
+# ==============================================================================
+
+services:
+
+  planning.trajectory-optimization:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest-dev_feature-trajectory-planning_ci
+    # command: ros2 launch trajectory_optimization trajectory_optimization_launch.py
+    command: sleep infinity
+    # volumes:
+      # - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yaml
