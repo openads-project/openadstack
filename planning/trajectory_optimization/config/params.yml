@@ -1,0 +1,29 @@
+/**:
+  ros__parameters:
+    #### ROS node parameters
+    optimization_frequency: 1.0
+    verbose: True
+
+    #### general parameters defining the ocp
+    model_name: 'trajectory_planning'
+    optimization_horizon: 8.0         # optimization horizon [s]
+    n_shots: 31                       # number of shooting intervals in optimization horizon
+
+    #### vehicle specific parameters
+    wheelbase: 2.711                  # wheelbase [m]
+    length: 4.799                     # length [m]
+    width: 1.855                      # width [m]
+    delta_max: 0.4956735              # max. absolute steering angle [rad]
+    v_min: 0.0                        # lower boundary constraint for longitudinal velocity [m/s]
+    v_max: 30.0                       # upper boundary constraint for longitudinal velocity [m/s]
+    acceleration_max: 9.0             # max. absolute acceleration [m/s²]
+    acceleration_lon_max: 3.5         # max. absolute longitudinal acceleration [m/s²]
+    alpha_max: 0.5                    # max. absolute steering rate [rad/s]
+    jerk_max: 4.0                     # max. absolute longitudinal jerk [m/s²]
+
+    #### weights
+    w_vel: 1.0
+    w_dlat: 1.0
+
+    #### reference information parameters
+    nrefsamples: 31
