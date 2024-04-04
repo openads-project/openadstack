@@ -3,12 +3,13 @@
     #### ROS node parameters
     optimization_frequency: 2.0
     init_as_ref: False
+    high_level_stabilization: True    # False: use low-level initialization
     verbose: True
 
     #### general parameters defining the ocp
     model_name: 'trajectory_planning'
-    optimization_horizon: 8.0         # optimization horizon [s]
-    n_shots: 31                       # number of shooting intervals in optimization horizon
+    optimization_horizon: 5.0         # optimization horizon [s]
+    n_shots: 49                       # number of shooting intervals in optimization horizon
 
     #### vehicle specific parameters
     wheelbase: 2.711                  # wheelbase [m]
@@ -29,4 +30,4 @@
     ### parameter vector structure
     # [cost_weights, ref_path, objects]
     p_cost_weights_shape: [5, 1] # nWeights x weightDim
-    p_ref_path_shape: [32, 4] # nStates x stateDim
+    p_ref_path_shape: [50, 4] # nStates x stateDim

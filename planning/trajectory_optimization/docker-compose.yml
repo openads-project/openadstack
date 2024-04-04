@@ -12,7 +12,7 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest-dev_feature-trajectory-planning_ci
-    # command: ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=/planning/reference_trajectory trajectory_topic:=/planning/drivable_trajectory ego_data_topic:=/carla_its_adapter/ego_data use_sim_time:=true
+    # command: ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=/planning/reference_trajectory trajectory_topic:=/trajectory_supervision_node/output_topic ego_data_topic:=/carla_its_adapter/ego_data use_sim_time:=true
     command: sleep infinity
     volumes:
       # - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
