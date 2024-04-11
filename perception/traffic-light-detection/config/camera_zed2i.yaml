@@ -1,0 +1,36 @@
+/**:
+  ros__parameters:
+    zed2i:  # Name of the camera
+      type: "stereo"  # Type of the camera
+
+      constants:  # Camera constants
+        baseline_m: 0.12            # Baseline of Stereo-Camera in Meter
+        focal_length_mm: 4.0        # Camera focal length in Millimeter
+        pixel_size_mm: 0.002        # Pixel size of one pixel of the camera sensor in Millimeter
+        image_shape: [1280, 720]    # Image shape in pixel [width, height]
+
+      params: # Camera parameters
+        distance_m: # Distance parameters
+          min: 1.0    # Minimum Distance to traffic lights > 0
+          max: 200.0  # Maximum Distance to traffic lights
+        max_frequency: 11.0   # Maximum Frequency at which images will be processed
+
+      model:  # Model parameters
+        path: "/models/mNN_17_v4/best_1280x768.torchscript" # Absolute path to model.torchscript
+        input_shape: [1280, 768] # Input Shape of the model [width, height]
+
+      topics: # Camera topics
+        input:  # Topic from published image of camera
+          left: "/drivers/zed_camera/front_center/driver/left/image_rect_color"       # Topic from published image of left camera
+          right: "/drivers/zed_camera/front_center/driver/right/image_rect_color"     # Topic from published image of right camera
+        coordinate_frame: "drivers/zed_camera/front_center_left_camera_optical_frame" # Frame-ID of the left camera
+
+      tracking: # Tracking parameters
+        max_delta: 50     # Threshold for tracking in Pixel
+        max_trackback: 1.0  # Maximum trackback Duration In Seconds
+        max_id: 1000      # Maximum ID until unique IDs get assigned
+
+      visualization:  # Visualization parameters
+        plot: # Plot parameters
+          tracking: true      # Bool if tracking image should be generated and published
+          localization: true  # Bool if localization markers should be generated and published

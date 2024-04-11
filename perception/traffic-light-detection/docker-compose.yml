@@ -1,0 +1,19 @@
+# === Environment Variables ====================================================
+# - POINT_CLOUD_TOPIC
+# - PARAMS_YML
+# - CAMAERA_PARAMS_YML
+# - MODEL_PATH
+# ==============================================================================
+
+services:
+
+  perception.traffic-light-detection:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-gpu-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
+    command: bash -ic "ros2 launch traffic_light_detection start_tld_launch.py"
+    volumes:
+      - ${PARAMS_YML:-./config/tld_main.yaml}:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tld_main.yaml
+      - ${CAMAERA_PARAMS_YML:-./config/camera_zed2i.yaml}:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/cameras/camera_zed2i.yaml
+      - ${MODEL_PATH:-./models/best_1280x768.torchscript}:/models/mNN_17_v4/best_1280x768.torchscript
