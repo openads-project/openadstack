@@ -1,0 +1,14 @@
+# === Environment Variables ====================================================
+# - PARAMS_YML
+# ==============================================================================
+
+services:
+
+  localization.ego-state-estimation:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest_feature-republish-rt3000_ci
+    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py
+    volumes:
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yaml

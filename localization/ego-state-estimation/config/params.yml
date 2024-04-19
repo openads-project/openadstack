@@ -1,0 +1,11 @@
+/**:
+  ros__parameters:
+    pose_child_frame_id: base_link # child-frame-id of received pose information from INS i.e. the reference frame of the vehicle the pose refers to
+    pose_ref_point: 11 # according to https://gitlab.ika.rwth-aachen.de/fb-fi/definitions/perception_interfaces/-/blob/main/perception_msgs/msg/ObjectReferencePoint.msg
+    translation_to_geo_center: [1.2, 0.0, 0.0] # translation vector (x,y,z) from reference point as defined in 'pose_ref_point' to geometric-center of vehicle
+    ego_vehicle_class: 4 # according to https://gitlab.ika.rwth-aachen.de/fb-fi/definitions/perception_interfaces/-/blob/main/perception_msgs/msg/ObjectClassification.msg
+    length: 4.0
+    width: 2.0
+    height: 1.5
+    standstill_thr: 0.1 # velocity threshold to indicate standstill of vehicle in m/s
+    use_can_information: false # bool indicating whether CAN-data (EgoData-Message) or INS-data (Odometry-Message/AccelWithCovarianceStamped-Message) should be used to set velocities and accelerations
