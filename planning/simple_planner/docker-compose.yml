@@ -11,7 +11,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest_improvement-parameter-nstates_ci
     command: ros2 launch simple_planner simple_planner.launch.py ego_data_topic:=${EGO_DATA_TOPIC} route_topic:=${ROUTE_TOPIC:-/global_planner/local/route} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
     volumes:
       - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
