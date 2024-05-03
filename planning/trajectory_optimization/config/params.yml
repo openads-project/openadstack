@@ -1,18 +1,18 @@
 /**:
   ros__parameters:
     #### ROS node parameters
-    optimization_frequency: 2.0
-    init_as_ref: False
-    high_level_stabilization: True    # False: use low-level initialization
-    verbose: True
+    optimization_frequency: 4.0     # frequency of the optimization loop [Hz]
+    init_as_ref: False              # init solution of optimization problem as reference trajectory
+    high_level_stabilization: True  # init first trajectory point with with: current EgoData (True); interpoation of last trajectory (False)
+    verbose: True                   # print debug infromation and solver statistics
 
     #### general parameters defining the ocp
-    model_name: 'trajectory_planning'
-    optimization_horizon: 5.0         # optimization horizon [s]
-    n_shots: 50                       # number of shooting intervals in optimization horizon
+    model_name: 'trajectory_planning' # name of the acados model
+    optimization_horizon: 5.0         # optimization horizon [s] (also used in ROS node)
+    n_shots: 50                       # number of shooting intervals in optimization horizon (also used in ROS node)
 
     #### vehicle specific parameters
-    wheelbase: 2.711                  # wheelbase [m]
+    wheelbase: 2.711                  # wheelbase [m] (also used in ROS node)
     length: 4.799                     # length [m]
     width: 1.855                      # width [m]
     delta_max: 0.4956735              # max. absolute steering angle [rad]
@@ -31,6 +31,6 @@
     # [cost_weights, ref_path, objects]
     p_cost_weights_shape: [8, 1] # nWeights x weightDim
     p_ref_path_shape: [51, 4] # nStates x stateDim
-    p_max_vel_shape: [1, 1]
+    p_v_max_shape: [1, 1]
     p_s_ref_shape: [1, 1]
     p_obstacles_shape: [1, 3] # nObstacles x [x, y, radius]
