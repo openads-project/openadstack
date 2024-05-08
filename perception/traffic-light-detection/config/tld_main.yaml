@@ -2,7 +2,7 @@
   ros__parameters:
 
     cameras:
-      - zed2i
+      - tld_camera
 
     score_threshold: 0.2
     nms_threshold: 0.01
