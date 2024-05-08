@@ -1,0 +1,25 @@
+/**:
+  ros__parameters:
+
+    cameras:
+      - tld_camera
+
+    score_threshold: 0.2
+    nms_threshold: 0.01
+    confidence_threshold: 0.4
+    num_classes: 17
+    class_list: [ "RedC", "RedL", "RedR", "RedS",
+                  "YellowC", "YellowL","YellowR", "YellowS",
+                  "XC", "XL", "XR", "XS",
+                  "GreenC","GreenL", "GreenR", "GreenS",
+                  "off" ]
+    colorsBGR:  [ "[0,0,255]", "[88,88,250]", "[129,129,247]", "[1,1,223]",
+                  "[0,255,255]", "[88,250,244]", "[129,247,243]", "[1,223,215]",
+                  "[255,0,255]", "[244,88,250]", "[243,129,247]", "[215,1,223]",
+                  "[0,255,0]", "[88,250,88]", "[129,247,129]", "[1,223,1]",
+                  "[255,0,0]" ]
+
+    fusion:
+      frequency: 11.0
+
+    use_sim_time: False
