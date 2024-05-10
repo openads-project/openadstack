@@ -3,3 +3,4 @@ variables.index filter=lfs diff=lfs merge=lfs -text
 variables.data-* filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
+*.torchscript filter=lfs diff=lfs merge=lfs -text
