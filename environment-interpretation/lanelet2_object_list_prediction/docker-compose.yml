@@ -12,4 +12,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/lanelet2_object_list_prediction:latest
     command: ros2 launch object_list_prediction object_list_prediction_node_launch.py input_topic:=${OL_INPUT_TOPIC}
     volumes:
-      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yaml
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
