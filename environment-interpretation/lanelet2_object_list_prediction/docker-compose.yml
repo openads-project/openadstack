@@ -1,0 +1,13 @@
+# === Environment Variables ====================================================
+# - PARAMS_YML
+# ==============================================================================
+
+services:
+
+  environment-interpreation.lanelet2-object-list-prediction:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/lanelet2_object_list_prediction:latest
+    volumes:
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yaml

@@ -1,0 +1,17 @@
+# object_list_prediction_node - Parameter
+
+object_list_prediction_node:
+  ros__parameters:
+    time_to_predict: 10.0 # s
+    dt: 0.25 # s
+    max_acc_lat: 3.5 # m/s^2
+    debug_routing_graphs: false
+    print_obj_list_pred: false
+    kinematic_forward_simulation_time: 8.0
+    weight_factor_heading_error: 0.75
+    weight_factor_distance_error: 1.5
+    weight_factor_acc_lat_error: 5.0
+    weight_current: 0.75
+    weight_threshold: 0.01 # Routes with lower probability are discarded
+    predict_lane_changes: false # Whether to predict lane changes in general
+    lane_change_punishment: 2.0 # Extra factor to punish predicted lane changes with (1.0 = original weight divided by 2)
