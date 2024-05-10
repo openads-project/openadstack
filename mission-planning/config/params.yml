@@ -8,15 +8,15 @@ global_planner:
     # Route Planning
     route_sample_distance: 0.5 # Sample distance of the generated route [m]
     route_smoothing_factor: 2.0 # Parameter to influence the smoothing of the route
-    lateral_driveable_space_width: 100.0 # Maximum width of the generated driveable space [m]
+    lateral_driveable_space_width: 15.0 # Maximum width of the generated driveable space [m]
     target_reached_thr: 1.0 # Distance to the target-position to reach the destination [m]
     require_standstill: False # Bool indicating if it's necessary for the vehicle to stand still at the target-position
     vel_threshold_target: 1.0 # Velocity threshold to define if the target is reached if require_standstill is True [m/s]
-    offset_behind_distance: 0.0 # distance behind current position where the route should start [m] [WARNING: != 0 MIGHT NOT WORK AS INTENDED]
-    offset_ahead_distance: 0.0 # distance ahead of target position where the route should end [m] [WARNING: != 0 MIGHT NOT WORK AS INTENDED]
+    offset_behind_distance: 15.0 # distance behind current position where the route should start [m]
+    offset_ahead_distance: 30.0 # distance ahead of target position where the route should end [m]
 
     # Local Path Extraction
     local_path_extraction_rate: 10.0 # Rate to extract and publish the local path / route / driveable space [Hz]
     look_ahead_time: 10.0 # Look ahead time for extracting the local path [s]
     look_ahead_distance_min: 100.0 # Minimum Look-Ahead distance for the local path extraction [m]
-    look_behind_distance: 0.0 # Look-Behind distance for the local path extraction [m]; limited by offset_behind_distance
+    look_behind_distance: 15.0 # Look-Behind distance for the local path extraction [m]; limited by offset_behind_distance
