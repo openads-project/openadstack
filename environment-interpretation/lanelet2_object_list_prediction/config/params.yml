@@ -1,5 +1,3 @@
-# object_list_prediction_node - Parameter
-
 object_list_prediction_node:
   ros__parameters:
     time_to_predict: 10.0 # s
@@ -15,3 +13,5 @@ object_list_prediction_node:
     weight_threshold: 0.01 # Routes with lower probability are discarded
     predict_lane_changes: false # Whether to predict lane changes in general
     lane_change_punishment: 2.0 # Extra factor to punish predicted lane changes with (1.0 = original weight divided by 2)
+
+    use_sim_time: false
