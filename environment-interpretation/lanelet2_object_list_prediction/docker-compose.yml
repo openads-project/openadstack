@@ -1,0 +1,16 @@
+# === Environment Variables ====================================================
+# - PARAMS_YML
+# - INPUT_TOPIC
+# - OUTPUT_TOPIC
+# ==============================================================================
+
+services:
+
+  environment-interpretation.lanelet2-object-list-prediction:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/lanelet2_object_list_prediction:latest
+    command: ros2 launch object_list_prediction object_list_prediction_node_launch.py input_topic:=${INPUT_TOPIC:-/perception/object_list} output_topic:=${OUTPUT_TOPIC:-/understanding/predicted_object_list}
+    volumes:
+      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yaml
