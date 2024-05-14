@@ -1,0 +1,4 @@
+/**:
+  ros__parameters:
+
+    epsilon: 1.0    # Maximum distance [m] between traffic light and regulatory element for association
