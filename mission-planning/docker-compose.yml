@@ -1,8 +1,7 @@
 # === Environment Variables ====================================================
 # - EGO_DATA_TOPIC
 # - USE_SIM_TIME
-# - PARAMS_RP_YML
-# - PARAMS_DME_YML
+# - PARAMS_YML
 # ==============================================================================
 
 services:
@@ -14,13 +13,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
     command: ros2 launch lanelet2_route_planning ll2_route_planning.launch.py ego_data_topic:=${EGO_DATA_TOPIC} use_sim_time_arg:=${USE_SIM_TIME:-false}
     volumes:
-      - ${PARAMS_RP_YML:-./config/params.route_planning.yml}:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
-
-  mission-planning.dynamic-map-enrichment:
-    extends:
-      file: ../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest_develop-dynamic-map-enrichment_ci
-    command: ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py local_route_topic:=/global_planner/local/route local_driveable_space_topic:=/global_planner/local/driveable_space tl_object_list_topic:=/traffic_light_detection/tl_fusion/object_list ego_data_topic:=${EGO_DATA_TOPIC} use_sim_time_arg:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_DME_YML:-./config/params.dynamic_map_enrichment.yml}:/docker-ros/ws/install/dynamic_map_enrichment/share/dynamic_map_enrichment/config/params.yml
+      - ${PARAMS_YML:-./config/params.route_planning.yml}:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
