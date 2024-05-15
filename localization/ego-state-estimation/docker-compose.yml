@@ -11,6 +11,6 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest
-    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC} odometry_topic:=${ODOMETRY_TOPIC}
+    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC} odometry_topic:=${ODOMETRY_TOPIC} acceleration_topic:=${ACCELERATION_TOPIC} output_ego_state_topic:=${OUTPUT_EGO_STATE_TOPIC}
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yaml
