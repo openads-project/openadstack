@@ -1,6 +1,6 @@
 lanelet2_object_list_prediction_node:
   ros__parameters:
-    time_to_predict: 5.0 # s
+    time_to_predict: 10.0 # s
     dt: 0.25 # s
     max_acc_lat: 3.5 # m/s^2
     debug_routing_graphs: false
