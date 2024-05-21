@@ -10,7 +10,7 @@ services:
       - map:/data/maps/
 
   map-provider-atc:
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.ika-carla
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.unicaragil-atlatec
     volumes:
       - map:/data/
 
