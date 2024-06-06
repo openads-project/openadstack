@@ -14,6 +14,7 @@
     vel_threshold_target: 1.0 # Velocity threshold to define if the target is reached if require_standstill is True [m/s]
     offset_behind_distance: 15.0 # distance behind current position where the route should start [m]
     offset_ahead_distance: 30.0 # distance ahead of target position where the route should end [m]
+    cancel_distance_ahead: 30.0 # distance ahead of ego along route re-defining the destination if route is canceled [m]
 
     # Local Path Extraction
     local_path_extraction_rate: 10.0 # Rate to extract and publish the local path / route / driveable space [Hz]
