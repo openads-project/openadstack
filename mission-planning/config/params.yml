@@ -2,6 +2,7 @@
   ros__parameters:
 
     # General Parameters
+    vehicle_frame_id: "base_link" # Frame ID of the vehicle (for local map extraction)
     ego_data_timeout: 1.0 # Time-delta for which a EgoData message is classified as to old [s]
     map_server_name: "ll2_map_server" # Name of the Lanelet2 Map Server Node
 
