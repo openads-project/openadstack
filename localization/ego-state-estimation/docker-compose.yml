@@ -3,6 +3,7 @@
 # - ODOMETRY_TOPIC
 # - ACCELERATION_TOPIC
 # - INPUT_EGO_STATE_TOPIC
+# - INPUT_TRAJECTORY_TOPIC
 # - OUTPUT_EGO_STATE_TOPIC
 # - PARAMS_YML
 # ==============================================================================
@@ -14,7 +15,7 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest
-    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC} odometry_topic:=${ODOMETRY_TOPIC:-~/odometry} acceleration_topic:=${ACCELERATION_TOPIC:-~/acceleration} input_ego_state_topic:=${INPUT_EGO_STATE_TOPIC:-~/input_ego_data} output_ego_state_topic:=${OUTPUT_EGO_STATE_TOPIC:-/localization/ego_data}
+    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC} odometry_topic:=${ODOMETRY_TOPIC:-~/odometry} acceleration_topic:=${ACCELERATION_TOPIC:-~/acceleration} input_ego_state_topic:=${INPUT_EGO_STATE_TOPIC:-~/input_ego_data} input_trajectory_topic:=${INPUT_TRAJECTORY_TOPIC:-/planning/drivable_trajectory} output_ego_state_topic:=${OUTPUT_EGO_STATE_TOPIC:-/localization/ego_data}
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yml
 
