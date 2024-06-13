@@ -2,7 +2,6 @@
 # - REFERENCE_TRAJECTORY_TOPIC
 # - EGO_DATA_TOPIC
 # - TRAJECTORY_TOPIC
-# - OBJECT_LIST_TOPIC
 # - USE_SIM_TIME
 # - PARAMS_YML
 # ==============================================================================
