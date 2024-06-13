@@ -13,7 +13,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_feature-obstacles_ci
-    command: bash -ic 'ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-/planning/reference_trajectory} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory} ego_data_topic:=${EGO_DATA_TOPIC} object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list} use_sim_time:=${USE_SIM_TIME:-false}'
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
+    command: bash -ic 'ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-/planning/reference_trajectory} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory} ego_data_topic:=${EGO_DATA_TOPIC} use_sim_time:=${USE_SIM_TIME:-false}'
     volumes:
       - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
