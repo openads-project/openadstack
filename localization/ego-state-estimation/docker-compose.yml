@@ -1,11 +1,11 @@
 # === Environment Variables ====================================================
-# - NAV_SAT_FIX_TOPIC
-# - ODOMETRY_TOPIC
-# - ACCELERATION_TOPIC
-# - INPUT_EGO_STATE_TOPIC
-# - INPUT_TRAJECTORY_TOPIC
-# - OUTPUT_EGO_STATE_TOPIC
-# - PARAMS_YML
+# - NAV_SAT_FIX_TOPIC       (required)
+# - ODOMETRY_TOPIC          (optional)
+# - ACCELERATION_TOPIC      (optional)
+# - INPUT_EGO_STATE_TOPIC   (optional)
+# - INPUT_TRAJECTORY_TOPIC  (optional)
+# - OUTPUT_EGO_STATE_TOPIC  (optional)
+# - PARAMS_YML              (required)
 # ==============================================================================
 
 services:
