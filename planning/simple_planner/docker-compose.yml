@@ -1,8 +1,8 @@
 # === Environment Variables ====================================================
-# - PARAMS_YML
-# - EGO_DATA_TOPIC
-# - ROUTE_TOPIC
-# - TRAJECTORY_TOPIC
+# - EGO_DATA_TOPIC    (required)
+# - ROUTE_TOPIC       (optional)
+# - TRAJECTORY_TOPIC  (optional)
+# - PARAMS_YML        (optional)
 # ==============================================================================
 
 services:
@@ -14,4 +14,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
     command: ros2 launch simple_planner simple_planner.launch.py ego_data_topic:=${EGO_DATA_TOPIC} route_topic:=${ROUTE_TOPIC:-/route_planning/route} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
     volumes:
-      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
+      - ${PARAMS_YML:-/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml}
