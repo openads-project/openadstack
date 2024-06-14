@@ -1,4 +1,4 @@
-/**:
+/perception/point_cloud_object_detection:
   ros__parameters:
     model_path: models/model_gier/lidar_detection.pb
     model_config: models/model_gier/Config/config.yml
