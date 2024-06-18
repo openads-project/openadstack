@@ -5,24 +5,30 @@ services:
       file: ../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/lanelet2_map_server:latest
-    command: ros2 run lanelet2_map_server lanelet2_map_server --ros-args -p map_filepath:=/data/maps/ATC.osm -p origin_lat:=50.771611 -p origin_lon:=6.046402
+    command: ros2 run lanelet2_map_server lanelet2_map_server --ros-args -p map_filepath:=/data/atc/ATC.osm -p origin_lat:=50.771611 -p origin_lon:=6.046402
+    #command: ros2 run lanelet2_map_server lanelet2_map_server --ros-args -p map_filepath:=/data/campus/CampusVaalsHalifax.osm -p origin_lat:=50.787047 -p origin_lon:=6.046511
+    #command: ros2 run lanelet2_map_server lanelet2_map_server --ros-args -p map_filepath:=/data/town10hd/Town10HD.osm -p origin_lat:=0.0 -p origin_lon:=0.0
     volumes:
-      - map:/data/maps/
+      - map-atc:/data/atc/
+      - map-campus:/data/campus/
+      - map-town10hd:/data/town10hd/
 
   map-provider-atc:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aldenhoven-atc.lanelet2.unicaragil-atlatec
     volumes:
-      - map:/data/
+      - map-atc:/data/
 
-  # map-provider-melaten:
-  #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aachen-campusmelaten.lanelet2.ika-campus-vaals-halifax
-  #   volumes:
-  #     - map:/data
+  map-provider-campus:
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/germany-aachen-campusmelaten.lanelet2.ika-campus-vaals-halifax
+    volumes:
+      - map-campus:/data/
 
-  # map-provider-town10hd:
-  #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/synthetic-carla.lanelet2.town10hd
-  #   volumes:
-  #     - map:/data/
+  map-provider-town10hd:
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/assets/locations/synthetic-carla.lanelet2.town10hd
+    volumes:
+      - map-town10hd:/data/
 
 volumes:
-  map:
+  map-atc:
+  map-campus:
+  map-town10hd:
