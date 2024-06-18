@@ -5,7 +5,7 @@
 # ==============================================================================
 services:
 
-  map-server:
+  lanelet2-map-server:
     extends:
       file: ../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
