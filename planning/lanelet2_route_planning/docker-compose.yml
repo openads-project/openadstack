@@ -6,7 +6,7 @@
 
 services:
 
-  mission-planning.route-planning:
+  planning.lanelet2_route_planning:
     extends:
       file: ../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service

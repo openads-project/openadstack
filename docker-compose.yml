@@ -1,7 +1,6 @@
 include:
   - ./map-provisioning/docker-compose.yml
-  - ./mission-planning/docker-compose.yml
   # - ./localization/docker-compose.yml
   # - ./perception/docker-compose.yml
-  # - ./environment-interpretation/docker-compose.yml
+  # - ./understanding/docker-compose.yml
   - ./planning/docker-compose.yml
