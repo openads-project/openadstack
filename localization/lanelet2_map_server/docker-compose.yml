@@ -1,5 +1,5 @@
 # === Environment Variables ====================================================
-# - MAP_FILEPATH            (required)
+# - MAP_FILEPATH            (optional)
 # - ORIGIN_LAT              (optional)
 # - ORIGIN_LON              (optional)
 # ==============================================================================
