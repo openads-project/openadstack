@@ -1,5 +1,4 @@
 include:
-  - ./map-provisioning/docker-compose.yml
   # - ./localization/docker-compose.yml
   # - ./perception/docker-compose.yml
   # - ./understanding/docker-compose.yml
