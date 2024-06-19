@@ -13,4 +13,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest
     command: ros2 launch object_fusion fusion_function_launch.py fused_object_lists_topic:=${FUSED_OBJECT_LISTS:-/object_fusion_node/fused_object_lists} fused_trajectories_topic:=${FUSED_TRAJECTORIES:-/object_fusion_node/fused_trajectories}
     volumes:
-      - ${PARAMS_YML:-/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yaml}
+      - ${PARAMS_YML:-/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml}
