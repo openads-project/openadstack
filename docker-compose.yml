@@ -1,5 +1,0 @@
-include:
-  # - ./localization/docker-compose.yml
-  # - ./perception/docker-compose.yml
-  # - ./understanding/docker-compose.yml
-  - ./planning/docker-compose.yml
