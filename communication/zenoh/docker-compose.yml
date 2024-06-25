@@ -5,7 +5,7 @@
 services:
 
   communication.zenoh-router:
-    image: eclipse/zenoh:latest
+    image: eclipse/zenoh:0.11.0
     ports:
       - 7447:7447
 
