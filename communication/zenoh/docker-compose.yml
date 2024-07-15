@@ -11,6 +11,9 @@ services:
 
   communication.zenoh-bridge:
     image: eclipse/zenoh-bridge-ros2dds:latest
+    restart: unless-stopped
+    depends_on:
+      - communication.zenoh-router
     command: -c /config.json5
     environment:
       ROS_DISTRO: humble
