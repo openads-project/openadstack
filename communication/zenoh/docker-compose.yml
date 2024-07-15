@@ -5,12 +5,15 @@
 services:
 
   communication.zenoh-router:
-    image: eclipse/zenoh:latest
+    image: eclipse/zenoh:0.11.0
     ports:
       - 7447:7447
 
   communication.zenoh-bridge:
-    image: eclipse/zenoh-bridge-ros2dds:latest
+    image: eclipse/zenoh-bridge-ros2dds:0.11.0
+    restart: unless-stopped
+    depends_on:
+      - communication.zenoh-router
     command: -c /config.json5
     environment:
       ROS_DISTRO: humble
