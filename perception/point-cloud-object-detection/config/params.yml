@@ -5,7 +5,7 @@
 
     sensor_id: -1 # Positive number for sensor id, -1 for random
 
-    # inference_frame: ego_vehicle/lidar        # frame for inference 
+    # inference_frame: ego_vehicle/lidar        # frame for inference
                                                 # (here: sensor frame)
     # output_frame: object_list_frame   # frame for object list
 
