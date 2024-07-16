@@ -1,6 +1,7 @@
 # === Environment Variables ====================================================
-# - POINT_CLOUD_TOPIC
-# - PARAMS_YML
+# - POINT_CLOUD_TOPIC (required)
+# - OBJECT_LIST_TOPIC (optional)
+# - PARAMS_YML        (optional)
 # ==============================================================================
 
 services:
@@ -10,6 +11,6 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-gpu-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
-    command: ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:=${POINT_CLOUD_TOPIC} startup_state:=3
+    command: ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:=${POINT_CLOUD_TOPIC} object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/point_cloud_object_detection/object_list} startup_state:=3
     volumes:
       - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml

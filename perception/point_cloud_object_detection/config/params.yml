@@ -17,3 +17,8 @@
     # Legacy compatibility parameters
     mask_is_bool: True
     zero_intensity: True
+
+    # nms_score_threshold: [0.5, 0.3, 0.3] # [vehicle, pedestrian, cyclist]
+    #   can only be set in model config.yml
+    #   or via dynamic reconfigure
+    #     ros2 param set /perception/point_cloud_object_detection nms_score_threshold:="[0.5, 0.3, 0.3]"
