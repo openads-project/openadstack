@@ -1,7 +1,7 @@
 # === Environment Variables ====================================================
-# - IMAGE
-# - SEGMENTATION
-# - PARAMS_YML
+# - IMAGE_TOPIC           (optional)
+# - SEGMENTED_IMAGE_TOPIC (optional)
+# - PARAMS_YML            (optional)
 # ==============================================================================
 
 services:
@@ -16,4 +16,4 @@ services:
       - ./models:/docker-ros/ws/install/image_segmentation/share/image_segmentation/models
       - ./one-hot-conversion:/docker-ros/ws/install/image_segmentation/share/image_segmentation/one-hot-conversion
       - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/image_segmentation/share/image_segmentation/config/params.yaml
-    command: ros2 launch image_segmentation image_segmentation_launch.py namespace:=/perception name:=image_segmentation image:=${IMAGE:-~/image} segmentation:=${SEGMENTATION:-~/segmentation}
+    command: ros2 launch image_segmentation image_segmentation_launch.py namespace:=/perception name:=image_segmentation image:=${IMAGE_TOPIC:-~/image} segmentation:=${SEGMENTED_IMAGE_TOPIC:-~/segmentation}
