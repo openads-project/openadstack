@@ -10,4 +10,4 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/environment_model:latest
     volumes:
-      - ${PARAMS_YML:-/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/environment_model/share/environment_model/config/params.yaml}
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/environment_model/share/environment_model/config/params.yaml}
