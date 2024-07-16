@@ -157,7 +157,7 @@
   ////
   connect: {
     endpoints: [
-      // "<proto>/<ip>:<port>"
+      "tcp/communication.zenoh-router:7447"
     ]
   },
 
