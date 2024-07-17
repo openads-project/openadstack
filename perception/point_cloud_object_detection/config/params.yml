@@ -1,0 +1,24 @@
+/perception/point_cloud_object_detection:
+  ros__parameters:
+    model_path: models/pbod_waymo_intensity0
+    model_config: models/pbod_waymo_intensity0/config.yml
+
+    sensor_id: -1 # Positive number for sensor id, -1 for random
+
+    # inference_frame: ego_vehicle/lidar        # frame for inference
+                                                # (here: sensor frame)
+    # output_frame: object_list_frame   # frame for object list
+
+    # variances
+    # x, y, z, vel_x, vel_y, acc_x, acc_y, yaw_angle, yaw_rate, width, length, height
+    variances: [0.2, 0.2, 0.1, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 0.3, 0.3, 0.3]
+    class_score_threshold: 0.0
+
+    # Legacy compatibility parameters
+    mask_is_bool: True
+    zero_intensity: True
+
+    # nms_score_threshold: [0.5, 0.3, 0.3] # [vehicle, pedestrian, cyclist]
+    #   can only be set in model config.yml
+    #   or via dynamic reconfigure
+    #     ros2 param set /perception/point_cloud_object_detection nms_score_threshold:="[0.5, 0.3, 0.3]"

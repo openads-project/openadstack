@@ -14,4 +14,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_supervision:latest
     command: ros2 launch trajectory_supervision trajectory_supervision.launch.py input_topic:=${INPUT_TOPIC:-/planning/reference_trajectory} output_topic:=${OUTPUT_TOPIC:-/planning/drivable_trajectory} use_sim_time_arg:=${USE_SIM_TIME:-false}
     volumes:
-      - ${PARAMS_YML:-/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/trajectory_supervision/share/trajectory_supervision/config/params.yml}
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/trajectory_supervision/share/trajectory_supervision/config/params.yml}

@@ -1,7 +1,7 @@
 # === Environment Variables ====================================================
-# - PARAMS_YML
-# - CAMERA_PARAMS_YML
-# - MODEL_PATH
+# - PARAMS_YML        (optional)
+# - CAMERA_PARAMS_YML (required)
+# - MODEL_PATH        (required)
 # ==============================================================================
 
 services:
