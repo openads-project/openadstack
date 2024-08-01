@@ -6,6 +6,7 @@ services:
 
   communication.zenoh-router:
     image: eclipse/zenoh:0.11.0
+    restart: unless-stopped
     ports:
       - 7447:7447
 

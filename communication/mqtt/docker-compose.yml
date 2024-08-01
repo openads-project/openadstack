@@ -1,0 +1,14 @@
+# === Environment Variables ====================================================
+# - PARAMS_YML                  (required)
+# ==============================================================================
+
+services:
+
+  communication.mqtt-client:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/mqtt-client-interfaces:latest
+    command: ros2 launch mqtt_client standalone.launch.ros2.xml params_file:=/params.yml
+    volumes:
+      - ${PARAMS_YML}:/params.yml
