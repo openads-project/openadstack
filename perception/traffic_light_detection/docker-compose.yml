@@ -15,7 +15,7 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-gpu-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
-    command: ros2 launch traffic_light_detection start_tld_launch.py
+    command: bash -ic "ros2 launch traffic_light_detection start_tld_launch.py"
     volumes:
       - ${LAUNCH_FILE:-/dev/null:/dev/null0}${LAUNCH_FILE:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/launch/start_tld_launch.py}
       - ${PARAMS_YML:-/dev/null:/dev/null1}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tld_main.yaml}
