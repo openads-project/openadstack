@@ -9,6 +9,8 @@
 services:
 
   perception.traffic-light-detection:
+    profiles:
+      - ${PROFILES:-default}
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-gpu-service
