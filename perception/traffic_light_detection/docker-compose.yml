@@ -1,9 +1,8 @@
 # === Environment Variables ====================================================
-# - PROFILES          (optional)
 # - LAUNCH_FILE       (optional)
 # - PARAMS_YML        (optional)
-# - CAMERA_PARAMS_YML (required)
 # - MODEL_PATH        (optional)
+# - CAMERA_PARAMS_YML (required)
 # ==============================================================================
 
 services:
