@@ -15,4 +15,4 @@ services:
     command: ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:=${POINT_CLOUD_TOPIC} object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/point_cloud_object_detection/object_list} startup_state:=3
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null0}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
-      - ${MODEL_PATH:-/dev/null:/dev/null1}${MODEL_PATH:+:/models/tld.torchscript}
+      - ${MODEL_PATH:-/dev/null:/dev/null1}${MODEL_PATH:+:/model}
