@@ -8,12 +8,12 @@
 # ===========TestTrack=============== 
 # - MAP_FILEPATH  /data/maps/locations/germany-aachen-campusmelaten/lanelet2/ika-testtrack/ika-testtrack-autoshuttle.osm
 # - ORIGIN_LAT    50.787047
-# - ORIGIN_LON    6.046511#
+# - ORIGIN_LON    6.046511
 #
 # ===========Town10HD================
 # - MAP_FILEPATH  /data/maps/locations/synthetic-carla/lanelet2/town10hd/Town10HD.osm
-# - ORIGIN_LAT    0
-# - ORIGIN_LON    0     
+# - ORIGIN_LAT    0.0
+# - ORIGIN_LON    0.0     
 # ========================================================================================================================================
 services:
 
