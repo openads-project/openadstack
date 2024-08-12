@@ -2,6 +2,7 @@
 # - REFERENCE_TRAJECTORY_TOPIC  (optional)
 # - EGO_DATA_TOPIC              (optional)
 # - TRAJECTORY_TOPIC            (optional)
+# - OBJECT_LIST_TOPIC           (optional)
 # - USE_SIM_TIME                (optional)
 # - PARAMS_YML                  (required)
 # ==============================================================================
@@ -13,6 +14,6 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
-    command: bash -ic 'ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-/planning/reference_trajectory} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory} ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data} use_sim_time:=${USE_SIM_TIME:-false}'
+    command: bash -ic 'ros2 launch trajectory_optimization trajectory_optimization_node.launch.py reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-/planning/reference_trajectory} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory} ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data} object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list} use_sim_time:=${USE_SIM_TIME:-false}'
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
