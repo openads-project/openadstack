@@ -1,5 +1,5 @@
 # === Environment Variables ====================================================
-# - CONFIG_JSON
+# - CONFIG_JSON (required)
 # ==============================================================================
 
 services:
@@ -17,4 +17,4 @@ services:
     environment:
       ROS_DISTRO: humble
     volumes:
-      - ${CONFIG_JSON:-./config/config.json5}:/config.json5
+      - ${CONFIG_JSON:-/dev/null:/dev/null}${CONFIG_JSON:+:/config.json5}
