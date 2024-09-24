@@ -1,5 +1,5 @@
 # === Environment Variables ====================================================
-# - PARAMS_YML                  (required)
+# - PARAMS_YML  (required)
 # ==============================================================================
 
 services:
@@ -11,4 +11,4 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/mqtt-client-interfaces:latest
     command: ros2 launch mqtt_client standalone.launch.ros2.xml params_file:=/params.yml
     volumes:
-      - ${PARAMS_YML}:/params.yml
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/params.yml}
