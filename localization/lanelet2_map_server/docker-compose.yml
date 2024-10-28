@@ -21,5 +21,5 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/lanelet2_map_server:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/lanelet2_map_server:latest_jazzy_ci
     command: ros2 run lanelet2_map_server lanelet2_map_server --ros-args -p map_filepath:=${MAP_FILEPATH:-/data/maps/locations/germany-aldenhoven-atc/lanelet2/unicaragil-atlatec/ATC_demo_2024-05-24.osm} -p origin_lat:=${ORIGIN_LAT:-50.908973} -p origin_lon:=${ORIGIN_LON:-6.230061}
