@@ -1,0 +1,18 @@
+# === Environment Variables ====================================================
+# - EGO_DATA_TOPIC    (optional)
+# - OBJECT_LIST_TOPIC (optional)
+# - CAM_TOPIC         (optional)
+# - CPM_TOPIC         (optional)
+# - PARAMS_YML        (optional)
+# ==============================================================================
+
+services:
+
+  communication.ad2etsi:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
+    command: ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py node_name:=ad2etsi_converter_node ego_data_in:=${EGO_DATA_TOPIC:-/localization/ego_data} object_list_in:=${OBJECT_LIST_TOPIC:-/perception/object_list} cam_out:=${CAM_TOPIC:-/communication/sender/cam} cpm_out:=${CPM_TOPIC:-/communication/sender/cpm} 
+    volumes:
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml}
