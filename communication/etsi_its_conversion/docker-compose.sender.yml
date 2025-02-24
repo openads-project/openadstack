@@ -1,6 +1,10 @@
 # === Environment Variables ====================================================
 # - CAM_TOPIC     (optional)
 # - CPM_TOPIC     (optional)
+# - DENM_TOPIC    (optional)
+# - MAPEM_TOPIC   (optional)
+# - SPATEM_TOPIC  (optional)
+# - VAM_TOPIC     (optional)
 # - UDP_TOPIC     (optional)
 # - USE_SIM_TIME  (optional)
 # - PARAMS_YML    (optional)
@@ -13,6 +17,16 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:ros2-jazzy
-    command: ros2 launch etsi_its_conversion converter.launch.py namespace:=/communication name:=etsi_its_conversion_sender input_topic_cam:=${CAM_TOPIC:-/communication/sender/cam} input_topic_cpm_ts:=${CPM_TOPIC:-/communication/sender/cpm} output_topic_udp:=${UDP_TOPIC:-/communication/sender/udp} use_sim_time:=${USE_SIM_TIME:-false}
+    command: >
+      ros2 launch etsi_its_conversion converter.launch.py namespace:=/communication
+      name:=etsi_its_conversion_sender
+      input_topic_cam:=${CAM_TOPIC:-/communication/sender/cam}
+      input_topic_cpm_ts:=${CPM_TOPIC:-/communication/sender/cpm}
+      input_topic_denm:=${DENM_TOPIC:-/communication/sender/denm}
+      input_topic_mapem_ts:=${MAPEM_TOPIC:-/communication/sender/mapem}
+      input_topic_spatem_ts:=${SPATEM_TOPIC:-/communication/sender/spatem}
+      input_topic_vam_ts:=${VAM_TOPIC:-/communication/sender/vam}
+      output_topic_udp:=${UDP_TOPIC:-/communication/sender/udp}
+      use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml}
