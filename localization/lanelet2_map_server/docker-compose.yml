@@ -1,4 +1,5 @@
 # === Default Environment Variables ========
+# - USE_SIM_TIME  (optional)
 #
 # ===========ATC====================
 # - MAP_FILEPATH  /data/maps/locations/germany-aldenhoven-atc/lanelet2/unicaragil-atlatec/ATC_demo_2024-05-24.osm 
@@ -13,7 +14,8 @@
 # ===========Town10HD================
 # - MAP_FILEPATH  /data/maps/locations/synthetic-carla/lanelet2/town10hd/Town10HD.osm
 # - ORIGIN_LAT    0.0
-# - ORIGIN_LON    0.0     
+# - ORIGIN_LON    0.0  
+#
 # ========================================================================================================================================
 services:
 
