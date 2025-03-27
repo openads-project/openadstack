@@ -2,6 +2,7 @@
 # - INPUT_TOPIC   (optional)
 # - OUTPUT_TOPIC  (optional)
 # - PARAMS_YML    (optional)
+# - USE_SIM_TIME  (optional)
 # ==============================================================================
 
 services:
