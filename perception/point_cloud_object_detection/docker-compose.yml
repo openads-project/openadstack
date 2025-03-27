@@ -2,7 +2,7 @@
 # - POINT_CLOUD_TOPIC (required)
 # - OBJECT_LIST_TOPIC (optional)
 # - PARAMS_YML        (optional)
-# - MODEL_PATH        (optional)
+# - MODEL_CONFIGS     (optional)
 # ==============================================================================
 
 services:
@@ -10,9 +10,9 @@ services:
   perception.point-cloud-object-detection:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-gpu-service
+      service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
-    command: ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:=${POINT_CLOUD_TOPIC} object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/point_cloud_object_detection/object_list} startup_state:=3
+    command: bash -ic "ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py namespace:=/perception point_cloud_topic:=${POINT_CLOUD_TOPIC} object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/point_cloud_object_detection/object_list} startup_state:=3"
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null0}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
-      - ${MODEL_PATH:-/dev/null:/dev/null1}${MODEL_PATH:+:/model}
+      - ${MODEL_CONFIGS:-/dev/null:/dev/null1}${MODEL_PATH:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
