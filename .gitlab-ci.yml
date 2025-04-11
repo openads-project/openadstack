@@ -8,7 +8,7 @@ stages:
 ad2etsi:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/definitions/ad2etsi
@@ -18,7 +18,7 @@ ad2etsi:
 etsi-its-v2x-generations:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/communication/etsi_its_v2x_generation
@@ -26,7 +26,7 @@ etsi-its-v2x-generations:
 mqtt-client-interfaces:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/communication/mqtt-client-interfaces
@@ -34,7 +34,7 @@ mqtt-client-interfaces:
 zenoh-router:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/communication/zenoh-router
@@ -44,7 +44,7 @@ zenoh-router:
 ego-state-estimation:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/localization/ego_state_estimation
@@ -52,7 +52,7 @@ ego-state-estimation:
 lanelet2-map-server:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/localization/lanelet2_map_server
@@ -62,7 +62,7 @@ lanelet2-map-server:
 image-segmentation:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/perception/image_segmentation
@@ -70,7 +70,7 @@ image-segmentation:
 point-cloud-object-detection:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/perception/point_cloud_object_detection
@@ -78,7 +78,7 @@ point-cloud-object-detection:
 traffic-light-detection:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/perception/traffic_light_detection
@@ -88,7 +88,7 @@ traffic-light-detection:
 lanelet2-route-planning:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/lanelet2_route_planning
@@ -96,7 +96,7 @@ lanelet2-route-planning:
 simple-planner:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/simple_planner
@@ -104,7 +104,7 @@ simple-planner:
 trajectory-optimization:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/trajectory_optimization
@@ -112,7 +112,7 @@ trajectory-optimization:
 trajectory-suggestion:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/trajectory_suggestion
@@ -120,7 +120,7 @@ trajectory-suggestion:
 trajectory-supervision:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/trajectory_supervision
@@ -130,7 +130,7 @@ trajectory-supervision:
 dynamic-map-enrichment:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/dynamic_map_enrichment
@@ -138,7 +138,7 @@ dynamic-map-enrichment:
 environment-model:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/environment_model
@@ -146,7 +146,7 @@ environment-model:
 lanelet2-object-list-prediction:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/lanelet2_object_list_prediction
@@ -154,7 +154,7 @@ lanelet2-object-list-prediction:
 object-fusion:
   stage: Downstream
   only:
-    - main
+    - web
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/object_fusion
