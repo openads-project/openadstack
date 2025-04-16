@@ -24,7 +24,7 @@ services:
       trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
-      object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/debug_object_circles}
+      object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
       use_sim_time:=${USE_SIM_TIME:-false}
       "
     volumes:
