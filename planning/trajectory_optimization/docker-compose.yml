@@ -1,8 +1,8 @@
 # === Environment Variables ====================================================
 # - DRIVING_MODE                (optional)
 # - REFERENCE_TRAJECTORY_TOPIC  (optional)
-# - EGO_DATA_TOPIC              (optional)
 # - TRAJECTORY_TOPIC            (optional)
+# - EGO_DATA_TOPIC              (optional)
 # - OBJECT_LIST_TOPIC           (optional)
 # - OBJECT_CIRCLES_TOPIC        (optional)
 # - USE_SIM_TIME                (optional)
