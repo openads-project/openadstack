@@ -1,0 +1,124 @@
+stages:
+  - Downstream
+
+# ==== Downstream ==============================================================
+
+# --- fb-fi/its-modules/localization ---------------------------------------------
+
+ego-state-estimation:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/localization/ego_state_estimation
+
+lanelet2-map-server:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/localization/lanelet2_map_server
+
+# --- fb-fi/its-modules/perception ---------------------------------------------
+
+image-segmentation:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/perception/image_segmentation
+
+point-cloud-object-detection:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/perception/point_cloud_object_detection
+
+traffic-light-detection:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/perception/traffic_light_detection
+
+# --- fb-fi/its-modules/planning -----------------------------------------------
+
+lanelet2-route-planning:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/lanelet2_route_planning
+
+simple-planner:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/simple_planner
+
+trajectory-optimization:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/trajectory_optimization
+
+trajectory-suggestion:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/trajectory_suggestion
+
+trajectory-supervision:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/trajectory_supervision
+
+# --- fb-fi/its-modules/understanding
+
+dynamic-map-enrichment:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/understanding/dynamic_map_enrichment
+
+environment-model:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/understanding/environment_model
+
+lanelet2-object-list-prediction:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/understanding/lanelet2_object_list_prediction
+
+object-fusion:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/understanding/object_fusion
