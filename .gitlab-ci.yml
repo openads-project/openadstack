@@ -3,42 +3,6 @@ stages:
 
 # ==== Downstream ==============================================================
 
-# --- fb-fi/definitions ---------------------------------------------------------------
-
-ad2etsi:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/definitions/ad2etsi
-
-# --- fb-fi/its-modules/communication ---------------------------------------------------------------
-
-etsi-its-v2x-generations:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/communication/etsi_its_v2x_generation
-
-mqtt-client-interfaces:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/communication/mqtt-client-interfaces
-
-zenoh-router:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/communication/zenoh-router
-
 # --- fb-fi/its-modules/localization ---------------------------------------------
 
 ego-state-estimation:
