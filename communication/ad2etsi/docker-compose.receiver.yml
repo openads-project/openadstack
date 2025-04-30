@@ -18,7 +18,7 @@ services:
       node_name:=etsi2ad_converter_node
       cam_in:=${CAM_TOPIC:-/communication/receiver/cam}
       cpm_in:=${CPM_TOPIC:-/communication/receiver/cpm}
-      ego_data_out:=${EGO_DATA_TOPIC:-/communication/receiver/ego_data}
+      ego_data_out:=${EGO_DATA_TOPIC:-/localization/ego_data}
       object_list_out:=${OBJECT_LIST_TOPIC:-/communication/receiver/object_list}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml}
