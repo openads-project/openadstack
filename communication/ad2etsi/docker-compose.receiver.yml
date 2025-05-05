@@ -16,6 +16,7 @@ services:
     command: >
       ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py
       node_name:=etsi2ad_converter_node
+      namespace:=etsi2ad
       cam_in:=${CAM_TOPIC:-/communication/receiver/cam}
       cpm_in:=${CPM_TOPIC:-/communication/receiver/cpm}
       ego_data_out:=${EGO_DATA_TOPIC:-/localization/ego_data}
