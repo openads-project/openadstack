@@ -2,9 +2,9 @@
 # - EGO_DATA_TOPIC(optional)
 # - OBJECT_LIST_TOPIC(optional)
 # - CAM_TOPIC     (optional)
-# - CAM_UDP_TOPIC (optional)
 # - CPM_TOPIC     (optional)
-# - CPM_UDP_TOPIC (optional)
+# - UDP_CAM_TOPIC (optional)
+# - UDP_CPM_TOPIC (optional)
 # - USE_SIM_TIME  (optional)
 # - PARAMS_YML    (optional)
 # ==============================================================================
@@ -21,7 +21,7 @@ services:
       namespace:=/communication
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       cam_topic:=${CAM_TOPIC:-/communication/cam}
-      udp_topic:=${CAM_UDP_TOPIC:-/communication/cam_udp}
+      udp_topic:=${UDP_CAM_TOPIC:-/communication/udp/out}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.yml}
@@ -36,7 +36,7 @@ services:
       namespace:=/communication
       object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/object_list}
       cpm_topic:=${CPM_TOPIC:-/communication/cpm}
-      udp_topic:=${CPM_UDP_TOPIC:-/communication/cpm_udp}
+      udp_topic:=${UDP_CAM_TOPIC:-/communication/udp/out}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.yml}
