@@ -20,8 +20,8 @@ services:
       ros2 launch etsi_its_v2x_generation cam_generator_launch.py
       namespace:=/communication
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      cam_topic:=${CAM_TOPIC:-/communication/cam}
-      udp_topic:=${UDP_CAM_TOPIC:-/communication/udp/out}
+      cam_topic:=${CAM_TOPIC:-/communication/sender/cam}
+      udp_topic:=${UDP_CAM_TOPIC:-/communication/sender/udp}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.yml}
