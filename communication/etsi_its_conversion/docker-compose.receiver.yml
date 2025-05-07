@@ -19,8 +19,8 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:ros2-jazzy
     command: >
       ros2 launch etsi_its_conversion converter.launch.py
-      namespace:=/communication
       name:=etsi_its_conversion_receiver
+      namespace:=communication
       input_topic_udp:=${UDP_TOPIC:-/communication/receiver/udp}
       output_topic_cam:=${CAM_TOPIC:-/communication/receiver/cam}
       output_topic_cpm_ts:=${CPM_TOPIC:-/communication/receiver/cpm}
