@@ -1,12 +1,13 @@
-# === Environment Variables ====================================================
-# - NAV_SAT_FIX_TOPIC       (required)
-# - ODOMETRY_TOPIC          (optional)
-# - ACCELERATION_TOPIC      (optional)
-# - INPUT_EGO_STATE_TOPIC   (optional)
-# - INPUT_TRAJECTORY_TOPIC  (optional)
-# - OUTPUT_EGO_STATE_TOPIC  (optional)
-# - PARAMS_YML              (required)
-# ==============================================================================
+# === Environment Variables ================
+# - ODOMETRY_TOPIC      (required)
+# - NAV_SAT_FIX_TOPIC   (optional)
+# - IMU_ACC_TOPIC       (optional)
+# - VEHICLE_STATE_TOPIC (optional)
+# - TRAJECTORY_TOPIC    (optional)
+# - EGO_DATA_TOPIC      (optional)
+# - USE_SIM_TIME        (optional)
+# - PARAMS_YML          (required)
+# ==========================================
 
 services:
 
@@ -15,7 +16,15 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest
-    command: ros2 launch ego_state_estimation ego_state_estimation_node.launch.py nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC} odometry_topic:=${ODOMETRY_TOPIC:-~/odometry} acceleration_topic:=${ACCELERATION_TOPIC:-~/acceleration} input_ego_state_topic:=${INPUT_EGO_STATE_TOPIC:-~/input_ego_data} input_trajectory_topic:=${INPUT_TRAJECTORY_TOPIC:-/planning/drivable_trajectory} output_ego_state_topic:=${OUTPUT_EGO_STATE_TOPIC:-/localization/ego_data}
+    command: >
+      ros2 launch ego_state_estimation ego_state_estimation_node.launch.py
+      odometry_topic:=${ODOMETRY_TOPIC}
+      nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC:-~/nav_sat_fix}
+      imu_acc_topic:=${IMU_ACC_TOPIC:-~/imu_acc}
+      vehicle_state_topic:=${VEHICLE_STATE_TOPIC:-~/vehicle_state}
+      trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
+      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
+      use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yml
 
