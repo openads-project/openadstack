@@ -1,0 +1,18 @@
+# === Environment Variables ====================================================
+# - UDP_IN_TOPIC  (optional)
+# - UDP_OUT_TOPIC (optional)
+# - PARAMS_YML    (optional)
+# ==============================================================================
+
+services:
+  communication.udp-driver:
+    extends:
+      file: ../automated-driving-stack/docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    restart: unless-stopped
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/drivers/transport_drivers:latest
+    command: ros2 run udp_driver udp_bridge_node_exe --ros-args --params-file /docker-ros/udp_bridge_params.yml -r /udp_write:=${UDP_IN_TOPIC:-/communication/udp/in} -r /udp_read:=${UDP_OUT_TOPIC:-/communication/udp/out}
+    volumes:
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/udp_bridge_params.yml}
+    ports:
+      - 4400:4400/udp
