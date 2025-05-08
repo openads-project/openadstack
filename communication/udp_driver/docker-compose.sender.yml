@@ -9,5 +9,5 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/drivers/transport_drivers:latest
-    command: ros2 run udp_driver udp_sender_node_exe --ros-args -p ip:="${IP}" -p port:=${PORT} -r __ns:=/communication -r /udp_write:=${UDP_TOPIC:-/communication/sender/udp}
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/drivers/transport_drivers:latest_feature-launch_ci
+    command: ros2 launch /docker-ros/additional-files/udp_sender_node.launch.py ip:="${IP}" port:=${PORT} udp_topic:=${UDP_TOPIC:-/communication/sender/udp}
