@@ -3,6 +3,48 @@ stages:
 
 # ==== Downstream ==============================================================
 
+# --- fb-fi/its-modules/communication ---------------------------------------------------------------
+
+ad2etsi:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/definitions/ad2etsi
+
+etsi-its-messages:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/definitions/etsi_its_messages
+
+etsi-its-v2x-generation:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/communication/etsi_its_v2x_generation
+
+mqtt-client-interfaces:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/communication/mqtt-client-interfaces
+
+transport-drivers:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/drivers/transport_drivers
+
 # --- fb-fi/its-modules/localization ---------------------------------------------
 
 ego-state-estimation:
