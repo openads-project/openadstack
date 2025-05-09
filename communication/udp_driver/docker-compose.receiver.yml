@@ -1,0 +1,15 @@
+# === Environment Variables ====================================================
+# - PORT        (required)
+# - IP          (required)
+# - UDP_TOPIC   (optional)
+# ==============================================================================
+
+services:
+  communication.udp-receiver:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/drivers/transport_drivers:latest_feature-launch_ci
+    command: ros2 launch /docker-ros/additional-files/udp_receiver_node.launch.py ip:="${IP}" port:=${PORT} udp_topic:=${UDP_TOPIC:-/communication/receiver/udp}
+    ports:
+      - ${PORT}:${PORT}/udp
