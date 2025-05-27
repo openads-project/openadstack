@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
-    command: ros2 launch lanelet2_route_planning ll2_route_planning.launch.py ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data} use_sim_time:=${USE_SIM_TIME:-false}
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest_refactor_ci
+    command: ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route} ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data} use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml}
