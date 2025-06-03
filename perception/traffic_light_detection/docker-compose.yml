@@ -2,7 +2,6 @@
 # - LAUNCH_FILE       (optional)
 # - PARAMS_YML        (optional)
 # - CAMERA_PARAMS_YML (required)
-# - MODEL_PATH        (required)
 # ==============================================================================
 
 services:
@@ -11,10 +10,9 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-gpu-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest_refactor-migrate-to-triton_ci
     command: bash -ic "ros2 launch traffic_light_detection start_tld_launch.py"
     volumes:
       - ${LAUNCH_FILE:-/dev/null:/dev/null0}${LAUNCH_FILE:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/launch/start_tld_launch.py}
       - ${PARAMS_YML:-/dev/null:/dev/null1}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tld_main.yaml}
       - ${CAMERA_PARAMS_YML}:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/cameras/camera_tld_camera.yaml
-      - ${MODEL_PATH}:/models/tld.torchscript
