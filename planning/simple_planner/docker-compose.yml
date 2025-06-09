@@ -12,7 +12,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest_update-route-msgs_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
     command: ros2 launch simple_planner simple_planner.launch.py ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data} route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route} trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory} use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml}
