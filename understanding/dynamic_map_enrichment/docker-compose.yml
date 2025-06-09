@@ -14,6 +14,6 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest
-    command: ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py route_topic:=${ROUTE_TOPIC:-/route_planning/route} traffic_light_topic:=${TRAFFIC_LIGHT_TOPIC:-/traffic_light_detection/cameras/tld_camera/data/tracking} enriched_route_topic:=${ENRICHED_ROUTE_TOPIC:-/understanding/enriched_route} use_sim_time:=${USE_SIM_TIME:-false}
+    command: ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route} traffic_light_topic:=${TRAFFIC_LIGHT_TOPIC:-/traffic_light_detection/cameras/tld_camera/data/tracking} enriched_route_topic:=${ENRICHED_ROUTE_TOPIC:-/understanding/enriched_route} use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/dynamic_map_enrichment/share/dynamic_map_enrichment/config/params.yml}
