@@ -14,7 +14,7 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest
     command: >
-      ros2 launch etsi_its_v2x_generation cam_generator.launch.py
+      ros2 launch etsi_its_v2x_generation cpm_generator.launch.py
       namespace:=communication
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
       cpm_topic:=${CPM_TOPIC:-/communication/sender/cpm}
