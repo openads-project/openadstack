@@ -12,7 +12,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest_feature-time-offset_ci # TODO: remove after merge
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest
     command: >
       ros2 launch etsi_its_v2x_generation cpm_generator_launch.py
       namespace:=communication
