@@ -1,0 +1,24 @@
+# === Environment Variables ====================================================
+# - OBJECT_LIST_TOPIC (optional)
+# - CPM_TOPIC         (optional)
+# - UDP_TOPIC         (optional)
+# - USE_SIM_TIME      (optional)
+# - PARAMS_YML        (optional)
+# ==============================================================================
+
+services:
+
+  communication.etsi-its-v2x-cpm-generation:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest
+    command: >
+      ros2 launch etsi_its_v2x_generation cpm_generator_launch.py
+      namespace:=communication
+      object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
+      cpm_topic:=${CPM_TOPIC:-/communication/sender/cpm}
+      udp_topic:=${UDP_TOPIC:-/communication/sender/udp}
+      use_sim_time:=${USE_SIM_TIME:-false}
+    volumes:
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.yml}
