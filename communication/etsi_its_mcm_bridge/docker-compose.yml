@@ -14,14 +14,14 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_mcm_bridge:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_mcm_bridge:latest_initial-implementation_ci
     command: >
       ros2 launch etsi_its_mcm_bridge etsi_its_mcm_bridge_launch.py
       namespace:=communication
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
       mcm_trajectory_topic:=${MCM_TRAJECTORY_TOPIC:-/communication/receiver/mcm}
-      ref_trajectory_topic:=${REF_TRAJECTORY_TOPIC:-~/ref_trajectory}
+      reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-~/reference_trajectory}
       mcm_request_topic:=${MCM_REQUEST_TOPIC:-/communication/sender/mcm}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
