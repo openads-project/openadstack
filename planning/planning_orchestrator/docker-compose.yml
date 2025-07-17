@@ -1,0 +1,17 @@
+# === Environment Variables ====================================================
+# - USE_SIM_TIME   (optional)
+# - PARAMS_YML     (optional)
+# ==============================================================================
+
+services:
+
+  planning.planning-orchestrator:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:latest
+    command: >
+      ros2 launch planning_orchestrator planning_orchestrator.launch.py
+      use_sim_time:=${USE_SIM_TIME:-false}
+    volumes:
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml}
