@@ -4,6 +4,7 @@
 # - CPM_TOPIC     (optional)
 # - DENM_TOPIC    (optional)
 # - MAPEM_TOPIC   (optional)
+# - MCM_TOPIC     (optional)
 # - SPATEM_TOPIC  (optional)
 # - VAM_TOPIC     (optional)
 # - USE_SIM_TIME  (optional)
@@ -26,6 +27,7 @@ services:
       output_topic_cpm_ts:=${CPM_TOPIC:-/communication/receiver/cpm}
       output_topic_denm:=${DENM_TOPIC:-/communication/receiver/denm}
       output_topic_mapem_ts:=${MAPEM_TOPIC:-/communication/receiver/mapem}
+      output_topic_mcm_uulm:=${MCM_TOPIC:-/communication/receiver/mcm}
       output_topic_spatem_ts:=${SPATEM_TOPIC:-/communication/receiver/spatem}
       output_topic_vam_ts:=${VAM_TOPIC:-/communication/receiver/vam}
       use_sim_time:=${USE_SIM_TIME:-false}
