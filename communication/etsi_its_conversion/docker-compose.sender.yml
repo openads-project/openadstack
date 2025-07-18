@@ -3,6 +3,7 @@
 # - CPM_TOPIC     (optional)
 # - DENM_TOPIC    (optional)
 # - MAPEM_TOPIC   (optional)
+# - MCM_TOPIC     (optional)
 # - SPATEM_TOPIC  (optional)
 # - VAM_TOPIC     (optional)
 # - UDP_TOPIC     (optional)
@@ -25,6 +26,7 @@ services:
       input_topic_cpm_ts:=${CPM_TOPIC:-/communication/sender/cpm}
       input_topic_denm:=${DENM_TOPIC:-/communication/sender/denm}
       input_topic_mapem_ts:=${MAPEM_TOPIC:-/communication/sender/mapem}
+      input_topic_mcm_uulm:=${MCM_TOPIC:-/communication/sender/mcm}
       input_topic_spatem_ts:=${SPATEM_TOPIC:-/communication/sender/spatem}
       input_topic_vam_ts:=${VAM_TOPIC:-/communication/sender/vam}
       output_topic_udp:=${UDP_TOPIC:-/communication/sender/udp}
