@@ -1,0 +1,27 @@
+# === Environment Variables ====================================================
+# - CAMERA_IMAGE_TOPIC (optional)
+# - CAMERA_INFO_TOPIC  (optional)
+# - OUTPUT_TOPIC       (optional)
+# - OUTPUT_IMAGE_TOPIC (optional)
+# - USE_SIM_TIME       (optional)
+# - PARAMS_YML         (optional)
+# ==============================================================================
+
+services:
+
+  perception.traffic-light-detection.perception:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest_refactor-detection-msgs_ci
+    depends_on:
+      - triton-server
+    command: >
+      ros2 launch traffic_light_detection tl_perception.launch.py
+      camera_image_topic:=${CAMERA_IMAGE_TOPIC:-/tld/input/camera_image}
+      camera_info_topic:=${CAMERA_INFO_TOPIC:-/tld/input/camera_info}
+      output_topic:=${OUTPUT_TOPIC:-/tld/output/detections}
+      output_plot_img_topic:=${OUTPUT_IMAGE_TOPIC:-/tld/output/image}
+      use_sim_time:=${USE_SIM_TIME:-false}
+    volumes:
+      - ${PARAMS_YML:-/dev/null:/dev/null1}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml}
