@@ -17,11 +17,13 @@ services:
     depends_on:
       - triton-server
     command: >
+      bash -ic "
       ros2 launch traffic_light_detection tl_perception.launch.py
       camera_image_topic:=${CAMERA_IMAGE_TOPIC:-/tld/input/camera_image}
       camera_info_topic:=${CAMERA_INFO_TOPIC:-/tld/input/camera_info}
       output_topic:=${OUTPUT_TOPIC:-/tld/output/detections}
       output_plot_img_topic:=${OUTPUT_IMAGE_TOPIC:-/tld/output/image}
       use_sim_time:=${USE_SIM_TIME:-false}
+      "
     volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null1}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml}
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml}
