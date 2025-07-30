@@ -14,6 +14,15 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/behavior_planning:latest_feature-inputs-with-new-route-format_ci
-    command: ros2 launch behavior_planning behavior_planning_launch.py ego_data_topic:=/simulation/ego_data route_topic:=/route_planning/enriched_route object_list_topic:=/simulation/object_list image_topic:=/carla/ego_vehicle/sensors/cameras/camera_f/image trajectory_topic:=/planning/reference_trajectory ObjectMarkerTopic:=/visualization/object_marker RouteMarkerTopic:=/visualization/route_marker
+    command: >
+      ros2 launch behavior_planning behavior_planning_launch.py
+      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
+      route_topic:=${ROUTE_TOPIC:-/route_planning/enriched_route}
+      object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
+      image_topic:=${IMAGE_TOPIC:-/carla/ego_vehicle/sensors/cameras/camera_f/image}
+      trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
+      ObjectMarkerTopic:=${OBJECT_MARKER_TOPIC:-/visualization/object_marker}
+      RouteMarkerTopic:=${ROUTE_MARKER_TOPIC:-/visualization/route_marker}
+      use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/behavior_planning/share/behavior_planning/config/params.yml}
