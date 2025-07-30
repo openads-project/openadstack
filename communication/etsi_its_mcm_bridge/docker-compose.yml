@@ -14,7 +14,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_mcm_bridge:latest_initial-implementation_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_mcm_bridge:latest_polygon-geofence_ci-amd64
     command: >
       ros2 launch etsi_its_mcm_bridge etsi_its_mcm_bridge_launch.py
       namespace:=communication
