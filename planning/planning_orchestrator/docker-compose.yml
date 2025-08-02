@@ -1,9 +1,10 @@
 # === Environment Variables ====================================================
-# - USE_SIM_TIME      (optional)
-# - EGO_DATA_TOPIC    (optional)
-# - ROUTE_TOPIC       (optional)
-# - TRAJECTORY_TOPIC  (optional)
-# - PARAMS_YML        (optional)
+# - USE_SIM_TIME          (optional)
+# - EGO_DATA_TOPIC        (optional)
+# - ROUTE_TOPIC           (optional)
+# - TRAJECTORY_TOPIC      (optional)
+# - PARAMS_YML            (optional)
+# - RECONFIGURATION_FILES (optional)
 # ==============================================================================
 
 services:
@@ -21,3 +22,4 @@ services:
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml}
+      - ${RECONFIGURATION_FILES:-/dev/null:/dev/null1}${RECONFIGURATION_FILES:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfiguration_files}

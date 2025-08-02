@@ -1,10 +1,13 @@
 # === Environment Variables ====================================================
-# - EGO_DATA_TOPIC
-# - ROUTE_TOPIC
-# - OBJECT_LIST_TOPIC
-# - TRAJECTORY_TOPIC
-# - PARAMS_YML
-# - USE_SIM_TIME
+# - EGO_DATA_TOPIC      (optional)
+# - ROUTE_TOPIC         (optional)
+# - OBJECT_LIST_TOPIC   (optional)
+# - IMAGE_TOPIC         (optional)
+# - TRAJECTORY_TOPIC    (optional)
+# - OBJECT_MARKER_TOPIC (optional)
+# - ROUTE_MARKER_TOPIC  (optional)
+# - PARAMS_YML          (optional)
+# - USE_SIM_TIME        (optional)
 # ==============================================================================
 
 services:
@@ -20,12 +23,12 @@ services:
       bash -ic "
       ros2 launch behavior_planning behavior_planning_launch.py
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      route_topic:=${ROUTE_TOPIC:-/route_planning/enriched_route}
+      route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
-      image_topic:=${IMAGE_TOPIC:-/carla/ego_vehicle/sensors/cameras/camera_f/image}
+      image_topic:=${IMAGE_TOPIC:-/camera-front/image/compressed}
       trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
-      ObjectMarkerTopic:=${OBJECT_MARKER_TOPIC:-/visualization/object_marker}
-      RouteMarkerTopic:=${ROUTE_MARKER_TOPIC:-/visualization/route_marker}
+      object_marker_topic:=${OBJECT_MARKER_TOPIC:-~/visualization/object_marker}
+      route_marker_topic:=${ROUTE_MARKER_TOPIC:-~/visualization/route_marker}
       use_sim_time:=${USE_SIM_TIME:-false}
       "
     volumes:
