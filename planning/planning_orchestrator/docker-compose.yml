@@ -1,10 +1,10 @@
 # === Environment Variables ====================================================
-# - USE_SIM_TIME          (optional)
-# - EGO_DATA_TOPIC        (optional)
-# - ROUTE_TOPIC           (optional)
-# - TRAJECTORY_TOPIC      (optional)
-# - PARAMS_YML            (optional)
-# - RECONFIGURATION_FILES (optional)
+# - USE_SIM_TIME            (optional)
+# - EGO_DATA_TOPIC          (optional)
+# - ROUTE_TOPIC             (optional)
+# - TRAJECTORY_TOPIC        (optional)
+# - PARAMS_YML              (optional)
+# - RECONFIGURATION_FOLDER  (optional)
 # ==============================================================================
 
 services:
@@ -13,7 +13,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:latest_reconfiguration_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:latest
     command: >
       ros2 launch planning_orchestrator planning_orchestrator.launch.py
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
@@ -22,4 +22,4 @@ services:
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml}
-      - ${RECONFIGURATION_FILES:-/dev/null:/dev/null1}${RECONFIGURATION_FILES:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfiguration_files}
+      - ${RECONFIGURATION_FOLDER:-/dev/null:/dev/null1}${RECONFIGURATION_FOLDER:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfigurations}
