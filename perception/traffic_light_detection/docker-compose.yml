@@ -9,11 +9,11 @@
 
 services:
 
-  perception.traffic-light-detection.perception:
+  perception.traffic-light-detection:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest_refactor-detection-msgs_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
     depends_on:
       - triton-server
     command: >
