@@ -2,6 +2,8 @@
 # - EGO_DATA_TOPIC        (optional)
 # - ROUTE_TOPIC           (optional)
 # - TRAFFIC_LIGHT_TOPIC   (optional)
+# - MAPEM_TOPIC           (optional)
+# - SPATEM_TOPIC          (optional)
 # - ENRICHED_ROUTE_TOPIC  (optional)
 # - USE_SIM_TIME          (optional)
 # - PARAMS_YML            (optional)
@@ -13,7 +15,14 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest
-    command: ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route} traffic_light_topic:=${TRAFFIC_LIGHT_TOPIC:-/traffic_light_detection/cameras/tld_camera/data/tracking} enriched_route_topic:=${ENRICHED_ROUTE_TOPIC:-/understanding/enriched_route} use_sim_time:=${USE_SIM_TIME:-false}
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest_feature-spatem-mapem-integration_ci
+    command: >
+      ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py
+      route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
+      mapem_topic:=${MAPEM_TOPIC:-/communication/receiver/mapem}
+      spatem_topic:=${SPATEM_TOPIC:-/communication/receiver/spatem}
+      traffic_light_topic:=${TRAFFIC_LIGHT_TOPIC:-/traffic_light_detection/cameras/tld_camera/data/tracking}
+      enriched_route_topic:=${ENRICHED_ROUTE_TOPIC:-/understanding/enriched_route}
+      use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/dynamic_map_enrichment/share/dynamic_map_enrichment/config/params.yml}
