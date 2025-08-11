@@ -1,7 +1,10 @@
 # === Environment Variables ====================================================
-# - LAUNCH_FILE       (optional)
-# - PARAMS_YML        (optional)
-# - CAMERA_PARAMS_YML (required)
+# - CAMERA_IMAGE_TOPIC (optional)
+# - CAMERA_INFO_TOPIC  (optional)
+# - OUTPUT_TOPIC       (optional)
+# - OUTPUT_IMAGE_TOPIC (optional)
+# - USE_SIM_TIME       (optional)
+# - PARAMS_YML         (optional)
 # ==============================================================================
 
 services:
@@ -9,10 +12,18 @@ services:
   perception.traffic-light-detection:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-gpu-service
+      service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
-    command: bash -ic "ros2 launch traffic_light_detection start_tld_launch.py"
+    depends_on:
+      - triton-server
+    command: >
+      bash -ic "
+      ros2 launch traffic_light_detection tl_perception.launch.py
+      camera_image_topic:=${CAMERA_IMAGE_TOPIC:-/tld/input/camera_image}
+      camera_info_topic:=${CAMERA_INFO_TOPIC:-/tld/input/camera_info}
+      output_topic:=${OUTPUT_TOPIC:-/tld/output/detections}
+      output_plot_img_topic:=${OUTPUT_IMAGE_TOPIC:-/tld/output/image}
+      use_sim_time:=${USE_SIM_TIME:-false}
+      "
     volumes:
-      - ${LAUNCH_FILE:-/dev/null:/dev/null0}${LAUNCH_FILE:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/launch/start_tld_launch.py}
-      - ${PARAMS_YML:-/dev/null:/dev/null1}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tld_main.yaml}
-      - ${CAMERA_PARAMS_YML}:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/cameras/camera_tld_camera.yaml
+      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml}
