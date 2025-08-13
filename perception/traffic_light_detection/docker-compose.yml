@@ -1,10 +1,10 @@
 # === Environment Variables ====================================================
-# - CAMERA_IMAGE_TOPIC (optional)
-# - CAMERA_INFO_TOPIC  (optional)
-# - OUTPUT_TOPIC       (optional)
-# - OUTPUT_IMAGE_TOPIC (optional)
-# - USE_SIM_TIME       (optional)
-# - PARAMS_YML         (optional)
+# - CAMERA_IMAGE_TOPIC  (optional)
+# - CAMERA_INFO_TOPIC   (optional)
+# - OUTPUT_TOPIC        (optional)
+# - VISUALIZATION_TOPIC (optional)
+# - USE_SIM_TIME        (optional)
+# - PARAMS_YML          (optional)
 # ==============================================================================
 
 services:
@@ -22,7 +22,7 @@ services:
       camera_image_topic:=${CAMERA_IMAGE_TOPIC:-/tld/input/camera_image}
       camera_info_topic:=${CAMERA_INFO_TOPIC:-/tld/input/camera_info}
       output_topic:=${OUTPUT_TOPIC:-/tld/output/detections}
-      output_plot_img_topic:=${OUTPUT_IMAGE_TOPIC:-/tld/output/image}
+      visualization_output_topic:=${VISUALIZATION_TOPIC:-/tld/output/viz_image/compressed}
       use_sim_time:=${USE_SIM_TIME:-false}
       "
     volumes:
