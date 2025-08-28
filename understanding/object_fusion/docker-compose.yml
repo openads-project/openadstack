@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest_feature-send-empty-lists_ci
     command: ros2 launch object_fusion fusion_function_launch.py fused_object_list_topic:=${FUSED_OBJECT_LIST:-/understanding/fused_object_list} fused_trajectories_topic:=${FUSED_TRAJECTORIES:-/understanding/fused_trajectories}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml}
