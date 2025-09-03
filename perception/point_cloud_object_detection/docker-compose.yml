@@ -7,7 +7,7 @@
 
 services:
 
-  perception.point-cloud-object-detection:
+  perception.point-cloud-object-detection-fr:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
@@ -18,9 +18,68 @@ services:
       bash -ic "
       ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py
       namespace:=/perception
-      point_cloud_topic:=${POINT_CLOUD_TOPIC}
-      object_list_topic:=${OBJECT_LIST_TOPIC:-/perception/point_cloud_object_detection/object_list}
+      name:=front_right
+      point_cloud_topic:=${POINT_CLOUD_TOPIC_FR}
+      object_list_topic:=${OBJECT_LIST_TOPIC_FR:-/perception/point_cloud_object_detection/object_list_fr}
       "
     volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null0}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
-      - ${MODEL_CONFIGS:-/dev/null:/dev/null1}${MODEL_CONFIGS:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
+      - ${PARAMS_YML_FR:-/dev/null:/dev/null0}${PARAMS_YML_FR:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
+      - ${MODEL_CONFIGS_FR:-/dev/null:/dev/null1}${MODEL_CONFIGS_FR:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
+
+  perception.point-cloud-object-detection-fl:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
+    depends_on:
+      - triton-server
+    command: >
+      bash -ic "
+      ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py
+      namespace:=/perception
+      name:=front_left
+      point_cloud_topic:=${POINT_CLOUD_TOPIC_FL}
+      object_list_topic:=${OBJECT_LIST_TOPIC_FL:-/perception/point_cloud_object_detection/object_list_fl}
+      "
+    volumes:
+      - ${PARAMS_YML_FL:-/dev/null:/dev/null0}${PARAMS_YML_FL:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
+      - ${MODEL_CONFIGS_FL:-/dev/null:/dev/null1}${MODEL_CONFIGS_FL:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
+
+  # perception.point-cloud-object-detection-rl:
+  #   extends:
+  #     file: ../../docker-compose-essentials/docker-compose.template.yml
+  #     service: ros2-service
+  #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
+  #   depends_on:
+  #     - triton-server
+  #   command: >
+  #     bash -ic "
+  #     ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py
+  #     namespace:=/perception
+  #     name:=rear_left
+  #     point_cloud_topic:=${POINT_CLOUD_TOPIC_RL}
+  #     object_list_topic:=${OBJECT_LIST_TOPIC_RL:-/perception/point_cloud_object_detection/object_list_rl}
+  #     "
+  #   volumes:
+  #     - ${PARAMS_YML_RL:-/dev/null:/dev/null0}${PARAMS_YML_RL:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
+  #     - ${MODEL_CONFIGS_RL:-/dev/null:/dev/null1}${MODEL_CONFIGS_RL:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
+
+  # perception.point-cloud-object-detection-rr:
+  #   extends:
+  #     file: ../../docker-compose-essentials/docker-compose.template.yml
+  #     service: ros2-service
+  #   image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
+  #   depends_on:
+  #     - triton-server
+  #   command: >
+  #     bash -ic "
+  #     ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py
+  #     namespace:=/perception
+  #     name:=rear_right
+  #     point_cloud_topic:=${POINT_CLOUD_TOPIC_RR}
+  #     object_list_topic:=${OBJECT_LIST_TOPIC_RR:-/perception/point_cloud_object_detection/object_list_rr}
+  #     "
+  #   volumes:
+  #     - ${PARAMS_YML_RR:-/dev/null:/dev/null0}${PARAMS_YML_RR:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml}
+  #     - ${MODEL_CONFIGS_RR:-/dev/null:/dev/null1}${MODEL_CONFIGS_RR:+:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models}
+    
