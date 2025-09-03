@@ -15,7 +15,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest_state-header_ci
     command: >
       ros2 launch ego_state_estimation ego_state_estimation_node.launch.py
       odometry_topic:=${ODOMETRY_TOPIC}
