@@ -15,7 +15,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_improvement-parameter-loading_ci
     command: >
       bash -ic "
       ros2 launch trajectory_optimization trajectory_optimization.launch.py
@@ -26,6 +26,7 @@ services:
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
       object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
       use_sim_time:=${USE_SIM_TIME:-false}
+      log_level:=debug
       "
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
