@@ -4,7 +4,9 @@
 # - TRAJECTORY_TOPIC            (optional)
 # - EGO_DATA_TOPIC              (optional)
 # - OBJECT_LIST_TOPIC           (optional)
+# - ROUTE_TOPIC                 (optional)
 # - OBJECT_CIRCLES_TOPIC        (optional)
+# - ROUTE_MARKER_TOPIC          (optional)
 # - USE_SIM_TIME                (optional)
 # - PARAMS_YML                  (required)
 # ==============================================================================
@@ -24,9 +26,9 @@ services:
       trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
+      route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
       object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
       use_sim_time:=${USE_SIM_TIME:-false}
-      log_level:=debug
       "
     volumes:
       - ${PARAMS_YML}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
