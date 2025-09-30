@@ -17,7 +17,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_improvement-parameter-loading_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_cleanup_ci
     command: >
       bash -ic "
       ros2 launch trajectory_optimization trajectory_optimization.launch.py
