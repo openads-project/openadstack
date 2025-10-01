@@ -4,7 +4,9 @@
 # - TRAJECTORY_TOPIC            (optional)
 # - EGO_DATA_TOPIC              (optional)
 # - OBJECT_LIST_TOPIC           (optional)
+# - ROUTE_TOPIC                 (optional)
 # - OBJECT_CIRCLES_TOPIC        (optional)
+# - ROUTE_MARKER_TOPIC          (optional)
 # - USE_SIM_TIME                (optional)
 # - PARAMS_YML                  (required)
 # ==============================================================================
@@ -15,7 +17,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_cleanup_ci
     command: >
       bash -ic "
       ros2 launch trajectory_optimization trajectory_optimization.launch.py
@@ -24,6 +26,7 @@ services:
       trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
+      route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
       object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
       use_sim_time:=${USE_SIM_TIME:-false}
       "
