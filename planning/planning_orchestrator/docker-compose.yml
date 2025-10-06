@@ -3,6 +3,9 @@
 # - EGO_DATA_TOPIC          (optional)
 # - ROUTE_TOPIC             (optional)
 # - TRAJECTORY_TOPIC        (optional)
+# - LAT_ACTIVE_TOPIC        (optional)
+# - LON_ACTIVE_TOPIC        (optional)
+# - DIAGNOSTIC_STATUS_TOPIC (optional)
 # - PARAMS_YML              (optional)
 # - RECONFIGURATION_FOLDER  (optional)
 # ==============================================================================
@@ -19,8 +22,8 @@ services:
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
       output_trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
-      lat_active_topic:=/drivers/fka_dbw/lat_active
-      lon_active_topic:=/drivers/fka_dbw/lon_active
+      lat_active_topic:=${LAT_ACTIVE_TOPIC:-~/lat_active}
+      lon_active_topic:=${LON_ACTIVE_TOPIC:-~/lon_active}
       diagnostic_status_topic:=${DIAGNOSTIC_STATUS_TOPIC:-~/diagnostic_status}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
