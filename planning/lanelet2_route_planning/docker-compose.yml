@@ -12,7 +12,7 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
     command: >
-      ros2 launch lanelet2_route_planning lanelet2_route_planning_with_action_client_launch.py
+      ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py
       route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       use_sim_time:=${USE_SIM_TIME:-false}
