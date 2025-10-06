@@ -17,5 +17,5 @@ services:
           input_topic1:=${INPUT_TOPIC_1:-~/input1}
           input_topic2:=${INPUT_TOPIC_2:-~/input2}
           output_topic:=${OBJECT_TOPIC:-/perception/point_cloud_fusion/points}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml}
+      volumes:
+        - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml}
