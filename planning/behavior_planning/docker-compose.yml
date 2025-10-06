@@ -25,7 +25,7 @@ services:
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
-      image_topic:=${IMAGE_TOPIC:-/camera-front/image/compressed}
+      image_topic:=${IMAGE_TOPIC:-/camera_front/image/compressed}
       trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
       object_marker_topic:=${OBJECT_MARKER_TOPIC:-~/visualization/object_marker}
       route_marker_topic:=${ROUTE_MARKER_TOPIC:-~/visualization/route_marker}
