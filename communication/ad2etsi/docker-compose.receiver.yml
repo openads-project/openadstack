@@ -12,7 +12,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest-dev_cam-as-objectlist_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
     command: >
       ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py
       node_name:=etsi2ad_converter_node
