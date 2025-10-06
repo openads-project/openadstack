@@ -5,6 +5,7 @@
 # - EGO_DATA_TOPIC              (optional)
 # - OBJECT_LIST_TOPIC           (optional)
 # - ROUTE_TOPIC                 (optional)
+# - EGO_CIRCLES_TOPIC           (optional)
 # - OBJECT_CIRCLES_TOPIC        (optional)
 # - ROUTE_MARKER_TOPIC          (optional)
 # - USE_SIM_TIME                (optional)
@@ -27,7 +28,9 @@ services:
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
       route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
+      ego_circles_topic:=${EGO_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/ego_circles}
       object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
+      route_marker_topic:=${ROUTE_MARKER_TOPIC:-/planning/trajectory_optimization/visualization/route_marker}
       use_sim_time:=${USE_SIM_TIME:-false}
       "
     volumes:
