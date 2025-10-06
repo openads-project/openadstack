@@ -3,6 +3,11 @@
 # - EGO_DATA_TOPIC          (optional)
 # - ROUTE_TOPIC             (optional)
 # - TRAJECTORY_TOPIC        (optional)
+# - LAT_ACTIVE_TOPIC        (optional)
+# - LON_ACTIVE_TOPIC        (optional)
+# - DIAGNOSTIC_STATUS_TOPIC (optional)
+# - GEOFENCES_MARKER_TOPIC  (optional)
+# - OVERLAY_TEXT_TOPIC      (optional)
 # - PARAMS_YML              (optional)
 # - RECONFIGURATION_FOLDER  (optional)
 # ==============================================================================
@@ -19,6 +24,11 @@ services:
       ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
       route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
       output_trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
+      lat_active_topic:=${LAT_ACTIVE_TOPIC:-~/lat_active}
+      lon_active_topic:=${LON_ACTIVE_TOPIC:-~/lon_active}
+      diagnostic_status_topic:=${DIAGNOSTIC_STATUS_TOPIC:-~/diagnostic_status}
+      geofences_viz_topic:=${GEOFENCES_MARKER_TOPIC:-~/geofences_viz}
+      overlay_text_topic:=${OVERLAY_TEXT_TOPIC:-~/overlay_text}
       use_sim_time:=${USE_SIM_TIME:-false}
     volumes:
       - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml}
