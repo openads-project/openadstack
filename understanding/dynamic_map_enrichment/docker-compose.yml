@@ -15,7 +15,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest_feature-spatem-mapem-integration_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/dynamic_map_enrichment:latest
     command: >
       ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py
       route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
