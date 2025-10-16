@@ -1,11 +1,3 @@
-# === Environment Variables ====================================================
-# - EGO_DATA_TOPIC    (optional)
-# - ROUTE_TOPIC       (optional)
-# - TRAJECTORY_TOPIC  (optional)
-# - USE_SIM_TIME      (optional)
-# - PARAMS_YML        (optional)
-# ==============================================================================
-
 services:
 
   planning.simple-planner:
@@ -13,11 +5,18 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
+    environment:
+      - EGO_DATA_TOPIC=/localization/ego_data
+      - ROUTE_TOPIC=/lanelet2_route_planning/route
+      - TRAJECTORY_TOPIC=/planning/reference_trajectory
+      - USE_SIM_TIME=false
     command: >
+      bash -ic "
       ros2 launch simple_planner simple_planner.launch.py
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
-      trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
-      use_sim_time:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml}
+      ego_data_topic:=$${EGO_DATA_TOPIC}
+      route_topic:=$${ROUTE_TOPIC}
+      trajectory_topic:=$${TRAJECTORY_TOPIC}
+      use_sim_time:=$${USE_SIM_TIME}
+      "
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
