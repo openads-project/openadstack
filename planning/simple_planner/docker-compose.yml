@@ -6,10 +6,10 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
     environment:
-      - EGO_DATA_TOPIC=/localization/ego_data
-      - ROUTE_TOPIC=/lanelet2_route_planning/route
-      - TRAJECTORY_TOPIC=/planning/reference_trajectory
-      - USE_SIM_TIME=false
+      EGO_DATA_TOPIC: /localization/ego_data
+      ROUTE_TOPIC: /lanelet2_route_planning/route
+      TRAJECTORY_TOPIC: /planning/reference_trajectory
+      USE_SIM_TIME: false
     command: >
       bash -ic "
       ros2 launch simple_planner simple_planner.launch.py
