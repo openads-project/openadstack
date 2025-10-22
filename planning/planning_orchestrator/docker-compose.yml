@@ -1,17 +1,3 @@
-# === Environment Variables ====================================================
-# - USE_SIM_TIME            (optional)
-# - EGO_DATA_TOPIC          (optional)
-# - ROUTE_TOPIC             (optional)
-# - TRAJECTORY_TOPIC        (optional)
-# - LAT_ACTIVE_TOPIC        (optional)
-# - LON_ACTIVE_TOPIC        (optional)
-# - DIAGNOSTIC_STATUS_TOPIC (optional)
-# - GEOFENCES_MARKER_TOPIC  (optional)
-# - OVERLAY_TEXT_TOPIC      (optional)
-# - PARAMS_YML              (optional)
-# - RECONFIGURATION_FOLDER  (optional)
-# ==============================================================================
-
 services:
 
   planning.planning-orchestrator:
@@ -19,17 +5,30 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:latest
-    command: >
-      ros2 launch planning_orchestrator planning_orchestrator.launch.py
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
-      output_trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/reference_trajectory}
-      lat_active_topic:=${LAT_ACTIVE_TOPIC:-~/lat_active}
-      lon_active_topic:=${LON_ACTIVE_TOPIC:-~/lon_active}
-      diagnostic_status_topic:=${DIAGNOSTIC_STATUS_TOPIC:-~/diagnostic_status}
-      geofences_viz_topic:=${GEOFENCES_MARKER_TOPIC:-~/geofences_viz}
-      overlay_text_topic:=${OVERLAY_TEXT_TOPIC:-~/overlay_text}
-      use_sim_time:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml}
-      - ${RECONFIGURATION_FOLDER:-/dev/null:/dev/null1}${RECONFIGURATION_FOLDER:+:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfigurations}
+    environment:
+      EGO_DATA_TOPIC: /localization/ego_data
+      ROUTE_TOPIC: /lanelet2_route_planning/route
+      TRAJECTORY_TOPIC: /planning/reference_trajectory
+      LAT_ACTIVE_TOPIC: ~/lat_active
+      LON_ACTIVE_TOPIC: ~/lon_active
+      DIAGNOSTIC_STATUS_TOPIC: ~/diagnostic_status
+      GEOFENCES_MARKER_TOPIC: ~/geofences_viz
+      OVERLAY_TEXT_TOPIC: ~/overlay_text
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch planning_orchestrator planning_orchestrator.launch.py \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+          output_trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          lat_active_topic:=$${LAT_ACTIVE_TOPIC} \
+          lon_active_topic:=$${LON_ACTIVE_TOPIC} \
+          diagnostic_status_topic:=$${DIAGNOSTIC_STATUS_TOPIC} \
+          geofences_viz_topic:=$${GEOFENCES_MARKER_TOPIC} \
+          overlay_text_topic:=$${OVERLAY_TEXT_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml
+    #   - ./reconfigurations:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfigurations
