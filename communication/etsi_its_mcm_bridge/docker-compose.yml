@@ -1,13 +1,3 @@
-# === Environment Variables ====================================================
-# - EGO_DATA_TOPIC        (optional)
-# - ROUTE_TOPIC           (optional)
-# - MCM_TRAJECTORY_TOPIC  (optional)
-# - REF_TRAJECTORY_TOPIC  (optional)
-# - MCM_REQUEST_TOPIC     (optional)
-# - USE_SIM_TIME          (optional)
-# - PARAMS_YML            (optional)
-# ==============================================================================
-
 services:
 
   communication.etsi-its-mcm-bridge:
@@ -15,14 +5,23 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_mcm_bridge:latest
+    environment:
+      EGO_DATA_TOPIC: /localization/ego_data
+      ROUTE_TOPIC: /lanelet2_route_planning/route
+      MCM_TRAJECTORY_TOPIC: /communication/receiver/mcm
+      REFERENCE_TRAJECTORY_TOPIC: ~/reference_trajectory
+      MCM_REQUEST_TOPIC: /communication/sender/mcm
+      USE_SIM_TIME: false
     command: >
+      bash -ic "
       ros2 launch etsi_its_mcm_bridge etsi_its_mcm_bridge_launch.py
       namespace:=communication
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
-      mcm_trajectory_topic:=${MCM_TRAJECTORY_TOPIC:-/communication/receiver/mcm}
-      reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-~/reference_trajectory}
-      mcm_request_topic:=${MCM_REQUEST_TOPIC:-/communication/sender/mcm}
-      use_sim_time:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/etsi_its_mcm_bridge/share/etsi_its_mcm_bridge/config/params.yml}
+      ego_data_topic:=$${EGO_DATA_TOPIC}
+      route_topic:=$${ROUTE_TOPIC}
+      mcm_trajectory_topic:=$${MCM_TRAJECTORY_TOPIC}
+      reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC}
+      mcm_request_topic:=$${MCM_REQUEST_TOPIC}
+      use_sim_time:=$${USE_SIM_TIME}
+      "
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/etsi_its_mcm_bridge/share/etsi_its_mcm_bridge/config/params.yml
