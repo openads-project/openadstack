@@ -6,12 +6,12 @@
 │   ├── mqtt_client
 │   └── udp_driver
 ├── localization
-│   ├── ego_state_estimation
-│   └── lanelet2_map_server
+│   ├── ego_state_estimation                # done
+│   └── lanelet2_map_server                 # done
 ├── perception
 │   ├── image_segmentation
-│   ├── point_cloud_fusion
-│   ├── point_cloud_object_detection
+│   ├── point_cloud_fusion                  # done
+│   ├── point_cloud_object_detection        # done
 │   └── traffic_light_detection
 ├── planning
 │   ├── behavior_planning                   # done

@@ -1,10 +1,3 @@
-# === Environment Variables ====================================================
-# - INPUT_TOPIC_1 (optional)
-# - INPUT_TOPIC_2 (optional)
-# - OBJECT_TOPIC  (optional)
-# - USE_SIM_TIME  (optional)
-# ==============================================================================
-
 services:
 
   perception.point-cloud-fusion:
@@ -12,10 +5,19 @@ services:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-service
       image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:latest
-      command: >
-        ros2 launch point_cloud_fusion point_cloud_fusion.launch.py
-          input_topic1:=${INPUT_TOPIC_1:-~/input1}
-          input_topic2:=${INPUT_TOPIC_2:-~/input2}
-          output_topic:=${OBJECT_TOPIC:-/perception/point_cloud_fusion/points}
-      volumes:
-        - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml}
+      environment:
+        INPUT_TOPIC_1: ~/input1
+        INPUT_TOPIC_2: ~/input2
+        OUTPUT_TOPIC: /perception/point_cloud_fusion/points
+        USE_SIM_TIME: false
+      command:
+        - /bin/bash
+        - -c
+        - |
+          ros2 launch point_cloud_fusion point_cloud_fusion.launch.py \
+            input_topic1:=$${INPUT_TOPIC_1} \
+            input_topic2:=$${INPUT_TOPIC_2} \
+            output_topic:=$${OUTPUT_TOPIC} \
+            use_sim_time:=$${USE_SIM_TIME}
+      # volumes:
+      #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml

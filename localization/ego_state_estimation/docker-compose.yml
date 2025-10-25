@@ -1,14 +1,3 @@
-# === Environment Variables ================
-# - ODOMETRY_TOPIC      (required)
-# - NAV_SAT_FIX_TOPIC   (optional)
-# - IMU_ACC_TOPIC       (optional)
-# - VEHICLE_STATE_TOPIC (optional)
-# - TRAJECTORY_TOPIC    (optional)
-# - EGO_DATA_TOPIC      (optional)
-# - USE_SIM_TIME        (optional)
-# - PARAMS_YML          (required)
-# ==========================================
-
 services:
 
   localization.ego-state-estimation:
@@ -16,15 +5,27 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest
-    command: >
-      ros2 launch ego_state_estimation ego_state_estimation_node.launch.py
-      odometry_topic:=${ODOMETRY_TOPIC}
-      nav_sat_fix_topic:=${NAV_SAT_FIX_TOPIC:-~/nav_sat_fix}
-      imu_acc_topic:=${IMU_ACC_TOPIC:-~/imu_acc}
-      vehicle_state_topic:=${VEHICLE_STATE_TOPIC:-~/vehicle_state}
-      trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      ego_data_nav_sat_fix_topic:=${OUT_NAV_SAT_FIX_TOPIC:-/localization/nav_sat_fix}
-      use_sim_time:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML}:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yml
+    environment:
+      ODOMETRY_TOPIC: ~/odometry
+      NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
+      IMU_ACC_TOPIC: ~/imu_acc
+      VEHICLE_STATE_TOPIC: ~/vehicle_state
+      TRAJECTORY_TOPIC: /planning/drivable_trajectory
+      EGO_DATA_TOPIC: /localization/ego_data
+      EGO_DATA_NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch ego_state_estimation ego_state_estimation_node.launch.py \
+          odometry_topic:=$${ODOMETRY_TOPIC} \
+          nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
+          imu_acc_topic:=$${IMU_ACC_TOPIC} \
+          vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          ego_data_nav_sat_fix_topic:=$${EGO_DATA_NAV_SAT_FIX_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yml
