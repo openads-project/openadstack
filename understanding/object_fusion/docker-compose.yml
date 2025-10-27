@@ -1,9 +1,3 @@
-# === Environment Variables ====================================================
-# - PARAMS_YML (optional)
-# - FUSED_OBJECT_LISTS (optional)
-# - FUSED_TRAJECTORIES (optional)
-# ==============================================================================
-
 services:
 
   understanding.object-fusion:
@@ -11,6 +5,21 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest
-    command: ros2 launch object_fusion fusion_function_launch.py fused_object_list_topic:=${FUSED_OBJECT_LIST:-/understanding/fused_object_list} fused_trajectories_topic:=${FUSED_TRAJECTORIES:-/understanding/fused_trajectories}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml}
+    environment:
+      NAMESPACE: /understanding
+      NAME: object_fusion
+      FUSED_OBJECT_LIST_TOPIC: /understanding/fused_object_list
+      FUSED_TRAJECTORIES_TOPIC: /understanding/fused_trajectories
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch object_fusion fusion_function_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          fused_object_list_topic:=$${FUSED_OBJECT_LIST_TOPIC} \
+          fused_trajectories_topic:=$${FUSED_TRAJECTORIES_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml
