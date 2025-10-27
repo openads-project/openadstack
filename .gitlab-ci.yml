@@ -37,14 +37,6 @@ mqtt-client-interfaces:
   trigger:
     project: fb-fi/its-modules/communication/mqtt-client-interfaces
 
-transport-drivers:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/drivers/transport_drivers
-
 # --- fb-fi/its-modules/localization ---------------------------------------------
 
 ego-state-estimation:
@@ -65,6 +57,14 @@ lanelet2-map-server:
 
 # --- fb-fi/its-modules/perception ---------------------------------------------
 
+point-cloud-object-fusion:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/perception/point_cloud_fusion
+
 point-cloud-object-detection:
   stage: Downstream
   only:
@@ -83,6 +83,14 @@ traffic-light-detection:
 
 # --- fb-fi/its-modules/planning -----------------------------------------------
 
+behavior-planning:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/behavior_planning
+
 lanelet2-route-planning:
   stage: Downstream
   only:
@@ -90,6 +98,14 @@ lanelet2-route-planning:
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/lanelet2_route_planning
+
+planning-orchestrator:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/planning_orchestrator
 
 simple-planner:
   stage: Downstream
