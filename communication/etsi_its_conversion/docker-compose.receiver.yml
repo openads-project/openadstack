@@ -6,6 +6,8 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:ros2-jazzy
     environment:
+      NAMESPACE: /communication
+      NAME: etsi_its_conversion_receiver
       UDP_TOPIC: /communication/receiver/udp
       CAM_TOPIC: /communication/receiver/cam
       CPM_TOPIC: /communication/receiver/cpm
@@ -15,20 +17,21 @@ services:
       SPATEM_TOPIC: /communication/receiver/spatem
       VAM_TOPIC: /communication/receiver/vam
       USE_SIM_TIME: false
-    command: >
-      bash -ic "
-      ros2 launch etsi_its_conversion converter.launch.py
-      name:=etsi_its_conversion_receiver
-      namespace:=communication
-      input_topic_udp:=$${UDP_TOPIC}
-      output_topic_cam:=$${CAM_TOPIC}
-      output_topic_cpm_ts:=$${CPM_TOPIC}
-      output_topic_denm:=$${DENM_TOPIC}
-      output_topic_mapem_ts:=$${MAPEM_TOPIC}
-      output_topic_mcm_uulm:=$${MCM_TOPIC}
-      output_topic_spatem_ts:=$${SPATEM_TOPIC}
-      output_topic_vam_ts:=$${VAM_TOPIC}
-      use_sim_time:=$${USE_SIM_TIME}
-      "
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch etsi_its_conversion converter.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          input_topic_udp:=$${UDP_TOPIC} \
+          output_topic_cam:=$${CAM_TOPIC} \
+          output_topic_cpm_ts:=$${CPM_TOPIC} \
+          output_topic_denm:=$${DENM_TOPIC} \
+          output_topic_mapem_ts:=$${MAPEM_TOPIC} \
+          output_topic_mcm_uulm:=$${MCM_TOPIC} \
+          output_topic_spatem_ts:=$${SPATEM_TOPIC} \
+          output_topic_vam_ts:=$${VAM_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml

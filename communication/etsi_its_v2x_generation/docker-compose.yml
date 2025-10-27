@@ -1,0 +1,53 @@
+services:
+
+  communication.etsi-its-v2x-generation.cam:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: etsi_its_v2x_generation_cam
+      EGO_DATA_TOPIC: /localization/ego_data
+      CAM_TOPIC: /communication/sender/cam
+      UDP_TOPIC: /communication/sender/udp
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch etsi_its_v2x_generation cam_generator.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          cam_topic:=$${CAM_TOPIC} \
+          udp_topic:=$${UDP_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cam_generator.yml
+
+  communication.etsi-its-v2x-generation.cpm:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/communication/etsi_its_v2x_generation:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: etsi_its_v2x_generation_cpm
+      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
+      CPM_TOPIC: /communication/sender/cpm
+      UDP_TOPIC: /communication/sender/udp
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch etsi_its_v2x_generation cpm_generator.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          cpm_topic:=$${CPM_TOPIC} \
+          udp_topic:=$${UDP_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cpm_generator.yml
