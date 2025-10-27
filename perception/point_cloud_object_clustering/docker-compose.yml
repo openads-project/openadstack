@@ -1,0 +1,25 @@
+services:
+
+  perception.point-cloud-object-clustering:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/monitoring/point_cloud_object_clustering:latest
+    environment:
+      NAMESPACE: /perception
+      NAME: point_cloud_object_clustering
+      USE_SIM_TIME: false
+      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
+      POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch point_cloud_object_clustering point_cloud_object_clustering_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          point_cloud_topic:=$${POINT_CLOUD_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_clustering/share/point_cloud_object_clustering/config/params.yml
