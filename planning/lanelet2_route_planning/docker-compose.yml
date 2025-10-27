@@ -6,6 +6,8 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
     environment:
+      NAMESPACE: /planning
+      NAME: lanelet2_route_planning
       ROUTE_TOPIC: /lanelet2_route_planning/route
       EGO_DATA_TOPIC: /localization/ego_data
       USE_SIM_TIME: false
@@ -14,6 +16,8 @@ services:
       - -c
       - |
         ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
           route_topic:=$${ROUTE_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           use_sim_time:=$${USE_SIM_TIME}

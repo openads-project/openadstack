@@ -6,6 +6,8 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/lanelet2_map_server:latest
     environment:
+      NAMESPACE: /localization
+      NAME: lanelet2_map_server
       MAP_FILEPATH: /data/maps/locations/germany-aldenhoven-atc/lanelet2/ika-carla/ATC.osm
       ORIGIN_LAT: 50.908973
       ORIGIN_LON: 6.230061
@@ -24,6 +26,8 @@ services:
       - -c
       - |
         ros2 run lanelet2_map_server lanelet2_map_server --ros-args \
+          -r __ns:=$${NAMESPACE} \
+          -r __node:=$${NAME} \
           -p map_filepath:=$${MAP_FILEPATH} \
           -p origin_lat:=$${ORIGIN_LAT} \
           -p origin_lon:=${ORIGIN_LON} \

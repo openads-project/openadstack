@@ -1,28 +1,28 @@
 ├── communication
-│   ├── ad2etsi
-│   ├── etsi_its_conversion
-│   ├── etsi_its_mcm_bridge
-│   ├── etsi_its_v2x_generation
-│   ├── mqtt_client
-│   └── udp_driver
+│   ├── ad2etsi                             #
+│   ├── etsi_its_conversion                 #
+│   ├── etsi_its_mcm_bridge                 #
+│   ├── etsi_its_v2x_generation             #
+│   ├── mqtt_client                         #
+│   └── udp_driver                          #
 ├── localization
-│   ├── ego_state_estimation                # done
-│   └── lanelet2_map_server                 # done
+│   ├── ego_state_estimation                # done # name # simtime
+│   └── lanelet2_map_server                 # done # name # simtime
 ├── perception
-│   ├── image_segmentation
-│   ├── point_cloud_fusion                  # done
-│   ├── point_cloud_object_detection        # done
-│   └── traffic_light_detection             # done
+│   ├── image_segmentation                  #
+│   ├── point_cloud_fusion                  # done # name # simtime
+│   ├── point_cloud_object_detection        # done # name # simtime
+│   └── traffic_light_detection             # done # name # simtime
 ├── planning
-│   ├── behavior_planning                   # done
-│   ├── lanelet2_route_planning             # done
-│   ├── planning_orchestrator               # done
-│   ├── simple_planner                      # done
-│   ├── trajectory_optimization             # done
-│   ├── trajectory_suggestion
-│   └── trajectory_supervision
+│   ├── behavior_planning                   # done # name # simtime
+│   ├── lanelet2_route_planning             # done # name # simtime
+│   ├── planning_orchestrator               # done # name # simtime
+│   ├── simple_planner                      # done # name # simtime
+│   ├── trajectory_optimization             # done # name # simtime
+│   ├── trajectory_suggestion               #
+│   └── trajectory_supervision              #
 └── understanding
-    ├── dynamic_map_enrichment              # done
-    ├── environment_model
-    ├── lanelet2_object_list_prediction     # done
-    └── object_fusion                       # done
+    ├── dynamic_map_enrichment              # done # name # simtime
+    ├── environment_model                   #
+    ├── lanelet2_object_list_prediction     # done # name # simtime
+    └── object_fusion                       # done # name # simtime
