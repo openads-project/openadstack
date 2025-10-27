@@ -8,6 +8,7 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: trajectory_optimization
+      USE_SIM_TIME: false
       DRIVING_MODE: ackermann
       REFERENCE_TRAJECTORY_TOPIC: /planning/reference_trajectory
       TRAJECTORY_TOPIC: /planning/drivable_trajectory
@@ -17,7 +18,6 @@ services:
       EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
       OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -25,6 +25,7 @@ services:
         ros2 launch trajectory_optimization trajectory_optimization.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           driving_mode:=$${DRIVING_MODE} \
           reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
@@ -33,7 +34,6 @@ services:
           route_topic:=$${ROUTE_TOPIC} \
           ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
           object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
-          route_marker_topic:=$${ROUTE_MARKER_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml

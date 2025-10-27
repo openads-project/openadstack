@@ -8,10 +8,10 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cam
+      USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
       CAM_TOPIC: /communication/sender/cam
       UDP_TOPIC: /communication/sender/udp
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -19,10 +19,10 @@ services:
         ros2 launch etsi_its_v2x_generation cam_generator.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           cam_topic:=$${CAM_TOPIC} \
-          udp_topic:=$${UDP_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          udp_topic:=$${UDP_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cam_generator.yml
 
@@ -34,10 +34,10 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cpm
+      USE_SIM_TIME: false
       OBJECT_LIST_TOPIC: /understanding/predicted_object_list
       CPM_TOPIC: /communication/sender/cpm
       UDP_TOPIC: /communication/sender/udp
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -45,9 +45,9 @@ services:
         ros2 launch etsi_its_v2x_generation cpm_generator.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           cpm_topic:=$${CPM_TOPIC} \
-          udp_topic:=$${UDP_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          udp_topic:=$${UDP_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cpm_generator.yml

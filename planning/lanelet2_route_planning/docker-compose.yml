@@ -8,9 +8,9 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
-      ROUTE_TOPIC: /lanelet2_route_planning/route
-      EGO_DATA_TOPIC: /localization/ego_data
       USE_SIM_TIME: false
+      EGO_DATA_TOPIC: /localization/ego_data
+      ROUTE_TOPIC: /lanelet2_route_planning/route
     command:
       - /bin/bash
       - -c
@@ -18,8 +18,8 @@ services:
         ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
-          route_topic:=$${ROUTE_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          route_topic:=$${ROUTE_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml

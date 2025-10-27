@@ -8,6 +8,7 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: planning_orchestrator
+      USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /lanelet2_route_planning/route
       TRAJECTORY_TOPIC: /planning/reference_trajectory
@@ -16,7 +17,6 @@ services:
       DIAGNOSTIC_STATUS_TOPIC: ~/diagnostic_status
       GEOFENCES_MARKER_TOPIC: ~/geofences_viz
       OVERLAY_TEXT_TOPIC: ~/overlay_text
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -24,6 +24,7 @@ services:
         ros2 launch planning_orchestrator planning_orchestrator.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           output_trajectory_topic:=$${TRAJECTORY_TOPIC} \
@@ -31,8 +32,7 @@ services:
           lon_active_topic:=$${LON_ACTIVE_TOPIC} \
           diagnostic_status_topic:=$${DIAGNOSTIC_STATUS_TOPIC} \
           geofences_viz_topic:=$${GEOFENCES_MARKER_TOPIC} \
-          overlay_text_topic:=$${OVERLAY_TEXT_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          overlay_text_topic:=$${OVERLAY_TEXT_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml
     #   - ./reconfigurations:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfigurations

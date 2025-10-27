@@ -8,9 +8,9 @@ services:
     environment:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
+      USE_SIM_TIME: false
       INPUT_TOPIC: /perception/object_list
       OUTPUT_TOPIC: /understanding/predicted_object_list
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -18,8 +18,8 @@ services:
         ros2 launch lanelet2_object_list_prediction object_list_prediction_node_launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           input_topic:=$${INPUT_TOPIC} \
-          output_topic:=$${OUTPUT_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          output_topic:=$${OUTPUT_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml

@@ -8,10 +8,10 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: simple_planner
+      USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /lanelet2_route_planning/route
       TRAJECTORY_TOPIC: /planning/reference_trajectory
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -19,9 +19,9 @@ services:
         ros2 launch simple_planner simple_planner.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
-          trajectory_topic:=$${TRAJECTORY_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          trajectory_topic:=$${TRAJECTORY_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
