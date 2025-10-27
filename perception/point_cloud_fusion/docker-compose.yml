@@ -8,10 +8,10 @@ services:
       environment:
         NAMESPACE: /perception
         NAME: point_cloud_fusion
+        USE_SIM_TIME: false
         INPUT_TOPIC_1: ~/input1
         INPUT_TOPIC_2: ~/input2
         OUTPUT_TOPIC: ~/points
-        USE_SIM_TIME: false
       command:
         - /bin/bash
         - -c
@@ -19,9 +19,9 @@ services:
           ros2 launch point_cloud_fusion point_cloud_fusion.launch.py \
             namespace:=$${NAMESPACE} \
             name:=$${NAME} \
+            use_sim_time:=$${USE_SIM_TIME} \
             input_topic1:=$${INPUT_TOPIC_1} \
             input_topic2:=$${INPUT_TOPIC_2} \
-            output_topic:=$${OUTPUT_TOPIC} \
-            use_sim_time:=$${USE_SIM_TIME}
+            output_topic:=$${OUTPUT_TOPIC}
       # volumes:
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml

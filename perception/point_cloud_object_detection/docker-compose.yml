@@ -10,9 +10,16 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: point_cloud_object_detection
+      USE_SIM_TIME: false
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: ~/object_list
-      USE_SIM_TIME: false
+      CLASS_POINT_CLOUD_CAR_TOPIC: ~/class_point_cloud/car
+      CLASS_POINT_CLOUD_PEDESTRIAN_TOPIC: ~/class_point_cloud/pedestrian
+      CLASS_POINT_CLOUD_TRUCK_TOPIC: ~/class_point_cloud/truck
+      CLASS_POINT_CLOUD_TRAILER_TOPIC: ~/class_point_cloud/trailer
+      CLASS_POINT_CLOUD_BUS_TOPIC: ~/class_point_cloud/bus
+      CLASS_POINT_CLOUD_TWO_WHEELER_TOPIC: ~/class_point_cloud/two_wheeler
+      UNCLASSIFIED_POINT_CLOUD_TOPIC: ~/unclassified_point_cloud
     command:
       - /bin/bash
       - -c
@@ -20,9 +27,16 @@ services:
         ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           point_cloud_topic:=$${POINT_CLOUD_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          class_point_cloud_car_topic:=$${CLASS_POINT_CLOUD_CAR_TOPIC} \
+          class_point_cloud_pedestrian_topic:=$${CLASS_POINT_CLOUD_PEDESTRIAN_TOPIC} \
+          class_point_cloud_truck_topic:=$${CLASS_POINT_CLOUD_TRUCK_TOPIC} \
+          class_point_cloud_trailer_topic:=$${CLASS_POINT_CLOUD_TRAILER_TOPIC} \
+          class_point_cloud_bus_topic:=$${CLASS_POINT_CLOUD_BUS_TOPIC} \
+          class_point_cloud_two_wheeler_topic:=$${CLASS_POINT_CLOUD_TWO_WHEELER_TOPIC} \
+          unclassified_point_cloud_topic:=$${UNCLASSIFIED_POINT_CLOUD_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
     #   - ./models:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models

@@ -8,11 +8,11 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi2ad
-      CAM_TOPIC: /communication/receiver/cam
-      CPM_TOPIC: /communication/receiver/cpm
-      EGO_DATA_TOPIC: /communication/receiver/ego_data
-      OBJECT_LIST_TOPIC: /communication/receiver/object_list
       USE_SIM_TIME: false
+      CAM_IN: /communication/receiver/cam
+      CPM_IN: /communication/receiver/cpm
+      EGO_DATA_OUT: /communication/receiver/ego_data
+      OBJECT_LIST_OUT: /communication/receiver/object_list
     command:
       - /bin/bash
       - -c
@@ -20,11 +20,11 @@ services:
         ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
           namespace:=$${NAMESPACE} \
           node_name:=$${NAME} \
-          cam_in:=$${CAM_TOPIC} \
-          cpm_in:=$${CPM_TOPIC} \
-          ego_data_out:=$${EGO_DATA_TOPIC} \
-          object_list_out:=$${OBJECT_LIST_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          use_sim_time:=$${USE_SIM_TIME} \
+          cam_in:=$${CAM_IN} \
+          cpm_in:=$${CPM_IN} \
+          ego_data_out:=$${EGO_DATA_OUT} \
+          object_list_out:=$${OBJECT_LIST_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml
 
@@ -36,11 +36,11 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: ad2etsi
-      EGO_DATA_TOPIC: /localization/ego_data
-      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      CAM_TOPIC: /communication/sender/cam
-      CPM_TOPIC: /communication/sender/cpm
       USE_SIM_TIME: false
+      EGO_DATA_IN: /localization/ego_data
+      OBJECT_LIST_IN: /understanding/predicted_object_list
+      CAM_OUT: /communication/sender/cam
+      CPM_OUT: /communication/sender/cpm
     command:
       - /bin/bash
       - -c
@@ -48,10 +48,10 @@ services:
         ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
           namespace:=$${NAMESPACE} \
           node_name:=$${NAME} \
-          ego_data_in:=$${EGO_DATA_TOPIC} \
-          object_list_in:=$${OBJECT_LIST_TOPIC} \
-          cam_out:=$${CAM_TOPIC} \
-          cpm_out:=$${CPM_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          use_sim_time:=$${USE_SIM_TIME} \
+          ego_data_in:=$${EGO_DATA_IN} \
+          object_list_in:=$${OBJECT_LIST_IN} \
+          cam_out:=$${CAM_OUT} \
+          cpm_out:=$${CPM_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml

@@ -8,6 +8,7 @@ services:
     environment:
       NAMESPACE: /localization
       NAME: ego_state_estimation
+      USE_SIM_TIME: false
       ODOMETRY_TOPIC: ~/odometry
       NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
       IMU_ACC_TOPIC: ~/imu_acc
@@ -15,7 +16,6 @@ services:
       TRAJECTORY_TOPIC: /planning/drivable_trajectory
       EGO_DATA_TOPIC: /localization/ego_data
       EGO_DATA_NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -23,13 +23,13 @@ services:
         ros2 launch ego_state_estimation ego_state_estimation_node.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           odometry_topic:=$${ODOMETRY_TOPIC} \
           nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
           imu_acc_topic:=$${IMU_ACC_TOPIC} \
           vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
-          ego_data_nav_sat_fix_topic:=$${EGO_DATA_NAV_SAT_FIX_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          ego_data_nav_sat_fix_topic:=$${EGO_DATA_NAV_SAT_FIX_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ego_state_estimation/share/ego_state_estimation/config/params.yml

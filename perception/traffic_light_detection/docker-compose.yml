@@ -10,11 +10,11 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: traffic_light_detection
+      USE_SIM_TIME: false
       CAMERA_IMAGE_TOPIC: /tld/input/camera_image
       CAMERA_INFO_TOPIC: /tld/input/camera_info
       OUTPUT_TOPIC: /tld/output/detections
       VISUALIZATION_OUTPUT_TOPIC: /tld/output/viz_image/compressed
-      USE_SIM_TIME: false
     command:
       - /bin/bash
       - -c
@@ -22,10 +22,10 @@ services:
         ros2 launch traffic_light_detection tl_perception.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
           camera_image_topic:=$${CAMERA_IMAGE_TOPIC} \
           camera_info_topic:=$${CAMERA_INFO_TOPIC} \
           output_topic:=$${OUTPUT_TOPIC} \
-          visualization_output_topic:=$${VISUALIZATION_OUTPUT_TOPIC} \
-          use_sim_time:=$${USE_SIM_TIME}
+          visualization_output_topic:=$${VISUALIZATION_OUTPUT_TOPIC}
     # volumes:
     #   - params.yml:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml
