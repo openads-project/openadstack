@@ -12,7 +12,7 @@
 │   ├── image_segmentation
 │   ├── point_cloud_fusion                  # done
 │   ├── point_cloud_object_detection        # done
-│   └── traffic_light_detection
+│   └── traffic_light_detection             # done
 ├── planning
 │   ├── behavior_planning                   # done
 │   ├── lanelet2_route_planning             # done
@@ -22,7 +22,7 @@
 │   ├── trajectory_suggestion
 │   └── trajectory_supervision
 └── understanding
-    ├── dynamic_map_enrichment
+    ├── dynamic_map_enrichment              # done
     ├── environment_model
-    ├── lanelet2_object_list_prediction
-    └── object_fusion
+    ├── lanelet2_object_list_prediction     # done
+    └── object_fusion                       # done

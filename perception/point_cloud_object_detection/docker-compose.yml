@@ -8,6 +8,8 @@ services:
     depends_on:
       - triton-server
     environment:
+      NAMESPACE: /perception
+      NAME: point_cloud_object_detection
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: ~/object_list
       USE_SIM_TIME: false
@@ -16,7 +18,8 @@ services:
       - -c
       - |
         ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py \
-          namespace:=/perception \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
           point_cloud_topic:=$${POINT_CLOUD_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           use_sim_time:=$${USE_SIM_TIME}
