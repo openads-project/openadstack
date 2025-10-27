@@ -65,14 +65,6 @@ lanelet2-map-server:
 
 # --- fb-fi/its-modules/perception ---------------------------------------------
 
-image-segmentation:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/perception/image_segmentation
-
 point-cloud-object-detection:
   stage: Downstream
   only:
@@ -115,22 +107,6 @@ trajectory-optimization:
   trigger:
     project: fb-fi/its-modules/planning/trajectory_optimization
 
-trajectory-suggestion:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/planning/trajectory_suggestion
-
-trajectory-supervision:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/planning/trajectory_supervision
-
 # --- fb-fi/its-modules/understanding
 
 dynamic-map-enrichment:
@@ -140,14 +116,6 @@ dynamic-map-enrichment:
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/dynamic_map_enrichment
-
-environment-model:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/understanding/environment_model
 
 lanelet2-object-list-prediction:
   stage: Downstream
