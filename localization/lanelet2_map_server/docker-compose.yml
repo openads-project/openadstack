@@ -30,5 +30,5 @@ services:
           -r __node:=$${NAME} \
           -p map_filepath:=$${MAP_FILEPATH} \
           -p origin_lat:=$${ORIGIN_LAT} \
-          -p origin_lon:=${ORIGIN_LON} \
+          -p origin_lon:=$${ORIGIN_LON} \
           -p use_sim_time:=$${USE_SIM_TIME}
