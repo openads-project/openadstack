@@ -6,15 +6,19 @@ services:
         service: ros2-service
       image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:latest
       environment:
+        NAMESPACE: /perception
+        NAME: point_cloud_fusion
         INPUT_TOPIC_1: ~/input1
         INPUT_TOPIC_2: ~/input2
-        OUTPUT_TOPIC: /perception/point_cloud_fusion/points
+        OUTPUT_TOPIC: ~/points
         USE_SIM_TIME: false
       command:
         - /bin/bash
         - -c
         - |
           ros2 launch point_cloud_fusion point_cloud_fusion.launch.py \
+            namespace:=$${NAMESPACE} \
+            name:=$${NAME} \
             input_topic1:=$${INPUT_TOPIC_1} \
             input_topic2:=$${INPUT_TOPIC_2} \
             output_topic:=$${OUTPUT_TOPIC} \

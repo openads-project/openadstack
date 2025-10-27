@@ -19,13 +19,13 @@ services:
       - -c
       - |
         ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py \
-        namespace:=$${NAMESPACE} \
-        name:=$${NAME} \
-        route_topic:=$${ROUTE_TOPIC} \
-        mapem_topic:=$${MAPEM_TOPIC} \
-        spatem_topic:=$${SPATEM_TOPIC} \
-        traffic_light_topic:=$${TRAFFIC_LIGHT_TOPIC} \
-        enriched_route_topic:=$${ENRICHED_ROUTE_TOPIC} \
-        use_sim_time:=$${USE_SIM_TIME}
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          route_topic:=$${ROUTE_TOPIC} \
+          mapem_topic:=$${MAPEM_TOPIC} \
+          spatem_topic:=$${SPATEM_TOPIC} \
+          traffic_light_topic:=$${TRAFFIC_LIGHT_TOPIC} \
+          enriched_route_topic:=$${ENRICHED_ROUTE_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/dynamic_map_enrichment/share/dynamic_map_enrichment/config/params.yml

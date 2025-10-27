@@ -8,6 +8,8 @@ services:
     depends_on:
       - triton-server
     environment:
+      NAMESPACE: /planning
+      NAME: behavior_planning
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /understanding/enriched_route
       OBJECT_LIST_TOPIC: /understanding/predicted_object_list
@@ -21,6 +23,8 @@ services:
       - -c
       - |
         ros2 launch behavior_planning behavior_planning_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
