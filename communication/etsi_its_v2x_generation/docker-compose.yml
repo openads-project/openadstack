@@ -10,8 +10,8 @@ services:
       NAME: etsi_its_v2x_generation_cam
       USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
-      CAM_TOPIC: /communication/sender/cam
-      UDP_TOPIC: /communication/sender/udp
+      CAM_TOPIC: /communication/etsi_its_conversion_sender/cam/in
+      UDP_TOPIC: /communication/etsi_its_conversion_sender/udp/out
     command:
       - /bin/bash
       - -c
@@ -35,9 +35,9 @@ services:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cpm
       USE_SIM_TIME: false
-      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      CPM_TOPIC: /communication/sender/cpm
-      UDP_TOPIC: /communication/sender/udp
+      OBJECT_LIST_TOPIC: /understanding/fused_object_list
+      CPM_TOPIC: /communication/etsi_its_conversion_sender/cpm_ts/in
+      UDP_TOPIC: /communication/etsi_its_conversion_sender/udp/out
     command:
       - /bin/bash
       - -c

@@ -14,7 +14,7 @@ services:
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /understanding/enriched_route
       OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      IMAGE_TOPIC: /camera_front/image/compressed
+      IMAGE_TOPIC: ~/image
       TRAJECTORY_TOPIC: /planning/reference_trajectory
       EGO_MARKER_TOPIC: ~/visualization/ego_marker
       OBJECT_MARKER_TOPIC: ~/visualization/object_marker
