@@ -9,10 +9,10 @@ services:
       NAMESPACE: /understanding
       NAME: dynamic_map_enrichment
       USE_SIM_TIME: false
-      ROUTE_TOPIC: /lanelet2_route_planning/route
-      MAPEM_TOPIC: /communication/receiver/mapem
-      SPATEM_TOPIC: /communication/receiver/spatem
-      TRAFFIC_LIGHT_TOPIC: /traffic_light_detection/cameras/tld_camera/data/tracking
+      ROUTE_TOPIC: /planning/route
+      MAPEM_TOPIC: /communication/etsi_its_conversion_receiver/mapem_ts/out
+      SPATEM_TOPIC: /communication/etsi_its_conversion_receiver/spatem_ts/out
+      TRAFFIC_LIGHT_TOPIC: /perception/traffic_light_detection/output
       ENRICHED_ROUTE_TOPIC: /understanding/enriched_route
     command:
       - /bin/bash

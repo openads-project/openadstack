@@ -4,19 +4,19 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:ros2-jazzy
+    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:latest
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_receiver
       USE_SIM_TIME: false
-      INPUT_TOPIC_UDP: /communication/receiver/udp
-      OUTPUT_TOPIC_CAM: /communication/receiver/cam
-      OUTPUT_TOPIC_CPM_TS: /communication/receiver/cpm
-      OUTPUT_TOPIC_DENM: /communication/receiver/denm
-      OUTPUT_TOPIC_MAPEM_TS: /communication/receiver/mapem
-      OUTPUT_TOPIC_MCM_UULM: /communication/receiver/mcm
-      OUTPUT_TOPIC_SPATEM_TS: /communication/receiver/spatem
-      OUTPUT_TOPIC_VAM_TS: /communication/receiver/vam
+      INPUT_TOPIC_UDP: ~/udp/in
+      OUTPUT_TOPIC_CAM: ~/cam/out
+      OUTPUT_TOPIC_CPM_TS: ~/cpm_ts/out
+      OUTPUT_TOPIC_DENM: ~/denm/out
+      OUTPUT_TOPIC_MAPEM_TS: ~/mapem_ts/out
+      OUTPUT_TOPIC_MCM_UULM: ~/mcm_uulm/out
+      OUTPUT_TOPIC_SPATEM_TS: ~/spatem_ts/out
+      OUTPUT_TOPIC_VAM_TS: ~/vam/out
     command:
       - /bin/bash
       - -c
@@ -40,19 +40,19 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/etsi_its_messages:ros2-jazzy
+    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:latest
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_sender
       USE_SIM_TIME: false
-      INPUT_TOPIC_CAM: /communication/sender/cam
-      INPUT_TOPIC_CPM_TS: /communication/sender/cpm
-      INPUT_TOPIC_DENM: /communication/sender/denm
-      INPUT_TOPIC_MAPEM_TS: /communication/sender/mapem
-      INPUT_TOPIC_MCM_UULM: /communication/sender/mcm
-      INPUT_TOPIC_SPATEM_TS: /communication/sender/spatem
-      INPUT_TOPIC_VAM_TS: /communication/sender/vam
-      OUTPUT_TOPIC_UDP: /communication/sender/udp
+      INPUT_TOPIC_CAM: ~/cam/in
+      INPUT_TOPIC_CPM_TS: ~/cpm_ts/in
+      INPUT_TOPIC_DENM: ~/denm/in
+      INPUT_TOPIC_MAPEM_TS: ~/mapem_ts/in
+      INPUT_TOPIC_MCM_UULM: ~/mcm_uulm/in
+      INPUT_TOPIC_SPATEM_TS: ~/spatem_ts/in
+      INPUT_TOPIC_VAM_TS: ~/vam/in
+      OUTPUT_TOPIC_UDP: ~/udp/out
     command:
       - /bin/bash
       - -c

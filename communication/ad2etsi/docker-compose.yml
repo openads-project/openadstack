@@ -9,10 +9,10 @@ services:
       NAMESPACE: /communication
       NAME: etsi2ad
       USE_SIM_TIME: false
-      CAM_IN: /communication/receiver/cam
-      CPM_IN: /communication/receiver/cpm
-      EGO_DATA_OUT: /communication/receiver/ego_data
-      OBJECT_LIST_OUT: /communication/receiver/object_list
+      CAM_IN: /communication/etsi_its_conversion_receiver/cam/out
+      CPM_IN: /communication/etsi_its_conversion_receiver/cpm_ts/out
+      EGO_DATA_OUT: /communication/etsi_its_conversion_receiver/ego_data
+      OBJECT_LIST_OUT: /communication/etsi_its_conversion_receiver/object_list
     command:
       - /bin/bash
       - -c
@@ -39,8 +39,8 @@ services:
       USE_SIM_TIME: false
       EGO_DATA_IN: /localization/ego_data
       OBJECT_LIST_IN: /understanding/predicted_object_list
-      CAM_OUT: /communication/sender/cam
-      CPM_OUT: /communication/sender/cpm
+      CAM_OUT: /communication/etsi_its_conversion_sender/cam/in
+      CPM_OUT: /communication/etsi_its_conversion_sender/cpm_ts/in
     command:
       - /bin/bash
       - -c

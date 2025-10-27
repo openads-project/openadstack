@@ -9,7 +9,7 @@ services:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
       USE_SIM_TIME: false
-      INPUT_TOPIC: /perception/object_list
+      INPUT_TOPIC: /understanding/fused_object_list
       OUTPUT_TOPIC: /understanding/predicted_object_list
     command:
       - /bin/bash

@@ -9,8 +9,8 @@ services:
       NAMESPACE: /perception
       NAME: point_cloud_object_clustering
       USE_SIM_TIME: false
-      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points
+      POINT_CLOUD_TOPIC: ~/point_cloud
+      OBJECT_LIST_TOPIC: /understanding/fused_object_list
     command:
       - /bin/bash
       - -c
@@ -19,7 +19,7 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          point_cloud_topic:=$${POINT_CLOUD_TOPIC}
+          point_cloud_topic:=$${POINT_CLOUD_TOPIC} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_clustering/share/point_cloud_object_clustering/config/params.yml

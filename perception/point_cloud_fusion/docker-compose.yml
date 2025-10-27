@@ -11,7 +11,7 @@ services:
         USE_SIM_TIME: false
         INPUT_TOPIC_1: ~/input1
         INPUT_TOPIC_2: ~/input2
-        OUTPUT_TOPIC: ~/points
+        OUTPUT_TOPIC: ~/output
       command:
         - /bin/bash
         - -c

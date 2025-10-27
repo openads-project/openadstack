@@ -10,7 +10,7 @@ services:
       NAME: simple_planner
       USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
-      ROUTE_TOPIC: /lanelet2_route_planning/route
+      ROUTE_TOPIC: /planning/route
       TRAJECTORY_TOPIC: /planning/reference_trajectory
     command:
       - /bin/bash

@@ -10,7 +10,7 @@ services:
       NAME: lanelet2_route_planning
       USE_SIM_TIME: false
       EGO_DATA_TOPIC: /localization/ego_data
-      ROUTE_TOPIC: /lanelet2_route_planning/route
+      ROUTE_TOPIC: /planning/route
     command:
       - /bin/bash
       - -c

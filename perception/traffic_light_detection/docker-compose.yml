@@ -11,10 +11,10 @@ services:
       NAMESPACE: /perception
       NAME: traffic_light_detection
       USE_SIM_TIME: false
-      CAMERA_IMAGE_TOPIC: /tld/input/camera_image
-      CAMERA_INFO_TOPIC: /tld/input/camera_info
-      OUTPUT_TOPIC: /tld/output/detections
-      VISUALIZATION_OUTPUT_TOPIC: /tld/output/viz_image/compressed
+      CAMERA_IMAGE_TOPIC: ~/camera_image
+      CAMERA_INFO_TOPIC: ~/camera_info
+      OUTPUT_TOPIC: ~/output
+      VISUALIZATION_OUTPUT_TOPIC: ~/viz_output
     command:
       - /bin/bash
       - -c
