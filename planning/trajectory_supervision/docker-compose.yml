@@ -1,10 +1,3 @@
-# === Environment Variables ====================================================
-# - INPUT_TOPIC   (optional)
-# - OUTPUT_TOPIC  (optional)
-# - USE_SIM_TIME  (optional)
-# - PARAMS_YML    (optional)
-# ==============================================================================
-
 services:
 
   planning.trajectory-supervision:
@@ -12,6 +5,19 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_supervision:latest
-    command: ros2 launch trajectory_supervision trajectory_supervision.launch.py input_topic:=${INPUT_TOPIC:-/planning/reference_trajectory} output_topic:=${OUTPUT_TOPIC:-/planning/drivable_trajectory} use_sim_time_arg:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/trajectory_supervision/share/trajectory_supervision/config/params.yml}
+    environment:
+      NAMESPACE: /planning
+      NAME: trajectory_supervision
+      INPUT_TOPIC: /planning/reference_trajectory
+      OUTPUT_TOPIC: /planning/drivable_trajectory
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch trajectory_supervision trajectory_supervision.launch.py \
+          input_topic:=$${INPUT_TOPIC} \
+          output_topic:=$${OUTPUT_TOPIC} \
+          use_sim_time_arg:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/trajectory_supervision/share/trajectory_supervision/config/params.yml

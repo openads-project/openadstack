@@ -1,9 +1,3 @@
-# === Environment Variables ====================================================
-# - IMAGE_TOPIC           (optional)
-# - SEGMENTED_IMAGE_TOPIC (optional)
-# - PARAMS_YML            (optional)
-# ==============================================================================
-
 services:
 
   perception.image-segmentation:
@@ -11,9 +5,24 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-gpu-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/image_segmentation:latest
+    environment:
+      NAMESPACE: /perception
+      NAME: image_segmentation
+      IMAGE_TOPIC: ~/image
+      SEGMENTATION_TOPIC: ~/segmentation
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch image_segmentation image_segmentation_launch.py \
+          namespace:=${NAMESPACE} \
+          name:=${NAME} \
+          image:=${IMAGE_TOPIC} \
+          segmentation:=${SEGMENTATION_TOPIC} \
+          use_sim_time:=${USE_SIM_TIME}
     volumes:
       - ./launch/image_segmentation_launch.py:/docker-ros/ws/install/image_segmentation/share/image_segmentation/launch/image_segmentation_launch.py
       - ./models:/docker-ros/ws/install/image_segmentation/share/image_segmentation/models
       - ./one-hot-conversion:/docker-ros/ws/install/image_segmentation/share/image_segmentation/one-hot-conversion
-      - ${PARAMS_YML:-./config/params.yml}:/docker-ros/ws/install/image_segmentation/share/image_segmentation/config/params.yaml
-    command: ros2 launch image_segmentation image_segmentation_launch.py namespace:=/perception name:=image_segmentation image:=${IMAGE_TOPIC:-~/image} segmentation:=${SEGMENTED_IMAGE_TOPIC:-~/segmentation}
+      - ./config/params.yml:/docker-ros/ws/install/image_segmentation/share/image_segmentation/config/params.yaml

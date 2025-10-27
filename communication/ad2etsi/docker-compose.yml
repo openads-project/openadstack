@@ -1,0 +1,57 @@
+services:
+
+  communication.etsi2ad:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: etsi2ad
+      CAM_TOPIC: /communication/receiver/cam
+      CPM_TOPIC: /communication/receiver/cpm
+      EGO_DATA_TOPIC: /communication/receiver/ego_data
+      OBJECT_LIST_TOPIC: /communication/receiver/object_list
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          cam_in:=$${CAM_TOPIC} \
+          cpm_in:=$${CPM_TOPIC} \
+          ego_data_out:=$${EGO_DATA_TOPIC} \
+          object_list_out:=$${OBJECT_LIST_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml
+
+  communication.ad2etsi:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: ad2etsi
+      EGO_DATA_TOPIC: /localization/ego_data
+      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
+      CAM_TOPIC: /communication/sender/cam
+      CPM_TOPIC: /communication/sender/cpm
+      USE_SIM_TIME: false
+    command:
+      - /bin/bash
+      - -c
+      - |
+        ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          ego_data_in:=$${EGO_DATA_TOPIC} \
+          object_list_in:=$${OBJECT_LIST_TOPIC} \
+          cam_out:=$${CAM_TOPIC} \
+          cpm_out:=$${CPM_TOPIC} \
+          use_sim_time:=$${USE_SIM_TIME}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml
