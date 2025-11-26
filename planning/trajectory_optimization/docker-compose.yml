@@ -20,7 +20,7 @@ services:
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch trajectory_optimization trajectory_optimization.launch.py \
           namespace:=$${NAMESPACE} \

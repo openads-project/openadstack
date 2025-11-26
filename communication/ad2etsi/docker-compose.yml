@@ -15,7 +15,7 @@ services:
       OBJECT_LIST_OUT: /communication/etsi_its_conversion_receiver/object_list
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
           namespace:=$${NAMESPACE} \
@@ -43,7 +43,7 @@ services:
       CPM_OUT: /communication/etsi_its_conversion_sender/cpm_ts/in
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
           namespace:=$${NAMESPACE} \

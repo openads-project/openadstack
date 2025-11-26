@@ -24,7 +24,7 @@ services:
       # ORIGIN_LON: 0.0
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 run lanelet2_map_server lanelet2_map_server --ros-args \
           -r __ns:=$${NAMESPACE} \

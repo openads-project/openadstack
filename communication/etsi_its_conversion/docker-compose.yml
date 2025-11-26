@@ -19,7 +19,7 @@ services:
       OUTPUT_TOPIC_VAM_TS: ~/vam/out
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch etsi_its_conversion converter.launch.py \
           namespace:=$${NAMESPACE} \
@@ -55,7 +55,7 @@ services:
       OUTPUT_TOPIC_UDP: ~/udp/out
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch etsi_its_conversion converter.launch.py \
           namespace:=$${NAMESPACE} \

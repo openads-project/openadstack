@@ -13,7 +13,7 @@ services:
       OBJECT_LIST_TOPIC: /understanding/fused_object_list
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch point_cloud_object_clustering point_cloud_object_clustering_launch.py \
           namespace:=$${NAMESPACE} \

@@ -14,7 +14,7 @@ services:
       UDP_TOPIC: /communication/etsi_its_conversion_sender/udp/out
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch etsi_its_v2x_generation cam_generator.launch.py \
           namespace:=$${NAMESPACE} \
@@ -40,7 +40,7 @@ services:
       UDP_TOPIC: /communication/etsi_its_conversion_sender/udp/out
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch etsi_its_v2x_generation cpm_generator.launch.py \
           namespace:=$${NAMESPACE} \

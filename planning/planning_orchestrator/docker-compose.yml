@@ -19,7 +19,7 @@ services:
       OVERLAY_TEXT_TOPIC: ~/overlay_text
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch planning_orchestrator planning_orchestrator.launch.py \
           namespace:=$${NAMESPACE} \

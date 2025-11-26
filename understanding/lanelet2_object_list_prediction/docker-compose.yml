@@ -13,7 +13,7 @@ services:
       OUTPUT_TOPIC: /understanding/predicted_object_list
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch lanelet2_object_list_prediction object_list_prediction_node_launch.py \
           namespace:=$${NAMESPACE} \

@@ -10,7 +10,7 @@ services:
       NAME: mqtt_client
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch mqtt_client standalone.launch.xml \
           namespace:=${NAMESPACE} \

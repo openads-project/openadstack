@@ -14,7 +14,7 @@ services:
       TRAJECTORY_TOPIC: /planning/reference_trajectory
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch simple_planner simple_planner.launch.py \
           namespace:=$${NAMESPACE} \
