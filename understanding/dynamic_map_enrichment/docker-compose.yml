@@ -16,7 +16,7 @@ services:
       ENRICHED_ROUTE_TOPIC: /understanding/enriched_route
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch dynamic_map_enrichment dynamic_map_enrichment_node.launch.py \
           namespace:=$${NAMESPACE} \

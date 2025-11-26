@@ -13,7 +13,7 @@ services:
       ROUTE_TOPIC: /planning/route
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
           namespace:=$${NAMESPACE} \

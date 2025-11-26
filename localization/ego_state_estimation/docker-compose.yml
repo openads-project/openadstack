@@ -18,7 +18,7 @@ services:
       EGO_DATA_NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch ego_state_estimation ego_state_estimation_node.launch.py \
           namespace:=$${NAMESPACE} \

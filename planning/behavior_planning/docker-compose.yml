@@ -23,7 +23,7 @@ services:
       X_INIT_TOPIC: ~/x_init
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch behavior_planning behavior_planning_launch.py \
           namespace:=$${NAMESPACE} \

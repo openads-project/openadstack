@@ -17,7 +17,7 @@ services:
       VISUALIZATION_OUTPUT_TOPIC: ~/viz_output
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch traffic_light_detection tl_perception.launch.py \
           namespace:=$${NAMESPACE} \

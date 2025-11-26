@@ -12,7 +12,7 @@ services:
         OUTPUT_TOPIC: ~/points
       command:
         - /bin/bash
-        - -c
+        - -ic
         - |
           ros2 launch point_cloud_fusion point_cloud_fusion.launch.py \
             namespace:=$${NAMESPACE} \
