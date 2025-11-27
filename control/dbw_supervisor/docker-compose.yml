@@ -1,0 +1,16 @@
+# === Environment Variables ====================================================
+# - INPUT_TOPIC               (required)
+# - OUTPUT_TOPIC              (required)
+# - PARAMS_YML                (optional)
+# ==============================================================================
+
+services:
+
+  control.dbw-supervisor:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/dbw_supervisor:latest_init_ci
+    command: ros2 launch dbw_supervisor dbw_supervisor_launch.xml input_topic:=${INPUT_TOPIC} output_topic:=${OUTPUT_TOPIC}
+    volumes:
+      - ${PARAMS_YML}:/docker-ros/ws/install/dbw_supervisor/share/dbw_supervisor/config/params.yml
