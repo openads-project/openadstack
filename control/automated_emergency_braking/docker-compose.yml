@@ -1,0 +1,17 @@
+# === Environment Variables ====================================================
+# - OCCUPANCY_GRID_TOPIC      (required)
+# - EGO_DATA_TOPIC            (required)
+# - EMERGENCY_STOP_SERVICE    (required)
+# - PARAMS_YML                (optional)
+# ==============================================================================
+
+services:
+
+  control.automated-emergency-braking:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/automated_emergency_braking:latest
+    command: ros2 launch automated_emergency_braking automated_emergency_braking_launch.py occupancy_grid_topic:=${OCCUPANCY_GRID_TOPIC} ego_data_topic:=${EGO_DATA_TOPIC} emergency_stop_service:=${EMERGENCY_STOP_SERVICE}
+    volumes:
+      - ${PARAMS_YML}:/docker-ros/ws/install/automated_emergency_braking/share/automated_emergency_braking/config/params.yml
