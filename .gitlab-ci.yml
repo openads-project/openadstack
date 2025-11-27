@@ -37,14 +37,6 @@ mqtt-client-interfaces:
   trigger:
     project: fb-fi/its-modules/communication/mqtt-client-interfaces
 
-transport-drivers:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/drivers/transport_drivers
-
 # --- fb-fi/its-modules/localization ---------------------------------------------
 
 ego-state-estimation:
@@ -65,13 +57,13 @@ lanelet2-map-server:
 
 # --- fb-fi/its-modules/perception ---------------------------------------------
 
-image-segmentation:
+point-cloud-object-fusion:
   stage: Downstream
   only:
     - web
   allow_failure: true
   trigger:
-    project: fb-fi/its-modules/perception/image_segmentation
+    project: fb-fi/its-modules/perception/point_cloud_fusion
 
 point-cloud-object-detection:
   stage: Downstream
@@ -91,6 +83,14 @@ traffic-light-detection:
 
 # --- fb-fi/its-modules/planning -----------------------------------------------
 
+behavior-planning:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/behavior_planning
+
 lanelet2-route-planning:
   stage: Downstream
   only:
@@ -98,6 +98,14 @@ lanelet2-route-planning:
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/planning/lanelet2_route_planning
+
+planning-orchestrator:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/planning/planning_orchestrator
 
 simple-planner:
   stage: Downstream
@@ -115,22 +123,6 @@ trajectory-optimization:
   trigger:
     project: fb-fi/its-modules/planning/trajectory_optimization
 
-trajectory-suggestion:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/planning/trajectory_suggestion
-
-trajectory-supervision:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/planning/trajectory_supervision
-
 # --- fb-fi/its-modules/understanding
 
 dynamic-map-enrichment:
@@ -140,14 +132,6 @@ dynamic-map-enrichment:
   allow_failure: true
   trigger:
     project: fb-fi/its-modules/understanding/dynamic_map_enrichment
-
-environment-model:
-  stage: Downstream
-  only:
-    - web
-  allow_failure: true
-  trigger:
-    project: fb-fi/its-modules/understanding/environment_model
 
 lanelet2-object-list-prediction:
   stage: Downstream
