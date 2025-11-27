@@ -1,0 +1,39 @@
+# === Environment Variables ====================================================
+# - INPUT_POINT_CLOUD_TOPIC (required)
+# - CROP_BOX_FILTER_PARAMS_YML (optional)
+# - VEHICLE_INFO_PARAMS_YML (optional)
+# - GROUND_FILTER_PARAMS_YML (optional)
+# - GRID_MAP_PARAMS_YML (optional)
+# - GRID_MAP_FILTER_PARAMS_YML (optional)
+# - OUTPUT_OCCUPANCY_GRID_TOPIC (required)
+# ==============================================================================
+
+services:
+
+  perception.point-cloud-ground-filter:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/autoware_ground_filter:latest
+    command: >
+      ros2 launch autoware_ground_filter ground_filter.launch.xml
+        input/pointcloud:=${INPUT_POINT_CLOUD_TOPIC}
+        output/pointcloud:=${INPUT_POINT_CLOUD_TOPIC}/obstacle
+    volumes:
+      - ${CROP_BOX_FILTER_PARAMS_YML:-/dev/null:/dev/null0}${CROP_BOX_FILTER_PARAMS_YML:+:/docker-ros/ws/install/autoware_crop_box_filter/share/autoware_crop_box_filter/config/crop_box_filter_node.param.yaml}
+      - ${VEHICLE_INFO_PARAMS_YML:-/dev/null:/dev/null0}${VEHICLE_INFO_PARAMS_YML:+:/docker-ros/ws/install/autoware_vehicle_info_utils/share/autoware_vehicle_info_utils/config/vehicle_info.param.yaml}
+      - ${GROUND_FILTER_PARAMS_YML:-/dev/null:/dev/null0}${GROUND_FILTER_PARAMS_YML:+:/docker-ros/ws/install/autoware_ground_filter/share/autoware_ground_filter/config/ground_filter.param.yaml}
+
+  perception.point-cloud-grid-mapping:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-gpu-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/autoware_probabilistic_occupancy_grid_map:latest
+    command: >
+      ros2 launch autoware_probabilistic_occupancy_grid_map pointcloud_based_occupancy_grid_map.launch.py
+        input/obstacle_pointcloud:=${INPUT_POINT_CLOUD_TOPIC}/obstacle
+        input/raw_pointcloud:=${INPUT_POINT_CLOUD_TOPIC}
+        output:=${OUTPUT_OCCUPANCY_GRID_TOPIC}
+    volumes:
+      - ${GRID_MAP_PARAMS_YML:-/dev/null:/dev/null0}${GRID_MAP_PARAMS_YML:+:/docker-ros/ws/install/autoware_probabilistic_occupancy_grid_map/share/autoware_probabilistic_occupancy_grid_map/config/pointcloud_based_occupancy_grid_map.param.yaml}
+      - ${GRID_MAP_FILTER_PARAMS_YML:-/dev/null:/dev/null0}${GRID_MAP_FILTER_PARAMS_YML:+:/docker-ros/ws/install/autoware_probabilistic_occupancy_grid_map/share/autoware_probabilistic_occupancy_grid_map/config/binary_bayes_filter_updater.param.yaml}
