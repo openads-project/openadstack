@@ -1,9 +1,3 @@
-# === Environment Variables ====================================================
-# - EGO_DATA_TOPIC (optional)
-# - USE_SIM_TIME   (optional)
-# - PARAMS_YML     (optional)
-# ==============================================================================
-
 services:
 
   planning.lanelet2-route-planning:
@@ -11,10 +5,21 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:latest
-    command: >
-      ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py
-      route_topic:=${ROUTE_TOPIC:-/lanelet2_route_planning/route}
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      use_sim_time:=${USE_SIM_TIME:-false}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml}
+    environment:
+      NAMESPACE: /planning
+      NAME: lanelet2_route_planning
+      USE_SIM_TIME: false
+      EGO_DATA_TOPIC: /localization/ego_data
+      ROUTE_TOPIC: /planning/route
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml

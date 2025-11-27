@@ -1,0 +1,57 @@
+services:
+
+  communication.etsi2ad:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: etsi2ad
+      USE_SIM_TIME: false
+      CAM_IN: /communication/etsi_its_conversion_receiver/cam/out
+      CPM_IN: /communication/etsi_its_conversion_receiver/cpm_ts/out
+      EGO_DATA_OUT: /communication/etsi_its_conversion_receiver/ego_data
+      OBJECT_LIST_OUT: /communication/etsi_its_conversion_receiver/object_list
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          cam_in:=$${CAM_IN} \
+          cpm_in:=$${CPM_IN} \
+          ego_data_out:=$${EGO_DATA_OUT} \
+          object_list_out:=$${OBJECT_LIST_OUT}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml
+
+  communication.ad2etsi:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/definitions/ad2etsi:latest
+    environment:
+      NAMESPACE: /communication
+      NAME: ad2etsi
+      USE_SIM_TIME: false
+      EGO_DATA_IN: /localization/ego_data
+      OBJECT_LIST_IN: /understanding/predicted_object_list
+      CAM_OUT: /communication/etsi_its_conversion_sender/cam/in
+      CPM_OUT: /communication/etsi_its_conversion_sender/cpm_ts/in
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch ad2etsi_converter_node ad2etsi_component_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          ego_data_in:=$${EGO_DATA_IN} \
+          object_list_in:=$${OBJECT_LIST_IN} \
+          cam_out:=$${CAM_OUT} \
+          cpm_out:=$${CPM_OUT}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml

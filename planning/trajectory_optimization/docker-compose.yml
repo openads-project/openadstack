@@ -1,17 +1,3 @@
-# === Environment Variables ====================================================
-# - DRIVING_MODE                (optional)
-# - REFERENCE_TRAJECTORY_TOPIC  (optional)
-# - TRAJECTORY_TOPIC            (optional)
-# - EGO_DATA_TOPIC              (optional)
-# - OBJECT_LIST_TOPIC           (optional)
-# - ROUTE_TOPIC                 (optional)
-# - EGO_CIRCLES_TOPIC           (optional)
-# - OBJECT_CIRCLES_TOPIC        (optional)
-# - ROUTE_MARKER_TOPIC          (optional)
-# - USE_SIM_TIME                (optional)
-# - PARAMS_YML                  (required)
-# ==============================================================================
-
 services:
 
   planning.trajectory-optimization:
@@ -19,19 +5,35 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
-    command: >
-      bash -ic "
-      ros2 launch trajectory_optimization trajectory_optimization.launch.py
-      driving_mode:=${DRIVING_MODE:-ackermann}
-      reference_trajectory_topic:=${REFERENCE_TRAJECTORY_TOPIC:-/planning/reference_trajectory}
-      trajectory_topic:=${TRAJECTORY_TOPIC:-/planning/drivable_trajectory}
-      ego_data_topic:=${EGO_DATA_TOPIC:-/localization/ego_data}
-      object_list_topic:=${OBJECT_LIST_TOPIC:-/understanding/predicted_object_list}
-      route_topic:=${ROUTE_TOPIC:-/understanding/enriched_route}
-      ego_circles_topic:=${EGO_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/ego_circles}
-      object_circles_topic:=${OBJECT_CIRCLES_TOPIC:-/planning/trajectory_optimization/visualization/object_circles}
-      route_marker_topic:=${ROUTE_MARKER_TOPIC:-/planning/trajectory_optimization/visualization/route_marker}
-      use_sim_time:=${USE_SIM_TIME:-false}
-      "
-    volumes:
-      - ${PARAMS_YML}:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
+    environment:
+      NAMESPACE: /planning
+      NAME: trajectory_optimization
+      USE_SIM_TIME: false
+      DRIVING_MODE: ackermann
+      REFERENCE_TRAJECTORY_TOPIC: /planning/reference_trajectory
+      TRAJECTORY_TOPIC: /planning/drivable_trajectory
+      EGO_DATA_TOPIC: /localization/ego_data
+      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
+      ROUTE_TOPIC: /understanding/enriched_route
+      EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
+      OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
+      ROUTE_MARKER_TOPIC: ~/visualization/route_marker
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch trajectory_optimization trajectory_optimization.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          driving_mode:=$${DRIVING_MODE} \
+          reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+          ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
+          object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
+          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
