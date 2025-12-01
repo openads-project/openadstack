@@ -22,7 +22,7 @@ services:
       UNCLASSIFIED_POINT_CLOUD_TOPIC: ~/unclassified_point_cloud
     command:
       - /bin/bash
-      - -c
+      - -ic
       - |
         ros2 launch point_cloud_object_detection point_cloud_object_detection.launch.py \
           namespace:=$${NAMESPACE} \
