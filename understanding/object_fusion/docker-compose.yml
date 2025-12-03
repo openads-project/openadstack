@@ -1,9 +1,3 @@
-# === Environment Variables ====================================================
-# - PARAMS_YML (optional)
-# - FUSED_OBJECT_LISTS (optional)
-# - FUSED_TRAJECTORIES (optional)
-# ==============================================================================
-
 services:
 
   understanding.object-fusion:
@@ -11,6 +5,23 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest
-    command: ros2 launch object_fusion fusion_function_launch.py fused_object_list_topic:=${FUSED_OBJECT_LIST:-/understanding/fused_object_list} fused_trajectories_topic:=${FUSED_TRAJECTORIES:-/understanding/fused_trajectories}
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml}
+    environment:
+      NAMESPACE: /understanding
+      NAME: object_fusion
+      USE_SIM_TIME: false
+      RAW_OBJECT_LISTS_TOPIC: ~/raw_object_lists
+      FUSED_OBJECT_LIST_TOPIC: /understanding/fused_object_list
+      FUSED_TRAJECTORIES_TOPIC: /understanding/fused_trajectories
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch object_fusion fusion_function_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          raw_object_lists_topic:=$${RAW_OBJECT_LISTS_TOPIC} \
+          fused_object_list_topic:=$${FUSED_OBJECT_LIST_TOPIC} \
+          fused_trajectories_topic:=$${FUSED_TRAJECTORIES_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml
