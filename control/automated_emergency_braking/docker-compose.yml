@@ -4,13 +4,13 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/automated_emergency_braking:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/automated_emergency_braking:latest_approx-sync_ci
     environment:
       NAMESPACE: /control
       NAME: automated_emergency_braking
       OCCUPANCY_GRID_TOPIC: /perception/point_cloud_grid_mapping/occupancy_grid
       EGO_DATA_TOPIC: /localization/ego_data
-      EMERGENCY_STOP_SERVICE: /dbw_supervisor/emergency_stop
+      EMERGENCY_STOP_SERVICE: /control/dbw_supervisor/emergency_stop
     command:
       - /bin/bash
       - -ic
