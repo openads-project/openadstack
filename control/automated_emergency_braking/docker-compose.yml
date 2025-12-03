@@ -1,10 +1,3 @@
-# === Environment Variables ====================================================
-# - OCCUPANCY_GRID_TOPIC      (required)
-# - EGO_DATA_TOPIC            (required)
-# - EMERGENCY_STOP_SERVICE    (required)
-# - PARAMS_YML                (optional)
-# ==============================================================================
-
 services:
 
   control.automated-emergency-braking:
@@ -12,6 +5,21 @@ services:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/automated_emergency_braking:latest
-    command: ros2 launch automated_emergency_braking automated_emergency_braking_launch.py occupancy_grid_topic:=${OCCUPANCY_GRID_TOPIC} ego_data_topic:=${EGO_DATA_TOPIC} emergency_stop_service:=${EMERGENCY_STOP_SERVICE}
-    volumes:
-      - ${PARAMS_YML}:/docker-ros/ws/install/automated_emergency_braking/share/automated_emergency_braking/config/params.yml
+    environment:
+      NAMESPACE: /control
+      NAME: automated_emergency_braking
+      OCCUPANCY_GRID_TOPIC: /perception/point_cloud_grid_mapping/occupancy_grid
+      EGO_DATA_TOPIC: /localization/ego_data
+      EMERGENCY_STOP_SERVICE: /dbw_supervisor/emergency_stop
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch automated_emergency_braking automated_emergency_braking_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          occupancy_grid_topic:=$${OCCUPANCY_GRID_TOPIC} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          emergency_stop_service:=$${EMERGENCY_STOP_SERVICE}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/automated_emergency_braking/share/automated_emergency_braking/config/params.yml
