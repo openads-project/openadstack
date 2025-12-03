@@ -1,12 +1,3 @@
-# === Environment Variables ====================================================
-# - CAMERA_IMAGE_TOPIC  (optional)
-# - CAMERA_INFO_TOPIC   (optional)
-# - OUTPUT_TOPIC        (optional)
-# - VISUALIZATION_TOPIC (optional)
-# - USE_SIM_TIME        (optional)
-# - PARAMS_YML          (optional)
-# ==============================================================================
-
 services:
 
   perception.traffic-light-detection:
@@ -16,14 +7,25 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:latest
     depends_on:
       - triton-server
-    command: >
-      bash -ic "
-      ros2 launch traffic_light_detection tl_perception.launch.py
-      camera_image_topic:=${CAMERA_IMAGE_TOPIC:-/tld/input/camera_image}
-      camera_info_topic:=${CAMERA_INFO_TOPIC:-/tld/input/camera_info}
-      output_topic:=${OUTPUT_TOPIC:-/tld/output/detections}
-      visualization_output_topic:=${VISUALIZATION_TOPIC:-/tld/output/viz_image/compressed}
-      use_sim_time:=${USE_SIM_TIME:-false}
-      "
-    volumes:
-      - ${PARAMS_YML:-/dev/null:/dev/null}${PARAMS_YML:+:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml}
+    environment:
+      NAMESPACE: /perception
+      NAME: traffic_light_detection
+      USE_SIM_TIME: false
+      CAMERA_IMAGE_TOPIC: ~/camera_image
+      CAMERA_INFO_TOPIC: ~/camera_info
+      OUTPUT_TOPIC: ~/output
+      VISUALIZATION_OUTPUT_TOPIC: ~/viz_output
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch traffic_light_detection tl_perception.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          camera_image_topic:=$${CAMERA_IMAGE_TOPIC} \
+          camera_info_topic:=$${CAMERA_INFO_TOPIC} \
+          output_topic:=$${OUTPUT_TOPIC} \
+          visualization_output_topic:=$${VISUALIZATION_OUTPUT_TOPIC}
+    # volumes:
+    #   - params.yml:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml
