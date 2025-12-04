@@ -12,6 +12,7 @@ services:
       NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
       MAP_FRAME_ID: map
       USE_AUTOMATIC_MAP_SELECTION: true
+      MAP_DIRECTORY: /data/maps/locations
       # MAP_FILEPATH: /data/maps/locations/germany-aldenhoven-atc/lanelet2/ika-carla/ATC.osm
       # ORIGIN_LAT: 50.908973
       # ORIGIN_LON: 6.230061
@@ -31,10 +32,11 @@ services:
         ros2 run lanelet2_map_server lanelet2_map_server --ros-args \
           -r __ns:=$${NAMESPACE} \
           -r __node:=$${NAME} \
-          -r ~/gps/fix:=$${NAV_SAT_FIX_TOPIC} \
+          -r $${NAMESPACE}/$${NAME}/gps/fix:=$${NAV_SAT_FIX_TOPIC} \
           -p use_sim_time:=$${USE_SIM_TIME} \
           -p map_frame_id:=$${MAP_FRAME_ID} \
           -p use_automatic_map_selection:=$${USE_AUTOMATIC_MAP_SELECTION} \
-          -p map_filepath:=$${MAP_FILEPATH} \
-          -p origin_lat:=$${ORIGIN_LAT} \
-          -p origin_lon:=$${ORIGIN_LON}
+          -p map_directory:=$${MAP_DIRECTORY} \
+          $(if [ -n "$${MAP_FILEPATH}" ]; then printf ' -p map_filepath:=%s' "$${MAP_FILEPATH}"; fi) \
+          $(if [ -n "$${ORIGIN_LAT}" ]; then printf ' -p origin_lat:=%s' "$${ORIGIN_LAT}"; fi) \
+          $(if [ -n "$${ORIGIN_LON}" ]; then printf ' -p origin_lon:=%s' "$${ORIGIN_LON}"; fi)
