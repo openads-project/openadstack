@@ -16,10 +16,10 @@ services:
       - -ic
       - |
         ros2 launch automated_emergency_braking automated_emergency_braking_launch.py \
-          namespace:=${NAMESPACE} \
-          name:=${NAME} \
-          occupancy_grid_topic:=${OCCUPANCY_GRID_TOPIC} \
-          ego_data_topic:=${EGO_DATA_TOPIC} \
-          emergency_stop_requested_topic:=${EMERGENCY_STOP_REQUESTED_TOPIC}
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          occupancy_grid_topic:=$${OCCUPANCY_GRID_TOPIC} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          emergency_stop_requested_topic:=$${EMERGENCY_STOP_REQUESTED_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/automated_emergency_braking/share/automated_emergency_braking/config/params.yml
