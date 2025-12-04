@@ -8,16 +8,20 @@ services:
     environment:
       NAMESPACE: /control
       NAME: dbw_supervisor
-      INPUT_TOPIC: /control/ackermann_cmd_supervised
-      OUTPUT_TOPIC: /control/ackermann_cmd
+      ACKERMANN_INPUT_TOPIC: /control/ackermann_cmd_supervised
+      ACKERMANN_OUTPUT_TOPIC: /control/ackermann_cmd
+      EMERGENCY_STOP_REQUESTED_TOPIC: /control/automated_emergency_braking/emergency_stop_requested
+      ENABLE_HAZARD_LIGHTS_SERVICE: /drivers/fka_dbw/hazard_lights
     command:
       - /bin/bash
       - -ic
       - |
-        ros2 launch dbw_supervisor dbw_supervisor_launch.xml \
-          namespace:=$${NAMESPACE} \
-          name:=$${NAME} \
-          input_topic:=$${INPUT_TOPIC} \
-          output_topic:=$${OUTPUT_TOPIC}
+        ros2 launch dbw_supervisor dbw_supervisor_launch.py \
+          namespace:=${NAMESPACE} \
+          name:=${NAME} \
+          ackermann_input_topic:=${ACKERMANN_INPUT_TOPIC} \
+          ackermann_output_topic:=${ACKERMANN_OUTPUT_TOPIC} \
+          emergency_stop_requested_topic:=${EMERGENCY_STOP_REQUESTED_TOPIC} \
+          enable_hazard_lights_service:=${ENABLE_HAZARD_LIGHTS_SERVICE}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/dbw_supervisor/share/dbw_supervisor/config/params.yml
