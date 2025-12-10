@@ -29,6 +29,11 @@ services:
       - /bin/bash
       - -ic
       - |
+        OPT_ARGS=()
+        if [ -n "$${MAP_FILEPATH}" ]; then OPT_ARGS+=("-p" "map_filepath:=$${MAP_FILEPATH}"); fi
+        if [ -n "$${ORIGIN_LAT}" ]; then OPT_ARGS+=("-p" "origin_lat:=$${ORIGIN_LAT}"); fi
+        if [ -n "$${ORIGIN_LON}" ]; then OPT_ARGS+=("-p" "origin_lon:=$${ORIGIN_LON}"); fi
+
         ros2 run lanelet2_map_server lanelet2_map_server --ros-args \
           -r __ns:=$${NAMESPACE} \
           -r __node:=$${NAME} \
@@ -37,6 +42,4 @@ services:
           -p map_frame_id:=$${MAP_FRAME_ID} \
           -p use_automatic_map_selection:=$${USE_AUTOMATIC_MAP_SELECTION} \
           -p map_directory:=$${MAP_DIRECTORY} \
-          $(if [ -n "$${MAP_FILEPATH}" ]; then printf ' -p map_filepath:=%s' "$${MAP_FILEPATH}"; fi) \
-          $(if [ -n "$${ORIGIN_LAT}" ]; then printf ' -p origin_lat:=%s' "$${ORIGIN_LAT}"; fi) \
-          $(if [ -n "$${ORIGIN_LON}" ]; then printf ' -p origin_lon:=%s' "$${ORIGIN_LON}"; fi)
+          "$${OPT_ARGS[@]}"
