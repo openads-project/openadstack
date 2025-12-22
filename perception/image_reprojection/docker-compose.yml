@@ -1,0 +1,21 @@
+services:
+
+  perception.image-reprojection:
+      extends:
+        file: ../../docker-compose-essentials/docker-compose.template.yml
+        service: ros2-gpu-service
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/image_reprojection:latest
+      environment:
+        NAMESPACE: /perception
+        NAME: image_reprojection
+        USE_SIM_TIME: false
+      command:
+        - /bin/bash
+        - -c
+        - |
+          ros2 launch image_reprojection image_reprojection_launch.py \
+            namespace:=$${NAMESPACE} \
+            name:=$${NAME} \
+            use_sim_time:=$${USE_SIM_TIME}
+      # volumes:
+      #   - ./params.yml:/docker-ros/ws/install/image_reprojection/share/image_reprojection/config/params.yml
