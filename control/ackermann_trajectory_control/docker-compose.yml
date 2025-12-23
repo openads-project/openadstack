@@ -16,7 +16,7 @@ services:
       - /bin/bash
       - -ic
       - |
-        ros2 launch object_fusion fusion_function_launch.py \
+        ros2 launch ackermann_trajectory_control ackermann_trajectory_control_node.launch.py \
           namespace:=$${NAMESPACE} \
           node_name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
