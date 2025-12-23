@@ -1,0 +1,27 @@
+services:
+
+  control.ackermann-trajectory-control:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/ackermann_trajectory_control:v1.0.0
+    environment:
+      NAMESPACE: /control
+      NAME: ackermann_trajectory_control
+      USE_SIM_TIME: false
+      EGO_DATA_TOPIC: /localization/ego_data
+      TRAJECTORY_TOPIC: /planning/drivable_trajectory
+      OUTPUT_TOPIC: /control/ackermann_cmd
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch object_fusion fusion_function_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          input_ego_data:=$${EGO_DATA_TOPIC} \
+          input_trajectory:=$${TRAJECTORY_TOPIC} \
+          output:=$${OUTPUT_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml
