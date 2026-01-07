@@ -14,7 +14,7 @@ services:
       - /bin/bash
       - -ic
       - |
-        ros2 launch autoware_ground_filter ground_filter.launch.xml \
+        ros2 launch autoware_ground_filter ground_filter.launch.py \
           input/pointcloud:=$${INPUT_POINT_CLOUD_TOPIC} \
           output/pointcloud:=$${OBSTACLE_POINT_CLOUD_TOPIC}
     # volumes:
