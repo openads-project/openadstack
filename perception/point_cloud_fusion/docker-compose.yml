@@ -10,6 +10,7 @@ services:
         NAME: point_cloud_fusion
         USE_SIM_TIME: false
         OUTPUT_TOPIC: ~/points
+        ROS_TRACING: ${ROS_TRACING:-false}
       command:
         - /bin/bash
         - -ic
@@ -19,6 +20,6 @@ services:
             name:=$${NAME} \
             use_sim_time:=$${USE_SIM_TIME} \
             output_topic:=$${OUTPUT_TOPIC} \
-            trace:=$${ROS_TRACING:-false}
+            trace:=$${ROS_TRACING}
       # volumes:
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
