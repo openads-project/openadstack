@@ -10,6 +10,7 @@ services:
       NAME: point-cloud-ground-filter
       INPUT_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points
       OBSTACLE_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points/obstacle
+      ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
       - -ic
@@ -17,7 +18,7 @@ services:
         ros2 launch autoware_ground_filter ground_filter.launch.py \
           input/pointcloud:=$${INPUT_POINT_CLOUD_TOPIC} \
           output/pointcloud:=$${OBSTACLE_POINT_CLOUD_TOPIC} \
-          trace:=$${ROS_TRACING:-false}
+          trace:=$${ROS_TRACING}
     # volumes:
     #   - ./crop_box_filter_node.param.yaml:/docker-ros/ws/install/autoware_crop_box_filter/share/autoware_crop_box_filter/config/crop_box_filter_node.param.yaml
     #   - ./vehicle_info.param.yaml:/docker-ros/ws/install/autoware_vehicle_info_utils/share/autoware_vehicle_info_utils/config/vehicle_info.param.yaml
