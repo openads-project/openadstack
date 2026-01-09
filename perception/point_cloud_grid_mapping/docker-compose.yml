@@ -8,9 +8,9 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: point-cloud-ground-filter
+      ROS_TRACING: ${ROS_TRACING:-false}
       INPUT_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points
       OBSTACLE_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points/obstacle
-      ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
       - -ic
@@ -32,6 +32,7 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: point-cloud-grid-mapping
+      ROS_TRACING: ${ROS_TRACING:-false}
       RAW_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points
       OBSTACLE_POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/points/obstacle
       OUTPUT_OCCUPANCY_GRID_TOPIC: /perception/point_cloud_grid_mapping/occupancy_grid
@@ -42,7 +43,8 @@ services:
         ros2 launch autoware_probabilistic_occupancy_grid_map pointcloud_based_occupancy_grid_map.launch.py \
           input/raw_pointcloud:=$${RAW_POINT_CLOUD_TOPIC} \
           input/obstacle_pointcloud:=$${OBSTACLE_POINT_CLOUD_TOPIC} \
-          output:=$${OUTPUT_OCCUPANCY_GRID_TOPIC}
+          output:=$${OUTPUT_OCCUPANCY_GRID_TOPIC} \
+          trace:=$${ROS_TRACING}
     # volumes:
     #   - ./pointcloud_based_occupancy_grid_map.param.yaml:/docker-ros/ws/install/autoware_probabilistic_occupancy_grid_map/share/autoware_probabilistic_occupancy_grid_map/config/pointcloud_based_occupancy_grid_map.param.yaml
     #   - ./binary_bayes_filter_updater.param.yaml:/docker-ros/ws/install/autoware_probabilistic_occupancy_grid_map/share/autoware_probabilistic_occupancy_grid_map/config/binary_bayes_filter_updater.param.yaml
