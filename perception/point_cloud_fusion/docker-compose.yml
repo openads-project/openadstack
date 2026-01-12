@@ -19,7 +19,7 @@ services:
             namespace:=$${NAMESPACE} \
             name:=$${NAME} \
             use_sim_time:=$${USE_SIM_TIME} \
-            output_topic:=$${OUTPUT_TOPIC} \
-            trace:=$${ROS_TRACING}
+            trace:=$${ROS_TRACING} \
+            output_topic:=$${OUTPUT_TOPIC}
       # volumes:
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
