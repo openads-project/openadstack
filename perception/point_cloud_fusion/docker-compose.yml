@@ -9,8 +9,8 @@ services:
         NAMESPACE: /perception
         NAME: point_cloud_fusion
         USE_SIM_TIME: false
-        OUTPUT_TOPIC: ~/points
         ROS_TRACING: ${ROS_TRACING:-false}
+        OUTPUT_TOPIC: ~/points
       command:
         - /bin/bash
         - -ic
