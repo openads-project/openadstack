@@ -12,8 +12,8 @@ services:
       MAP_FRAME_ID: map
       NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
       USE_AUTOMATIC_MAP_SELECTION: false
-      MAP_DIRECTORY: /data/maps/locations
-      MAP_FILEPATH: /data/maps/locations/germany-aldenhoven-atc/lanelet2/ika-carla/ATC.osm
+      MAP_DIRECTORY: /data/maps/default-maps
+      MAP_FILEPATH: /data/maps/aachen.osm
       ORIGIN_LAT: 50.908973
       ORIGIN_LON: 6.230061
     command:
