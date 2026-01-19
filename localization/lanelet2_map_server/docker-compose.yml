@@ -14,8 +14,8 @@ services:
       USE_AUTOMATIC_MAP_SELECTION: false
       MAP_DIRECTORY: /data/maps/default-maps
       MAP_FILEPATH: /data/maps/aachen.osm
-      ORIGIN_LAT: 50.908973
-      ORIGIN_LON: 6.230061
+      ORIGIN_LAT: 50.787047
+      ORIGIN_LON: 6.046511
     command:
       - /bin/bash
       - -ic
