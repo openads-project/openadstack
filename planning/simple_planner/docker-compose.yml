@@ -12,6 +12,9 @@ services:
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /understanding/enriched_route
       TRAJECTORY_TOPIC: /planning/reference_trajectory
+      LEFT_INDICATOR_SERVICE: ~/enable_left_turn_indicator
+      RIGHT_INDICATOR_SERVICE: ~/enable_right_turn_indicator
+      HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights
     command:
       - /bin/bash
       - -ic
@@ -22,6 +25,9 @@ services:
           use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
-          trajectory_topic:=$${TRAJECTORY_TOPIC}
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          left_indicator_service:=$${LEFT_INDICATOR_SERVICE} \
+          right_indicator_service:=$${RIGHT_INDICATOR_SERVICE} \
+          hazard_lights_service:=$${HAZARD_LIGHTS_SERVICE}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
