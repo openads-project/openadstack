@@ -22,5 +22,5 @@ services:
             trace:=$${ROS_TRACING} \
             output_topic:=$${OUTPUT_TOPIC}
       volumes:
-        - ../../tracing/perception.point-cloud-fusion:/trace
+        - ../../utils/tracing/perception.point-cloud-fusion:/trace
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
