@@ -11,7 +11,7 @@ services:
       NAMESPACE: /perception
       NAME: point_cloud_object_detection
       USE_SIM_TIME: false
-      ROS_TRACING: ${TRACING:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: ~/object_list
       CLASS_POINT_CLOUD_CAR_TOPIC: ~/class_point_cloud/car
