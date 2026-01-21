@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest_tracing_ci-amd64
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
     depends_on:
       - triton-server
     environment:
