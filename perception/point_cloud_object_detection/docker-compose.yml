@@ -40,6 +40,6 @@ services:
           class_point_cloud_two_wheeler_topic:=$${CLASS_POINT_CLOUD_TWO_WHEELER_TOPIC} \
           unclassified_point_cloud_topic:=$${UNCLASSIFIED_POINT_CLOUD_TOPIC}
     volumes:
-      - ../../tracing/perception.point-cloud-object-detection.fused:/trace
+      - ../../utils/tracing/perception.point-cloud-object-detection.fused:/trace
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
     #   - ./models:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models

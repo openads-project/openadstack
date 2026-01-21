@@ -2,7 +2,7 @@ services:
 
   trace-compass:
     extends:
-      file: ../docker-compose-essentials/docker-compose.template.yml
+      file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-x11-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2_tracing:latest-dev_trace-compass_ci
     command: bash -ic "cd /docker-ros/ws/src/target/analysis && jupyter lab --ip='127.0.0.1' --NotebookApp.token='' & cd /trace && tracecompass"
