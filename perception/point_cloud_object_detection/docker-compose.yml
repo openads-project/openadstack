@@ -7,16 +7,11 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest_tracing_ci-amd64
     depends_on:
       - triton-server
-    # increase max number of open files for tracing
-    ulimits:
-      nofile:
-        soft: 65536
-        hard: 65536
     environment:
       NAMESPACE: /perception
       NAME: point_cloud_object_detection
       USE_SIM_TIME: false
-      ROS_TRACING: ${ROS_TRACING:-false}
+      ROS_TRACING: ${TRACING:-false}
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: ~/object_list
       CLASS_POINT_CLOUD_CAR_TOPIC: ~/class_point_cloud/car
