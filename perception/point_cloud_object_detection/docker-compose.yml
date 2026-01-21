@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest_tracing_ci-amd64
     depends_on:
       - triton-server
     # increase max number of open files for tracing
@@ -44,6 +44,7 @@ services:
           class_point_cloud_bus_topic:=$${CLASS_POINT_CLOUD_BUS_TOPIC} \
           class_point_cloud_two_wheeler_topic:=$${CLASS_POINT_CLOUD_TWO_WHEELER_TOPIC} \
           unclassified_point_cloud_topic:=$${UNCLASSIFIED_POINT_CLOUD_TOPIC}
-    # volumes:
+    volumes:
+      - ../../tracing/perception.point-cloud-object-detection.fused:/trace
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
     #   - ./models:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models

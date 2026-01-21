@@ -4,7 +4,7 @@ services:
       extends:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-service
-      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:latest
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:latest_tracing_ci-amd64
       # increase max number of open files for tracing
       ulimits:
         nofile:
@@ -26,5 +26,6 @@ services:
             use_sim_time:=$${USE_SIM_TIME} \
             trace:=$${ROS_TRACING} \
             output_topic:=$${OUTPUT_TOPIC}
-      # volumes:
+      volumes:
+        - ../../tracing/perception.point-cloud-fusion:/trace
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
