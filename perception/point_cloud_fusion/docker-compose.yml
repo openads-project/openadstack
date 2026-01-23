@@ -21,5 +21,5 @@ services:
             use_sim_time:=$${USE_SIM_TIME} \
             trace:=$${ROS_TRACING} \
             output_topic:=$${OUTPUT_TOPIC}
-      volumes:
+      # volumes:
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
