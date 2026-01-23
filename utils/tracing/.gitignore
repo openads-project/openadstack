@@ -1,0 +1,13 @@
+# Ignore all files in this directory except .gitignore
+*
+!.gitignore
+
+# But keep subdirectories
+!*/
+
+# Keep .gitkeep files in subdirectories
+!.gitkeep
+!**/.gitkeep
+!docker-compose.yml
+!README.md
+!tracing.sh

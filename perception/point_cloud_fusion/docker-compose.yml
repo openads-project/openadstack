@@ -9,6 +9,7 @@ services:
         NAMESPACE: /perception
         NAME: point_cloud_fusion
         USE_SIM_TIME: false
+        ROS_TRACING: ${ROS_TRACING:-false}
         OUTPUT_TOPIC: ~/points
       command:
         - /bin/bash
@@ -18,6 +19,8 @@ services:
             namespace:=$${NAMESPACE} \
             name:=$${NAME} \
             use_sim_time:=$${USE_SIM_TIME} \
+            trace:=$${ROS_TRACING} \
             output_topic:=$${OUTPUT_TOPIC}
-      # volumes:
+      volumes:
+        - ../../utils/tracing/perception.point-cloud-fusion:/trace
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
