@@ -45,7 +45,6 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
         if [ "$ACTION" == "start" ]; then
             echo "Starting tracing in container: $container"
 
-            # Start tracing with timestamped path
             TRACE_COMMAND="ros2 trace start trace --dual-session"
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$TRACE_COMMAND"
 
@@ -55,8 +54,12 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$STOP_COMMAND"
             
             echo "Copy trace files from container: $container"
-            mkdir -p $container/$TIMESTAMP
-            docker cp $container:/home/dockeruser/.ros/tracing/trace $container/$TIMESTAMP
+            mkdir -p $TIMESTAMP/$container
+            docker cp $container:/home/dockeruser/.ros/tracing/trace $TIMESTAMP/$container
+
+            echo "Removing trace files from container: $container"
+            REMOVE_COMMAND="rm -rf /home/dockeruser/.ros/tracing"
+            docker exec --user "$DOCKER_USER" "$container" bash -ic "$REMOVE_COMMAND"
         fi
     done
 done
