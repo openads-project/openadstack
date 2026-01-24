@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/object_fusion:latest_tracing_ci
     environment:
       NAMESPACE: /understanding
       NAME: object_fusion
