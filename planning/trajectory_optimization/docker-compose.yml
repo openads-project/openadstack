@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest_tracing_ci
     environment:
       NAMESPACE: /planning
       NAME: trajectory_optimization
