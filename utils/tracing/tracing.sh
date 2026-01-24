@@ -16,6 +16,7 @@ CONTAINER_SUFFIXES=(
     "perception.point-cloud-object-detection.fused-1"
     "understanding.object-fusion-1"
     "understanding.lanelet2-object-list-prediction-1"
+    "planning.trajectory-optimization-1"
 )
 
 DOCKER_USER="dockeruser"
