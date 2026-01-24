@@ -9,6 +9,7 @@ services:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
       USE_SIM_TIME: false
+      ROS_TRACING: false
       INPUT_TOPIC: /understanding/fused_object_list
       OUTPUT_TOPIC: /understanding/predicted_object_list
     command:
@@ -19,6 +20,7 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
+          trace:=$${ROS_TRACING} \
           input_topic:=$${INPUT_TOPIC} \
           output_topic:=$${OUTPUT_TOPIC}
     # volumes:
