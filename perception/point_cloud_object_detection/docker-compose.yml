@@ -11,7 +11,7 @@ services:
       NAMESPACE: /perception
       NAME: point_cloud_object_detection
       USE_SIM_TIME: false
-      ROS_TRACING: ${ROS_TRACING:-false}
+      ROS_TRACING: false
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: ~/object_list
       CLASS_POINT_CLOUD_CAR_TOPIC: ~/class_point_cloud/car
@@ -39,7 +39,6 @@ services:
           class_point_cloud_bus_topic:=$${CLASS_POINT_CLOUD_BUS_TOPIC} \
           class_point_cloud_two_wheeler_topic:=$${CLASS_POINT_CLOUD_TWO_WHEELER_TOPIC} \
           unclassified_point_cloud_topic:=$${UNCLASSIFIED_POINT_CLOUD_TOPIC}
-    volumes:
-      - ../../utils/tracing/perception.point-cloud-object-detection.fused:/trace
+    # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
     #   - ./models:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models

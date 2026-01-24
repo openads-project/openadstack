@@ -49,8 +49,12 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
 
         elif [ "$ACTION" == "stop" ]; then
             echo "Stopping tracing in container: $container"
-            STOP_COMMAND="ros2 trace stop trace --dual-session && mv ~/.ros/tracing/trace /trace/$TIMESTAMP"
+            STOP_COMMAND="ros2 trace stop trace --dual-session"
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$STOP_COMMAND"
+            
+            echo "Copy trace files from container: $container"
+            mkdir -p $container/$TIMESTAMP
+            docker cp $container:/home/dockeruser/.ros/tracing/trace $container/$TIMESTAMP
         fi
     done
 done
