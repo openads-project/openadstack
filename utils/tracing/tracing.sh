@@ -14,6 +14,8 @@ TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 CONTAINER_SUFFIXES=(
     "perception.point-cloud-fusion-1"
     "perception.point-cloud-object-detection.fused-1"
+    "understanding.object-fusion-1"
+    "understanding.lanelet2-object-list-prediction-1"
 )
 
 DOCKER_USER="dockeruser"
