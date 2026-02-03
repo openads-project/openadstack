@@ -12,6 +12,7 @@ TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 
 # List of container name suffixes to trace
 CONTAINER_SUFFIXES=(
+    "carla-ros-bridge-1"
     "perception.point-cloud-fusion-1"
     "perception.point-cloud-object-detection.fused-1"
     "understanding.object-fusion-1"
