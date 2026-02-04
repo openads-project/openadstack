@@ -24,6 +24,10 @@ CONTAINER_SUFFIXES=(
 
 DOCKER_USER="dockeruser"
 
+# Arrays to track results
+SUCCESS_CONTAINERS=()
+FAILED_CONTAINERS=()
+
 # Validate action
 if [ "$ACTION" != "start" ] && [ "$ACTION" != "stop" ]; then
     echo "Usage: $0 {start|stop}"
@@ -51,19 +55,65 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
 
             TRACE_COMMAND="ros2 trace start trace --dual-session"
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$TRACE_COMMAND"
+            
+            if [ $? -eq 0 ]; then
+                SUCCESS_CONTAINERS+=("$container")
+            else
+                FAILED_CONTAINERS+=("$container")
+            fi
 
         elif [ "$ACTION" == "stop" ]; then
             echo "Stopping tracing in container: $container"
             STOP_COMMAND="ros2 trace stop trace --dual-session"
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$STOP_COMMAND"
             
+            STOP_STATUS=$?
+            
             echo "Copy trace files from container: $container"
             mkdir -p $TIMESTAMP/$container
             docker cp $container:/home/dockeruser/.ros/tracing/trace $TIMESTAMP/$container
+            
+            COPY_STATUS=$?
 
             echo "Removing trace files from container: $container"
             REMOVE_COMMAND="rm -rf /home/dockeruser/.ros/tracing"
             docker exec --user "$DOCKER_USER" "$container" bash -ic "$REMOVE_COMMAND"
+            
+            REMOVE_STATUS=$?
+            
+            if [ $STOP_STATUS -eq 0 ] && [ $COPY_STATUS -eq 0 ] && [ $REMOVE_STATUS -eq 0 ]; then
+                SUCCESS_CONTAINERS+=("$container")
+            else
+                FAILED_CONTAINERS+=("$container")
+            fi
         fi
     done
 done
+
+# Print summary
+echo ""
+echo "============================================"
+echo "Summary - $ACTION operation:"
+echo "============================================"
+
+if [ ${#SUCCESS_CONTAINERS[@]} -gt 0 ]; then
+    echo "✓ Successfully ${ACTION}ed tracing for ${#SUCCESS_CONTAINERS[@]} container(s):"
+    for container in "${SUCCESS_CONTAINERS[@]}"; do
+        echo "  - $container"
+    done
+else
+    echo "✓ No containers ${ACTION}ed successfully"
+fi
+
+echo ""
+
+if [ ${#FAILED_CONTAINERS[@]} -gt 0 ]; then
+    echo "✗ Failed to $ACTION tracing for ${#FAILED_CONTAINERS[@]} container(s):"
+    for container in "${FAILED_CONTAINERS[@]}"; do
+        echo "  - $container"
+    done
+else
+    echo "✗ No failures"
+fi
+
+echo "============================================"
