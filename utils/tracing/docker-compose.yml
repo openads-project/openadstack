@@ -4,8 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-x11-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2-tracing-analysis:latest-dev
-    command: bash -ic "cd /docker-ros/ws/src/target/analysis && jupyter lab --ip='127.0.0.1' --NotebookApp.token='' & cd /trace && tracecompass"
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2-tracing-analysis:latest
     volumes:
       - .:/trace
     network_mode: host
