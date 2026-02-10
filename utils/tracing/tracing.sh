@@ -51,45 +51,61 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
     fi
 
     for container in "${MATCHED_CONTAINERS[@]}"; do
-        if [ "$ACTION" == "start" ]; then
-            echo "Starting tracing in container: $container"
+        (
+            if [ "$ACTION" == "start" ]; then
+                echo "Starting tracing in container: $container"
 
-            TRACE_COMMAND="ros2 trace start trace --dual-session"
-            docker exec --user "$DOCKER_USER" "$container" bash -ic "$TRACE_COMMAND"
-            
-            if [ $? -eq 0 ]; then
-                SUCCESS_CONTAINERS+=("$container")
-            else
-                FAILED_CONTAINERS+=("$container")
+                TRACE_COMMAND="ros2 trace start trace --dual-session"
+                docker exec --user "$DOCKER_USER" "$container" bash -ic "$TRACE_COMMAND"
+                
+                if [ $? -eq 0 ]; then
+                    echo "$container" >> /tmp/tracing_success_$$
+                else
+                    echo "$container" >> /tmp/tracing_failed_$$
+                fi
+
+            elif [ "$ACTION" == "stop" ]; then
+                echo "Stopping tracing in container: $container"
+                STOP_COMMAND="ros2 trace stop trace --dual-session"
+                docker exec --user "$DOCKER_USER" "$container" bash -ic "$STOP_COMMAND"
+                
+                STOP_STATUS=$?
+                
+                echo "Copy trace files from container: $container"
+                mkdir -p $TIMESTAMP/$container
+                docker cp $container:/home/dockeruser/.ros/tracing/trace $TIMESTAMP/$container
+                
+                COPY_STATUS=$?
+
+                echo "Removing trace files from container: $container"
+                REMOVE_COMMAND="rm -rf /home/dockeruser/.ros/tracing"
+                docker exec --user "$DOCKER_USER" "$container" bash -ic "$REMOVE_COMMAND"
+                
+                REMOVE_STATUS=$?
+                
+                if [ $STOP_STATUS -eq 0 ] && [ $COPY_STATUS -eq 0 ] && [ $REMOVE_STATUS -eq 0 ]; then
+                    echo "$container" >> /tmp/tracing_success_$$
+                else
+                    echo "$container" >> /tmp/tracing_failed_$$
+                fi
             fi
-
-        elif [ "$ACTION" == "stop" ]; then
-            echo "Stopping tracing in container: $container"
-            STOP_COMMAND="ros2 trace stop trace --dual-session"
-            docker exec --user "$DOCKER_USER" "$container" bash -ic "$STOP_COMMAND"
-            
-            STOP_STATUS=$?
-            
-            echo "Copy trace files from container: $container"
-            mkdir -p $TIMESTAMP/$container
-            docker cp $container:/home/dockeruser/.ros/tracing/trace $TIMESTAMP/$container
-            
-            COPY_STATUS=$?
-
-            echo "Removing trace files from container: $container"
-            REMOVE_COMMAND="rm -rf /home/dockeruser/.ros/tracing"
-            docker exec --user "$DOCKER_USER" "$container" bash -ic "$REMOVE_COMMAND"
-            
-            REMOVE_STATUS=$?
-            
-            if [ $STOP_STATUS -eq 0 ] && [ $COPY_STATUS -eq 0 ] && [ $REMOVE_STATUS -eq 0 ]; then
-                SUCCESS_CONTAINERS+=("$container")
-            else
-                FAILED_CONTAINERS+=("$container")
-            fi
-        fi
+        ) &
     done
 done
+
+# Wait for all background jobs to complete
+wait
+
+# Read results from temporary files
+if [ -f /tmp/tracing_success_$$ ]; then
+    mapfile -t SUCCESS_CONTAINERS < /tmp/tracing_success_$$
+    rm /tmp/tracing_success_$$
+fi
+
+if [ -f /tmp/tracing_failed_$$ ]; then
+    mapfile -t FAILED_CONTAINERS < /tmp/tracing_failed_$$
+    rm /tmp/tracing_failed_$$
+fi
 
 # Print summary
 echo ""
