@@ -37,6 +37,16 @@ mqtt-client-interfaces:
   trigger:
     project: fb-fi/its-modules/communication/mqtt-client-interfaces
 
+# --- fb-fi/its-modules/control ---------------------------------------------------------------
+
+ackermann-trajectory-control:
+  stage: Downstream
+  only:
+    - web
+  allow_failure: true
+  trigger:
+    project: fb-fi/its-modules/control/ackermann_trajectory_control
+
 # --- fb-fi/its-modules/localization ---------------------------------------------
 
 ego-state-estimation:
