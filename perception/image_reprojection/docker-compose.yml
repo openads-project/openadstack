@@ -4,7 +4,7 @@ services:
       extends:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-gpu-service
-      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/image_reprojection:latest
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/image_reprojection:v1.0.0
       environment:
         NAMESPACE: /perception
         NAME: image_reprojection
