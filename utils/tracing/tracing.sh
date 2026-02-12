@@ -9,6 +9,7 @@ fi
 
 ACTION=$1
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # List of container name suffixes to trace
 # Default container suffixes
@@ -81,8 +82,8 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
                 STOP_STATUS=$?
                 
                 echo "Copy trace files from container: $container"
-                mkdir -p $TIMESTAMP/$container
-                docker cp $container:/home/dockeruser/.ros/tracing/trace $TIMESTAMP/$container
+                mkdir -p "$SCRIPT_DIR/$TIMESTAMP/$container"
+                docker cp $container:/home/dockeruser/.ros/tracing/trace "$SCRIPT_DIR/$TIMESTAMP/$container"
                 
                 COPY_STATUS=$?
 
