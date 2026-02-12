@@ -20,7 +20,7 @@ CONTAINER_SUFFIXES=(
     "planning.simple-planner-1"
     "planning.planning-orchestrator-1"
     "planning.trajectory-optimization-1"
-    "ackermann-trajectory-control-1"
+    "control.ackermann-trajectory-control-1"
 )
 
 DOCKER_USER="dockeruser"
