@@ -11,8 +11,8 @@ ACTION=$1
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 
 # List of container name suffixes to trace
-CONTAINER_SUFFIXES=(
-    "carla-ros-bridge-1"
+# Default container suffixes
+DEFAULT_CONTAINER_SUFFIXES=(
     "perception.point-cloud-fusion-1"
     "perception.point-cloud-object-detection.fused-1"
     "understanding.object-fusion-1"
@@ -22,6 +22,15 @@ CONTAINER_SUFFIXES=(
     "planning.trajectory-optimization-1"
     "control.ackermann-trajectory-control-1"
 )
+
+# Allow additional container suffixes via EXTRA_TRACING_CONTAINERS env var
+# e.g. EXTRA_TRACING_CONTAINERS="my-container-1 my-other-container-1" ./tracing.sh start
+EXTRA_SUFFIXES=()
+if [ -n "$EXTRA_TRACING_CONTAINERS" ]; then
+    IFS=' ' read -ra EXTRA_SUFFIXES <<< "$EXTRA_TRACING_CONTAINERS"
+fi
+
+CONTAINER_SUFFIXES=("${DEFAULT_CONTAINER_SUFFIXES[@]}" "${EXTRA_SUFFIXES[@]}")
 
 DOCKER_USER="dockeruser"
 
