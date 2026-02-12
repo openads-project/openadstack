@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:latest
+    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:v3.4.0
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_receiver
@@ -40,7 +40,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:latest
+    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:v3.4.0
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_sender
