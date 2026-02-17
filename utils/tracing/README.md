@@ -15,22 +15,6 @@ Tracing lets you see how data and decisions flow through the automated driving s
 4. Once finished, stop capturing trace data with `tracing.sh stop`. This will write captured trace data into timestamped subfolders of this folder per container.
 5. Start the ROS 2 Trace Analysis tools with `docker compose up`.
 
-### Data Analysis with Eclipse Trace Compass
+### How to analyze trace data using Eclipse Trace Compass and Jupyter Notebooks
 
-1. Select `File` --> `Import ...` --> Select root directory: `/trace` --> Chack the corresponding timestamped folders per container in the list --> `Finish`
-2. Extend `Tracing` in the Project Explorer --> Right-Click on `Traces` in the Project Explorer --> `Open As Experiment` --> `ROS 2 Expermient (Incubator)`
-3. Extend `Experiments` in the Project Explorer --> `Experiment` --> `Views` --> `ROS 2 Messages` --> Right click on `Messages (incubator)` --> `Open`
-4. Inspect the message flow, hold CTRL and scroll to zoom in, hold Shift to scroll left/right. Click an one of the bars in the message flow to follow, then click the *Follow this element* button above the graph to analyze the message flow.
-5. Extend `Experiments` in the Project Explorer --> `Experiment` --> `Views` --> `ROS 2 Message Flow` --> Right click on `Message Flow (incubator)` --> `Open`
-6. You should see the message flow.
-
-### Data Analysis with Jupyter Notebook
-
-1. Connect to the JupyterLab server running ad [http://localhost:8888](http://localhost:8888).
-2. Adapt the path in the first cell of the jupyter notebook to the container to be analyzed and run all cells to generate histograms of callback execution durations.
-
-### Tips
-
-- Keep trace windows short to reduce file size.
-- Restart the stack before capturing a new trace session to make sure that initialization data is captured, which is required for visualization in Eclipse Trace Compass.
-- Make sure that traced ROS nodes are started as `dockeruser`. Otherwise, make sure that Eclipse Trace Compass has file permissions to read the trace data.
+See [ros2-tracing-analysis](https://gitlab.ika.rwth-aachen.de/fb-fi/misc/ros2-tracing-analysis).

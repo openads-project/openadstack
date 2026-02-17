@@ -4,11 +4,12 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:v1.0.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/planning_orchestrator:v1.1.0
     environment:
       NAMESPACE: /planning
       NAME: planning_orchestrator
       USE_SIM_TIME: false
+      ROS_TRACING: false
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /planning/route
       OUTPUT_TRAJECTORY_TOPIC: /planning/reference_trajectory
@@ -25,6 +26,7 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
+          trace:=$${ROS_TRACING} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           output_trajectory_topic:=$${OUTPUT_TRAJECTORY_TOPIC} \
