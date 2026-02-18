@@ -11,27 +11,27 @@ ACTION=$1
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# List of container name suffixes to trace
-# Default container suffixes
-DEFAULT_CONTAINER_SUFFIXES=(
-    "perception.point-cloud-fusion-1"
-    "perception.point-cloud-object-detection.fused-1"
-    "understanding.object-fusion-1"
-    "understanding.lanelet2-object-list-prediction-1"
-    "planning.simple-planner-1"
-    "planning.planning-orchestrator-1"
-    "planning.trajectory-optimization-1"
-    "control.ackermann-trajectory-control-1"
+# List of container name substrings to trace
+# Default container substrings
+DEFAULT_CONTAINER_SUBSTRINGS=(
+    "perception.point-cloud-fusion"
+    "perception.point-cloud-object-detection"
+    "understanding.object-fusion"
+    "understanding.lanelet2-object-list-prediction"
+    "planning.simple-planner"
+    "planning.planning-orchestrator"
+    "planning.trajectory-optimization"
+    "control.ackermann-trajectory-control"
 )
 
-# Allow additional container suffixes via EXTRA_TRACING_CONTAINERS env var
+# Allow additional container substrings via EXTRA_TRACING_CONTAINERS env var
 # e.g. EXTRA_TRACING_CONTAINERS="my-container-1 my-other-container-1" ./tracing.sh start
-EXTRA_SUFFIXES=()
+EXTRA_SUBSTRINGS=()
 if [ -n "$EXTRA_TRACING_CONTAINERS" ]; then
-    IFS=' ' read -ra EXTRA_SUFFIXES <<< "$EXTRA_TRACING_CONTAINERS"
+    IFS=' ' read -ra EXTRA_SUBSTRINGS <<< "$EXTRA_TRACING_CONTAINERS"
 fi
 
-CONTAINER_SUFFIXES=("${DEFAULT_CONTAINER_SUFFIXES[@]}" "${EXTRA_SUFFIXES[@]}")
+CONTAINER_SUBSTRINGS=("${DEFAULT_CONTAINER_SUBSTRINGS[@]}" "${EXTRA_SUBSTRINGS[@]}")
 
 DOCKER_USER="dockeruser"
 
@@ -48,10 +48,10 @@ fi
 
 mapfile -t RUNNING_CONTAINERS < <(docker ps --format '{{.Names}}')
 
-for suffix in "${CONTAINER_SUFFIXES[@]}"; do
+for substring in "${CONTAINER_SUBSTRINGS[@]}"; do
     MATCHED_CONTAINERS=()
     for container in "${RUNNING_CONTAINERS[@]}"; do
-        if [[ "$container" == *"$suffix" ]]; then
+        if [[ "$container" == *"$substring"* ]]; then
             MATCHED_CONTAINERS+=("$container")
         fi
     done
