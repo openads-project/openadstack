@@ -38,6 +38,7 @@ DOCKER_USER="dockeruser"
 # Arrays to track results
 SUCCESS_CONTAINERS=()
 FAILED_CONTAINERS=()
+MISSING_CONTAINERS=()
 
 # Validate action
 if [ "$ACTION" != "start" ] && [ "$ACTION" != "stop" ]; then
@@ -56,7 +57,8 @@ for suffix in "${CONTAINER_SUFFIXES[@]}"; do
     done
 
     if [ ${#MATCHED_CONTAINERS[@]} -eq 0 ]; then
-        echo "Warning: No running container ending with '$suffix'."
+        echo "Warning: No running container containing '$substring'."
+        MISSING_CONTAINERS+=("$substring")
         continue
     fi
 
@@ -143,4 +145,13 @@ else
     echo "✗ No failures"
 fi
 
-echo "============================================"
+echo ""
+
+if [ ${#MISSING_CONTAINERS[@]} -gt 0 ]; then
+    echo "⚠ Missing ${#MISSING_CONTAINERS[@]} container(s) (not running):"
+    for substring in "${MISSING_CONTAINERS[@]}"; do
+        echo "  - $substring"
+    done
+fi
+
+echo "============================================="
