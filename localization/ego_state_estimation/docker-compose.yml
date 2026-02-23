@@ -12,8 +12,8 @@ services:
       ODOMETRY_TOPIC: ~/odometry
       NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
       IMU_ACC_TOPIC: ~/imu_acc
-      EKF_VEL_BODY_TOPIC: ~/sbg_vel
-      EKF_ROT_ACCEL_TOPIC: ~/sbg_rot_accel
+      SBG_ROT_ACCEL_TOPIC: ~/sbg_rot_accel
+      SBG_VEL_TOPIC: ~/sbg_vel
       VEHICLE_STATE_TOPIC: ~/vehicle_state
       TRAJECTORY_TOPIC: /planning/drivable_trajectory
       EGO_DATA_TOPIC: /localization/ego_data
@@ -29,8 +29,8 @@ services:
           odometry_topic:=$${ODOMETRY_TOPIC} \
           nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
           imu_acc_topic:=$${IMU_ACC_TOPIC} \
-          ekf_vel_body_topic:=$${EKF_VEL_BODY_TOPIC} \
-          ekf_rot_accel_topic:=$${EKF_ROT_ACCEL_TOPIC} \
+          sbg_rot_accel_topic:=$${SBG_ROT_ACCEL_TOPIC} \
+          sbg_vel_topic:=$${SBG_VEL_TOPIC} \
           vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
