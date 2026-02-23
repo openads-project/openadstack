@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:v1.0.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:latest_sbg-inputs_ci
     environment:
       NAMESPACE: /localization
       NAME: ego_state_estimation
@@ -12,6 +12,8 @@ services:
       ODOMETRY_TOPIC: ~/odometry
       NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
       IMU_ACC_TOPIC: ~/imu_acc
+      EKF_VEL_BODY_TOPIC: /drivers/sbg/ekf_vel_body
+      EKF_ROT_ACCEL_TOPIC: /drivers/sbg/ekf_rot_accel_body
       VEHICLE_STATE_TOPIC: ~/vehicle_state
       TRAJECTORY_TOPIC: /planning/drivable_trajectory
       EGO_DATA_TOPIC: /localization/ego_data
@@ -27,6 +29,8 @@ services:
           odometry_topic:=$${ODOMETRY_TOPIC} \
           nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
           imu_acc_topic:=$${IMU_ACC_TOPIC} \
+          ekf_vel_body_topic:=$${EKF_VEL_BODY_TOPIC} \
+          ekf_rot_accel_topic:=$${EKF_ROT_ACCEL_TOPIC} \
           vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
