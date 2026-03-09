@@ -8,7 +8,7 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_receiver
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       INPUT_TOPIC_UDP: ~/udp/in
       OUTPUT_TOPIC_CAM: ~/cam/out
       OUTPUT_TOPIC_CPM_TS: ~/cpm_ts/out
@@ -44,7 +44,7 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_sender
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       INPUT_TOPIC_CAM: ~/cam/in
       INPUT_TOPIC_CPM_TS: ~/cpm_ts/in
       INPUT_TOPIC_DENM: ~/denm/in

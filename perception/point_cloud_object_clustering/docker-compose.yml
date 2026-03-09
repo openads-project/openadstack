@@ -8,7 +8,7 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: point_cloud_object_clustering
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       POINT_CLOUD_TOPIC: ~/point_cloud
       OBJECT_LIST_TOPIC: /understanding/fused_object_list
     command:

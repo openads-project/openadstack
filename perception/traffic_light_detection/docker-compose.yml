@@ -10,7 +10,7 @@ services:
     environment:
       NAMESPACE: /perception
       NAME: traffic_light_detection
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       CAMERA_IMAGE_TOPIC: ~/camera_image
       CAMERA_INFO_TOPIC: ~/camera_info
       OUTPUT_TOPIC: ~/output

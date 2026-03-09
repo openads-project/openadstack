@@ -8,8 +8,8 @@ services:
     environment:
       NAMESPACE: /understanding
       NAME: object_fusion
-      USE_SIM_TIME: false
-      ROS_TRACING: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
       RAW_OBJECT_LISTS_TOPIC: ~/raw_object_lists
       FUSED_OBJECT_LIST_TOPIC: /understanding/fused_object_list
       FUSED_TRAJECTORIES_TOPIC: /understanding/fused_trajectories

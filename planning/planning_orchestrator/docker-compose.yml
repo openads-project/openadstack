@@ -8,8 +8,8 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: planning_orchestrator
-      USE_SIM_TIME: false
-      ROS_TRACING: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /planning/route
       OUTPUT_TRAJECTORY_TOPIC: /planning/reference_trajectory

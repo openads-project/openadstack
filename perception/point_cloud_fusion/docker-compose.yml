@@ -8,8 +8,8 @@ services:
       environment:
         NAMESPACE: /perception
         NAME: point_cloud_fusion
-        USE_SIM_TIME: false
-        ROS_TRACING: false
+        USE_SIM_TIME: ${USE_SIM_TIME:-false}
+        ROS_TRACING: ${ROS_TRACING:-false}
         OUTPUT_TOPIC: ~/points
       command:
         - /bin/bash
