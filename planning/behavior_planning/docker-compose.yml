@@ -10,7 +10,7 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: behavior_planning
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /understanding/enriched_route
       OBJECT_LIST_TOPIC: /understanding/predicted_object_list

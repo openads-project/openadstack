@@ -8,7 +8,7 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi2ad
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       CAM_IN: /communication/etsi_its_conversion_receiver/cam/out
       CPM_IN: /communication/etsi_its_conversion_receiver/cpm_ts/out
       EGO_DATA_OUT: /communication/etsi_its_conversion_receiver/ego_data
@@ -36,7 +36,7 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: ad2etsi
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       EGO_DATA_IN: /localization/ego_data
       OBJECT_LIST_IN: /understanding/predicted_object_list
       CAM_OUT: /communication/etsi_its_conversion_sender/cam/in

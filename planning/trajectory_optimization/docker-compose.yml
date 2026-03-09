@@ -8,8 +8,8 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: trajectory_optimization
-      USE_SIM_TIME: false
-      ROS_TRACING: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
       DRIVING_MODE: ackermann
       REFERENCE_TRAJECTORY_TOPIC: /planning/reference_trajectory
       TRAJECTORY_TOPIC: /planning/drivable_trajectory
