@@ -10,7 +10,7 @@ services:
       NAME: object_fusion
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      RAW_OBJECT_LISTS_TOPIC: ~/raw_object_lists
+      RAW_OBJECT_LISTS_TOPIC: /perception/object_list
       FUSED_OBJECT_LIST_TOPIC: /understanding/fused_object_list
       FUSED_TRAJECTORIES_TOPIC: /understanding/fused_trajectories
     command:

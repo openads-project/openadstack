@@ -12,7 +12,7 @@ services:
       ROUTE_TOPIC: /planning/route
       MAPEM_TOPIC: /communication/etsi_its_conversion_receiver/mapem_ts/out
       SPATEM_TOPIC: /communication/etsi_its_conversion_receiver/spatem_ts/out
-      TRAFFIC_LIGHT_TOPIC: /perception/traffic_light_detection/output
+      TRAFFIC_LIGHT_TOPIC: /perception/traffic_light_detection/detections
       ENRICHED_ROUTE_TOPIC: /understanding/enriched_route
     command:
       - /bin/bash

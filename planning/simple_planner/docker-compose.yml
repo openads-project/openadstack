@@ -12,7 +12,7 @@ services:
       ROS_TRACING: ${ROS_TRACING:-false}
       EGO_DATA_TOPIC: /localization/ego_data
       ROUTE_TOPIC: /understanding/enriched_route
-      TRAJECTORY_TOPIC: /planning/reference_trajectory
+      TRAJECTORY_TOPIC: /simple_planner/reference_trajectory
       LEFT_TURN_INDICATOR_SERVICE: ~/enable_left_turn_indicator
       RIGHT_TURN_INDICATOR_SERVICE: ~/enable_right_turn_indicator
       HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights

@@ -10,7 +10,7 @@ services:
         NAME: point_cloud_fusion
         USE_SIM_TIME: ${USE_SIM_TIME:-false}
         ROS_TRACING: ${ROS_TRACING:-false}
-        OUTPUT_TOPIC: ~/points
+        OUTPUT_TOPIC: /perception/point_cloud
       command:
         - /bin/bash
         - -ic

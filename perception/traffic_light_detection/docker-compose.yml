@@ -13,7 +13,7 @@ services:
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       CAMERA_IMAGE_TOPIC: ~/camera_image
       CAMERA_INFO_TOPIC: ~/camera_info
-      OUTPUT_TOPIC: ~/output
+      OUTPUT_TOPIC: ~/detections
       VISUALIZATION_OUTPUT_TOPIC: ~/viz_output
     command:
       - /bin/bash
