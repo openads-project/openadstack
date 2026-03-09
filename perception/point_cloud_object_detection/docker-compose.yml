@@ -12,8 +12,8 @@ services:
       NAME: point_cloud_object_detection
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      POINT_CLOUD_TOPIC: ~/point_cloud
-      OBJECT_LIST_TOPIC: ~/object_list
+      POINT_CLOUD_TOPIC: /perception/point_cloud
+      OBJECT_LIST_TOPIC: /perception/object_list
       CLASS_POINT_CLOUD_CAR_TOPIC: ~/class_point_cloud/car
       CLASS_POINT_CLOUD_PEDESTRIAN_TOPIC: ~/class_point_cloud/pedestrian
       CLASS_POINT_CLOUD_TRUCK_TOPIC: ~/class_point_cloud/truck

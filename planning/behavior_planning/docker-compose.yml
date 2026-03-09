@@ -15,7 +15,7 @@ services:
       ROUTE_TOPIC: /understanding/enriched_route
       OBJECT_LIST_TOPIC: /understanding/predicted_object_list
       IMAGE_TOPIC: ~/image
-      TRAJECTORY_TOPIC: /planning/reference_trajectory
+      TRAJECTORY_TOPIC: /behavior_planning/reference_trajectory
       EGO_MARKER_TOPIC: ~/visualization/ego_marker
       OBJECT_MARKER_TOPIC: ~/visualization/object_marker
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
