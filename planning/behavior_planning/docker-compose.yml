@@ -11,11 +11,11 @@ services:
       NAMESPACE: /planning
       NAME: behavior_planning
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      EGO_DATA_TOPIC: /localization/ego_data
-      ROUTE_TOPIC: /understanding/enriched_route
-      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      IMAGE_TOPIC: ~/image
-      TRAJECTORY_TOPIC: /behavior_planning/reference_trajectory
+      EGO_DATA_TOPIC: /ego_data
+      ROUTE_TOPIC: /understanding/dynamic_map_enrichment/route
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
+      CAMERA_IMAGE_TOPIC: ~/camera_image/in
+      TRAJECTORY_TOPIC: ~/reference_trajectory
       EGO_MARKER_TOPIC: ~/visualization/ego_marker
       OBJECT_MARKER_TOPIC: ~/visualization/object_marker
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
@@ -32,7 +32,7 @@ services:
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          image_topic:=$${IMAGE_TOPIC} \
+          image_topic:=$${CAMERA_IMAGE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           ego_marker_topic:=$${EGO_MARKER_TOPIC} \
           object_marker_topic:=$${OBJECT_MARKER_TOPIC} \

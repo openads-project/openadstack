@@ -9,15 +9,15 @@ services:
       NAMESPACE: /localization
       NAME: ego_state_estimation
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      ODOMETRY_TOPIC: ~/odometry
-      NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
-      IMU_ACC_TOPIC: ~/imu_acc
-      SBG_ROT_ACCEL_TOPIC: ~/sbg_rot_accel
-      SBG_VEL_TOPIC: ~/sbg_vel
-      VEHICLE_STATE_TOPIC: ~/vehicle_state
-      TRAJECTORY_TOPIC: /planning/drivable_trajectory
-      EGO_DATA_TOPIC: /localization/ego_data
-      EGO_DATA_NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
+      ODOMETRY_TOPIC: ~/odometry/in
+      NAV_SAT_FIX_TOPIC: ~/nav_sat_fix/in
+      IMU_ACC_TOPIC: ~/imu_acc/in
+      SBG_ROT_ACCEL_TOPIC: ~/sbg_rot_accel/in
+      SBG_VEL_TOPIC: ~/sbg_vel/in
+      VEHICLE_STATE_TOPIC: ~/vehicle_state/in
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/drivable_trajectory
+      EGO_DATA_TOPIC: /ego_data
+      EGO_DATA_NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
     command:
       - /bin/bash
       - -ic

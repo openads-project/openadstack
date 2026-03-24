@@ -9,14 +9,14 @@ services:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_receiver
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      INPUT_TOPIC_UDP: ~/udp/in
-      OUTPUT_TOPIC_CAM: ~/cam/out
-      OUTPUT_TOPIC_CPM_TS: ~/cpm_ts/out
-      OUTPUT_TOPIC_DENM: ~/denm/out
-      OUTPUT_TOPIC_MAPEM_TS: ~/mapem_ts/out
-      OUTPUT_TOPIC_MCM_UULM: ~/mcm_uulm/out
-      OUTPUT_TOPIC_SPATEM_TS: ~/spatem_ts/out
-      OUTPUT_TOPIC_VAM_TS: ~/vam/out
+      UDP_TOPIC: ~/udp/in
+      CAM_TOPIC: ~/cam
+      CPM_TS_TOPIC: ~/cpm_ts
+      DENM_TOPIC: ~/denm
+      MAPEM_TS_TOPIC: ~/mapem_ts
+      MCM_UULM_TOPIC: ~/mcm_uulm
+      SPATEM_TS_TOPIC: ~/spatem_ts
+      VAM_TS_TOPIC: ~/vam
     command:
       - /bin/bash
       - -ic
@@ -25,14 +25,14 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          input_topic_udp:=$${INPUT_TOPIC_UDP} \
-          output_topic_cam:=$${OUTPUT_TOPIC_CAM} \
-          output_topic_cpm_ts:=$${OUTPUT_TOPIC_CPM_TS} \
-          output_topic_denm:=$${OUTPUT_TOPIC_DENM} \
-          output_topic_mapem_ts:=$${OUTPUT_TOPIC_MAPEM_TS} \
-          output_topic_mcm_uulm:=$${OUTPUT_TOPIC_MCM_UULM} \
-          output_topic_spatem_ts:=$${OUTPUT_TOPIC_SPATEM_TS} \
-          output_topic_vam_ts:=$${OUTPUT_TOPIC_VAM_TS}
+          input_topic_udp:=$${UDP_TOPIC} \
+          output_topic_cam:=$${CAM_TOPIC} \
+          output_topic_cpm_ts:=$${CPM_TS_TOPIC} \
+          output_topic_denm:=$${DENM_TOPIC} \
+          output_topic_mapem_ts:=$${MAPEM_TS_TOPIC} \
+          output_topic_mcm_uulm:=$${MCM_UULM_TOPIC} \
+          output_topic_spatem_ts:=$${SPATEM_TS_TOPIC} \
+          output_topic_vam_ts:=$${VAM_TS_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml
 
@@ -45,14 +45,14 @@ services:
       NAMESPACE: /communication
       NAME: etsi_its_conversion_sender
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      INPUT_TOPIC_CAM: ~/cam/in
-      INPUT_TOPIC_CPM_TS: ~/cpm_ts/in
-      INPUT_TOPIC_DENM: ~/denm/in
-      INPUT_TOPIC_MAPEM_TS: ~/mapem_ts/in
-      INPUT_TOPIC_MCM_UULM: ~/mcm_uulm/in
-      INPUT_TOPIC_SPATEM_TS: ~/spatem_ts/in
-      INPUT_TOPIC_VAM_TS: ~/vam/in
-      OUTPUT_TOPIC_UDP: ~/udp/out
+      CAM_TOPIC: /communication/ad2etsi/cam
+      CPM_TS_TOPIC: /communication/ad2etsi/cpm_ts
+      DENM_TOPIC: ~/denm/in
+      MAPEM_TS_TOPIC: ~/mapem_ts/in
+      MCM_UULM_TOPIC: ~/mcm_uulm/in
+      SPATEM_TS_TOPIC:  ~/spatem_ts/in
+      VAM_TS_TOPIC: ~/vam/in
+      UDP_TOPIC: ~/udp
     command:
       - /bin/bash
       - -ic
@@ -61,13 +61,13 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          input_topic_cam:=$${INPUT_TOPIC_CAM} \
-          input_topic_cpm_ts:=$${INPUT_TOPIC_CPM_TS} \
-          input_topic_denm:=$${INPUT_TOPIC_DENM} \
-          input_topic_mapem_ts:=$${INPUT_TOPIC_MAPEM_TS} \
-          input_topic_mcm_uulm:=$${INPUT_TOPIC_MCM_UULM} \
-          input_topic_spatem_ts:=$${INPUT_TOPIC_SPATEM_TS} \
-          input_topic_vam_ts:=$${INPUT_TOPIC_VAM_TS} \
-          output_topic_udp:=$${OUTPUT_TOPIC_UDP}
+          input_topic_cam:=$${CAM_TOPIC} \
+          input_topic_cpm_ts:=$${CPM_TS_TOPIC} \
+          input_topic_denm:=$${DENM_TOPIC} \
+          input_topic_mapem_ts:=$${MAPEM_TS_TOPIC} \
+          input_topic_mcm_uulm:=$${MCM_UULM_TOPIC} \
+          input_topic_spatem_ts:=$${SPATEM_TS_TOPIC} \
+          input_topic_vam_ts:=$${VAM_TS_TOPIC} \
+          output_topic_udp:=$${UDP_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml
