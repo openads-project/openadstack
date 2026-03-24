@@ -10,8 +10,8 @@ services:
       NAME: lanelet2_object_list_prediction
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      INPUT_TOPIC: /understanding/fused_object_list
-      OUTPUT_TOPIC: /understanding/predicted_object_list
+      INPUT_TOPIC: /understanding/object_fusion/object_list
+      OUTPUT_TOPIC: ~/object_list
     command:
       - /bin/bash
       - -ic

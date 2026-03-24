@@ -10,7 +10,7 @@ services:
       NAME: lanelet2_map_server
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       MAP_FRAME_ID: map
-      NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
+      NAV_SAT_FIX_TOPIC: /localization/ego_state_estimation/nav_sat_fix
       USE_AUTOMATIC_MAP_SELECTION: false
       MAP_DIRECTORY: /data/maps/default-maps
       MAP_FILEPATH: /data/maps/aachen.osm
