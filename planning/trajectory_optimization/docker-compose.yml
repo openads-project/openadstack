@@ -35,7 +35,7 @@ services:
           route_topic:=$${ROUTE_TOPIC} \
           ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
           object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
-          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
-          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          route_marker_topic:=$${ROUTE_MARKER_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
