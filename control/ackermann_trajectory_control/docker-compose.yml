@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/ackermann_trajectory_control:v1.2.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/ackermann_trajectory_control:v1.3.0
     environment:
       NAMESPACE: /control
       NAME: ackermann_trajectory_control
