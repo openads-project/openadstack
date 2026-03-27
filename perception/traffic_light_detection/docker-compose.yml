@@ -11,10 +11,10 @@ services:
       NAMESPACE: /perception
       NAME: traffic_light_detection
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      CAMERA_IMAGE_TOPIC: ~/camera_image/in
-      CAMERA_INFO_TOPIC: ~/camera_info/in
-      DETECTIONS_TOPIC: ~/detections
-      VISUALIZATION_TOPIC: ~/visualization
+      CAMERA_IMAGE_IN: ~/camera_image
+      CAMERA_INFO_IN: ~/camera_info
+      DETECTIONS_OUT: ~/detections
+      VISUALIZATION_OUT: ~/visualization
     command:
       - /bin/bash
       - -ic
@@ -23,9 +23,9 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          camera_image_topic:=$${CAMERA_IMAGE_TOPIC} \
-          camera_info_topic:=$${CAMERA_INFO_TOPIC} \
-          output_topic:=$${DETECTIONS_TOPIC} \
-          visualization_output_topic:=$${VISUALIZATION_TOPIC}
+          camera_image_topic:=$${CAMERA_IMAGE_IN} \
+          camera_info_topic:=$${CAMERA_INFO_IN} \
+          output_topic:=$${DETECTIONS_OUT} \
+          visualization_output_topic:=$${VISUALIZATION_OUT}
     # volumes:
     #   - params.yml:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml

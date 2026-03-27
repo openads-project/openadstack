@@ -10,8 +10,8 @@ services:
       NAME: lanelet2_object_list_prediction
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      INPUT_TOPIC: /understanding/object_fusion/object_list
-      OUTPUT_TOPIC: ~/object_list
+      OBJECT_LIST_IN: /understanding/object_fusion/object_list
+      OBJECT_LIST_OUT: ~/object_list
     command:
       - /bin/bash
       - -ic
@@ -21,7 +21,7 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          input_topic:=$${INPUT_TOPIC} \
-          output_topic:=$${OUTPUT_TOPIC}
+          input_topic:=$${OBJECT_LIST_IN} \
+          output_topic:=$${OBJECT_LIST_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
