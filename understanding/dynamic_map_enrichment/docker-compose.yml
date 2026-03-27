@@ -9,11 +9,11 @@ services:
       NAMESPACE: /understanding
       NAME: dynamic_map_enrichment
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      ROUTE_TOPIC: /planning/lanelet2_route_planning/route
-      MAPEM_TOPIC: /communication/etsi_its_conversion_receiver/mapem_ts
-      SPATEM_TOPIC: /communication/etsi_its_conversion_receiver/spatem_ts
-      TRAFFIC_LIGHT_TOPIC: /perception/traffic_light_detection/detections
-      ENRICHED_ROUTE_TOPIC: ~/route
+      MAPEM_IN: /communication/etsi_its_conversion_receiver/mapem_ts
+      ROUTE_IN: /planning/lanelet2_route_planning/route
+      SPATEM_IN: /communication/etsi_its_conversion_receiver/spatem_ts
+      TRAFFIC_LIGHT_IN: /perception/traffic_light_detection/detections
+      ENRICHED_ROUTE_OUT: ~/route
     command:
       - /bin/bash
       - -ic
@@ -22,10 +22,10 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          route_topic:=$${ROUTE_TOPIC} \
-          mapem_topic:=$${MAPEM_TOPIC} \
-          spatem_topic:=$${SPATEM_TOPIC} \
-          traffic_light_topic:=$${TRAFFIC_LIGHT_TOPIC} \
-          enriched_route_topic:=$${ENRICHED_ROUTE_TOPIC}
+          mapem_topic:=$${MAPEM_IN} \
+          route_topic:=$${ROUTE_IN} \
+          spatem_topic:=$${SPATEM_IN} \
+          traffic_light_topic:=$${TRAFFIC_LIGHT_IN} \
+          enriched_route_topic:=$${ENRICHED_ROUTE_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/dynamic_map_enrichment/share/dynamic_map_enrichment/config/params.yml

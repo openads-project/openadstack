@@ -9,9 +9,9 @@ services:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cam
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      EGO_DATA_TOPIC: /ego_data
-      CAM_TOPIC: ~/cam
-      UDP_TOPIC: ~/udp
+      EGO_DATA_IN: /ego_data
+      CAM_OUT: ~/cam
+      UDP_OUT: ~/udp
     command:
       - /bin/bash
       - -ic
@@ -20,9 +20,9 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          ego_data_topic:=$${EGO_DATA_TOPIC} \
-          cam_topic:=$${CAM_TOPIC} \
-          udp_topic:=$${UDP_TOPIC}
+          ego_data_topic:=$${EGO_DATA_IN} \
+          cam_topic:=$${CAM_OUT} \
+          udp_topic:=$${UDP_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cam_generator.yml
 
@@ -35,9 +35,9 @@ services:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cpm
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      OBJECT_LIST_TOPIC: /understanding/object_fusion/object_list
-      CPM_TOPIC: ~/cpm_ts
-      UDP_TOPIC: ~/udp
+      OBJECT_LIST_IN: /understanding/object_fusion/object_list
+      CPM_OUT: ~/cpm_ts
+      UDP_OUT: ~/udp
     command:
       - /bin/bash
       - -ic
@@ -46,8 +46,8 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          cpm_topic:=$${CPM_TOPIC} \
-          udp_topic:=$${UDP_TOPIC}
+          object_list_topic:=$${OBJECT_LIST_IN} \
+          cpm_topic:=$${CPM_OUT} \
+          udp_topic:=$${UDP_OUT}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_v2x_generation/share/etsi_its_v2x_generation/config/params.cpm_generator.yml
