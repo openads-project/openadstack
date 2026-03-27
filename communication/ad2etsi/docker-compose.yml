@@ -40,7 +40,7 @@ services:
       NAME: ad2etsi
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       # inputs
-      EGO_DATA_TOPIC: /localization/ego_state_estimation/localization/ego_state_estimation/localization/ego_state_estimation/localization/ego_state_estimation/localization/ego_state_estimation/localization/ego_state_estimation/localization/ego_state_estimation/ego_data
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       # outputs
       CAM_TOPIC: ~/cam
