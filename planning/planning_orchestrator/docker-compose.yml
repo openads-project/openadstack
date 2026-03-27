@@ -16,7 +16,7 @@ services:
       LON_ACTIVE_TOPIC: /control/lon_active
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
       # outputs
-      TRAJECTORY_TOPIC: ~/reference_trajectory
+      TRAJECTORY_TOPIC: ~/trajectory
       DIAGNOSTIC_STATUS_TOPIC: ~/diagnostic_status
       GEOFENCES_VIZ_TOPIC: ~/geofences_viz
       OVERLAY_TEXT_TOPIC: ~/overlay_text

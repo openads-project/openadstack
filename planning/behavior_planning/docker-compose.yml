@@ -17,7 +17,7 @@ services:
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
       # outputs
-      TRAJECTORY_TOPIC: ~/reference_trajectory
+      TRAJECTORY_TOPIC: ~/trajectory
       INFERENCE_TIME_TOPIC: ~/inference_time
       EGO_MARKER_TOPIC: ~/visualization/ego_marker
       OBJECT_MARKER_TOPIC: ~/visualization/object_marker

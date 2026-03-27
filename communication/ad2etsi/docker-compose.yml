@@ -44,7 +44,7 @@ services:
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       # outputs
       CAM_TOPIC: ~/cam
-      CPM_TOPIC: ~/cpm_ts
+      CPM_TOPIC: ~/cpm
     command:
       - /bin/bash
       - -ic

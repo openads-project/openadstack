@@ -38,9 +38,9 @@ services:
       NAME: etsi_its_v2x_generation_cpm
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       # inputs
-      OBJECT_LIST_TOPIC: /understanding/object_fusion/object_list
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       # outputs
-      CPM_TOPIC: ~/cpm_ts
+      CPM_TOPIC: ~/cpm
       UDP_TOPIC: ~/udp
     command:
       - /bin/bash

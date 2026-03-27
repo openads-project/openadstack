@@ -14,9 +14,9 @@ services:
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       LAT_CONTROL_ACTIVE_TOPIC: /control/active
       LON_CONTROL_ACTIVE_TOPIC: /control/active
-      TRAJECTORY_TOPIC: /planning/trajectory_optimization/drivable_trajectory
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
       # outputs
-      CONTROLS_TOPIC: ~/ackermann_cmd
+      CONTROLS_TOPIC: ~/controls
     command:
       - /bin/bash
       - -ic
