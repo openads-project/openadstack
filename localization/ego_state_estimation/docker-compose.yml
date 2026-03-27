@@ -15,7 +15,7 @@ services:
       ODOMETRY_TOPIC: ~/odometry
       SBG_ROT_ACCEL_TOPIC: ~/sbg_rot_accel
       SBG_VEL_TOPIC: ~/sbg_vel
-      TRAJECTORY_TOPIC: /planning/trajectory_optimization/drivable_trajectory
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
       VEHICLE_STATE_TOPIC: ~/vehicle_state
       # outputs
       EGO_DATA_TOPIC: ~/ego_data

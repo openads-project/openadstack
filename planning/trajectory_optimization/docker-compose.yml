@@ -14,10 +14,10 @@ services:
       # inputs
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
-      REFERENCE_TRAJECTORY_TOPIC: /planning/planning_orchestrator/reference_trajectory
+      REFERENCE_TRAJECTORY_TOPIC: /planning/planning_orchestrator/trajectory
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
       # outputs
-      TRAJECTORY_TOPIC: ~/drivable_trajectory
+      TRAJECTORY_TOPIC: ~/trajectory
       EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
       OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
