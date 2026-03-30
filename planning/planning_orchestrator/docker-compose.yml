@@ -10,14 +10,16 @@ services:
       NAME: planning_orchestrator
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      EGO_DATA_IN: /ego_data
-      LAT_ACTIVE_IN: /control/lat_active
-      LON_ACTIVE_IN: /control/lon_active
-      ROUTE_IN: /understanding/dynamic_map_enrichment/route
-      TRAJECTORY_OUT: ~/reference_trajectory
-      DIAGNOSTIC_STATUS_OUT: ~/diagnostic_status
-      GEOFENCES_VIZ_OUT: ~/geofences_viz
-      OVERLAY_TEXT_OUT: ~/overlay_text
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      LAT_ACTIVE_TOPIC: /control/lat_active
+      LON_ACTIVE_TOPIC: /control/lon_active
+      ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
+      # outputs
+      TRAJECTORY_TOPIC: ~/reference_trajectory
+      DIAGNOSTIC_STATUS_TOPIC: ~/diagnostic_status
+      GEOFENCES_VIZ_TOPIC: ~/geofences_viz
+      OVERLAY_TEXT_TOPIC: ~/overlay_text
     command:
       - /bin/bash
       - -ic
@@ -27,14 +29,14 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          ego_data_topic:=$${EGO_DATA_IN} \
-          lat_active_topic:=$${LAT_ACTIVE_IN} \
-          lon_active_topic:=$${LON_ACTIVE_IN} \
-          route_topic:=$${ROUTE_IN} \
-          output_trajectory_topic:=$${TRAJECTORY_OUT} \
-          diagnostic_status_topic:=$${DIAGNOSTIC_STATUS_OUT} \
-          geofences_viz_topic:=$${GEOFENCES_VIZ_OUT} \
-          overlay_text_topic:=$${OVERLAY_TEXT_OUT}
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          lat_active_topic:=$${LAT_ACTIVE_TOPIC} \
+          lon_active_topic:=$${LON_ACTIVE_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+          output_trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          diagnostic_status_topic:=$${DIAGNOSTIC_STATUS_TOPIC} \
+          geofences_viz_topic:=$${GEOFENCES_VIZ_TOPIC} \
+          overlay_text_topic:=$${OVERLAY_TEXT_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/params.yml
     #   - ./reconfigurations:/docker-ros/ws/install/planning_orchestrator/share/planning_orchestrator/config/reconfigurations

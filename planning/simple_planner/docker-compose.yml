@@ -10,12 +10,15 @@ services:
       NAME: simple_planner
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      EGO_DATA_IN: /ego_data
-      ROUTE_IN: /understanding/dynamic_map_enrichment/route
-      TRAJECTORY_OUT: ~/reference_trajectory
-      LEFT_TURN_INDICATOR_SERVICE: ~/enable_left_turn_indicator
-      RIGHT_TURN_INDICATOR_SERVICE: ~/enable_right_turn_indicator
-      HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
+      # outputs
+      TRAJECTORY_TOPIC: ~/trajectory
+      # services
+      ENABLE_LEFT_TURN_INDICATOR_SERVICE: ~/enable_left_turn_indicator
+      ENABLE_RIGHT_TURN_INDICATOR_SERVICE: ~/enable_right_turn_indicator
+      ENABLE_HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights
     command:
       - /bin/bash
       - -ic
@@ -25,11 +28,11 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          ego_data_topic:=$${EGO_DATA_IN} \
-          route_topic:=$${ROUTE_IN} \
-          trajectory_topic:=$${TRAJECTORY_OUT} \
-          left_turn_indicator_service:=$${LEFT_TURN_INDICATOR_SERVICE} \
-          right_turn_indicator_service:=$${RIGHT_TURN_INDICATOR_SERVICE} \
-          hazard_lights_service:=$${HAZARD_LIGHTS_SERVICE}
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          left_turn_indicator_service:=$${ENABLE_LEFT_TURN_INDICATOR_SERVICE} \
+          right_turn_indicator_service:=$${ENABLE_RIGHT_TURN_INDICATOR_SERVICE} \
+          hazard_lights_service:=$${ENABLE_HAZARD_LIGHTS_SERVICE}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml

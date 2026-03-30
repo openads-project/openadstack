@@ -9,8 +9,10 @@ services:
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      EGO_DATA_IN: /ego_data
-      ROUTE_OUT: ~/route
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      # outputs
+      ROUTE_TOPIC: ~/route
     command:
       - /bin/bash
       - -ic
@@ -19,7 +21,7 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          ego_data_topic:=$${EGO_DATA_IN} \
-          route_topic:=$${ROUTE_OUT}
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
