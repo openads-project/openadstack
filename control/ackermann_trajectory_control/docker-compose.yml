@@ -10,11 +10,13 @@ services:
       NAME: ackermann_trajectory_control
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
-      EGO_DATA_IN: /ego_data
-      LAT_CONTROL_ACTIVE_IN: /control/active
-      LON_CONTROL_ACTIVE_IN: /control/active
-      TRAJECTORY_IN: /planning/trajectory_optimization/drivable_trajectory
-      CONTROLS_OUT: ~/ackermann_cmd
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      LAT_CONTROL_ACTIVE_TOPIC: /control/active
+      LON_CONTROL_ACTIVE_TOPIC: /control/active
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/drivable_trajectory
+      # outputs
+      CONTROLS_TOPIC: ~/ackermann_cmd
     command:
       - /bin/bash
       - -ic
@@ -24,10 +26,10 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          ego_data_topic:=$${EGO_DATA_IN} \
-          lat_control_active_topic:=$${LAT_CONTROL_ACTIVE_IN} \
-          lon_control_active_topic:=$${LON_CONTROL_ACTIVE_IN} \
-          trajectory_topic:=$${TRAJECTORY_IN} \
-          controls_topic:=$${CONTROLS_OUT}
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          lat_control_active_topic:=$${LAT_CONTROL_ACTIVE_TOPIC} \
+          lon_control_active_topic:=$${LON_CONTROL_ACTIVE_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          controls_topic:=$${CONTROLS_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml
