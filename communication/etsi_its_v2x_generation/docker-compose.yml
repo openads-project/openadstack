@@ -40,7 +40,7 @@ services:
       # inputs
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       # outputs
-      CPM_TOPIC: ~/cpm
+      CPM_TOPIC: ~/cpm_ts
       UDP_TOPIC: /communication/udp/out
     command:
       - /bin/bash
