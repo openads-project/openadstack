@@ -11,8 +11,8 @@ services:
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       # inputs
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
-      MAPEM_TOPIC: /communication/etsi_its_conversion_receiver/mapem_ts
-      SPATEM_TOPIC: /communication/etsi_its_conversion_receiver/spatem_ts
+      MAPEM_TOPIC: /communication/etsi_its_conversion/mapem_ts/out
+      SPATEM_TOPIC: /communication/etsi_its_conversion/spatem_ts/out
       TRAFFIC_LIGHT_TOPIC: /perception/traffic_light_detection/detections
       # outputs
       ENRICHED_ROUTE_TOPIC: ~/enriched_route

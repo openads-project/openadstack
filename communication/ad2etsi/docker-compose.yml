@@ -10,8 +10,8 @@ services:
       NAME: etsi2ad
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       # inputs
-      CAM_TOPIC: /communication/etsi_its_conversion_receiver/cam
-      CPM_TOPIC: /communication/etsi_its_conversion_receiver/cpm_ts
+      CAM_TOPIC: /communication/etsi_its_conversion/cam/out
+      CPM_TOPIC: /communication/etsi_its_conversion/cpm_ts/out
       # outputs
       EGO_DATA_TOPIC: ~/ego_data
       OBJECT_LIST_TOPIC: ~/object_list

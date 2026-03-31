@@ -13,7 +13,7 @@ services:
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       # outputs
       CAM_TOPIC: ~/cam
-      UDP_TOPIC: ~/udp
+      UDP_TOPIC: /communication/udp/out
     command:
       - /bin/bash
       - -ic
@@ -41,7 +41,7 @@ services:
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       # outputs
       CPM_TOPIC: ~/cpm
-      UDP_TOPIC: ~/udp
+      UDP_TOPIC: /communication/udp/out
     command:
       - /bin/bash
       - -ic
