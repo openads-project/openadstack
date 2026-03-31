@@ -12,8 +12,8 @@ services:
       ROS_TRACING: ${ROS_TRACING:-false}
       # inputs
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
-      LAT_CONTROL_ACTIVE_TOPIC: /control/active
-      LON_CONTROL_ACTIVE_TOPIC: /control/active
+      LAT_CONTROL_ACTIVE_TOPIC: /control/lat_active
+      LON_CONTROL_ACTIVE_TOPIC: /control/lon_active
       TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
       # outputs
       CONTROLS_TOPIC: ~/controls
