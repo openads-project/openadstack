@@ -8,11 +8,13 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi2ad
-      USE_SIM_TIME: false
-      CAM_IN: /communication/etsi_its_conversion_receiver/cam/out
-      CPM_IN: /communication/etsi_its_conversion_receiver/cpm_ts/out
-      EGO_DATA_OUT: /communication/etsi_its_conversion_receiver/ego_data
-      OBJECT_LIST_OUT: /communication/etsi_its_conversion_receiver/object_list
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      CAM_TOPIC: /communication/etsi_its_conversion/cam/out
+      CPM_TOPIC: /communication/etsi_its_conversion/cpm_ts/out
+      # outputs
+      EGO_DATA_TOPIC: ~/ego_data
+      OBJECT_LIST_TOPIC: ~/object_list
     command:
       - /bin/bash
       - -ic
@@ -21,10 +23,10 @@ services:
           namespace:=$${NAMESPACE} \
           node_name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          cam_in:=$${CAM_IN} \
-          cpm_in:=$${CPM_IN} \
-          ego_data_out:=$${EGO_DATA_OUT} \
-          object_list_out:=$${OBJECT_LIST_OUT}
+          cam_in:=$${CAM_TOPIC} \
+          cpm_in:=$${CPM_TOPIC} \
+          ego_data_out:=$${EGO_DATA_TOPIC} \
+          object_list_out:=$${OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml
 
@@ -36,11 +38,13 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: ad2etsi
-      USE_SIM_TIME: false
-      EGO_DATA_IN: /localization/ego_data
-      OBJECT_LIST_IN: /understanding/predicted_object_list
-      CAM_OUT: /communication/etsi_its_conversion_sender/cam/in
-      CPM_OUT: /communication/etsi_its_conversion_sender/cpm_ts/in
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+      # outputs
+      CAM_TOPIC: ~/cam
+      CPM_TOPIC: ~/cpm
     command:
       - /bin/bash
       - -ic
@@ -49,9 +53,9 @@ services:
           namespace:=$${NAMESPACE} \
           node_name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          ego_data_in:=$${EGO_DATA_IN} \
-          object_list_in:=$${OBJECT_LIST_IN} \
-          cam_out:=$${CAM_OUT} \
-          cpm_out:=$${CPM_OUT}
+          ego_data_in:=$${EGO_DATA_TOPIC} \
+          object_list_in:=$${OBJECT_LIST_TOPIC} \
+          cam_out:=$${CAM_TOPIC} \
+          cpm_out:=$${CPM_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ad2etsi_converter_node/share/ad2etsi_converter_node/config/params.yml

@@ -8,9 +8,11 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
-      USE_SIM_TIME: false
-      EGO_DATA_TOPIC: /localization/ego_data
-      ROUTE_TOPIC: /planning/route
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      # outputs
+      ROUTE_TOPIC: ~/route
     command:
       - /bin/bash
       - -ic

@@ -8,16 +8,18 @@ services:
     environment:
       NAMESPACE: /localization
       NAME: ego_state_estimation
-      USE_SIM_TIME: false
-      ODOMETRY_TOPIC: ~/odometry
-      NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
       IMU_ACC_TOPIC: ~/imu_acc
+      NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
+      ODOMETRY_TOPIC: ~/odometry
       SBG_ROT_ACCEL_TOPIC: ~/sbg_rot_accel
       SBG_VEL_TOPIC: ~/sbg_vel
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
       VEHICLE_STATE_TOPIC: ~/vehicle_state
-      TRAJECTORY_TOPIC: /planning/drivable_trajectory
-      EGO_DATA_TOPIC: /localization/ego_data
-      EGO_DATA_NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
+      # outputs
+      EGO_DATA_TOPIC: ~/ego_data
+      EGO_DATA_NAV_SAT_FIX_TOPIC: ~/nav_sat_fix
     command:
       - /bin/bash
       - -ic
@@ -26,13 +28,13 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          odometry_topic:=$${ODOMETRY_TOPIC} \
-          nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
           imu_acc_topic:=$${IMU_ACC_TOPIC} \
+          nav_sat_fix_topic:=$${NAV_SAT_FIX_TOPIC} \
+          odometry_topic:=$${ODOMETRY_TOPIC} \
           sbg_rot_accel_topic:=$${SBG_ROT_ACCEL_TOPIC} \
           sbg_vel_topic:=$${SBG_VEL_TOPIC} \
-          vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          vehicle_state_topic:=$${VEHICLE_STATE_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           ego_data_nav_sat_fix_topic:=$${EGO_DATA_NAV_SAT_FIX_TOPIC}
     # volumes:
