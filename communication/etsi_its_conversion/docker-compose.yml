@@ -40,6 +40,7 @@ services:
           input_topic_cpm_ts:=$${CPM_TS_IN_TOPIC} \
           input_topic_denm:=$${DENM_IN_TOPIC} \
           input_topic_mapem_ts:=$${MAPEM_TS_IN_TOPIC} \
+          input_topic_mcm_uulm:=$${MCM_UULM_IN_TOPIC} \
           input_topic_spatem_ts:=$${SPATEM_TS_IN_TOPIC} \
           input_topic_vam_ts:=$${VAM_TS_IN_TOPIC} \
           output_topic_udp:=$${UDP_OUT_TOPIC} \
@@ -47,6 +48,7 @@ services:
           output_topic_cpm_ts:=$${CPM_TS_OUT_TOPIC} \
           output_topic_denm:=$${DENM_OUT_TOPIC} \
           output_topic_mapem_ts:=$${MAPEM_TS_OUT_TOPIC} \
+          output_topic_mcm_uulm:=$${MCM_UULM_OUT_TOPIC} \
           output_topic_spatem_ts:=$${SPATEM_TS_OUT_TOPIC} \
           output_topic_vam_ts:=$${VAM_TS_OUT_TOPIC}
     # volumes:
