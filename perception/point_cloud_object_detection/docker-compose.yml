@@ -7,7 +7,6 @@ services:
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest-slim_refactor_ci-amd64
     depends_on:
       - triton-server
-    ipc: "service:triton-server"
     environment:
       NAME: point_cloud_object_detection
       NAMESPACE: /perception
