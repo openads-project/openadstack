@@ -14,7 +14,7 @@ services:
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
       # inputs
-      POINT_CLOUD_TOPIC: ~/point_cloud
+      POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/point_cloud
       # outputs
       DETECTION_AREA_TOPIC: ~/detection_area
       MODEL_BOUNDS_TOPIC: ~/model_bounds
