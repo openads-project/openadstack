@@ -4,7 +4,7 @@ services:
       extends:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-gpu-service
-      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:v1.2.0
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_fusion:v1.3.0
       environment:
         NAMESPACE: /perception
         NAME: point_cloud_fusion
@@ -21,6 +21,6 @@ services:
             name:=$${NAME} \
             use_sim_time:=$${USE_SIM_TIME} \
             trace:=$${ROS_TRACING} \
-            output_topic:=$${POINT_CLOUD_TOPIC}
+            point_cloud_topic:=$${POINT_CLOUD_TOPIC}
       # volumes:
       #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
