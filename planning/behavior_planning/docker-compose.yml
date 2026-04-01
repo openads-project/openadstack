@@ -6,7 +6,8 @@ services:
       service: ros2-service
     image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/behavior_planning:v1.0.0
     depends_on:
-      - triton-server
+      triton-server:
+        condition: service_healthy
     environment:
       NAMESPACE: /planning
       NAME: behavior_planning
