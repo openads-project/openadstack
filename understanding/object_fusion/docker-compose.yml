@@ -8,11 +8,13 @@ services:
     environment:
       NAMESPACE: /understanding
       NAME: object_fusion
-      USE_SIM_TIME: false
-      ROS_TRACING: false
-      RAW_OBJECT_LISTS_TOPIC: ~/raw_object_lists
-      FUSED_OBJECT_LIST_TOPIC: /understanding/fused_object_list
-      FUSED_TRAJECTORIES_TOPIC: /understanding/fused_trajectories
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
+      # inputs
+      RAW_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      # outputs
+      OBJECT_LIST_TOPIC: ~/object_list
+      TRAJECTORIES_TOPIC: ~/trajectories
     command:
       - /bin/bash
       - -ic
@@ -22,8 +24,8 @@ services:
           node_name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          raw_object_lists_topic:=$${RAW_OBJECT_LISTS_TOPIC} \
-          fused_object_list_topic:=$${FUSED_OBJECT_LIST_TOPIC} \
-          fused_trajectories_topic:=$${FUSED_TRAJECTORIES_TOPIC}
+          raw_object_lists_topic:=$${RAW_OBJECT_LIST_TOPIC} \
+          fused_object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          fused_trajectories_topic:=$${TRAJECTORIES_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/object_fusion/share/object_fusion/config/params.yml
