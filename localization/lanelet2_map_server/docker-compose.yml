@@ -8,14 +8,15 @@ services:
     environment:
       NAMESPACE: /localization
       NAME: lanelet2_map_server
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
       MAP_FRAME_ID: map
-      NAV_SAT_FIX_TOPIC: /localization/nav_sat_fix
       USE_AUTOMATIC_MAP_SELECTION: false
       MAP_DIRECTORY: /data/maps/default-maps
       MAP_FILEPATH: /data/maps/aachen.osm
       ORIGIN_LAT:
       ORIGIN_LON:
+      # inputs
+      NAV_SAT_FIX_TOPIC: /localization/ego_state_estimation/nav_sat_fix
     command:
       - /bin/bash
       - -ic
@@ -23,7 +24,6 @@ services:
         ros2 run lanelet2_map_server lanelet2_map_server --ros-args \
           -r __ns:=$${NAMESPACE} \
           -r __node:=$${NAME} \
-          -r $${NAMESPACE}/$${NAME}/gps/fix:=$${NAV_SAT_FIX_TOPIC} \
           -p use_sim_time:=$${USE_SIM_TIME} \
           -p map_frame_id:=$${MAP_FRAME_ID} \
           -p use_automatic_map_selection:=$${USE_AUTOMATIC_MAP_SELECTION} \
@@ -31,3 +31,4 @@ services:
           -p map_filepath:=$${MAP_FILEPATH} \
           $${ORIGIN_LAT:+-p origin_lat:=$${ORIGIN_LAT}} \
           $${ORIGIN_LON:+-p origin_lon:=$${ORIGIN_LON}}
+          -r $${NAMESPACE}/$${NAME}/gps/fix:=$${NAV_SAT_FIX_TOPIC}

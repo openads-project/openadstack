@@ -8,10 +8,12 @@ services:
     environment:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
-      USE_SIM_TIME: false
-      ROS_TRACING: false
-      INPUT_TOPIC: /understanding/fused_object_list
-      OUTPUT_TOPIC: /understanding/predicted_object_list
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
+      # inputs
+      OBJECT_LIST_TOPIC: /understanding/object_fusion/object_list
+      # outputs
+      PREDICTED_OBJECT_LIST_TOPIC: ~/predicted_object_list
     command:
       - /bin/bash
       - -ic
@@ -21,7 +23,7 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          input_topic:=$${INPUT_TOPIC} \
-          output_topic:=$${OUTPUT_TOPIC}
+          input_topic:=$${OBJECT_LIST_TOPIC} \
+          output_topic:=$${PREDICTED_OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml

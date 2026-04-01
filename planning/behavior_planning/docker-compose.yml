@@ -11,16 +11,18 @@ services:
     environment:
       NAMESPACE: /planning
       NAME: behavior_planning
-      USE_SIM_TIME: false
-      EGO_DATA_TOPIC: /localization/ego_data
-      ROUTE_TOPIC: /understanding/enriched_route
-      OBJECT_LIST_TOPIC: /understanding/predicted_object_list
-      IMAGE_TOPIC: ~/image
-      TRAJECTORY_TOPIC: /planning/reference_trajectory
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      CAMERA_IMAGE_TOPIC: ~/camera_image
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+      ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
+      # outputs
+      TRAJECTORY_TOPIC: ~/trajectory
+      INFERENCE_TIME_TOPIC: ~/inference_time
       EGO_MARKER_TOPIC: ~/visualization/ego_marker
       OBJECT_MARKER_TOPIC: ~/visualization/object_marker
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
-      INFERENCE_TIME_TOPIC: ~/inference_time
       X_INIT_TOPIC: ~/x_init
     command:
       - /bin/bash
@@ -30,15 +32,15 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
+          image_topic:=$${CAMERA_IMAGE_TOPIC} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          image_topic:=$${IMAGE_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          inference_time_topic:=$${INFERENCE_TIME_TOPIC} \
           ego_marker_topic:=$${EGO_MARKER_TOPIC} \
           object_marker_topic:=$${OBJECT_MARKER_TOPIC} \
           route_marker_topic:=$${ROUTE_MARKER_TOPIC} \
-          inference_time_topic:=$${INFERENCE_TIME_TOPIC} \
           x_init_topic:=$${X_INIT_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/behavior_planning/share/behavior_planning/config/params.yml
