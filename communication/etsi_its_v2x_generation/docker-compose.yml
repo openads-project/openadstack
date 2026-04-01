@@ -8,10 +8,12 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cam
-      USE_SIM_TIME: false
-      EGO_DATA_TOPIC: /localization/ego_data
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      # outputs
       CAM_TOPIC: ~/cam
-      UDP_TOPIC: /communication/etsi_its_v2x_generation/udp
+      UDP_TOPIC: /communication/udp/out
     command:
       - /bin/bash
       - -ic
@@ -34,10 +36,12 @@ services:
     environment:
       NAMESPACE: /communication
       NAME: etsi_its_v2x_generation_cpm
-      USE_SIM_TIME: false
-      OBJECT_LIST_TOPIC: /understanding/fused_object_list
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+      # outputs
       CPM_TOPIC: ~/cpm_ts
-      UDP_TOPIC: /communication/etsi_its_v2x_generation/udp
+      UDP_TOPIC: /communication/udp/out
     command:
       - /bin/bash
       - -ic

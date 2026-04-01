@@ -4,17 +4,19 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:v1.0.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/traffic_light_detection:v1.1.0
     depends_on:
       - triton-server
     environment:
       NAMESPACE: /perception
       NAME: traffic_light_detection
-      USE_SIM_TIME: false
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
       CAMERA_IMAGE_TOPIC: ~/camera_image
       CAMERA_INFO_TOPIC: ~/camera_info
-      OUTPUT_TOPIC: ~/output
-      VISUALIZATION_OUTPUT_TOPIC: ~/viz_output
+      # outputs
+      DETECTIONS_TOPIC: ~/detections
+      VISUALIZATION_TOPIC: ~/visualization
     command:
       - /bin/bash
       - -ic
@@ -25,7 +27,7 @@ services:
           use_sim_time:=$${USE_SIM_TIME} \
           camera_image_topic:=$${CAMERA_IMAGE_TOPIC} \
           camera_info_topic:=$${CAMERA_INFO_TOPIC} \
-          output_topic:=$${OUTPUT_TOPIC} \
-          visualization_output_topic:=$${VISUALIZATION_OUTPUT_TOPIC}
+          detections_topic:=$${DETECTIONS_TOPIC} \
+          visualization_topic:=$${VISUALIZATION_TOPIC}
     # volumes:
     #   - params.yml:/docker-ros/ws/install/traffic_light_detection/share/traffic_light_detection/params/tl_perception.yml

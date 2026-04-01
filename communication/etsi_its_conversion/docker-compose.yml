@@ -1,22 +1,32 @@
 services:
 
-  communication.etsi-its-conversion-receiver:
+  communication.etsi-its-conversion:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     image: ghcr.io/ika-rwth-aachen/etsi_its_messages:v3.4.0
     environment:
       NAMESPACE: /communication
-      NAME: etsi_its_conversion_receiver
-      USE_SIM_TIME: false
-      INPUT_TOPIC_UDP: ~/udp/in
-      OUTPUT_TOPIC_CAM: ~/cam/out
-      OUTPUT_TOPIC_CPM_TS: ~/cpm_ts/out
-      OUTPUT_TOPIC_DENM: ~/denm/out
-      OUTPUT_TOPIC_MAPEM_TS: ~/mapem_ts/out
-      OUTPUT_TOPIC_MCM_UULM: ~/mcm_uulm/out
-      OUTPUT_TOPIC_SPATEM_TS: ~/spatem_ts/out
-      OUTPUT_TOPIC_VAM_TS: ~/vam/out
+      NAME: etsi_its_conversion
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # inputs
+      UDP_IN_TOPIC: ~/udp/in
+      CAM_IN_TOPIC: ~/cam/in
+      CPM_TS_IN_TOPIC: ~/cpm_ts/in
+      DENM_IN_TOPIC: ~/denm/in
+      MAPEM_TS_IN_TOPIC: ~/mapem_ts/in
+      MCM_UULM_IN_TOPIC: ~/mcm_uulm/in
+      SPATEM_TS_IN_TOPIC: ~/spatem_ts/in
+      VAM_TS_IN_TOPIC: ~/vam_ts/in
+      # outputs
+      UDP_OUT_TOPIC: ~/udp/out
+      CAM_OUT_TOPIC: ~/cam/out
+      CPM_TS_OUT_TOPIC: ~/cpm_ts/out
+      DENM_OUT_TOPIC: ~/denm/out
+      MAPEM_TS_OUT_TOPIC: ~/mapem_ts/out
+      MCM_UULM_OUT_TOPIC: ~/mcm_uulm/out
+      SPATEM_TS_OUT_TOPIC: ~/spatem_ts/out
+      VAM_TS_OUT_TOPIC: ~/vam_ts/out
     command:
       - /bin/bash
       - -ic
@@ -25,49 +35,21 @@ services:
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
-          input_topic_udp:=$${INPUT_TOPIC_UDP} \
-          output_topic_cam:=$${OUTPUT_TOPIC_CAM} \
-          output_topic_cpm_ts:=$${OUTPUT_TOPIC_CPM_TS} \
-          output_topic_denm:=$${OUTPUT_TOPIC_DENM} \
-          output_topic_mapem_ts:=$${OUTPUT_TOPIC_MAPEM_TS} \
-          output_topic_mcm_uulm:=$${OUTPUT_TOPIC_MCM_UULM} \
-          output_topic_spatem_ts:=$${OUTPUT_TOPIC_SPATEM_TS} \
-          output_topic_vam_ts:=$${OUTPUT_TOPIC_VAM_TS}
-    # volumes:
-    #   - ./params.yml:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml
-
-  communication.etsi-its-conversion-sender:
-    extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-service
-    image: ghcr.io/ika-rwth-aachen/etsi_its_messages:v3.4.0
-    environment:
-      NAMESPACE: /communication
-      NAME: etsi_its_conversion_sender
-      USE_SIM_TIME: false
-      INPUT_TOPIC_CAM: ~/cam/in
-      INPUT_TOPIC_CPM_TS: ~/cpm_ts/in
-      INPUT_TOPIC_DENM: ~/denm/in
-      INPUT_TOPIC_MAPEM_TS: ~/mapem_ts/in
-      INPUT_TOPIC_MCM_UULM: ~/mcm_uulm/in
-      INPUT_TOPIC_SPATEM_TS: ~/spatem_ts/in
-      INPUT_TOPIC_VAM_TS: ~/vam/in
-      OUTPUT_TOPIC_UDP: ~/udp/out
-    command:
-      - /bin/bash
-      - -ic
-      - |
-        ros2 launch etsi_its_conversion converter.launch.py \
-          namespace:=$${NAMESPACE} \
-          name:=$${NAME} \
-          use_sim_time:=$${USE_SIM_TIME} \
-          input_topic_cam:=$${INPUT_TOPIC_CAM} \
-          input_topic_cpm_ts:=$${INPUT_TOPIC_CPM_TS} \
-          input_topic_denm:=$${INPUT_TOPIC_DENM} \
-          input_topic_mapem_ts:=$${INPUT_TOPIC_MAPEM_TS} \
-          input_topic_mcm_uulm:=$${INPUT_TOPIC_MCM_UULM} \
-          input_topic_spatem_ts:=$${INPUT_TOPIC_SPATEM_TS} \
-          input_topic_vam_ts:=$${INPUT_TOPIC_VAM_TS} \
-          output_topic_udp:=$${OUTPUT_TOPIC_UDP}
+          input_topic_udp:=$${UDP_IN_TOPIC} \
+          input_topic_cam:=$${CAM_IN_TOPIC} \
+          input_topic_cpm_ts:=$${CPM_TS_IN_TOPIC} \
+          input_topic_denm:=$${DENM_IN_TOPIC} \
+          input_topic_mapem_ts:=$${MAPEM_TS_IN_TOPIC} \
+          input_topic_mcm_uulm:=$${MCM_UULM_IN_TOPIC} \
+          input_topic_spatem_ts:=$${SPATEM_TS_IN_TOPIC} \
+          input_topic_vam_ts:=$${VAM_TS_IN_TOPIC} \
+          output_topic_udp:=$${UDP_OUT_TOPIC} \
+          output_topic_cam:=$${CAM_OUT_TOPIC} \
+          output_topic_cpm_ts:=$${CPM_TS_OUT_TOPIC} \
+          output_topic_denm:=$${DENM_OUT_TOPIC} \
+          output_topic_mapem_ts:=$${MAPEM_TS_OUT_TOPIC} \
+          output_topic_mcm_uulm:=$${MCM_UULM_OUT_TOPIC} \
+          output_topic_spatem_ts:=$${SPATEM_TS_OUT_TOPIC} \
+          output_topic_vam_ts:=$${VAM_TS_OUT_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/etsi_its_conversion/share/etsi_its_conversion/config/params.yml
