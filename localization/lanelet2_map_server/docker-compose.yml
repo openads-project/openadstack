@@ -30,5 +30,5 @@ services:
           -p map_directory:=$${MAP_DIRECTORY} \
           -p map_filepath:=$${MAP_FILEPATH} \
           $${ORIGIN_LAT:+-p origin_lat:=$${ORIGIN_LAT}} \
-          $${ORIGIN_LON:+-p origin_lon:=$${ORIGIN_LON}}
+          $${ORIGIN_LON:+-p origin_lon:=$${ORIGIN_LON}} \
           -r $${NAMESPACE}/$${NAME}/gps/fix:=$${NAV_SAT_FIX_TOPIC}
