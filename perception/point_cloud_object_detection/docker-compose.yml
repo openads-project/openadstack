@@ -38,4 +38,4 @@ services:
           object_list_topic:=$${OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
-    #   - ../../essentials/triton-server/models/<model_name>/model_manifest.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/model_manifests/model_manifest.yml
+    #   - ./model_manifest.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/model_manifests/model_manifest.yml
