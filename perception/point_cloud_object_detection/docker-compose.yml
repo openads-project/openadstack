@@ -4,9 +4,10 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:v1.0.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:v2.0.0
     depends_on:
-      - triton-server
+      triton-server:
+        condition: service_healthy
     environment:
       NAMESPACE: /perception
       NAME: point_cloud_object_detection
@@ -15,6 +16,10 @@ services:
       # inputs
       POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/point_cloud
       # outputs
+      DETECTION_AREA_TOPIC: ~/detection_area
+      MODEL_BOUNDS_TOPIC: ~/model_bounds
+      NO_DETECTION_ZONE_POINTS_TOPIC: ~/no_detection_zone_points
+      NO_DETECTION_ZONE_TOPIC: ~/no_detection_zone
       OBJECT_LIST_TOPIC: ~/object_list
     command:
       - /bin/bash
@@ -26,7 +31,11 @@ services:
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
           point_cloud_topic:=$${POINT_CLOUD_TOPIC} \
+          detection_area_topic:=$${DETECTION_AREA_TOPIC} \
+          model_bounds_topic:=$${MODEL_BOUNDS_TOPIC} \
+          no_detection_zone_points_topic:=$${NO_DETECTION_ZONE_POINTS_TOPIC} \
+          no_detection_zone_topic:=$${NO_DETECTION_ZONE_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
-    #   - ./models:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/models
+    #   - ./model_manifest.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/model_manifests/model_manifest.yml
