@@ -1,0 +1,12 @@
+services:
+
+  simple-object-tracking:
+    profiles:
+      - automated-driving
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/simple_object_tracking:latest_add-fusion_ci
+    command: bash -ic "ros2 launch simple_object_tracking simple_object_tracking_launch.py params:=/params.yml"
+    volumes:
+      - ./params.yml:/params.yml:ro
