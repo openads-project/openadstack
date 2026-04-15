@@ -11,7 +11,7 @@ services:
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
       # inputs
-      OBJECT_LIST_TOPIC: /understanding/object_fusion/object_list
+      OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
       # outputs
       PREDICTED_OBJECT_LIST_TOPIC: ~/predicted_object_list
     command:
