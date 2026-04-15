@@ -3,8 +3,8 @@ services:
   perception.point-cloud-object-detection:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:v2.0.0
+      service: ros2-gpu-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/point_cloud_object_detection:latest-slim_optimizations_ci
     depends_on:
       triton-server:
         condition: service_healthy
