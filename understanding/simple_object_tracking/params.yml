@@ -1,0 +1,26 @@
+/**/*:
+  ros__parameters:
+    tracking_frame: map         # Frame used internally for tracking; leave empty to keep the incoming frame.
+    output_frame: map           # Optional output frame. Default keeps the tracking frame when empty.
+    input_topics:               # Object list topics to fuse; extend the list to add sensors.
+      - "/perception/point_cloud_object_detection_ouster/object_list"
+      # - "/perception/point_cloud_fusion/objects"
+    timer_frequency_hz: 10.0    # Publishing frequency for the tracked list.
+    transform_timeout_sec: 1.0  # Timeout when waiting for transforms.
+
+    association_distance_threshold: 3.0 # Baseline Mahalanobis gate for data association.
+    association_covariance_scale: 0.1   # Scales the gate with track covariance (0 disables gating growth).
+    association_max_distance: 6.0       # Upper bound for the adaptive gate (Mahalanobis distance).
+    fusion_max_distance: 0.8            # Maximum spatial distance (m) to merge detections from different sources.
+
+    max_missed_time_sec: 1.0  # Time a track may survive without detections.
+    min_hits_to_confirm: 2    # Required hits before a track is broadcast.
+
+    process_noise_position_variance: 2.0      # Process noise applied to position states (m^2/s).
+    process_noise_velocity_variance: 1.2      # Process noise applied to velocity states ((m/s)^2/s).
+    measurement_noise_position_variance: 0.4  # Measurement noise assumed for detector positions (m^2).
+    heading_velocity_threshold: 1.0           # Minimum speed to trust the velocity heading for yaw updates.
+    yaw_smoothing_gain: 0.3                   # Gain for blending in new yaw measurements (0=no smoothing, 1=replace).
+    size_smoothing_gain: 0.2                  # Gain for the bounding-box exponential moving average.
+    size_prior_strength: 0.4                  # Weight of class priors when initialising dimensions.
+    max_track_speed_mps: 20.0                 # Safety limit to reject implausibly fast tracks (m/s).
