@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:v1.1.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/localization/ego_state_estimation:v1.2.0
     environment:
       NAMESPACE: /localization
       NAME: ego_state_estimation
