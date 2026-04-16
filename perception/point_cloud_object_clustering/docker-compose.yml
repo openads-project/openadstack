@@ -10,7 +10,7 @@ services:
       NAME: point_cloud_object_clustering
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       # inputs
-      OBJECT_LIST_TOPIC: /understanding/object_fusion/object_list
+      OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
       POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/point_cloud
     command:
       - /bin/bash
