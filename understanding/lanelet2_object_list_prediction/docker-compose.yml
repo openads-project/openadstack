@@ -4,14 +4,14 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/lanelet2_object_list_prediction:v1.1.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/lanelet2_object_list_prediction:v1.2.0
     environment:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       ROS_TRACING: ${ROS_TRACING:-false}
       # inputs
-      OBJECT_LIST_TOPIC: /simple_object_tracking/output
+      OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
       # outputs
       PREDICTED_OBJECT_LIST_TOPIC: ~/predicted_object_list
     command:
