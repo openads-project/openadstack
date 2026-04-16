@@ -1,0 +1,24 @@
+services:
+
+  understanding.simple-object-tracking:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/simple_object_tracking:v1.0.0
+    environment:
+      NAMESPACE: /understanding
+      NAME: simple_object_tracking
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # outputs
+      OUTPUT_TOPIC: ~/object_list
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch simple_object_tracking simple_object_tracking_launch.py \
+          namespace:=$${NAMESPACE} \
+          node_name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          output_topic:=$${OUTPUT_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
