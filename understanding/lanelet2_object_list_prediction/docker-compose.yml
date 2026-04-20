@@ -23,7 +23,7 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
-          input_topic:=$${OBJECT_LIST_TOPIC} \
-          output_topic:=$${PREDICTED_OBJECT_LIST_TOPIC}
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          predicted_object_list_topic:=$${PREDICTED_OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
