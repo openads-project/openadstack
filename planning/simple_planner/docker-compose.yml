@@ -14,6 +14,7 @@ services:
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
+      GRID_MAP_TOPIC: /perception/point_cloud_object_detection_ouster/static_grid_map
       # outputs
       TRAJECTORY_TOPIC: ~/trajectory
       # services
@@ -32,6 +33,7 @@ services:
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
+          grid_map_topic:=$${GRID_MAP_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           left_turn_indicator_service:=$${ENABLE_LEFT_TURN_INDICATOR_SERVICE} \
           right_turn_indicator_service:=$${ENABLE_RIGHT_TURN_INDICATOR_SERVICE} \
