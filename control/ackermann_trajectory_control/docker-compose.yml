@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/ackermann_trajectory_control:latest_ensure-standstill_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/control/ackermann_trajectory_control:latest_high-level-logs_ci
     environment:
       NAMESPACE: /control
       NAME: ackermann_trajectory_control
@@ -26,6 +26,7 @@ services:
           name:=$${NAME} \
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
+          diagnostics_topic:=/diagnostics \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           lat_control_active_topic:=$${LAT_CONTROL_ACTIVE_TOPIC} \
           lon_control_active_topic:=$${LON_CONTROL_ACTIVE_TOPIC} \
