@@ -1,0 +1,11 @@
+services:
+
+  zenoh-router:
+    extends:
+      file: ../../../docker-compose-essentials/docker-compose.template.yml
+      service: zenoh-router
+
+  planning.lanelet2-route-planning:
+    extends:
+      file: ../../../planning/lanelet2_route_planning/docker-compose.yml
+      service: planning.lanelet2-route-planning
