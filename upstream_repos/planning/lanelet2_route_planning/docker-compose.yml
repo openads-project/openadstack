@@ -1,0 +1,26 @@
+services:
+
+  planning-lanelet2-route-planning:
+    image: ghcr.io/openads-project/lanelet2_route_planning:v1.0.2
+    environment:
+      # --- name ------
+      NAMESPACE: /
+      NAME: lanelet2_route_planning
+      # --- inputs ----
+      EGO_DATA_TOPIC: ~/ego_data
+      # --- outputs ---
+      ROUTE_TOPIC: ~/route
+      # --- other -----
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          log_level:=$${LOG_LEVEL} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC}

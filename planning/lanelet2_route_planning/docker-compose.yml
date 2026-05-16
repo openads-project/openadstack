@@ -1,31 +1,15 @@
+include:
+  # Override LANELET2_ROUTE_PLANNING_COMPOSE with a local file while developing the upstream contract.
+  - ${LANELET2_ROUTE_PLANNING_COMPOSE:-oci://ghcr.io/openads-project/lanelet2_route_planning-compose:v1.0.2}
+
 services:
 
-  planning.lanelet2-route-planning:
+  planning-lanelet2-route-planning:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/lanelet2_route_planning:v1.0.2
     environment:
       # --- name ------
       NAMESPACE: /planning
-      NAME: lanelet2_route_planning
       # --- inputs ----
-      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data # ~/ego_data
-      # --- outputs ---
-      ROUTE_TOPIC: ~/route
-      # --- other -----
-      LOG_LEVEL: ${LOG_LEVEL:-info}
-      USE_SIM_TIME: ${USE_SIM_TIME:-false}
-    command:
-      - /bin/bash
-      - -ic
-      - |
-        ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
-          namespace:=$${NAMESPACE} \
-          name:=$${NAME} \
-          log_level:=$${LOG_LEVEL} \
-          use_sim_time:=$${USE_SIM_TIME} \
-          ego_data_topic:=$${EGO_DATA_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC}
-    # volumes:
-    #   - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data

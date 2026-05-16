@@ -1,46 +1,18 @@
+include:
+  # Override TRAJECTORY_OPTIMIZATION_COMPOSE with a local file while developing the upstream contract.
+  - ${TRAJECTORY_OPTIMIZATION_COMPOSE:-oci://ghcr.io/openads-project/trajectory_optimization-compose:v1.2.0}
+
 services:
 
-  planning.trajectory-optimization:
+  planning-trajectory-optimization:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
     environment:
       # --- name ------
       NAMESPACE: /planning
-      NAME: trajectory_optimization
       # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       REFERENCE_TRAJECTORY_TOPIC: /planning/planning_orchestrator/trajectory
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
-      # --- outputs ---
-      TRAJECTORY_TOPIC: ~/trajectory
-      EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
-      OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
-      ROUTE_MARKER_TOPIC: ~/visualization/route_marker
-      # --- other -----
-      DRIVING_MODE: ackermann
-      LOG_LEVEL: ${LOG_LEVEL:-info}
-      USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      ROS_TRACING: ${ROS_TRACING:-false}
-    command:
-      - /bin/bash
-      - -ic
-      - |
-        ros2 launch trajectory_optimization trajectory_optimization.launch.py \
-          namespace:=$${NAMESPACE} \
-          name:=$${NAME} \
-          use_sim_time:=$${USE_SIM_TIME} \
-          trace:=$${ROS_TRACING} \
-          driving_mode:=$${DRIVING_MODE} \
-          ego_data_topic:=$${EGO_DATA_TOPIC} \
-          object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC} \
-          trajectory_topic:=$${TRAJECTORY_TOPIC} \
-          ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
-          object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
-          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
-    # volumes:
-    #   - ./params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
