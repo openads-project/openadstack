@@ -1,0 +1,2 @@
+include:
+  - ../../../planning/trajectory_optimization/docker-compose.yml
