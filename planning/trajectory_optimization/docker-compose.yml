@@ -4,23 +4,26 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:v1.1.0
+    image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
     environment:
+      # --- name ------
       NAMESPACE: /planning
       NAME: trajectory_optimization
-      USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      ROS_TRACING: ${ROS_TRACING:-false}
-      DRIVING_MODE: ackermann
-      # inputs
+      # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
       REFERENCE_TRAJECTORY_TOPIC: /planning/planning_orchestrator/trajectory
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
-      # outputs
+      # --- outputs ---
       TRAJECTORY_TOPIC: ~/trajectory
       EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
       OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
       ROUTE_MARKER_TOPIC: ~/visualization/route_marker
+      # --- other -----
+      DRIVING_MODE: ackermann
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
       - -ic
