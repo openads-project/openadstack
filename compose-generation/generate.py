@@ -11,6 +11,7 @@ import sys
 import tempfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from urllib.parse import urlparse
 
 import yaml
 
@@ -22,6 +23,7 @@ STANDARD_ENV = {
 }
 
 EXCLUDED_ARGS = {"params"}
+DEFAULT_TEMPLATE = "docker-compose-essentials/docker-compose.template.yml"
 
 
 class GenerationError(Exception):
@@ -41,12 +43,7 @@ def run(cmd, cwd=None):
 
 def load_config(path):
     with Path(path).open() as stream:
-        config = yaml.safe_load(stream)
-    required = ["repository_url", "ref", "output", "service_name", "namespace", "extends"]
-    missing = [key for key in required if key not in config]
-    if missing:
-        raise GenerationError(f"missing required config keys: {', '.join(missing)}")
-    return config
+        return yaml.safe_load(stream)
 
 
 def checkout_repository(repository_url, ref, destination):
@@ -108,10 +105,24 @@ def repository_name(repository_url):
     return name
 
 
+def repository_owner(repository_url):
+    parsed = urlparse(repository_url)
+    if parsed.scheme and parsed.path:
+        parts = [part for part in parsed.path.split("/") if part]
+        if len(parts) >= 2:
+            return parts[-2]
+    if ":" in repository_url and "/" in repository_url:
+        path = repository_url.rsplit(":", 1)[-1]
+        parts = [part for part in path.split("/") if part]
+        if len(parts) >= 2:
+            return parts[-2]
+    return "openads-project"
+
+
 def image_name(config, tag):
     if "image" in config:
         return f"{config['image']}:{tag}"
-    owner = config.get("image_owner", "openads-project")
+    owner = config.get("image_owner") or repository_owner(config["repository_url"])
     return f"ghcr.io/{owner}/{repository_name(config['repository_url'])}:{tag}"
 
 
@@ -182,11 +193,24 @@ def env_name_for_arg(arg_name):
     return STANDARD_ENV.get(arg_name, (arg_name.upper(), None))[0]
 
 
+def service_namespace(service_name):
+    return "/" + service_name.split(".", 1)[0].replace("-", "_")
+
+
+def service_node_name(service_name):
+    return service_name.split(".", 1)[-1].replace("-", "_")
+
+
+def service_output_path(repo_root, service_name):
+    group, leaf = service_name.split(".", 1)
+    return repo_root / group.replace("-", "_") / leaf.replace("-", "_") / "docker-compose.yml"
+
+
 def default_value_for_arg(arg_name, upstream_default, config):
     if arg_name == "namespace":
         return config["namespace"]
     if arg_name == "name":
-        return config.get("name", repository_name(config["repository_url"]))
+        return config["name"]
     standard = STANDARD_ENV.get(arg_name)
     if standard:
         return standard[1]
@@ -199,7 +223,9 @@ def parse_existing_environment(path):
         return env
     in_environment = False
     env_indent = None
+    section = None
     line_re = re.compile(r"^(\s+)([A-Z0-9_]+):\s*(.*?)(?:\s+#\s*(.*))?$")
+    section_re = re.compile(r"^#\s*-+\s*([a-zA-Z0-9_ -]+?)\s*-+$")
     for line in Path(path).read_text().splitlines():
         stripped = line.strip()
         if stripped == "environment:":
@@ -208,23 +234,29 @@ def parse_existing_environment(path):
             continue
         if not in_environment:
             continue
-        if not stripped or stripped.startswith("#"):
+        if not stripped:
             continue
         indent = len(line) - len(line.lstrip())
+        if env_indent is not None and indent < env_indent:
+            break
+        if stripped.startswith("#"):
+            match = section_re.match(stripped)
+            if match:
+                section = match.group(1).strip().lower()
+            continue
         if env_indent is None:
             env_indent = indent
-        elif indent < env_indent:
-            break
         match = line_re.match(line)
         if match:
             _, key, value, comment = match.groups()
-            env[key] = {"value": value.strip(), "comment": (comment or "").strip()}
+            env[key] = {"value": value.strip(), "comment": (comment or "").strip(), "section": section}
     return env
 
 
 def generated_environment(launch_args, config, existing_env):
     overrides = config.get("environment_overrides", {}) or {}
-    stale = sorted(key for key in existing_env if key not in {env_name_for_arg(arg) for arg in launch_args})
+    launch_env_keys = {env_name_for_arg(arg) for arg in launch_args if arg not in EXCLUDED_ARGS}
+    stale = sorted(key for key in existing_env if key not in launch_env_keys)
     entries = {}
     for arg_name, upstream_default in launch_args.items():
         if arg_name in EXCLUDED_ARGS:
@@ -243,17 +275,39 @@ def generated_environment(launch_args, config, existing_env):
     return entries, stale
 
 
-def ordered_args(launch_args, config):
+def infer_argument_groups(launch_args, existing_env):
+    env_to_arg = {env_name_for_arg(arg): arg for arg in launch_args}
+    inputs = []
+    outputs = []
+    for env_key, metadata in existing_env.items():
+        arg = env_to_arg.get(env_key)
+        if not arg:
+            continue
+        if metadata.get("section") == "inputs":
+            inputs.append(arg)
+        elif metadata.get("section") == "outputs":
+            outputs.append(arg)
+
+    for arg, default in launch_args.items():
+        if arg in EXCLUDED_ARGS or arg in inputs or arg in outputs or arg in {"namespace", "name"}:
+            continue
+        if not arg.endswith("_topic"):
+            continue
+        if "/visualization" in default:
+            outputs.append(arg)
+
+    return inputs, outputs
+
+
+def ordered_args(launch_args, input_args, output_args):
     preferred = ["namespace", "name"]
-    inputs = config.get("input_arguments", []) or []
-    outputs = config.get("output_arguments", []) or []
-    configured_other = config.get("other_arguments", []) or []
-    used = set(preferred + inputs + outputs + configured_other + list(EXCLUDED_ARGS))
+    other_preferred = ["driving_mode", "log_level", "use_sim_time", "trace"]
+    used = set(preferred + input_args + output_args + other_preferred + list(EXCLUDED_ARGS))
     other = [arg for arg in launch_args if arg not in used]
     order = [arg for arg in preferred if arg in launch_args]
-    order.extend(arg for arg in inputs if arg in launch_args)
-    order.extend(arg for arg in outputs if arg in launch_args)
-    order.extend(arg for arg in configured_other if arg in launch_args)
+    order.extend(arg for arg in input_args if arg in launch_args)
+    order.extend(arg for arg in output_args if arg in launch_args)
+    order.extend(arg for arg in other_preferred if arg in launch_args)
     order.extend(other)
     return order
 
@@ -263,7 +317,7 @@ def append_env_line(lines, key, value, comment=None):
     lines.append(f"      {key}: {value}{suffix}")
 
 
-def render_compose(config, package, launch_file, launch_args, env_entries, tag):
+def render_compose(config, package, launch_file, launch_args, env_entries, tag, input_args, output_args):
     install_package = config.get("install_package", package)
     lines = [
         "services:",
@@ -277,32 +331,32 @@ def render_compose(config, package, launch_file, launch_args, env_entries, tag):
         "      # --- name ------",
     ]
 
-    groups = [
-        ("# --- inputs ----", config.get("input_arguments", []) or []),
-        ("# --- outputs ---", config.get("output_arguments", []) or []),
-    ]
-
     for arg in ["namespace", "name"]:
         entry = env_entries.get(arg)
         if entry:
             append_env_line(lines, entry["env"], entry["value"], entry["comment"])
-    for label, args in groups:
-        present = [arg for arg in args if arg in env_entries]
-        if present:
-            lines.append(f"      {label}")
-            for arg in present:
-                entry = env_entries[arg]
-                append_env_line(lines, entry["env"], entry["value"], entry["comment"])
 
-    grouped = {"namespace", "name", *(config.get("input_arguments", []) or []), *(config.get("output_arguments", []) or [])}
-    other = [arg for arg in ordered_args(launch_args, config) if arg not in grouped and arg in env_entries]
+    if input_args:
+        lines.append("      # --- inputs ----")
+        for arg in input_args:
+            entry = env_entries[arg]
+            append_env_line(lines, entry["env"], entry["value"], entry["comment"])
+
+    if output_args:
+        lines.append("      # --- outputs ---")
+        for arg in output_args:
+            entry = env_entries[arg]
+            append_env_line(lines, entry["env"], entry["value"], entry["comment"])
+
+    grouped = {"namespace", "name", *input_args, *output_args}
+    command_args = [arg for arg in ordered_args(launch_args, input_args, output_args) if arg in env_entries]
+    other = [arg for arg in command_args if arg not in grouped]
     if other:
         lines.append("      # --- other -----")
         for arg in other:
             entry = env_entries[arg]
             append_env_line(lines, entry["env"], entry["value"], entry["comment"])
 
-    command_args = [arg for arg in ordered_args(launch_args, config) if arg in env_entries]
     lines.extend(
         [
             "    command:",
@@ -327,9 +381,57 @@ def render_compose(config, package, launch_file, launch_args, env_entries, tag):
     return "\n".join(lines)
 
 
-def generate(config_path):
+def normalize_services(config_path):
     config_path = Path(config_path)
-    config = load_config(config_path)
+    repo_root = config_path.parent.parent
+    data = load_config(config_path)
+    services = data.get("services")
+    if services is None:
+        if "repository_url" in data:
+            return [data]
+        raise GenerationError("config must define services")
+
+    if isinstance(services, dict):
+        service_items = services.items()
+    elif isinstance(services, list):
+        service_items = []
+        for item in services:
+            if not isinstance(item, dict) or len(item) != 1:
+                raise GenerationError("each service list item must contain exactly one service mapping")
+            service_items.extend(item.items())
+    else:
+        raise GenerationError("services must be a mapping or list")
+
+    normalized = []
+    for service_name, service_config in service_items:
+        repository = service_config.get("repository", {})
+        compose = service_config.get("compose", {})
+        repository_url = repository.get("url")
+        ref = repository.get("ref")
+        if not repository_url or not ref:
+            raise GenerationError(f"service {service_name} must define repository.url and repository.ref")
+        output = service_output_path(repo_root, service_name)
+        template = repo_root / compose.get("template", DEFAULT_TEMPLATE)
+        extends_service = compose.get("extends", "ros2-service")
+        normalized.append(
+            {
+                "repository_url": repository_url,
+                "ref": ref,
+                "output": str(output),
+                "service_name": service_name,
+                "namespace": service_namespace(service_name),
+                "name": service_node_name(service_name),
+                "extends": {
+                    "file": os.path.relpath(template, output.parent),
+                    "service": extends_service,
+                },
+                "environment_overrides": service_config.get("environment_overrides", {}) or {},
+            }
+        )
+    return normalized
+
+
+def generate_service(config):
     output_path = Path(config["output"])
     existing_env = parse_existing_environment(output_path)
     with tempfile.TemporaryDirectory(prefix="compose-generation-") as temp_dir:
@@ -340,37 +442,48 @@ def generate(config_path):
         args = launch_arguments(launch_path)
         tag = image_tag(repo_path, config["ref"])
     env_entries, stale = generated_environment(args, config, existing_env)
-    rendered = render_compose(config, package, launch_name, args, env_entries, tag)
+    input_args, output_args = infer_argument_groups(args, existing_env)
+    rendered = render_compose(config, package, launch_name, args, env_entries, tag, input_args, output_args)
     return rendered, stale
 
 
+def generate(config_path):
+    results = []
+    for config in normalize_services(config_path):
+        rendered, stale = generate_service(config)
+        results.append((config, rendered, stale))
+    return results
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Generate docker-compose.yml from ROS module metadata.")
-    parser.add_argument("config", help="module generation config")
-    parser.add_argument("--check", action="store_true", help="fail if the generated file differs from the output")
+    parser = argparse.ArgumentParser(description="Generate docker-compose.yml files from ROS module metadata.")
+    parser.add_argument("config", help="compose generation config")
+    parser.add_argument("--check", action="store_true", help="fail if any generated file differs from its output")
     args = parser.parse_args()
 
-    config = load_config(args.config)
-    output_path = Path(config["output"])
-    rendered, stale = generate(args.config)
-    for key in stale:
-        print(f"warning: stale environment variable in existing compose: {key}", file=sys.stderr)
+    changed = False
+    for config, rendered, stale in generate(args.config):
+        output_path = Path(config["output"])
+        for key in stale:
+            print(f"warning: {config['service_name']}: stale environment variable in existing compose: {key}", file=sys.stderr)
 
-    if args.check:
-        current = output_path.read_text() if output_path.exists() else ""
-        if current != rendered:
-            diff = difflib.unified_diff(
-                current.splitlines(True),
-                rendered.splitlines(True),
-                fromfile=str(output_path),
-                tofile=f"{output_path} (generated)",
-            )
-            sys.stderr.writelines(diff)
-            return 1
-        return 0
+        if args.check:
+            current = output_path.read_text() if output_path.exists() else ""
+            if current != rendered:
+                changed = True
+                diff = difflib.unified_diff(
+                    current.splitlines(True),
+                    rendered.splitlines(True),
+                    fromfile=str(output_path),
+                    tofile=f"{output_path} (generated)",
+                )
+                sys.stderr.writelines(diff)
+            continue
 
-    output_path.write_text(rendered)
-    return 0
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(rendered)
+
+    return 1 if changed else 0
 
 
 if __name__ == "__main__":
