@@ -1,0 +1,41 @@
+services:
+
+  planning-trajectory-optimization:
+    image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
+    environment:
+      # --- name ------
+      NAMESPACE: /
+      NAME: trajectory_optimization
+      # --- inputs ----
+      EGO_DATA_TOPIC: ~/ego_data
+      OBJECT_LIST_TOPIC: ~/object_list
+      REFERENCE_TRAJECTORY_TOPIC: ~/reference_trajectory
+      ROUTE_TOPIC: ~/route
+      # --- outputs ---
+      TRAJECTORY_TOPIC: ~/trajectory
+      EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
+      OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
+      ROUTE_MARKER_TOPIC: ~/visualization/route_marker
+      # --- other -----
+      DRIVING_MODE: ackermann
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch trajectory_optimization trajectory_optimization.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          trace:=$${ROS_TRACING} \
+          driving_mode:=$${DRIVING_MODE} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
+          object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
+          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
