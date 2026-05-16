@@ -1,0 +1,29 @@
+repository_url: https://github.com/openads-project/trajectory_optimization
+ref: main
+output: planning/trajectory_optimization/docker-compose.yml
+service_name: planning.trajectory-optimization
+namespace: /planning
+name: trajectory_optimization
+extends:
+  file: ../../docker-compose-essentials/docker-compose.template.yml
+  service: ros2-service
+input_arguments:
+  - ego_data_topic
+  - object_list_topic
+  - reference_trajectory_topic
+  - route_topic
+output_arguments:
+  - trajectory_topic
+  - boundary_marker_topic
+  - ego_circles_topic
+  - object_circles_topic
+other_arguments:
+  - driving_mode
+  - log_level
+  - use_sim_time
+  - trace
+environment_overrides:
+  EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+  OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+  REFERENCE_TRAJECTORY_TOPIC: /planning/planning_orchestrator/trajectory
+  ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
