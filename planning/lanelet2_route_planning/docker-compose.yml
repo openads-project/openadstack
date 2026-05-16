@@ -4,15 +4,18 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/lanelet2_route_planning:v1.0.2
+    image: ghcr.io/openads-project/lanelet2_route_planning:v1.0.2
     environment:
+      # --- name ------
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
-      USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # inputs
-      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
-      # outputs
+      # --- inputs ----
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data # ~/ego_data
+      # --- outputs ---
       ROUTE_TOPIC: ~/route
+      # --- other -----
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
     command:
       - /bin/bash
       - -ic
@@ -20,6 +23,7 @@ services:
         ros2 launch lanelet2_route_planning lanelet2_route_planning_launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
+          log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           route_topic:=$${ROUTE_TOPIC}
