@@ -1,8 +1,0 @@
-include:
-  - ../../../planning/lanelet2_route_planning/docker-compose.yml
-
-services:
-
-  planning.lanelet2-route-planning:
-    volumes:
-      - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
