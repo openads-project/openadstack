@@ -1,10 +1,10 @@
+# https://github.com/openads-project/lanelet2_route_planning/blob/openadstack/docker/compose/docker-compose.yml
 include:
-  # Override LANELET2_ROUTE_PLANNING_COMPOSE with a local file while developing the upstream contract.
-  - ${LANELET2_ROUTE_PLANNING_COMPOSE:-oci://ghcr.io/openads-project/lanelet2_route_planning-compose:v1.0.2}
+  - oci://ghcr.io/openads-project/lanelet2_route_planning/compose:v1.0.2
 
 services:
 
-  planning.lanelet2-route-planning:
+  planning-lanelet2-route-planning:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
