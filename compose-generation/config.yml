@@ -1,7 +1,0 @@
-services:
-- planning.trajectory-optimization:
-    repository:
-      url: https://github.com/openads-project/trajectory_optimization
-      ref: v1.2.0
-    compose:
-      extends: ros2-service
