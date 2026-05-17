@@ -1,10 +1,10 @@
 services:
 
-  planning-trajectory-optimization:
+  planning.trajectory-optimization:
     image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
     environment:
       # --- name ------
-      NAMESPACE: /
+      NAMESPACE: /planning
       NAME: trajectory_optimization
       # --- inputs ----
       EGO_DATA_TOPIC: ~/ego_data
@@ -13,9 +13,9 @@ services:
       ROUTE_TOPIC: ~/route
       # --- outputs ---
       TRAJECTORY_TOPIC: ~/trajectory
+      BOUNDARY_MARKER_TOPIC: ~/visualization/boundaries
       EGO_CIRCLES_TOPIC: ~/visualization/ego_circles
       OBJECT_CIRCLES_TOPIC: ~/visualization/object_circles
-      ROUTE_MARKER_TOPIC: ~/visualization/route_marker
       # --- other -----
       DRIVING_MODE: ackermann
       LOG_LEVEL: ${LOG_LEVEL:-info}
@@ -36,6 +36,6 @@ services:
           reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          boundary_marker_topic:=$${BOUNDARY_MARKER_TOPIC} \
           ego_circles_topic:=$${EGO_CIRCLES_TOPIC} \
-          object_circles_topic:=$${OBJECT_CIRCLES_TOPIC} \
-          route_marker_topic:=$${ROUTE_MARKER_TOPIC}
+          object_circles_topic:=$${OBJECT_CIRCLES_TOPIC}

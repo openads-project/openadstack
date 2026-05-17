@@ -4,13 +4,11 @@ include:
 
 services:
 
-  planning-trajectory-optimization:
+  planning.trajectory-optimization:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     environment:
-      # --- name ------
-      NAMESPACE: /planning
       # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
