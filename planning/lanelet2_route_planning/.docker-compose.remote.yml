@@ -6,7 +6,7 @@ services:
 
   planning-lanelet2-route-planning:
     extends:
-      file: ../../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     environment:
       # --- inputs ----
