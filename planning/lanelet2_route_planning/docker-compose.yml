@@ -13,6 +13,7 @@ services:
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
       # --- inputs ----
+      # EGO_DATA_TOPIC: ~/ego_data
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       ROUTE_TOPIC: ~/route
       # --- outputs ---
