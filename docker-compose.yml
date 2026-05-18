@@ -1,23 +1,23 @@
 include:
 
   # essentials
-  # - compose/essentials/robot_state_publisher/docker-compose.yml
-  - compose/essentials/zenoh-router/docker-compose.yml
+  # - essentials/robot_state_publisher/docker-compose.yml
+  - essentials/zenoh-router/docker-compose.yml
 
   # monitoring
-  # - compose/monitoring/docker-compose.yml
+  # - monitoring/docker-compose.yml
 
   # localization
-  # - compose/localization/ego_state_estimation/docker-compose.yml
-  # - compose/localization/lanelet2_map_server/docker-compose.yml
+  # - localization/ego_state_estimation/docker-compose.yml
+  # - localization/lanelet2_map_server/docker-compose.yml
 
   # understanding
-  # - compose/understanding/lanelet2_object_list_prediction/docker-compose.yml
+  # - understanding/lanelet2_object_list_prediction/docker-compose.yml
 
   # planning
-  - compose/planning/lanelet2_route_planning/docker-compose.yml
-  # - compose/planning/simple_planner/docker-compose.yml
-  - compose/planning/trajectory_optimization/docker-compose.yml
+  - planning/lanelet2_route_planning/docker-compose.yml
+  # - planning/simple_planner/docker-compose.yml
+  - planning/trajectory_optimization/docker-compose.yml
 
   # control
-  # - compose/control/ackermann_trajectory_control/docker-compose.yml
+  # - control/ackermann_trajectory_control/docker-compose.yml
