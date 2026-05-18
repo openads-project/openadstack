@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy includes into the project tree and render OCI compose includes."""
+"""Render Docker Compose files by resolving OCI image references in `include` directives."""
 
 import argparse
 import copy
@@ -94,11 +94,11 @@ def relative_path(path: Path) -> str:
     return os.path.relpath(path.resolve(), Path.cwd())
 
 
-def render_files(includes_dir: Path, output_dir: Path, dry_run: bool) -> None:
+def render_files(sources_dir: Path, output_dir: Path, dry_run: bool) -> None:
     client = OrasClient()
-    for source in sorted(path for path in includes_dir.rglob("*") if path.is_file()):
-        destination = output_dir / source.relative_to(includes_dir)
-        action = "render" if source.name == "docker-compose.yml" else "copy  "
+    for source in sorted(path for path in sources_dir.rglob("*") if path.is_file()):
+        destination = output_dir / source.relative_to(sources_dir)
+        action = "rendering" if source.name == "docker-compose.yml" else "copying"
         print(f"{action} {relative_path(source)} -> {relative_path(destination)}")
         if dry_run:
             continue
@@ -111,19 +111,19 @@ def render_files(includes_dir: Path, output_dir: Path, dry_run: bool) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--includes-dir", type=Path, default=PROJECT_ROOT / "includes")
-    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT)
+    parser.add_argument("--sources-dir", type=Path, default=PROJECT_ROOT / "compose-sources")
+    parser.add_argument("--output-dir", type=Path, default=PROJECT_ROOT / "compose")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    includes_dir = args.includes_dir.resolve()
-    if not includes_dir.is_dir():
-        print(f"error: includes directory does not exist: {includes_dir}", file=sys.stderr)
+    sources_dir = args.sources_dir.resolve()
+    if not sources_dir.is_dir():
+        print(f"error: sources directory does not exist: {sources_dir}", file=sys.stderr)
         return 2
-    render_files(includes_dir, args.output_dir.resolve(), args.dry_run)
+    render_files(sources_dir, args.output_dir.resolve(), args.dry_run)
     return 0
 
 
