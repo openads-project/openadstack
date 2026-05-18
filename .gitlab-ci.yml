@@ -1,0 +1,17 @@
+image: python:3.12
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+render-compose-sources:
+  script:
+    - python -m pip install -r scripts/requirements.txt
+    - python scripts/render_compose_sources.py
+    - git add -N .
+    - |
+      if ! git diff --exit-code; then
+        echo "ERROR: scripts/render_compose_sources.py changed files. Run it locally and commit the result."
+        exit 1
+      fi
