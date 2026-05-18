@@ -68,17 +68,107 @@ def is_oci(value: Any) -> bool:
     return isinstance(value, str) and value.startswith("oci://")
 
 
-def merge(base: Any, override: Any) -> Any:
+def merge(base: Any, override: Any, indent: int = 0) -> Any:
     if isinstance(base, CommentedMap) and isinstance(override, CommentedMap):
         for key, value in override.items():
             if key in base:
-                base[key] = merge(base[key], value)
+                original = base[key]
+                if isinstance(original, CommentedMap) and isinstance(value, CommentedMap):
+                    base[key] = merge(original, value, indent + 2)
+                else:
+                    if plain(original) != plain(value):
+                        base.yaml_set_comment_before_after_key(
+                            key, before=original_comment(base, key, original), indent=indent
+                        )
+                        following = following_comment(original)
+                    else:
+                        following = ""
+                    base[key] = value
+                    if following:
+                        preserve_following_comment(base, key, following, indent)
             else:
                 base[key] = value
                 if key in override.ca.items:
                     base.ca.items[key] = override.ca.items[key]
         return base
     return override
+
+
+def following_comment(value: Any) -> str:
+    comments = []
+    if isinstance(value, list):
+        for tokens in value.ca.items.values():
+            if tokens and tokens[0]:
+                comments.append(tokens[0].value)
+    return normalize_comment_block("".join(comments).rstrip()) if comments else ""
+
+
+def preserve_following_comment(mapping: CommentedMap, key: Any, comment: str, indent: int) -> None:
+    keys = list(mapping.keys())
+    try:
+        next_key = keys[keys.index(key) + 1]
+    except (ValueError, IndexError):
+        return
+    mapping.yaml_set_comment_before_after_key(next_key, before=comment, indent=indent)
+
+
+def original_comment(source: CommentedMap, key: Any, value: Any) -> str:
+    text = scalar_text(value)
+    return f"{key}:{text}" if text.startswith("\n") else f"{key}: {text}"
+
+
+def uncommented(value: Any) -> Any:
+    value = copy.deepcopy(value)
+    clear_comments(value)
+    return value
+
+
+def clear_comments(value: Any) -> None:
+    if hasattr(value, "ca"):
+        value.ca.items.clear()
+        value.ca.comment = None
+        value.ca.end = []
+    if isinstance(value, CommentedMap):
+        for item in value.values():
+            clear_comments(item)
+    elif isinstance(value, list):
+        for item in value:
+            clear_comments(item)
+
+
+def normalize_comment_block(text: str) -> str:
+    normalized = []
+    for line in text.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("# "):
+            normalized.append(stripped[2:])
+        elif stripped.startswith("#"):
+            normalized.append(stripped[1:])
+        else:
+            normalized.append(line)
+    return "\n".join(normalized)
+
+
+def plain(value: Any) -> Any:
+    if isinstance(value, CommentedMap):
+        return {key: plain(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [plain(item) for item in value]
+    return value
+
+
+def scalar_text(value: Any) -> str:
+    if isinstance(value, str):
+        return value
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return str(value).lower()
+    if not isinstance(value, (CommentedMap, list)):
+        return str(value)
+    rendered = io.StringIO()
+    YAML_RT.dump(uncommented(value), rendered)
+    return "\n" + rendered.getvalue().replace("\n...\n", "\n").rstrip()
 
 
 def generated_header(source: Path, compose: CommentedMap) -> str:
