@@ -1,5 +1,5 @@
-# https://github.com/openads-project/trajectory_optimization/blob/openadstack/docker/compose/docker-compose.yml
 include:
+  # https://github.com/openads-project/trajectory_optimization/blob/openadstack/docker/compose/docker-compose.yml
   - oci://ghcr.io/openads-project/trajectory_optimization/compose:v1.2.0
 
 services:

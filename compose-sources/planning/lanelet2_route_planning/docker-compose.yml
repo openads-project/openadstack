@@ -1,5 +1,5 @@
-# https://github.com/openads-project/lanelet2_route_planning/blob/open-source/docker/compose/docker-compose.yml
 include:
+  # https://github.com/openads-project/lanelet2_route_planning/blob/open-source/docker/compose/docker-compose.yml
   - oci://ghcr.io/openads-project/lanelet2_route_planning/compose:v1.0.0
 
 services:
