@@ -1,0 +1,16 @@
+# https://github.com/openads-project/trajectory_optimization/blob/openadstack/docker/compose/docker-compose.yml
+include:
+  - oci://ghcr.io/openads-project/trajectory_optimization/compose:v1.2.0
+
+services:
+
+  planning-trajectory-optimization:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    environment:
+      # --- inputs ----
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+      REFERENCE_TRAJECTORY_TOPIC: /planning/simple_planner/trajectory
+      ROUTE_TOPIC: /planning/lanelet2_route_planning/route
