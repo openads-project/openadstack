@@ -1,0 +1,6 @@
+services:
+
+  zenoh-router:
+    extends:
+      file: ../../../docker-compose-essentials/docker-compose.template.yml
+      service: zenoh-router
