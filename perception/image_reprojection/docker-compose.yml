@@ -11,7 +11,7 @@ services:
         USE_SIM_TIME: ${USE_SIM_TIME:-false}
       command:
         - /bin/bash
-        - -c
+        - -ic
         - |
           ros2 launch image_reprojection image_reprojection_launch.py \
             namespace:=$${NAMESPACE} \
