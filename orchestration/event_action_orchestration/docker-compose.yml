@@ -4,7 +4,7 @@ services:
       extends:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-service
-      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/orchestration/event_action_orchestration:latest
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/orchestration/event_action_orchestration:v1.0.0
       environment:
         NAMESPACE: /orchestration
         NAME: event_action_orchestration
