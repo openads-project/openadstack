@@ -16,3 +16,5 @@ services:
       NAMESPACE: /planning
       # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      # --- other -----
+      PARAMS: /params.yml
