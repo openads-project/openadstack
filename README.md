@@ -28,4 +28,5 @@ flowchart TD
     simple_planner -->|reference trajectory| trajectory_optimization
     trajectory_optimization -->|trajectory| ackermann_trajectory_control
     ackermann_trajectory_control -->|acceleration/curvature| O:::hidden
+    classDef hidden display: none;
 ```
