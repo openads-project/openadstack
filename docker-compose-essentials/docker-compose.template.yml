@@ -1,0 +1,181 @@
+services:
+
+  # === BASE SERVICES ==========================================================
+
+  base-service:
+    restart: ${RESTART_POLICY:-no}
+    environment:
+      - DOCKER_UID
+      - DOCKER_GID
+      - LANG
+      - LANGUAGE
+      - LC_ALL
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ulimits:
+      nofile: # increase maximum number of open files for non-root users [https://lttng.org/man/8/lttng-sessiond/v2.13/]
+        soft: 65536
+        hard: 65536
+
+  x11-service:
+    extends:
+      service: base-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  gpu-service:
+    extends:
+      service: base-service
+    deploy:
+      resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+
+  nvidia-soc-service:
+    extends:
+      service: base-service
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+
+  gpu-x11-service:
+    extends:
+      service: gpu-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  nvidia-soc-x11-service:
+    extends:
+      service: nvidia-soc-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  # === ROS 2 SERVICES =========================================================
+
+  ros2-service:
+    extends:
+      service: ros2-${RMW:-zenoh}-service # RMW: zenoh|fastrtps|cyclone
+    environment:
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+
+  ros2-zenoh-service:
+    extends:
+      service: base-service
+    environment:
+      - RMW_IMPLEMENTATION=rmw_zenoh_cpp
+      - ZENOH_CONFIG_OVERRIDE=${ZENOH_SESSION_CONFIG_OVERRIDE:-connect/endpoints=["tcp/zenoh-router:7447","udp/zenoh-router:7447"];transport/shared_memory/enabled=true}
+      - ZENOH_ROUTER_CHECK_ATTEMPTS=0
+      - RUST_LOG=zenoh=error
+    ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
+    ulimits:
+      memlock: # 4 GB = size of shared memory segment defined for zenoh-router
+        soft: 4294967296
+        hard: 4294967296
+
+  ros2-fastrtps-service:
+    extends:
+      service: base-service
+    environment:
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+
+  ros2-cyclone-service:
+    extends:
+      service: base-service
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclone_cpp
+
+  ros2-x11-service:
+    extends:
+      service: ros2-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  ros2-gpu-service:
+    extends:
+      service: ros2-service
+    deploy:
+      resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+
+  ros2-nvidia-soc-service:
+    extends:
+      service: ros2-service
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+
+  ros2-gpu-x11-service:
+    extends:
+      service: ros2-gpu-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  ros2-nvidia-soc-x11-service:
+    extends:
+      service: ros2-nvidia-soc-service
+    environment:
+      - DISPLAY=${DISPLAY_X11_DOCKER:-${DISPLAY:-""}}
+      - XAUTHORITY${XAUTHORITY_DOCKER:+=/.Xauthority}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY_DOCKER:-/dev/null:/dev/null}${XAUTHORITY_DOCKER:+:/.Xauthority:ro}
+
+  # === OTHER SERVICES =========================================================
+
+  zenoh-router:
+    extends:
+      service: base-service
+    restart: ${RESTART_POLICY:-no}
+    image: eclipse/zenoh:1.8.0
+    environment:
+      - ZENOH_ROUTER_CONFIG_URI=/config.json5
+      - ZENOH_CONFIG_OVERRIDE=${ZENOH_ROUTER_CONFIG_OVERRIDE:-routing/router/peers_failover_brokering=true;listen/endpoints=["tcp/[::]:7447","udp/[::]:7447"];transport/shared_memory/enabled=true}
+    volumes:
+      - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/config.json5
+    healthcheck:
+      test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+    ipc: shareable
+    shm_size: 4gb
+    ulimits:
+      memlock: # 4 GB = size of shared memory segment defined for zenoh-router
+        soft: 4294967296
+        hard: 4294967296
