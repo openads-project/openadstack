@@ -6,3 +6,6 @@ include:
   # planning
   - planning/lanelet2_route_planning/docker-compose.yml
   - planning/trajectory_optimization/docker-compose.yml
+
+  # monitoring
+  - monitoring/monitoring/docker-compose.yml
