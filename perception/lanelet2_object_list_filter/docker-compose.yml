@@ -4,7 +4,7 @@ services:
       extends:
         file: ../../docker-compose-essentials/docker-compose.template.yml
         service: ros2-service
-      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/lanelet2_object_list_filter:latest_initial-development_ci-amd64
+      image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/perception/lanelet2_object_list_filter:v0.1.0
       environment:
         NAMESPACE: /perception
         NAME: lanelet2_object_list_filter
