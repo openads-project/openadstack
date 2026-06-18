@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest_object-velocity-reduction-cleanup_ci
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
     environment:
       NAMESPACE: /planning
       NAME: simple_planner
@@ -16,6 +16,7 @@ services:
       ROUTE_TOPIC: /understanding/dynamic_map_enrichment/enriched_route
       # outputs
       TRAJECTORY_TOPIC: ~/trajectory
+      OBJECT_INTERACTION_MARKERS_TOPIC: ~/object_interaction_markers
       # services
       ENABLE_LEFT_TURN_INDICATOR_SERVICE: ~/enable_left_turn_indicator
       ENABLE_RIGHT_TURN_INDICATOR_SERVICE: ~/enable_right_turn_indicator
@@ -33,6 +34,7 @@ services:
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           route_topic:=$${ROUTE_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          object_interaction_markers_topic:=$${OBJECT_INTERACTION_MARKERS_TOPIC} \
           left_turn_indicator_service:=$${ENABLE_LEFT_TURN_INDICATOR_SERVICE} \
           right_turn_indicator_service:=$${ENABLE_RIGHT_TURN_INDICATOR_SERVICE} \
           hazard_lights_service:=$${ENABLE_HAZARD_LIGHTS_SERVICE}
