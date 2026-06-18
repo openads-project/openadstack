@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/trajectory_optimization:latest
+    image: ghcr.io/openads-project/trajectory_optimization:latest
     environment:
       NAMESPACE: /planning
       NAME: trajectory_optimization
@@ -31,7 +31,6 @@ services:
           use_sim_time:=$${USE_SIM_TIME} \
           trace:=$${ROS_TRACING} \
           driving_mode:=$${DRIVING_MODE} \
-          diagnostics_topic:=/diagnostics \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           reference_trajectory_topic:=$${REFERENCE_TRAJECTORY_TOPIC} \
