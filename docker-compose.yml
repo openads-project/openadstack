@@ -3,6 +3,15 @@ include:
   # essentials
   - essentials/zenoh-router/docker-compose.yml
 
+  # localization
+  - localization/lanelet2_map_server/docker-compose.yml
+
+  # understanding
+  - understanding/lanelet2_object_list_prediction/docker-compose.yml
+  
   # planning
   - planning/lanelet2_route_planning/docker-compose.yml
   - planning/trajectory_optimization/docker-compose.yml
+
+  # control
+  - control/ackermann_trajectory_control/docker-compose.yml
