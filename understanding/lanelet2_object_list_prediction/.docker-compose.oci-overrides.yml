@@ -1,0 +1,20 @@
+# Remote compose file with overrides defined here can be rendered by
+# `../../scripts/render_compose_sources.py`
+
+include:
+  # https://github.com/openads-project/lanelet2_object_list_prediction/blob/v1.0.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/lanelet2_object_list_prediction:compose-open-source # TODO: compose-v1-0-0
+
+services:
+
+  lanelet2-object-list-prediction:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    environment:
+      # --- name ------
+      NAMESPACE: /understanding
+      # --- inputs ----
+      OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
+      # --- other -----
+      PARAMS: /params.yml

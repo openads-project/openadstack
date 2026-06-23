@@ -2,19 +2,22 @@
 # `../../scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/openads-project/lanelet2_route_planning/blob/v1.1.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/lanelet2_route_planning:compose-v1-1-0
+  # https://github.com/openads-project/ackermann_trajectory_control/blob/v1.4.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/ackermann_trajectory_control:compose-v1-4-0
 
 services:
 
-  lanelet2-route-planning:
+  ackermann-trajectory-control:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
     environment:
       # --- name ------
-      NAMESPACE: /planning
+      NAMESPACE: /control
       # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      LAT_CONTROL_ACTIVE_TOPIC: /control/lat_active
+      LON_CONTROL_ACTIVE_TOPIC: /control/lon_active
+      TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
       # --- other -----
       PARAMS: /params.yml
