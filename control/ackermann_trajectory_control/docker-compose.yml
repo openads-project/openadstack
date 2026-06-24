@@ -2,7 +2,7 @@
 # based on `.docker-compose.oci-overrides.yml` with resolved includes
 #   include:
 #     # https://github.com/openads-project/ackermann_trajectory_control/blob/v1.4.0/docker/compose/docker-compose.yml
-#     - oci://ghcr.io/openads-project/ackermann_trajectory_control:compose-v1-4-0
+#     - oci://ghcr.io/openads-project/ackermann_trajectory_control:compose-v1.4.0
 
 services:
 
