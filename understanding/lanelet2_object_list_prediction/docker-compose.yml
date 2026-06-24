@@ -2,7 +2,7 @@
 # based on `.docker-compose.oci-overrides.yml` with resolved includes
 #   include:
 #     # https://github.com/openads-project/lanelet2_object_list_prediction/blob/v1.0.0/docker/compose/docker-compose.yml
-#     - oci://ghcr.io/openads-project/lanelet2_object_list_prediction:compose-open-source # TODO: compose-v1-0-0
+#     - oci://ghcr.io/openads-project/lanelet2_object_list_prediction:compose-open-source # TODO: compose-v1.0.0
 
 services:
 
