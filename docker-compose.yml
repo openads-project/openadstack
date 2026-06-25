@@ -15,3 +15,6 @@ include:
 
   # control
   - control/ackermann_trajectory_control/docker-compose.yml
+
+  # monitoring
+  - monitoring/monitoring/docker-compose.yml
