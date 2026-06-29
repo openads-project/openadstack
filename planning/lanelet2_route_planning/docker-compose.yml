@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/lanelet2_route_planning:v1.1.0
+    image: ghcr.io/openads-project/lanelet2_route_planning:v1.1.1
     environment:
       NAMESPACE: /planning
       NAME: lanelet2_route_planning
