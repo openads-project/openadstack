@@ -68,23 +68,9 @@ Leave the container shell with:
 exit
 ```
 
-## Monitoring with RViz
-
-The `monitoring` service starts RViz with the repository-provided configuration. GUI applications started from containers need access to the local X server on Linux:
-
-```bash
-xhost +local:
-```
-
-Then start or restart the monitoring service:
-
-```bash
-docker compose up -d monitoring
-```
-
 ## Configuration
 
-Most stack settings are configured through environment variables in the service Compose files:
+Most stack settings are already configured through environment variables in the service Compose files:
 
 - namespace and node name
 - input and output topic names
@@ -102,8 +88,6 @@ services:
   trajectory-optimization:
     environment:
       EGO_DATA_TOPIC: /my_stack/ego_data
-      OBJECT_LIST_TOPIC: /my_stack/predicted_object_list
-      TRAJECTORY_TOPIC: /my_stack/trajectory
 ```
 
 Start the stack with the override:
@@ -112,22 +96,8 @@ Start the stack with the override:
 docker compose -f docker-compose.yml -f my-openadstack.override.yml up -d
 ```
 
-## Updating Generated Compose Files
-
-Service Compose files are generated from module-level OCI Compose artifacts and local overrides. If the source override files changed, regenerate the Compose files with:
-
-```bash
-python3 scripts/render_compose_sources.py
-```
-
-Commit both the override changes and the regenerated Compose files.
-
 ## Development Process & Tools
 
 For developing new modules or modifying existing OpenADS services, follow the [OpenADSuite development workflow](https://openads-project.github.io/openadsuite/openadsuite.html). It describes the recommended template repositories, development containers, release workflow, and registry artifacts used by OpenADStack integrations.
 
 Additional helper tools are documented in the [OpenADSuite tools overview](https://openads-project.github.io/openadsuite/tools.html).
-
-## System Analysis & Tracing
-
-For runtime analysis, tracing, and performance inspection, see the [OpenADSuite analysis guide](https://openads-project.github.io/openadsuite/analysis.html). It explains how tracing data can be generated and used to understand timing behavior across the distributed ROS 2 stack.

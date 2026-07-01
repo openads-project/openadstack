@@ -17,15 +17,20 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 >
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
-![](./assets/karl.png)
+![OpenADStack running on the karl. research vehicle](assets/karl.png)
 
 ## 🚀 Quick Start
 
 Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-OpenADStack is usually run as part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or inside [OpenADSim](https://github.com/openads-project/openadsim). For a first local look at the stack, use the open-loop demo: it replays recorded ROS 2 data and lets you inspect the stack behavior without starting additional simulation or vehicle modules.
+OpenADStack is usually run as part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup.
 
-Start the demo:
+> [!NOTE]
+> For closed-loop simulation, scenario execution, maps, and simulator adapters, [OpenADSim](https://github.com/openads-project/openadsim) is the recommended entry point.
+
+For a first local look at OpenADStack itself, use the demo in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
+
+Start the open-loop demo:
 
 ```bash
 cd demo
@@ -55,7 +60,7 @@ OpenADStack is organized into functional domains:
 
 This structure keeps individual services replaceable while preserving stable interfaces between the stack domains.
 
-![](./assets/functional-overview.png)
+![OpenADStack functional overview](assets/functional-overview.png)
 
 The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./technical-architecture.md).
 

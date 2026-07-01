@@ -94,22 +94,43 @@ This is the core purpose of OpenADStack: it turns reusable OpenADServices into a
 
 The shared template in `docker-compose-essentials/docker-compose.template.yml` is not an additional integration level. It is a common base that OpenADStack services extend inside levels 2 and 3. The template centralizes runtime settings that should be identical across services:
 
-- ROS 2 and Zenoh-related environment variables
+- general ROS 2 environment variables
+- middleware-specific settings
 - common container lifecycle settings
 - GPU and X11 settings for graphical tools
 - workspace and parameter mount conventions
 
 The stack-specific Compose files then focus on module-specific settings such as image tags, launch arguments, namespaces, topic names, and parameter files.
 
-## Middleware
+## General Environment Variables
 
-OpenADStack is designed for ROS 2 middleware flexibility. The current Compose setup supports:
+OpenADStack exposes a small set of environment variables that are relevant across many services. Some are defined by the shared Docker templates, while others are passed through to the service launch files. The goal is the same in both cases: integrations can adapt common runtime behavior without editing each service command.
 
-- `rmw_fastrtps_cpp`
-- `rmw_zenoh_cpp`
+| Variable | Defined in | Typical values | Effect |
+| -------- | ---------- | -------------- | ------ |
+| `RMW` | shared template | `zenoh`, `fastrtps`, `cyclone` | Selects the ROS 2 middleware service template. This maps to `rmw_zenoh_cpp`, `rmw_fastrtps_cpp`, or `rmw_cyclone_cpp`. |
+| `ROS_DOMAIN_ID` | shared template | `0`, custom domain ID | Sets the ROS 2 domain for all services extending `ros2-service`. Use this to isolate deployments on the same network. |
+| `LOG_LEVEL` | service Compose files | `debug`, `info`, `warn`, `error` | Passed into service launch files as `log_level`, controlling node logging verbosity. |
+| `USE_SIM_TIME` | service Compose files | `true`, `false` | Passed into service launch files as `use_sim_time`, switching nodes between wall-clock time and `/clock`. |
 
-The selected middleware is configured through shared environment variables and can be adapted by higher-level integrations. Additional OpenADServices can be connected across middleware boundaries through the [ros_middleware_bridge](https://github.com/openads-project/ros_middleware_bridge) when an integration needs to bridge separate ROS 2 communication domains.
+### What Happens at Runtime
 
-## Tracing
+`RMW` is resolved by Docker Compose before the service starts. For example, `RMW=zenoh` makes `ros2-service` extend the Zenoh-specific template, which sets `RMW_IMPLEMENTATION=rmw_zenoh_cpp` and the default Zenoh session configuration. `RMW=fastrtps` selects the Fast DDS template instead.
 
-Tracing support is planned as a future extension. The stack already keeps runtime configuration centralized so tracing-related environment variables and mounts can be added consistently across services.
+`LOG_LEVEL` and `USE_SIM_TIME` are configured per service but follow the same convention across the stack. Most service Compose files define them with defaults:
+
+```yaml
+environment:
+  LOG_LEVEL: ${LOG_LEVEL:-info}
+  USE_SIM_TIME: ${USE_SIM_TIME:-false}
+```
+
+The service command then forwards them to the ROS 2 launch file:
+
+```bash
+ros2 launch <package> <launch-file> \
+  log_level:=$${LOG_LEVEL} \
+  use_sim_time:=$${USE_SIM_TIME}
+```
+
+Additional OpenADServices can be connected across middleware boundaries through the [ros_middleware_bridge](https://github.com/openads-project/ros_middleware_bridge) when an integration needs to bridge separate ROS 2 communication domains.
