@@ -17,7 +17,7 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 >
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
-![](./docs/assets/openadstack-karl-road-teaser.png)
+![](./assets/karl.png)
 
 ## 🚀 Quick Start
 
@@ -42,7 +42,7 @@ Detailed tutorials and configuration guidance are part of the official [📝 ***
 
 ## 🏗️ Functional Overview & Architecture
 
-OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The default stack processes ego-state, map, object, and route information into a drivable trajectory and Ackermann-compatible control command. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
+OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The detailed data flow is described in [Functional Architecture](./functional-architecture.md).
 
 OpenADStack is organized into functional domains:
 
@@ -55,18 +55,18 @@ OpenADStack is organized into functional domains:
 
 This structure keeps individual services replaceable while preserving stable interfaces between the stack domains.
 
-![](./docs/assets/functional-overview.png)
+![](./assets/functional-overview.png)
 
-The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and stable OpenADS topic contracts. The detailed service structure is described in [Technical Architecture](./docs/technical-architecture.md).
+The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./technical-architecture.md).
 
 ## 📝 Documentation
 
 The documentation contains:
 
-- [Usage](./docs/usage.md)
-- [Functional Architecture](./docs/functional-architecture.md)
-- [Technical Architecture](./docs/technical-architecture.md)
-- [Service Integration](./docs/service-integration.md)
+- [Usage](./usage.md)
+- [Functional Architecture](./functional-architecture.md)
+- [Technical Architecture](./technical-architecture.md)
+- [Service Integration](./service-integration.md)
 
 ## 🙏 Acknowledgements
 
