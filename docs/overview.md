@@ -7,7 +7,7 @@
   <a href="https://github.com/openads-project/openadstack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/openads-project/openadstack"/></a>
 </p>
 
-**Modular ROS 2 automated-driving stack covering sensing, localization, environment modeling and prediction, planning, optimization, control, and monitoring.**
+**Baseline reference implementation for modular ROS 2 automated-driving stacks in OpenADS.**
 
 OpenADStack bundles reusable OpenADS services into a Docker Compose based reference stack. It is designed for different integrations: from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://github.com/openads-project/openadsim).
 
@@ -33,7 +33,6 @@ For a first local look at OpenADStack itself, use the demo in this repository. I
 Start the open-loop demo:
 
 ```bash
-cd demo
 docker compose up -d
 ```
 
