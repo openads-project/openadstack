@@ -1,0 +1,35 @@
+services:
+
+  simple-object-tracking:
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/simple_object_tracking:latest_maus-branch_ci
+    environment:
+      # --- name ------
+      # NAMESPACE: /
+      NAMESPACE: /understanding
+      NAME: simple_object_tracking
+      # --- inputs ----
+      RAW_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      # --- outputs ---
+      OBJECT_LIST_TOPIC: ~/object_list
+      # --- other -----
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      # PARAMS: ${PARAMS:-/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml}
+      PARAMS: /params.yml
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch simple_object_tracking simple_object_tracking_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          log_level:=$${LOG_LEVEL} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          params:=$${PARAMS} \
+          raw_object_list_topic:=$${RAW_OBJECT_LIST_TOPIC} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
