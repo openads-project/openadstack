@@ -1,0 +1,33 @@
+services:
+
+  simple-planner:
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
+    environment:
+      # --- name ------
+      # NAMESPACE: /
+      NAMESPACE: /planning
+      NAME: simple_planner
+      # --- inputs ----
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
+      ROUTE_TOPIC: /planning/lanelet2_route_planning/route
+      # --- other -----
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      PARAMS: /params.yml
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 launch simple_planner simple_planner_launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          log_level:=$${LOG_LEVEL} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          params:=$${PARAMS} \
+          ego_data_topic:=$${EGO_DATA_TOPIC} \
+          object_list_topic:=$${OBJECT_LIST_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC} \
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
