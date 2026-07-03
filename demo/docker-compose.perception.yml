@@ -1,0 +1,14 @@
+# Perception demo override.
+#
+# Docker Compose profiles are additive: services without profiles are always
+# enabled, even when `--profile perception` is selected. This override moves the
+# recorded object-list relay into an inactive profile for perception runs.
+
+include:
+  - ../perception/point_cloud_fusion/docker-compose.yml
+  - ../perception/point_cloud_object_detection/docker-compose.yml
+  
+services:
+  monitoring.topic-relay:
+    profiles:
+      - no-perception

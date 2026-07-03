@@ -19,7 +19,7 @@ services:
       - /bin/bash
       - -ic
       - |
-        ros2 launch simple_planner simple_planner_launch.py \
+        ros2 launch simple_planner simple_planner.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           log_level:=$${LOG_LEVEL} \
@@ -27,7 +27,7 @@ services:
           params:=$${PARAMS} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC} \
+          route_topic:=$${ROUTE_TOPIC}
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service

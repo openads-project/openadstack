@@ -1,0 +1,108 @@
+include:
+
+  # essentials
+  - ../essentials/zenoh-router/docker-compose.yml
+
+  # localization
+  - ../localization/lanelet2_map_server/docker-compose.yml
+
+  # understanding
+  - ../understanding/simple_object_tracking/docker-compose.yml
+  - ../understanding/lanelet2_object_list_prediction/docker-compose.yml
+  
+  # planning
+  - ../planning/lanelet2_route_planning/docker-compose.yml
+  - ../planning/simple_planner/docker-compose.yml
+  - ../planning/trajectory_optimization/docker-compose.yml
+
+  # control
+  - ../control/ackermann_trajectory_control/docker-compose.yml
+
+  # monitoring
+  - ../monitoring/monitoring/docker-compose.yml
+
+# Demo overrides
+services:
+
+  monitoring:
+    volumes:
+      - ./rviz/conf.rviz:/conf.rviz
+      - ./rviz/mesh:/mesh
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/monitoring/ros-monitoring:v1.0.0
+    command: bash -ic "rviz2 -d /conf.rviz --ros-args -p use_sim_time:=true"
+
+
+  robot-state-publisher:
+    extends:
+      file: ../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/monitoring:v1.0.0
+    command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
+    volumes:
+      - ./rviz/urdf:/urdf
+
+  monitoring.bag-replay:
+    extends:
+      file: ../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/monitoring:v1.0.0
+    environment:
+      # --- name ------
+      # NAMESPACE: /
+      NAMESPACE: /monitoring
+      NAME: bag-replay
+      # --- other -----
+      USE_SIM_TIME: ${USE_SIM_TIME:-false}
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 bag play --input /rosbag2 --clock --loop --regex "/drivers.*|/localization/ego_state_estimation.*|/perception/point_cloud_object_detection_ouster/object_list|/tf.*"
+    volumes:
+      - ./rosbag2:/rosbag2
+
+  monitoring.topic-relay:
+    extends:
+      service: monitoring.bag-replay
+    image: ghcr.io/openads-project/monitoring:v1.0.0
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
+
+  monitoring.topic-relay-tmp:
+    extends:
+      service: monitoring.bag-replay
+    image: ghcr.io/openads-project/monitoring:v1.0.0
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run topic_tools relay /perception/point_cloud_object_detection/object_list /understanding/simple_object_tracking/input
+  
+
+  lanelet2-map-server:
+    volumes:
+      - ./lanelet2_map_server/params.yml:/params.yml
+      - ./lanelet2_map_server/maps:/data/maps
+
+  lanelet2-object-list-prediction:
+    environment:
+      PARAMS: /docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
+
+  lanelet2-route-planning:
+    environment:
+      PARAMS: /docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
+
+  simple-planner:
+    environment:
+      PARAMS: /docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
+
+  trajectory-optimization:
+    environment:
+      PARAMS: /docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
+
+  ackermann-trajectory-control:
+    environment:
+      PARAMS: /docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml

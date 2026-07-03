@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="karl">
+
+  <!-- BASE LINK =========================================================== -->
+
+  <link name="base_link"> <!-- middle (y) of rear axle (x) on the ground (z) -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file:///mesh/karl.obj" />
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- RACK ================================================================ -->
+
+  <link name="rack"> <!-- rear (x) right (y) bottom (z) corner of sensor rack -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file:///mesh/rack.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="base_link_2_rack" type="fixed">
+    <parent link="base_link" />
+    <child link="rack" />
+    <origin xyz="-0.636 -0.695 1.910" rpy="0.0 0.0 0.0" />
+  </joint>
+
+</robot>
