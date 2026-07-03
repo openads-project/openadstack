@@ -81,28 +81,34 @@ services:
       - |
         ros2 run topic_tools relay /perception/point_cloud_object_detection/object_list /understanding/simple_object_tracking/input
   
-
   lanelet2-map-server:
+    environment:
+      USE_SIM_TIME: true
     volumes:
       - ./lanelet2_map_server/params.yml:/params.yml
       - ./lanelet2_map_server/maps:/data/maps
 
   lanelet2-object-list-prediction:
     environment:
+      USE_SIM_TIME: true
       PARAMS: /docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
 
   lanelet2-route-planning:
     environment:
+      USE_SIM_TIME: true
       PARAMS: /docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
 
   simple-planner:
     environment:
+      USE_SIM_TIME: true
       PARAMS: /docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
 
   trajectory-optimization:
     environment:
+      USE_SIM_TIME: true
       PARAMS: /docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
 
   ackermann-trajectory-control:
     environment:
+      USE_SIM_TIME: true
       PARAMS: /docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml

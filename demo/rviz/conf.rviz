@@ -6,8 +6,11 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /EgoData1/Planned Trajectory1
         - /Tracks1/Appearance Properties1
         - /Predictions1/Predictions1
+        - /Reference Trajectory1/Show velocity trajectory1
+        - /Optimized Trajectory1/Show velocity trajectory1
       Splitter Ratio: 0.5470588207244873
     Tree Height: 463
   - Class: rviz_common/Selection
@@ -28,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Ouster RR
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -145,26 +148,26 @@ Visualization Manager:
         Use acceleration color: true
         Value: false
       Alpha: 0.5
-      Bounding box: true
+      Bounding box: false
       Class: perception_msgs/EgoData
       Color: 255; 0; 25
-      Enabled: false
+      Enabled: true
       Name: EgoData
-      Orientation: true
+      Orientation: false
       Planned Trajectory:
-        Alpha: 0.10000000149011612
+        Alpha: 0.5
         Color Coding: Velocity-dependent Coloring
         Color Options:
-          Base Color: 0; 170; 0
+          Base Color: 85; 85; 255
           Negative dynamics: 0; 0; 0
           Positive dynamics: 255; 0; 0
           Value: " "
         End Cap:
           Round Segments: 16
-          Value: Straight
+          Value: Round
         Fade Out:
           Fade Length [m]: 5
-          Value: false
+          Value: true
         Parameter Options:
           Value: " "
           max. acceleration [m/s²]: 5
@@ -184,11 +187,11 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /localization/ego_state_estimation/ego_data
-      Value: false
+      Value: true
       Velocity arrow:
         Set height with Velocity: false
         Use velocity color: true
-        Value: true
+        Value: false
         Velocity Color: 255; 0; 255
         Velocity scale: 1
       Visualize Z dimension: true
@@ -218,12 +221,12 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 2862.000244140625
+      Max Intensity: 2849.000244140625
       Min Color: 0; 0; 0
-      Min Intensity: 2
+      Min Intensity: 6.000000476837158
       Name: Ouster FL
       Position Transformer: XYZ
       Selectable: true
@@ -238,7 +241,7 @@ Visualization Manager:
         Value: /drivers/ouster_lidar_fl/points/cloudini
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -251,12 +254,12 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 2868.000244140625
+      Max Intensity: 2827.000244140625
       Min Color: 0; 0; 0
-      Min Intensity: 4
+      Min Intensity: 5
       Name: Ouster RR
       Position Transformer: XYZ
       Selectable: true
@@ -271,7 +274,7 @@ Visualization Manager:
         Value: /drivers/ouster_lidar_rr/points/cloudini
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Acceleration arrow:
         Acceleration Color: 255; 0; 0
         Acceleration scale: 10
@@ -619,8 +622,8 @@ Visualization Manager:
         Show time samples: false
         Value: false
       Show velocity trajectory:
-        Color velocity trajectory/samples: 0; 255; 0
-        Show velocity samples: false
+        Color velocity trajectory/samples: 255; 0; 0
+        Show velocity samples: true
         Show yaw arrows:
           Color yaw arrows: 255; 85; 0
           Scale: 0.5
@@ -655,8 +658,8 @@ Visualization Manager:
         Show time samples: false
         Value: false
       Show velocity trajectory:
-        Color velocity trajectory/samples: 0; 255; 0
-        Show velocity samples: false
+        Color velocity trajectory/samples: 255; 255; 255
+        Show velocity samples: true
         Show yaw arrows:
           Color yaw arrows: 255; 85; 0
           Scale: 0.5
@@ -726,7 +729,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 70.97982025146484
+      Distance: 36.11622619628906
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -741,10 +744,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853994965553284
+      Pitch: 0.4297971725463867
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 1.8922175168991089
+      Yaw: 2.892226219177246
     Saved: ~
 Window Geometry:
   Displays:
