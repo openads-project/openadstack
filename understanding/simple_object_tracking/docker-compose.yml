@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/simple_object_tracking:v1.0.0
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/understanding/simple_object_tracking:latest_maus-hacks_ci
     environment:
       NAMESPACE: /understanding
       NAME: simple_object_tracking
