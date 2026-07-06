@@ -28,7 +28,7 @@ services:
     volumes:
       - ./rviz/conf.rviz:/conf.rviz
       - ./rviz/mesh:/mesh
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/monitoring/ros-monitoring:v1.0.0
+    image: ghcr.io/openads-project/monitoring:v1.0.0
     command: bash -ic "rviz2 -d /conf.rviz --ros-args -p use_sim_time:=true"
 
 
