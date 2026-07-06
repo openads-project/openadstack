@@ -2,8 +2,8 @@
 # `../../scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/openads-project/ackermann_trajectory_control/blob/v1.4.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/ackermann_trajectory_control:compose-v1.4.0
+  # https://github.com/openads-project/ackermann_trajectory_control/blob/v1.5.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/ackermann_trajectory_control:compose-v1.5.0
 
 services:
 

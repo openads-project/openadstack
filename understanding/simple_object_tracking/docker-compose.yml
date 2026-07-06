@@ -14,7 +14,6 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # PARAMS: ${PARAMS:-/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml}
       PARAMS: /params.yml
     command:
       - /bin/bash
@@ -29,8 +28,9 @@ services:
           raw_object_list_topic:=$${RAW_OBJECT_LIST_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           output_topic:=$${OBJECT_LIST_TOPIC}
-    # volumes:
-    #   - ./params.yml:/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
+    
