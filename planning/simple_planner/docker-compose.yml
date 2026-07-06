@@ -1,7 +1,7 @@
 services:
 
   simple-planner:
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/its-modules/planning/simple_planner:latest
+    image: ghcr.io/openads-project/simple_planner:latest
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -11,6 +11,13 @@ services:
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
+      # outputs
+      TRAJECTORY_TOPIC: ~/trajectory
+      OBJECT_INTERACTION_MARKERS_TOPIC: ~/object_interaction_markers
+      # services
+      ENABLE_LEFT_TURN_INDICATOR_SERVICE: ~/enable_left_turn_indicator
+      ENABLE_RIGHT_TURN_INDICATOR_SERVICE: ~/enable_right_turn_indicator
+      ENABLE_HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
@@ -27,7 +34,14 @@ services:
           params:=$${PARAMS} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC}
+          route_topic:=$${ROUTE_TOPIC} \
+          trajectory_topic:=$${TRAJECTORY_TOPIC} \
+          object_interaction_markers_topic:=$${OBJECT_INTERACTION_MARKERS_TOPIC} \
+          left_turn_indicator_service:=$${ENABLE_LEFT_TURN_INDICATOR_SERVICE} \
+          right_turn_indicator_service:=$${ENABLE_RIGHT_TURN_INDICATOR_SERVICE} \
+          hazard_lights_service:=$${ENABLE_HAZARD_LIGHTS_SERVICE}
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
