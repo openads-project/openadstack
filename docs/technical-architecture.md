@@ -68,7 +68,7 @@ OpenADStack adds stack-level meaning to that service by wiring it to the surroun
 ```yaml
 include:
   # https://github.com/openads-project/trajectory_optimization/blob/v1.2.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/trajectory_optimization:compose-main # TODO: compose-v1.2.0
+  - oci://ghcr.io/openads-project/trajectory_optimization:compose-v1.2.0
 
 services:
 
