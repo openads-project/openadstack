@@ -7,7 +7,7 @@
 services:
 
   lanelet2-object-list-prediction:
-    image: ghcr.io/openads-project/lanelet2_object_list_prediction:latest_open-source_ci
+    image: ghcr.io/openads-project/lanelet2_object_list_prediction:v1.0.0
     environment:
       # --- name ------
       # NAMESPACE: /
