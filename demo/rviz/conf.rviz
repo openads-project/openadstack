@@ -65,7 +65,7 @@ Visualization Manager:
       Fill Lanelets (Road):
         Road Color: 56; 56; 56
         Value: true
-      Lanelet2-Map-Server Name: ll2_map_server
+      Name of lanelet2_map_server: ll2_map_server
       Name: Lanelet2 Map
       Show Map in 3D: true
       Value: true
