@@ -4,7 +4,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/trajectory_optimization:latest
+    image: ghcr.io/openads-project/trajectory_optimization:v1.3.0
     environment:
       NAMESPACE: /planning
       NAME: trajectory_optimization
