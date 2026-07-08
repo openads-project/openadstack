@@ -2,12 +2,12 @@
 # based on `.docker-compose.oci-overrides.yml` with resolved includes
 #   include:
 #     # https://github.com/openads-project/lanelet2_map_server/blob/v1.2.1/docker/compose/docker-compose.yml
-#     - oci://ghcr.io/openads-project/lanelet2_map_server:compose-v1.2.1
+#     - oci://ghcr.io/openads-project/lanelet2_map_server:compose-v1.2.2
 
 services:
 
   lanelet2-map-server:
-    image: ghcr.io/openads-project/lanelet2_map_server:v1.2.1
+    image: ghcr.io/openads-project/lanelet2_map_server:v1.2.2
     environment:
       # --- name ------
       # NAMESPACE: /
