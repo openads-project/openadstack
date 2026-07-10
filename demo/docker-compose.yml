@@ -23,7 +23,7 @@ include:
   - ../monitoring/monitoring/docker-compose.yml
 
   # bag replay
-  - ../bag-replay/docker-compose.yml
+  - ./bag-replay/docker-compose.yml
 
 # Demo overrides
 services:
