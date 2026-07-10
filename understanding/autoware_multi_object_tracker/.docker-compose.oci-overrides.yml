@@ -1,0 +1,20 @@
+# Remote compose file with overrides defined here can be rendered by
+# `../../scripts/render_compose_sources.py`
+
+include:
+  # https://github.com/thinking-cars/autoware_multi_object_tracker/blob/TODO/docker/compose/docker-compose.yml
+  - oci://ghcr.io/cgeller/autoware_multi_object_tracker:compose-refactoring # revert to tag and thinking cars repo
+
+services:
+
+  autoware-multi-object-tracker:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    environment:
+      # --- name ------
+      NAMESPACE: /understanding
+      # --- inputs ----
+      INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      # --- other -----
+      PARAMS: /params.yml
