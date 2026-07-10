@@ -2,8 +2,8 @@
 # `../../scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/openads-project/simple_planner/blob/v1.2.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/simple_planner:compose-open-source # TODO v1.2.0
+  # https://github.com/openads-project/simple_planner/blob/TODO/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/simple_planner:compose-main
 
 services:
 
@@ -11,6 +11,7 @@ services:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
       service: ros2-service
+    image: ghcr.io/openads-project/simple_planner:latest
     environment:
       # --- name ------
       NAMESPACE: /planning
