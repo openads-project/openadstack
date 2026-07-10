@@ -7,7 +7,7 @@
 services:
 
   trajectory-optimization:
-    image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
+    image: ghcr.io/openads-project/trajectory_optimization:v1.3.0
     environment:
       # --- name ------
       # NAMESPACE: /
