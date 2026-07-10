@@ -10,7 +10,7 @@ services:
   point-cloud-object-detection:
     extends:
       file: ../../docker-compose-essentials/docker-compose.template.yml
-      service: ros2-service
+      service: ros2-gpu-service
     image: ghcr.io/openads-project/point_cloud_object_detection:latest
     environment:
       # --- name ------
