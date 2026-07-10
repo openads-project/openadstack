@@ -12,3 +12,7 @@ services:
   monitoring.topic-relay:
     profiles:
       - no-perception
+
+  point-cloud-fusion:
+    volumes:
+      - ./point_cloud_fusion/params.yml:/params.yml
