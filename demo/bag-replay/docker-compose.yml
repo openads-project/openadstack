@@ -1,0 +1,59 @@
+services:
+
+  monitoring.bag-replay:
+    extends:
+      file: ../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/openadstack/demo-data:v1.0.0
+    restart: unless-stopped
+    command:
+      - /bin/bash
+      - -ic
+      - |
+
+        (
+          for _ in $(seq 1 30); do
+            if ros2 action list | grep -q '^/planning/lanelet2_route_planning/plan_route$'; then
+              break
+            fi
+            sleep 1
+          done
+
+          ros2 action send_goal \
+            /planning/lanelet2_route_planning/plan_route \
+            route_planning_msgs/action/PlanRoute \
+            "{
+              destination: {
+                header: {frame_id: 'map'},
+                point: {
+                  x: 303.0938415527344,
+                  y: 235.60919189453125,
+                  z: 0.03127288818359375
+                }
+              },
+              intermediate_destinations: [
+                {
+                  header: {frame_id: 'map'},
+                  point: {
+                    x: 303.0938415527344,
+                    y: 235.60919189453125,
+                    z: 0.03127288818359375
+                  }
+                }
+              ]
+            }" \
+            --feedback || true
+        ) &
+
+        ros2 bag play --input /data --clock --regex "/drivers.*|/localization/ego_state_estimation.*|/perception/point_cloud_object_detection_ouster/object_list|/tf.*"
+
+  monitoring.topic-relay:
+    extends:
+      file: ../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/openadstack/monitoring:v1.0.0
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
