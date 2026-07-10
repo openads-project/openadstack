@@ -1,0 +1,21 @@
+# Remote compose file with overrides defined here can be rendered by
+# `../../scripts/render_compose_sources.py`
+
+include:
+  # https://github.com/openads-project/point_cloud_object_detection/blob/v1.0.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/point_cloud_object_detection:compose-main # TODO
+
+services:
+
+  point-cloud-object-detection:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/point_cloud_object_detection:latest
+    environment:
+      # --- name ------
+      NAMESPACE: /perception
+      # --- inputs ----
+      POINT_CLOUD_TOPIC: /perception/point_cloud_fusion/point_cloud
+      # --- other -----
+      PARAMS: /params.yml
