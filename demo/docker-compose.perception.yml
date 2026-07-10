@@ -9,9 +9,9 @@ include:
   - ../perception/point_cloud_object_detection/docker-compose.yml
   
 services:
-  monitoring.topic-relay:
-    profiles:
-      - no-perception
+  # monitoring.topic-relay:
+  #   profiles:
+  #     - no-perception
 
   point-cloud-fusion:
     volumes:
