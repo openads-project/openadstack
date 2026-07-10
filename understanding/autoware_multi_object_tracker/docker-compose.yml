@@ -7,7 +7,7 @@
 services:
 
   autoware-multi-object-tracker:
-    image: ghcr.io/thinking-cars/autoware_multi_object_tracker:latest_refactoring_ci
+    image: ghcr.io/cgeller/autoware_multi_object_tracker:latest_refactoring_ci
     environment:
       # --- name ------
       # NAMESPACE: /
