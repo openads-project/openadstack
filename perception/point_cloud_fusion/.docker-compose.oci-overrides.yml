@@ -1,0 +1,18 @@
+# Remote compose file with overrides defined here can be rendered by
+# `../../scripts/render_compose_sources.py`
+
+include:
+  # https://github.com/openads-project/point_cloud_fusion/blob/v1.4.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/point_cloud_fusion:compose-v1.4.0
+
+services:
+
+  point-cloud-fusion:
+    extends:
+      file: ../../docker-compose-essentials/docker-compose.template.yml
+      service: ros2-service
+    environment:
+      # --- name ------
+      NAMESPACE: /perception
+      # --- other -----
+      PARAMS: /params.yml
