@@ -81,7 +81,7 @@ services:
       NAMESPACE: /planning
       # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
-      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/predicted_object_list
+      OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
       REFERENCE_TRAJECTORY_TOPIC: /planning/simple_planner/trajectory
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
       # --- other -----

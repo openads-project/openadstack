@@ -497,7 +497,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /understanding/lanelet2_object_list_prediction/predicted_object_list
+        Value: /understanding/lanelet2_object_list_prediction/object_list
       Value: true
       Velocity arrow:
         Use velocity color: true
