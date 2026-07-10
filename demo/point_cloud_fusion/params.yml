@@ -1,0 +1,63 @@
+/**/*:
+  ros__parameters:
+    target_frame: base_link
+    input_topics:
+      - "/drivers/ouster_lidar_fl/points"
+      - "/drivers/ouster_lidar_rr/points"
+    input_transport_hints:
+      - "cloudini"
+      - "cloudini"
+
+    sync_queue_size: 3 # Queue depth for approximate time synchronization
+    max_time_diff_sec: 0.05 # Maximum allowed timestamp difference (seconds) across inputs
+    output_queue_size: 10 # Queue depth for fused output publisher
+    age_penalty: 0.1 # Optional ApproximateTime tuning
+    use_cuda: true # Runtime-reconfigurable CPU/CUDA backend selection (requires CUDA build for true)
+    fixed_points_per_input_cloud: 0 # 0=disabled
+    range_limits:
+      enable: false # Enable XYZ range filtering in target_frame
+      # x_min: -1000.0 # Minimum x coordinate to keep [m] (in target_frame)
+      # x_max: 1000.0 # Maximum x coordinate to keep [m] (in target_frame)
+      # y_min: -1000.0 # Minimum y coordinate to keep [m] (in target_frame)
+      # y_max: 1000.0 # Maximum y coordinate to keep [m] (in target_frame)
+      # z_min: -20.0 # Minimum z coordinate to keep [m] (in target_frame)
+      # z_max: 20.0 # Maximum z coordinate to keep [m] (in target_frame)
+    # output_fields: # Determine which fields to include in the output point cloud (all if not set)
+    #   - "x"
+    #   - "y"
+    #   - "z"
+    #   - "intensity"
+    #   - ...
+    output_stamp_mode: "earliest"
+
+    # --- point_cloud_transport parameters -----
+    # point_cloud_fusion.output.enable_pub_plugins:
+    #   - point_cloud_transport/cloudini
+    #   - point_cloud_transport/draco
+    #   - point_cloud_transport/raw
+    #   - point_cloud_transport/zlib
+    #   - point_cloud_transport/zstd
+    # point_cloud_fusion.output.cloudini.cloudini_resolution: 0.001
+    # point_cloud_fusion.output.draco.attribute_mapping.attribute_type.x: POSITION
+    # point_cloud_fusion.output.draco.attribute_mapping.attribute_type.y: POSITION
+    # point_cloud_fusion.output.draco.attribute_mapping.attribute_type.z: POSITION
+    # point_cloud_fusion.output.draco.attribute_mapping.quantization_bits.rgb: 16
+    # point_cloud_fusion.output.draco.attribute_mapping.quantization_bits.x: 16
+    # point_cloud_fusion.output.draco.attribute_mapping.quantization_bits.y: 16
+    # point_cloud_fusion.output.draco.attribute_mapping.quantization_bits.z: 16
+    # point_cloud_fusion.output.draco.attribute_mapping.rgba_tweak.rgb: true
+    # point_cloud_fusion.output.draco.attribute_mapping.rgba_tweak.rgba: false
+    # point_cloud_fusion.output.draco.decode_speed: 7
+    # point_cloud_fusion.output.draco.deduplicate: true
+    # point_cloud_fusion.output.draco.encode_method: 0
+    # point_cloud_fusion.output.draco.encode_speed: 7
+    # point_cloud_fusion.output.draco.expert_attribute_types: false
+    # point_cloud_fusion.output.draco.expert_quantization: false
+    # point_cloud_fusion.output.draco.force_quantization: false
+    # point_cloud_fusion.output.draco.quantization_COLOR: 14
+    # point_cloud_fusion.output.draco.quantization_GENERIC: 14
+    # point_cloud_fusion.output.draco.quantization_NORMAL: 14
+    # point_cloud_fusion.output.draco.quantization_POSITION: 14
+    # point_cloud_fusion.output.draco.quantization_TEX_COORD: 14
+    # point_cloud_fusion.output.zlib.encode_level: 7
+    # point_cloud_fusion.output.zstd.zstd_encode_level: 7

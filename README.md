@@ -37,6 +37,12 @@ cd demo
 docker compose up -d
 ```
 
+Instead, if you want to start the perception services as well use the additional overrides:
+```bash
+cd demo
+docker compose -f docker-compose.yml -f docker-compose.perception.yml up -d
+```
+
 Stop the stack again with:
 
 ```bash
