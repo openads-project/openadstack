@@ -35,7 +35,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Ouster Fused
 Visualization Manager:
   Class: ""
   Displays:
@@ -47,7 +47,7 @@ Visualization Manager:
       Name: AerialMap
       Object URI: https://www.wmts.nrw.de/geobasis/wmts_nw_dop/tiles/nw_dop/EPSG_25832_16/{z}/{x}/{y}
       TF tolerance: 0.30000001192092896
-      Timeout: 3
+      Timeout: 5
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -289,16 +289,16 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz_default_plugins/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 4096
+      Max Intensity: 2866.000244140625
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: 5
       Name: Ouster Fused
-      Position Transformer: ""
+      Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 3
       Size (m): 0.009999999776482582
@@ -311,7 +311,7 @@ Visualization Manager:
         Value: /perception/point_cloud_fusion/point_cloud
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Acceleration arrow:
         Acceleration Color: 255; 0; 0
         Acceleration scale: 10
@@ -792,10 +792,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5747957229614258
+      Pitch: 0.45479556918144226
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 1.6740541458129883
+      Yaw: 1.6390541791915894
     Saved: ~
 Window Geometry:
   Displays:
