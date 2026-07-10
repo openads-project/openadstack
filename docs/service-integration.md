@@ -46,7 +46,7 @@ The default OpenADStack service chain currently uses these central topics:
 | `/localization/ego_state_estimation/ego_data` | ego-state input for planning and control |
 | `/localization/ego_state_estimation/nav_sat_fix` | GNSS input for map server context |
 | `/understanding/simple_object_tracking/object_list` | object-list input for prediction |
-| `/understanding/lanelet2_object_list_prediction/predicted_object_list` | predicted-object input for trajectory optimization |
+| `/understanding/lanelet2_object_list_prediction/object_list` | predicted-object input for trajectory optimization |
 | `/planning/lanelet2_route_planning/route` | route input for trajectory optimization |
 | `/planning/simple_planner/trajectory` | optional reference trajectory input |
 | `/planning/trajectory_optimization/trajectory` | optimized trajectory output |

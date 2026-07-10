@@ -57,7 +57,7 @@ Inspect central data flow topics:
 
 ```bash
 ros2 topic echo /localization/ego_state_estimation/ego_data
-ros2 topic echo /understanding/lanelet2_object_list_prediction/predicted_object_list
+ros2 topic echo /understanding/lanelet2_object_list_prediction/object_list
 ros2 topic echo /planning/trajectory_optimization/trajectory
 ros2 topic echo /control/ackermann_trajectory_control/controls
 ```
