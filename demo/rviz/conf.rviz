@@ -6,9 +6,13 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Lanelet2 Map1/Fill Lanelets (Road)1
+        - /Lanelet2 Map1/Visualize Sidewalks1
         - /EgoData1/Planned Trajectory1
         - /Tracks1/Appearance Properties1
         - /Predictions1/Predictions1
+        - /Predictions1/Predictions1/Prediction Points1
+        - /Route1/Suggested Lane1/Turn Signals1
         - /Reference Trajectory1/Show velocity trajectory1
         - /Optimized Trajectory1/Show velocity trajectory1
       Splitter Ratio: 0.5470588207244873
@@ -61,19 +65,19 @@ Visualization Manager:
       Zoom: 15
     - Alpha: 1
       Class: lanelet2_rviz_display/Lanelet2MapDisplay
-      Enabled: true
+      Enabled: false
       Fill Lanelets (Road):
         Road Color: 56; 56; 56
         Value: true
-      Name of lanelet2_map_server: ll2_map_server
       Name: Lanelet2 Map
-      Show Map in 3D: true
-      Value: true
+      Name of lanelet2_map_server: /localization/lanelet2_map_server
+      Show Map in 3D: false
+      Value: false
       Visualize Areas:
         Area Color: 230; 127; 25
         Area Width: 0.30000001192092896
         Fill Areas: false
-        Value: true
+        Value: false
       Visualize Crosswalks:
         Crosswalk Color: 255; 255; 255
         Value: true
@@ -85,7 +89,7 @@ Visualization Manager:
         LL Color Left: 255; 255; 255
         LL Color Right: 255; 255; 255
         Linestring Width: 0.10000000149011612
-        Value: true
+        Value: false
       Visualize Lanelet-Separators:
         Linestring Width: 0.20000000298023224
         Separators Color: 25; 25; 230
@@ -155,7 +159,7 @@ Visualization Manager:
       Name: EgoData
       Orientation: false
       Planned Trajectory:
-        Alpha: 0.5
+        Alpha: 1
         Color Coding: Velocity-dependent Coloring
         Color Options:
           Base Color: 85; 85; 255
@@ -321,6 +325,7 @@ Visualization Manager:
           Point Color: 255; 170; 0
           Point Width: 0.5
           Value: true
+          Velocity-based height: true
         Probabilities:
           Char height: 4
           Value: false
@@ -395,6 +400,7 @@ Visualization Manager:
           Point Color: 255; 170; 0
           Point Width: 0.5
           Value: true
+          Velocity-based height: true
         Probabilities:
           Char height: 4
           Value: false
@@ -464,11 +470,12 @@ Visualization Manager:
       Name: Predictions
       Predictions:
         Line Color: 0; 255; 0
-        Line Width: 0.20000000298023224
+        Line Width: 0.019999999552965164
         Prediction Points:
           Point Color: 255; 170; 0
-          Point Width: 0.5
+          Point Width: 0.10000000149011612
           Value: true
+          Velocity-based height: false
         Probabilities:
           Char height: 4
           Value: false
@@ -527,11 +534,15 @@ Visualization Manager:
             Scale: 0.6000000238418579
             Value: false
           Value: true
+        Speed Limit:
+          Color: 255; 255; 255
+          Scale: 0.5
+          Value: false
         Turn Signals:
           Color: 255; 255; 0
           Scale: 1
           Value: false
-        Value: true
+        Value: false
       Class: route_planning_msgs/Route
       Destination:
         Color (final): 255; 0; 255
@@ -548,7 +559,7 @@ Visualization Manager:
           Color: 255; 0; 0
           Scale: 0.20000000298023224
           Value: false
-        Value: false
+        Value: true
       Enabled: true
       Name: Route
       Suggested Lane:
@@ -561,11 +572,11 @@ Visualization Manager:
             Color: 0; 170; 0
             Scale: 0.25
             Value: false
-          Value: true
+          Value: false
         Lane Change:
           Color: 0; 255; 0
           Scale: 0.20000000298023224
-          Value: true
+          Value: false
         Reference Line:
           Line:
             Color: 0; 255; 0
@@ -585,10 +596,14 @@ Visualization Manager:
             Scale: 0.6000000238418579
             Value: false
           Value: true
+        Speed Limit:
+          Color: 255; 255; 255
+          Scale: 0.6000000238418579
+          Value: false
         Turn Signals:
           Color: 255; 255; 0
           Scale: 1
-          Value: false
+          Value: true
         Value: true
       Timeout:
         Duration: 1
@@ -642,7 +657,7 @@ Visualization Manager:
       Value: true
     - Alpha: 1
       Class: trajectory_planning_msgs/Trajectory
-      Enabled: true
+      Enabled: false
       Name: Optimized Trajectory
       Point-Size: 0.5
       Show acceleration trajectory:
@@ -675,7 +690,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /planning/trajectory_optimization/trajectory
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -729,7 +744,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 36.11622619628906
+      Distance: 46.06936264038086
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -744,10 +759,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4297971725463867
+      Pitch: 0.5097957849502563
       Target Frame: base_link
       Value: Orbit (rviz)
-      Yaw: 2.892226219177246
+      Yaw: 4.364059925079346
     Saved: ~
 Window Geometry:
   Displays:
