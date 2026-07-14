@@ -9,13 +9,17 @@ include:
   - ../perception/point_cloud_object_detection/docker-compose.yml
   
 services:
-  # monitoring.topic-relay:
-  #   profiles:
-  #     - no-perception
+  monitoring.topic-relay:
+    profiles:
+      - no-perception
 
   point-cloud-fusion:
     volumes:
       - ./point_cloud_fusion/params.yml:/params.yml
+
+  point-cloud-object-detection:
+    volumes:
+      - ./point_cloud_object_detection/params.yml:/params.yml
 
   triton-server:
     extends:
