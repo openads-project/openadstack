@@ -1,4 +1,4 @@
-# docker-compose-essentials
+# Compose utilities
 
 TODO
 

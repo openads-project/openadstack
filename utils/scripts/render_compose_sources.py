@@ -14,7 +14,7 @@ from oras.client import OrasClient
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap, CommentedSeq
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REMOTE_NAME = ".docker-compose.oci-overrides.yml"
 OUTPUT_NAME = "docker-compose.yml"
 
@@ -189,7 +189,7 @@ def relative_path(path: Path) -> str:
 
 
 def remote_files(root_dir: Path) -> list[Path]:
-    ignored = {".git", "docker-compose-essentials"}
+    ignored = {".git", "utils"}
     return sorted(
         path for path in root_dir.rglob(REMOTE_NAME)
         if not any(part in ignored for part in path.relative_to(root_dir).parts)

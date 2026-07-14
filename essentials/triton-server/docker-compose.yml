@@ -1,7 +1,7 @@
 services:
   triton-server:
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: gpu-service
     image: nvcr.io/nvidia/tritonserver:26.01-py3
     ipc: "service:zenoh-router"

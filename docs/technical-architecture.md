@@ -74,7 +74,7 @@ services:
 
   trajectory-optimization:
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     environment:
       # --- name ------
@@ -92,7 +92,7 @@ This is the core purpose of OpenADStack: it turns reusable OpenADServices into a
 
 ## Shared Service Base
 
-The shared template in `docker-compose-essentials/docker-compose.template.yml` is not an additional integration level. It is a common base that OpenADStack services extend inside levels 2 and 3. The template centralizes runtime settings that should be identical across services:
+The shared template in `utils/compose/docker-compose.template.yml` is not an additional integration level. It is a common base that OpenADStack services extend inside levels 2 and 3. The template centralizes runtime settings that should be identical across services:
 
 - general ROS 2 environment variables
 - middleware-specific settings

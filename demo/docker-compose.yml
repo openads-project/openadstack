@@ -37,7 +37,7 @@ services:
 
   robot-state-publisher:
     extends:
-      file: ../docker-compose-essentials/docker-compose.template.yml
+      file: ../utils/compose/docker-compose.template.yml
       service: ros2-service
     image: ghcr.io/openads-project/monitoring:v1.0.0
     command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf

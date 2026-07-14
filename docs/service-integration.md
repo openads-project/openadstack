@@ -109,7 +109,7 @@ services:
       # --- other -----
       PARAMS: /params.yml
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
 ```
 
@@ -126,7 +126,7 @@ Choose a shared template according to the service requirements:
 OpenADStack keeps generated `docker-compose.yml` files next to the override files. Regenerate them after adding or changing `.docker-compose.oci-overrides.yml`:
 
 ```bash
-python3 scripts/render_compose_sources.py
+python3 utils/scripts/render_compose_sources.py
 ```
 
 Commit both files:
