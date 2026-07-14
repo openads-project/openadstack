@@ -30,10 +30,16 @@ OpenADStack is usually run as part of an integration, for example with the [karl
 
 For a first local look at OpenADStack itself, use the demo in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
 
-Start the open-loop demo:
+Start the basic open-loop demo:
 
 ```bash
 docker compose up -d
+```
+
+If you want to use all perception OpenADServices as well, use the additional perception overrides:
+```bash
+cd demo
+docker compose -f docker-compose.yml -f docker-compose.perception.yml up -d
 ```
 
 Stop the stack again with:
