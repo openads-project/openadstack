@@ -23,7 +23,7 @@
     output.variances: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
 
     # Model input feature selection
-    input.point_feature_field: "intensity"
+    input.point_feature_field: "reflectivity"
 
     # Runtime overrides for exported manifest defaults.
     # preprocessing.detection_area.z_min: -1.0
