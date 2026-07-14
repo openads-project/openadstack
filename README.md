@@ -33,6 +33,7 @@ For a first local look at OpenADStack itself, use the demo in this repository. I
 Start the basic open-loop demo:
 
 ```bash
+cd demo
 docker compose up -d
 ```
 
