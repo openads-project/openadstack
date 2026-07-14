@@ -45,7 +45,7 @@ services:
             --feedback || true
         ) &
 
-        ros2 bag play --input /data --clock --regex "/drivers.*|/localization/ego_state_estimation.*|/perception/point_cloud_object_detection_ouster/object_list|/tf.*"
+        ros2 bag play --start-offset 20 --playback-duration 220 --input /data --clock --regex "/drivers.*|/localization/ego_state_estimation.*|/perception/point_cloud_object_detection_ouster/object_list|/tf.*"
 
   monitoring.topic-relay:
     extends:
@@ -57,3 +57,26 @@ services:
       - -ic
       - |
         ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
+
+  # workaround to avoid aerial map display z-offset
+  monitoring.aerial-map-workaround:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/monitoring:v1.0.0
+    restart: unless-stopped # requires incoming topic
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run tf2_ros static_transform_publisher \
+          --frame-id base_link \
+          --child-frame-id aerial_map_display_link \
+          --z 1.0 \
+          --ros-args -p use_sim_time:=true &
+
+        exec ros2 run topic_tools transform \
+          /localization/ego_state_estimation/nav_sat_fix /aerial_map/nav_sat_fix sensor_msgs/msg/NavSatFix \
+          "setattr(m.header, 'frame_id', 'aerial_map_display_link') or m" \
+          --import sensor_msgs \
+          --ros-args -p use_sim_time:=true
