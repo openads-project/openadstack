@@ -16,5 +16,3 @@ services:
       NAMESPACE: /localization
       # --- inputs ----
       NAV_SAT_FIX_TOPIC: /localization/ego_state_estimation/nav_sat_fix
-      # --- other -----
-      PARAMS: /params.yml

@@ -19,5 +19,3 @@ services:
       LAT_CONTROL_ACTIVE_TOPIC: /control/lat_active
       LON_CONTROL_ACTIVE_TOPIC: /control/lon_active
       TRAJECTORY_TOPIC: /planning/trajectory_optimization/trajectory
-      # --- other -----
-      PARAMS: /params.yml

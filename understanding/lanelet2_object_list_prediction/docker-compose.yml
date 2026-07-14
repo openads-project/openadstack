@@ -14,15 +14,14 @@ services:
       NAMESPACE: /understanding
       NAME: lanelet2_object_list_prediction
       # --- inputs ----
-      # TRACKED_OBJECT_LIST_TOPIC: ~/object_list
+      # TRACKED_OBJECT_LIST_TOPIC: ~/tracked_object_list
       TRACKED_OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
       # --- outputs ---
       OBJECT_LIST_TOPIC: ~/object_list
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # PARAMS: ${PARAMS:-/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml}
-      PARAMS: /params.yml
+      PARAMS: ${PARAMS:-/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml}
     command:
       - /bin/bash
       - -ic

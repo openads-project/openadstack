@@ -14,5 +14,3 @@ services:
     environment:
       # --- name ------
       NAMESPACE: /perception
-      # --- other -----
-      PARAMS: /params.yml
