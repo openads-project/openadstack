@@ -16,3 +16,21 @@ services:
   point-cloud-fusion:
     volumes:
       - ./point_cloud_fusion/params.yml:/params.yml
+
+  triton-server:
+    extends:
+      file: ../essentials/triton-server/docker-compose.yml
+      service: triton-server
+    depends_on:
+      - perception.point-cloud-object-detection-model-provisioning
+    volumes:
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
+
+  perception.point-cloud-object-detection-model-provisioning:
+    image: ghcr.io/openads-project/point_cloud_object_detection:model
+    command: sleep infinity 
+    volumes:
+      - perception.point-cloud-object-detection-model:/model
+
+volumes:
+  perception.point-cloud-object-detection-model:
