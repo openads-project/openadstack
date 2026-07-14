@@ -5,13 +5,14 @@
 # recorded object-list relay into an inactive profile for perception runs.
 
 include:
+  - ./docker-compose.yml
   - ../perception/point_cloud_fusion/docker-compose.yml
   - ../perception/point_cloud_object_detection/docker-compose.yml
   
 services:
   monitoring.topic-relay:
     profiles:
-      - no-perception
+      - do-not-use
 
   point-cloud-fusion:
     volumes:
