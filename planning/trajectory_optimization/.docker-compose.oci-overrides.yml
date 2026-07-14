@@ -1,5 +1,5 @@
 # Remote compose file with overrides defined here can be rendered by
-# `../../scripts/render_compose_sources.py`
+# `../../utils/scripts/render_compose_sources.py`
 
 include:
   # https://github.com/openads-project/trajectory_optimization/blob/v1.3.0/docker/compose/docker-compose.yml
@@ -9,7 +9,7 @@ services:
 
   trajectory-optimization:
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     environment:
       # --- name ------

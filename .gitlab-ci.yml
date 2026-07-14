@@ -7,11 +7,11 @@ workflow:
 
 render-compose-sources:
   script:
-    - python -m pip install -r scripts/requirements.txt
-    - python scripts/render_compose_sources.py
+    - python -m pip install -r utils/scripts/requirements.txt
+    - python utils/scripts/render_compose_sources.py
     - git add -N .
     - |
       if ! git diff --exit-code; then
-        echo "ERROR: scripts/render_compose_sources.py changed files. Run it locally and commit the result."
+        echo "ERROR: utils/scripts/render_compose_sources.py changed files. Run it locally and commit the result."
         exit 1
       fi

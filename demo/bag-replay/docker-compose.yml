@@ -2,7 +2,7 @@ services:
 
   monitoring.bag-replay:
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     image: ghcr.io/openads-project/openadstack/demo-data:v1.0.0
     restart: unless-stopped
@@ -49,7 +49,7 @@ services:
 
   monitoring.topic-relay:
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     image: ghcr.io/openads-project/monitoring:v1.0.0
     command:

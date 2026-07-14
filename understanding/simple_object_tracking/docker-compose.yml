@@ -29,7 +29,7 @@ services:
           object_list_topic:=$${OBJECT_LIST_TOPIC} \
           output_topic:=$${OBJECT_LIST_TOPIC}
     extends:
-      file: ../../docker-compose-essentials/docker-compose.template.yml
+      file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
