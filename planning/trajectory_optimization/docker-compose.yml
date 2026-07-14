@@ -30,8 +30,7 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # PARAMS: ${PARAMS:-/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml}
-      PARAMS: /params.yml
+      PARAMS: ${PARAMS:-/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml}
       ROS_TRACING: ${ROS_TRACING:-false}
       DRIVING_MODE: ${DRIVING_MODE:-ackermann}
     command:

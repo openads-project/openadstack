@@ -16,5 +16,3 @@ services:
       NAMESPACE: /understanding
       # --- inputs ----
       TRACKED_OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
-      # --- other -----
-      PARAMS: /params.yml

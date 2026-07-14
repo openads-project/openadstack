@@ -19,5 +19,3 @@ services:
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
       REFERENCE_TRAJECTORY_TOPIC: /planning/simple_planner/trajectory
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
-      # --- other -----
-      PARAMS: /params.yml

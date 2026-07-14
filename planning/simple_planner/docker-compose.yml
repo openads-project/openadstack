@@ -30,8 +30,7 @@ services:
       HAZARD_LIGHTS_SERVICE: ~/enable_hazard_lights
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # PARAMS: ${PARAMS:-/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml}
-      PARAMS: /params.yml
+      PARAMS: ${PARAMS:-/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml}
       TRACE: ${TRACE:-false}
     command:
       - /bin/bash

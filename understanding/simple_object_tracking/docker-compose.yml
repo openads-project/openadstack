@@ -14,7 +14,7 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      PARAMS: /params.yml
+      PARAMS: /docker-ros/ws/install/simple_object_tracking/share/simple_object_tracking/config/params.yml
     command:
       - /bin/bash
       - -ic

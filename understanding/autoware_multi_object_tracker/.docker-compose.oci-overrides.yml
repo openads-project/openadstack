@@ -16,5 +16,3 @@ services:
       NAMESPACE: /understanding
       # --- inputs ----
       INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
-      # --- other -----
-      PARAMS: /params.yml

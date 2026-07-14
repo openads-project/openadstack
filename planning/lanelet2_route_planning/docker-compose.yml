@@ -21,8 +21,7 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # PARAMS: ${PARAMS:-/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml}
-      PARAMS: /params.yml
+      PARAMS: ${PARAMS:-/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml}
     command:
       - /bin/bash
       - -ic
