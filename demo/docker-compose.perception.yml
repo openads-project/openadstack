@@ -16,11 +16,11 @@ services:
 
   point-cloud-fusion:
     volumes:
-      - ./point_cloud_fusion/params.yml:/params.yml
+      - ./point_cloud_fusion/params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
 
   point-cloud-object-detection:
     volumes:
-      - ./point_cloud_object_detection/params.yml:/params.yml
+      - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
 
   triton-server:
     extends:
