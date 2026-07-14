@@ -1,9 +1,7 @@
 # Usage
 
-**❗ Important**
-
-Make sure that the general [OpenADS requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
-
+> [!IMPORTANT]
+> Make sure that the general [OpenADS requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
 ## Running OpenADStack Directly
 

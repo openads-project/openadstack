@@ -13,8 +13,7 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 
 **🚀 [Quick Start](#-quick-start)** | **🏗️ [Functional Overview & Architecture](#-functional-overview--architecture)** | **📝 [Documentation](#-documentation)** | **🙏 [Acknowledgements](#-acknowledgements)**
 
-> ❗ **Important**
->
+> [!NOTE]
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
 ![OpenADStack running on the karl. research vehicle](assets/karl.png)
@@ -123,7 +122,7 @@ Development and maintenance of this repository are supported by the following pr
 | --- | --- | --- |
 | [AIGGREGATE](https://aiggregate.eu/) | 🇪🇺 European Union | 101202457 |
 | [AIthena](https://aithena.eu/) | 🇪🇺 European Union | 101076754 |
-| [autotech.agil](https://www.autotechagil.de/) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 01IS22088A |
+| [autotech.agil](https://www.autotechagil.de/en/) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 01IS22088A |
 
 <p>
   <img src="https://www.drought.uni-freiburg.de/stressres/images/bmftr-logo/image" height=70>
