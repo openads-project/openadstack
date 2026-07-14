@@ -37,9 +37,10 @@ docker compose up -d
 ```
 
 If you want to use all perception OpenADServices as well, use the additional perception overrides:
+
 ```bash
 cd demo
-docker compose -f docker-compose.yml -f docker-compose.perception.yml up -d
+docker compose -f docker-compose.perception.yml up -d
 ```
 
 Stop the stack again with:
@@ -81,7 +82,9 @@ The documentation contains:
 ## 🙏 Acknowledgements
 
 ### Citation
+
 We hope that OpenADStack can help your research. If this is the case, please cite it using the following metadata.
+
 ```
 @inproceedings{OpenADStack,
   author = {TODO},
