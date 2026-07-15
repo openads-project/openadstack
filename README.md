@@ -53,7 +53,7 @@ Detailed tutorials and configuration guidance are part of the official [📝 ***
 
 ## 🏗️ Functional Overview & Architecture
 
-OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The detailed data flow is described in [Functional Architecture](./functional-architecture.md).
+OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
 
 OpenADStack is organized into functional domains:
 
@@ -68,16 +68,16 @@ This structure keeps individual services replaceable while preserving stable int
 
 ![OpenADStack functional overview](assets/functional-overview.png)
 
-The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./technical-architecture.md).
+The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./docs/technical-architecture.md).
 
 ## 📝 Documentation
 
 The documentation contains:
 
-- [Usage](./usage.md)
-- [Functional Architecture](./functional-architecture.md)
-- [Technical Architecture](./technical-architecture.md)
-- [Service Integration](./service-integration.md)
+- [Usage](./docs/usage.md)
+- [Functional Architecture](./docs/functional-architecture.md)
+- [Technical Architecture](./docs/technical-architecture.md)
+- [Service Integration](./docs/service-integration.md)
 
 ## 🙏 Acknowledgements
 
