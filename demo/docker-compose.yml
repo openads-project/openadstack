@@ -116,15 +116,15 @@ services:
       - ./rviz/urdf:/urdf
 
   monitoring:
-    environment: 
-      USE_SIM_TIME: true
     volumes:
       - ./rviz/conf.rviz:/conf.rviz
       - ./rviz/mesh:/mesh
 
   lanelet2-map-server:
-    environment:
-      USE_SIM_TIME: true
     volumes:
       - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
       - ./lanelet2_map_server/maps:/data/maps
+
+  autoware-multi-object-tracker:
+    volumes:
+      - ./autoware_multi_object_tracker:/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config
