@@ -16,18 +16,18 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 > [!NOTE]
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
-![OpenADStack running on the karl. research vehicle](assets/karl.png)
+![OpenADStack running on the karl. research vehicle](./docs/assets/karl.png)
 
 ## 🚀 Quick Start
 
 Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-OpenADStack is usually run as part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup.
+OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup.
 
 > [!NOTE]
 > For closed-loop simulation, scenario execution, maps, and simulator adapters, [OpenADSim](https://github.com/openads-project/openadsim) is the recommended entry point.
 
-For a first local look at OpenADStack itself, use the demo in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
+For a first local look at OpenADStack itself, use the demo provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
 
 Select and start the basic planning-focused demo:
 
@@ -49,8 +49,6 @@ Stop the demo with:
 docker compose down
 ```
 
-Detailed tutorials and configuration guidance are part of the official [📝 ***OpenADS documentation***](https://openads-project.github.io/openadstack/openadstack.html).
-
 ## 🏗️ Functional Overview & Architecture
 
 OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
@@ -66,7 +64,7 @@ OpenADStack is organized into functional domains:
 
 This structure keeps individual services replaceable while preserving stable interfaces between the stack domains.
 
-![OpenADStack functional overview](assets/functional-overview.png)
+![OpenADStack functional overview](./docs/assets/functional-overview.png)
 
 The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./docs/technical-architecture.md).
 
