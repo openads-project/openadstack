@@ -1,4 +1,4 @@
-# Technical Architecture
+# Integration Architecture
 
 OpenADStack integrates independently released ROS 2 modules into a reusable automated-driving stack. It defines how the modules are connected, but does not contain their source code or a deployment-specific environment. Module development and deployment integration remain separate concerns.
 

@@ -186,5 +186,5 @@ For replacements, verify that downstream services still receive the expected top
 Update the documentation when the new service changes the stack structure or data flow:
 
 - [Functional Architecture](./functional-architecture.md): functional role, inputs, outputs, and domain placement
-- [Technical Architecture](./technical-architecture.md): service composition or integration-level changes
+- [Integration Architecture](./integration-architecture.md): service composition or integration-level changes
 - [Usage](./usage.md): only if users need a new command, profile, or runtime option

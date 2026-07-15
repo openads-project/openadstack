@@ -51,24 +51,26 @@ OpenADStack is usually part of an integration, for example with the [karl. resea
 
 ## 🏗️ Functional Overview & Architecture
 
-OpenADStack covers the complete automated driving processing chain from sensing & perception, environment modeling & prediction to planning & control, as well as, monitoring tools and other essentials. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
+OpenADStack covers the complete automated driving processing chain from sensing & perception, environment modeling & prediction to planning & control, as well as, monitoring tools and other essentials. OpenADStack is organized into functional domains, which are represented by ROS namespaces:
 
-OpenADStack is organized into functional domains:
-
-- [**Esentials:**](./essentials/) base services, e.g. for traffic routing or model serving
-- [**Localization:**](./localization/) map serving and vehicle dynamics state estimation
-- [**Perception:**](./perception/) object detection & tracking, scene interpretation & environment modeling
-- [**Understanding:**](./understanding/) environment prediction and scene enrichment
-- [**Planning:**](./planning/) route & trajectory planning
-- [**Control:**](./control/) trajectory optimization and vehicle dynamics control
-- [**Monitoring:**](./monitoring/) inspection and runtime visualization
-- [**Utilities:**](./utils/) helper functions
+- **Esentials:** base services, e.g. for traffic routing or model serving
+- **Localization:** map serving and vehicle dynamics state estimation
+- **Perception:** object detection & tracking, scene interpretation & environment modeling
+- **Understanding:** environment prediction and scene enrichment
+- **Planning:** route & trajectory planning
+- **Control:** trajectory optimization and vehicle dynamics control
+- **Monitoring:** inspection and runtime visualization
+- **Utilities:** helper functions
 
 The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the processing from raw sensor data to the tactical decision making with decreasing latency requirements. The right side described the way from top-level decision making to the actuation with increasing latency requirements. The horizontal bar describes a fall-back layer that allows the system to perform a minimum risk maneuver in case of a degradation in the higher levels.
 
 ![OpenADStack functional architecture](./docs/assets/a-model.drawio.svg)
 
-The concrete ROS 2 packages realizing different parts of the *A Model* are assigned to the ROS namespaces *Localization*, *Perception*, *Understanding*, *Planning*, and *Control*. The technical architecture and interfaces of the implementations are described in the [Technical Architecture](./docs/technical-architecture.md) section.
+The concrete ROS 2 packages realizing different parts of the *A Model* are assigned to the ROS namespaces *Localization*, *Perception*, *Understanding*, *Planning*, and *Control*. The concrete functional architecture and interfaces of the actual implementation in OpenADStack are described in the [**Functional Architecture**](./docs/functional-architecture.md) section.
+
+The [**Integration Architecture**](./docs/integration-architecture.md) section describes how the functional modules are integrated from individual services into the OpenADStack and in actual deployments.
+
+The [**Service Integration**](./docs/service-integration.md) section explains how new modules can be integrated into OpenADStack.
 
 ## 📝 Documentation
 
@@ -76,7 +78,7 @@ The documentation contains:
 
 - [Usage](./docs/usage.md)
 - [Functional Architecture](./docs/functional-architecture.md)
-- [Technical Architecture](./docs/technical-architecture.md)
+- [Integration Architecture](./docs/integration-architecture.md)
 - [Service Integration](./docs/service-integration.md)
 
 ## 🙏 Acknowledgements
