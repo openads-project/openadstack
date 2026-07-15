@@ -28,7 +28,7 @@ flowchart LR
     end
 
     subgraph downstream["<b>Downstream: Deployment Composition</b>"]
-        L4["<b>4. Deployment Composition</b><br/>vehicle or OpenADSim"]
+        L4["<b>4. Detailed Specification</b><br/>in vehicle or OpenADSim"]
     end
 
     L1 -->|referenced as OCI include| L2
@@ -51,7 +51,7 @@ The OpenADStack boundary lies between the upstream OpenADService release and the
 
 Consequently, only stages 2 and 3 are part of the reference OpenADStack itself. Deployment compositions for vehicles or [OpenADSim](https://github.com/openads-project/openadsim) remain outside this boundary. The demo is co-located in this repository for convenience, but has the same architectural role as any other deployment composition. The following example applies this structure to a concrete OpenADService.
 
-### Example Integration
+### Examplaric Integration
 
 The `trajectory_optimization` OpenADService publishes its image and Compose artifact independently. Its defaults use local topic names because the OpenADService does not know the deployment composition in which it will run.
 
