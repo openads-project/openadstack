@@ -1,22 +1,43 @@
 # Usage
 
+OpenADStack is designed to be integrated into a larger service composition that provides sensor or simulation inputs, vehicle interfaces, and deployment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
+
+To make OpenADStack directly accessible from this repository, the `demo` folder provides a self-contained open-loop setup. It replays recorded ROS 2 data, starts the stack with a predefined route, and opens the monitoring environment. This is a convenient way to explore the services, data flow, and outputs without connecting a vehicle or simulator.
+
 > [!IMPORTANT]
 > Make sure that the general [OpenADS requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-## Running OpenADStack Directly
+## Demo Configurations
 
-Run all commands from the OpenADStack demo folder.
+The demo provides two configurations corresponding to the processing paths shown in the [functional architecture](./functional-architecture.md).
 
-Pull the configured service images:
+### Planning Demo
+
+The default configuration focuses on the right-hand, planning-oriented side of the A-model. A detected object list is replayed from the recording and passed to the downstream prediction, planning, and optimization services. This keeps the setup lightweight while exposing the central planning pipeline.
+
+### Perception and Planning Demo
+
+The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects into the same modules as before. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
+
+## Run the Demo
+
+Clone the repository including all submodules and run all commands from the OpenADStack demo folder.
 
 ```bash
-docker compose pull
+git clone --recurse-submodules git@github.com:openads-project/openadstack.git
+cd openadstack/demo
 ```
 
-Start the stack:
+Start the planning-focused demonstration setup:
 
 ```bash
-docker compose up -d
+export COMPOSE_FILE=docker-compose.yml && docker compose up -d
+```
+
+Alternatively, start the extended perception demonstration setup:
+
+```bash
+export COMPOSE_FILE=docker-compose.perception.yml && docker compose up -d
 ```
 
 Inspect the active services:
@@ -26,16 +47,25 @@ docker compose ps
 docker compose config --services
 ```
 
-Stop the stack:
+RViz starts as part of the monitoring service and visualizes the replayed inputs and generated stack outputs. Each bag playback cycle runs for approximately three and a half minutes; the demo service then starts it again automatically.
+
+Stop the selected demo configuration with:
 
 ```bash
 docker compose down
 ```
 
-> [!NOTE]
-> When started directly, OpenADStack will only become functionally active if the expected input topics are available.
->
-> For a complete closed-loop experience, start OpenADStack through OpenADSim with the OpenADStack profiles enabled. OpenADSim provides simulation backend selection, maps and scenarios, ego-state and object-list inputs, adapter services, GUI-based configuration, and the OpenADStack services from this repository. See the [OpenADSim documentation](https://openads-project.github.io/openadsim/openadsim.html) for the full workflow.
+## Recorded Demo Inputs
+
+The demo recording supplies the external runtime data that would normally come from a vehicle or simulator:
+
+- driver and sensor topics below `/drivers`, including the front-left and rear-right Ouster LiDAR point clouds used by the perception configuration
+- ego-state and navigation data below `/localization/ego_state_estimation`
+- the vehicle and sensor frame transforms on `/tf`
+- a recorded point-cloud detected object list for the planning-only configuration
+- simulated ROS time through the bag player's `/clock` output
+
+The Lanelet2 map and visualization configuration are mounted from the `demo` folder rather than read from the bag. After the route-planning action becomes available, the demo also submits a predefined destination and intermediate destination. The setup is therefore deterministic and intended for inspection rather than closed-loop driving.
 
 ## Inspect ROS 2 Topics
 
