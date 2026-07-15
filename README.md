@@ -64,11 +64,11 @@ OpenADStack is organized into functional domains:
 - [**Monitoring:**](./monitoring/) inspection and runtime visualization
 - [**Utilities:**](./utils/) helper functions
 
-This structure keeps individual services replaceable while preserving stable interfaces between the stack domains.
+The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the processing from raw sensor data to the tactical decision making with decreasing latency requirements. The right side described the way from top-level decision making to the actuation with increasing latency requirements. The horizontal bar describes a fall-back layer that allows the system to perform a minimum risk maneuver in case of a degradation in the higher levels.
 
-![OpenADStack functional overview](./docs/assets/functional-overview.png)
+![OpenADStack functional architecture](./docs/assets/a-model.drawio.svg)
 
-The technical architecture is based on modular ROS 2 services, shared Docker Compose templates, generated service Compose files, and consistent OpenADS topics. The detailed service structure is described in [Technical Architecture](./docs/technical-architecture.md).
+The concrete ROS 2 packages realizing different parts of the *A Model* are assigned to the ROS namespaces *Localization*, *Perception*, *Understanding*, *Planning*, and *Control*. The technical architecture and interfaces of the implementations are described in the [Technical Architecture](./docs/technical-architecture.md) section.
 
 ## 📝 Documentation
 
