@@ -86,8 +86,8 @@ The documentation contains:
 We hope that OpenADStack can help your research. If this is the case, please cite it using the following metadata.
 
 ```
-@inproceedings{OpenADStack,
-  author = {TODO},
+@misc{OpenADStack,
+  author = {Institute for Automotive Engineering (ika), RWTH Aachen University},
   title = {{OpenADStack}},
   url = {https://github.com/openads-project/openadstack},
   year = {2026},
@@ -120,6 +120,7 @@ Development and maintenance of this repository are supported by the following pr
 
 | Project | Funding Institution | Grant Number |
 | --- | --- | --- |
+| [6GEM+](https://6gem.de) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 16KIS2409K |
 | [AIGGREGATE](https://aiggregate.eu/) | 🇪🇺 European Union | 101202457 |
 | [AIthena](https://aithena.eu/) | 🇪🇺 European Union | 101076754 |
 | [autotech.agil](https://www.autotechagil.de/en/) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 01IS22088A |
