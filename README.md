@@ -9,7 +9,7 @@
 
 **Baseline reference implementation for modular ROS 2 automated-driving stacks in OpenADS.**
 
-OpenADStack bundles reusable OpenADS services into a Docker Compose based reference stack. It supports different deployment compositions, from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://github.com/openads-project/openadsim).
+OpenADStack bundles reusable OpenADServices into a Docker Compose based reference stack. It supports different deployment compositions, from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://github.com/openads-project/openadsim).
 
 **🚀 [Quick Start](#-quick-start)** | **🏗️ [Functional Overview & Architecture](#-functional-overview--architecture)** | **📝 [Documentation](#-documentation)** | **🙏 [Acknowledgements](#-acknowledgements)**
 
@@ -26,17 +26,17 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 > [!IMPORTANT]
 > Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a [simulation setup](https://github.com/openads-project/openadsim). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
+OpenADStack is usually part of a larger deployment composition, for example with the [karl. research vehicle](https://karl.ac/) or in a [simulation setup](https://github.com/openads-project/openadsim). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle components.
 
 - Two demos using different parts of OpenADStack are provided:
-  - **Basic Demo:** Start a basic open-loop demo with planning components running on recorded detections:
+  - **Basic Demo:** Start a basic open-loop demo with mainly planning OpenADServices running on recorded detections:
 
     ```bash
     cd demo
     docker compose up -d
     ```
 
-  - **Perception Demo:** Start the open-loop demo including perception modules running on recorded raw sensor data:
+  - **Perception Demo:** Start the open-loop demo including perception OpenADServices running on recorded raw sensor data:
 
     ```bash
     cd demo
@@ -55,14 +55,14 @@ OpenADStack covers the complete automated driving processing chain from sensing 
 
 OpenADStack is organized into functional domains:
 
-- [**Esentials:**](./essentials/) base services, e.g. for traffic routing or model serving
+- [**Essentials:**](./essentials/) basic Compose services, e.g. for traffic routing or ML model serving
 - [**Localization:**](./localization/) map serving and vehicle dynamics state estimation
 - [**Perception:**](./perception/) object detection & tracking, scene interpretation & environment modeling
 - [**Understanding:**](./understanding/) environment prediction and scene enrichment
 - [**Planning:**](./planning/) route & trajectory planning
 - [**Control:**](./control/) trajectory optimization and vehicle dynamics control
 - [**Monitoring:**](./monitoring/) inspection and runtime visualization
-- [**Utilities:**](./utils/) helper functions
+- [**Utilities:**](./utils/) shared Compose templates and helper scripts
 
 The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the processing from raw sensor data to the tactical decision making with decreasing latency requirements. The right side described the way from top-level decision making to the actuation with increasing latency requirements. The horizontal bar describes a fall-back layer that allows the system to perform a minimum risk maneuver in case of a degradation in the higher levels.
 

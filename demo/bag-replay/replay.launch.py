@@ -30,8 +30,8 @@ def generate_launch_description():
     bag_play = ExecuteProcess(
         cmd=[
             "ros2", "bag", "play",
-            "--start-offset", "15",
-            "--playback-duration", "215",
+            "--start-offset", "20",
+            "--playback-duration", "200",
             "--input", "/data",
             "--clock",
             "--regex",
