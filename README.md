@@ -20,47 +20,49 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 
 ## 🚀 Quick Start
 
-Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
-
-OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup.
-
 > [!NOTE]
 > For closed-loop simulation, scenario execution, maps, and simulator adapters, [OpenADSim](https://github.com/openads-project/openadsim) is the recommended entry point.
 
-For a first local look at OpenADStack itself, use the demo provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
+> [!IMPORTANT]
+> Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-Select and start the basic planning-focused demo:
+OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup. For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
 
-```bash
-cd demo
-docker compose up -d
-```
+- Two demos using different parts of OpenADStack are provided:
+  - **Basic Demo:** Start a basic open-loop demo with planning components running on recorded detections:
 
-To include the perception OpenADServices, select the extended configuration instead:
+    ```bash
+    cd demo
+    docker compose up -d
+    ```
 
-```bash
-cd demo
-export COMPOSE_FILE=docker-compose.perception.yml && docker compose up -d
-```
+  - **Perception Demo:** Start the open-loop demo including perception modules running on recorded raw sensor data:
 
-Stop the demo with:
+    ```bash
+    cd demo
+    docker compose -f docker-compose.perception.yml up -d
+    ```
 
-```bash
-docker compose down
-```
+- **Stop** the demo with:
+
+  ```bash
+  docker compose down
+  ```
 
 ## 🏗️ Functional Overview & Architecture
 
-OpenADStack covers the complete automated-driving processing chain: sensing inputs, localization, environment modeling and prediction, route and trajectory planning, trajectory optimization, vehicle control, and monitoring. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
+OpenADStack covers the complete automated driving processing chain from sensing & perception, environment modeling & prediction to planning & control, as well as, monitoring tools and other essentials. The detailed data flow is described in [Functional Architecture](./docs/functional-architecture.md).
 
 OpenADStack is organized into functional domains:
 
-- **Localization**: map serving and ego-state related map context
-- **Environment Modeling and Prediction**: object-list processing, scene interpretation, and prediction
-- **Planning and Optimization**: route planning, reference generation, and trajectory optimization
-- **Control**: trajectory tracking and Ackermann command generation
-- **Monitoring**: RViz-based inspection and runtime visualization
-- **Middleware**: shared ROS 2 service templates and Zenoh routing
+- [**Esentials:**](./essentials/) base services, e.g. for traffic routing or model serving
+- [**Localization:**](./localization/) map serving and vehicle dynamics state estimation
+- [**Perception:**](./perception/) object detection & tracking, scene interpretation & environment modeling
+- [**Understanding:**](./understanding/) environment prediction and scene enrichment
+- [**Planning:**](./planning/) route & trajectory planning
+- [**Control:**](./control/) trajectory optimization and vehicle dynamics control
+- [**Monitoring:**](./monitoring/) inspection and runtime visualization
+- [**Utilities:**](./utils/) helper functions
 
 This structure keeps individual services replaceable while preserving stable interfaces between the stack domains.
 
