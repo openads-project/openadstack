@@ -7,14 +7,15 @@ from launch.actions import (
 from launch.event_handlers import OnProcessExit
 from launch.events import Shutdown
 
+ROUTE_ACTION_NAME = "/planning/lanelet2_route_planning/plan_route"
+ROUTE_ACTION_TYPE = "route_planning_msgs/action/PlanRoute"
+
 # Route goal sent to the route planner once its action server is available.
-# `ros2 action send_goal` blocks until the server is up, so no explicit
-# wait/poll loop is needed.
 ROUTE_GOAL = (
     "{"
         "destination: {"
             "header: {frame_id: 'map'}, "
-            "point: {x: 303.0938415527344, y: 235.60919189453125, z: 0.03127288818359375}"
+            "point: {x: 305.2498474121094, y: 225.9604034423828, z: 0.03127288818359375}"
         "}, "
         "intermediate_destinations: ["
             "{"
@@ -31,7 +32,7 @@ def generate_launch_description():
         cmd=[
             "ros2", "bag", "play",
             "--start-offset", "20",
-            "--playback-duration", "200",
+            "--playback-duration", "210",
             "--input", "/data",
             "--clock",
             "--regex",
@@ -43,11 +44,13 @@ def generate_launch_description():
 
     send_route_goal = ExecuteProcess(
         cmd=[
-            "ros2", "action", "send_goal",
-            "/planning/lanelet2_route_planning/plan_route",
-            "route_planning_msgs/action/PlanRoute",
+            "/bin/bash", "-c",
+            "until ros2 action list | grep -Fxq -- \"$1\"; do sleep 1; done; "
+            "exec ros2 action send_goal \"$1\" \"$2\" \"$3\" --feedback",
+            "send-route-goal",
+            ROUTE_ACTION_NAME,
+            ROUTE_ACTION_TYPE,
             ROUTE_GOAL,
-            "--feedback",
         ],
         output="screen",
     )
