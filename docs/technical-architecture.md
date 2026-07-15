@@ -1,136 +1,107 @@
 # Technical Architecture
 
-OpenADStack is a Docker Compose based collection of ROS 2 services for automated-driving research and integration. It provides the reusable AD-stack layer of the OpenADS ecosystem. Vehicle, simulator, scenario, and adapter services are provided by integrations such as the [karl. research vehicle](https://karl.ac/) or [OpenADSim](https://github.com/openads-project/openadsim).
+OpenADStack integrates independently released ROS 2 modules into a reusable automated-driving stack. It defines how the modules are connected, but does not contain their source code or a deployment-specific environment. Module development and deployment integration remain separate concerns.
 
 ## Architectural Principles
 
-- ROS 2 is used as middleware and communication backbone.
-- Docker Compose is used for modular service orchestration.
-- Services are grouped by automated-driving function: localization, environment modeling and prediction, planning, optimization, control, and monitoring.
-- Shared templates keep common container configuration consistent across services.
-- Services communicate through stable OpenADS interfaces and topic contracts.
-- Individual services can be replaced by custom implementations if they preserve the expected interfaces.
+- **ROS 2 provides the communication interfaces between modules**. Well-defined topics, services, and actions define explicit OpenADService boundaries.
+- **Docker Compose defines the service orchestration**. It combines the independently released module images, applies environment variables, declares runtime dependencies, and selects required resources such as GPU or X11 access.
+- **OpenADStack assigns consistent namespaces, topics, and runtime conventions**. It maps module-local defaults to stable stack interfaces and standardizes settings such as middleware selection or logging.
 
-## Service Integration Levels
+## OpenADService Integration Boundary
 
-OpenADStack sits between reusable service releases and concrete deployments. A typical OpenADService already provides a Docker image, a standardized ROS 2 launch file, and a small Compose artifact with node-level defaults. OpenADStack then connects these services into a stack by setting meaningful namespaces, topic names, environment variables, and shared runtime templates for middleware, X11, GPU usage, and similar cross-cutting concerns.
+Reusable functional modules generally originate in dedicated OpenADService repositories and follow the [OpenADSuite development and release workflow](https://openads-project.github.io/openadsuite/openadsuite.html). Their release process publishes a container image and an OCI Compose artifact containing the launch command and module-level defaults. OpenADStack imports this artifact and adds the configuration required to connect that single functionality to the rest of the stack.
 
-The surrounding levels are important for understanding the full Compose chain, but only levels 2 and 3 are part of OpenADStack itself.
+The following artifact flow describes one OpenADService module, not the complete service composition. The same structure is repeated for modules imported through this workflow.
 
 ```mermaid
-flowchart TD
-    A[Service level<br/>OpenADService Compose artifact] --> B[OpenADStack level<br/>service override]
-    B --> C[OpenADStack level<br/>generated stack Compose file]
-    C --> D[Integration level<br/>vehicle, simulator, parameters, mounts]
+flowchart LR
+    subgraph upstream["Outside OpenADStack: OpenADService Release"]
+        L1["1. OpenADService artifact<br/>Docker image and OCI Compose"]
+    end
+
+    subgraph stack["OpenADStack: Module integration"]
+        direction LR
+        L2["2. Stack override<br/>.docker-compose.oci-overrides.yml"]
+        L3["3. Resolved Compose file<br/>docker-compose.yml"]
+        L2 -->|rendered as| L3
+    end
+
+    subgraph downstream["Outside OpenADStack: Deployment Environment"]
+        L4["4. Integration composition<br/>vehicle or OpenADSim"]
+    end
+
+    L1 -->|referenced as OCI include| L2
+    L3 -->|included by| L4
 ```
 
-The full chain consists of four levels:
+The OpenADStack boundary lies between the upstream service release and the downstream deployment. The service artifact in stage 1 is maintained by the respective OpenADService. Within OpenADStack, the maintained stack override in stage 2 and the automatically  generated Compose file in stage 3 are stored next to each other and describe the same module integration. The deployment in stage 4 consumes the generated definition and adds environment-specific configuration such as data sources, hardware access, and parameter mounts.
 
-| Level | Ownership | Location | Purpose |
-| ----- | --------- | -------- | ------- |
-| 1. Service artifact | OpenADService | OCI Compose artifact published by an individual service | Defines the service image, launch command, and module defaults at release time. |
-| 2. Stack override | OpenADStack | `.docker-compose.oci-overrides.yml` in each OpenADStack service folder | Connects the service to OpenADStack namespaces, topic names, and default environment variables. |
-| 3. Generated stack Compose | OpenADStack | `docker-compose.yml` in each OpenADStack service folder | Resolves the OCI include into a local Compose file so higher-level integrations can use the stack without resolving every service artifact again. |
-| 4. Integration override | Integration or deployment | OpenADSim, vehicle setup, or custom deployment | Adds deployment-specific mounts, parameter files, profiles, data sources, gateways, or simulator settings. |
-
-Levels 2 and 3 are the OpenADStack boundary. Level 1 belongs to the individual service repositories. Level 4 belongs to the environment around the stack, such as OpenADSim, a vehicle deployment, or a custom integration.
+Consequently, only stages 2 and 3 are part of the reference OpenADStack itself. Vehicle deployments and [OpenADSim](https://github.com/openads-project/openadsim) remain outside this boundary. The demo is co-located in this repository for convenience, but has the same architectural role as any other stage 4 integration. The following example applies this structure to a concrete module.
 
 ### Example
 
-At service level, a module usually defines only its own image, launch command, and node-local defaults. Topic environment variables are still generic because the service does not yet know where it will be used:
+The `trajectory_optimization` OpenADService publishes its image and Compose artifact independently. Its service-level defaults use module-local topic names because the service does not know the composition in which it will run.
 
-```yaml
-services:
-  trajectory-optimization:
-    image: ghcr.io/openads-project/trajectory_optimization:v1.2.0
-    environment:
-      NAMESPACE: /
-      NAME: trajectory_optimization
-      EGO_DATA_TOPIC: ~/ego_data
-      OBJECT_LIST_TOPIC: ~/object_list
-      ROUTE_TOPIC: ~/route
-      TRAJECTORY_TOPIC: ~/trajectory
-    command:
-      - /bin/bash
-      - -ic
-      - |
-        ros2 launch trajectory_optimization trajectory_optimization.launch.py \
-          namespace:=$${NAMESPACE} \
-          name:=$${NAME} \
-          ego_data_topic:=$${EGO_DATA_TOPIC} \
-          object_list_topic:=$${OBJECT_LIST_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC} \
-          trajectory_topic:=$${TRAJECTORY_TOPIC}
-```
-
-OpenADStack adds stack-level meaning to that service by wiring it to the surrounding stack:
+OpenADStack maintains the corresponding stack override in `planning/trajectory_optimization/.docker-compose.oci-overrides.yml`:
 
 ```yaml
 include:
-  # https://github.com/openads-project/trajectory_optimization/blob/v1.2.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/trajectory_optimization:compose-v1.2.0
+  - oci://ghcr.io/openads-project/trajectory_optimization:compose-v1.3.0
 
 services:
-
   trajectory-optimization:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
     environment:
-      # --- name ------
       NAMESPACE: /planning
-      # --- inputs ----
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       OBJECT_LIST_TOPIC: /understanding/lanelet2_object_list_prediction/object_list
       REFERENCE_TRAJECTORY_TOPIC: /planning/simple_planner/trajectory
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
-      # --- other -----
-      PARAMS: /params.yml
 ```
 
-This is the core purpose of OpenADStack: it turns reusable OpenADServices into a coherent automated-driving stack by connecting their interfaces and applying shared runtime conventions.
+The generator resolves the upstream OCI include and this stack override into the adjacent `planning/trajectory_optimization/docker-compose.yml`. Higher-level compositions include the generated file and could overwrite or add configurations.
 
-## Shared Service Base
+## Compose Service Templates
 
-The shared template in `utils/compose/docker-compose.template.yml` is not an additional integration level. It is a common base that OpenADStack services extend inside levels 2 and 3. The template centralizes runtime settings that should be identical across services:
+The definitions in `utils/compose/docker-compose.template.yml` centralize recurring container configuration. They are reusable Compose templates within OpenADStack, not an additional integration stage. An OpenADService selects the template that matches its middleware, GPU, and display requirements.
 
-- general ROS 2 environment variables
-- middleware-specific settings
-- common container lifecycle settings
-- GPU and X11 settings for graphical tools
-- workspace and parameter mount conventions
+| Definition | Extends | Purpose |
+| ---------- | ------- | ------- |
+| `base-service` | — | Applies common lifecycle, locale, timezone, and file-limit settings. |
+| `x11-service` | `base-service` | Adds X11 display and authorization mounts. |
+| `gpu-service` | `base-service` | Adds access to discrete NVIDIA GPUs through Compose device reservations. |
+| `nvidia-soc-service` | `base-service` | Adds NVIDIA runtime access for integrated NVIDIA SoCs. |
+| `gpu-x11-service` | `gpu-service` | Combines discrete NVIDIA GPU and X11 access. |
+| `nvidia-soc-x11-service` | `nvidia-soc-service` | Combines NVIDIA SoC and X11 access. |
+| `ros2-service` | Selected `ros2-*-service` | Provides the standard ROS 2 template and selects the RMW implementation through `RMW`. |
+| `ros2-zenoh-service` | `base-service` | Configures `rmw_zenoh_cpp` and the default Zenoh router connection. |
+| `ros2-fastrtps-service` | `base-service` | Configures `rmw_fastrtps_cpp`. |
+| `ros2-cyclone-service` | `base-service` | Configures `rmw_cyclone_cpp`. |
+| `ros2-x11-service` | `ros2-service` | Adds X11 access to a ROS 2 service. |
+| `ros2-gpu-service` | `ros2-service` | Adds discrete NVIDIA GPU access to a ROS 2 service. |
+| `ros2-nvidia-soc-service` | `ros2-service` | Adds NVIDIA SoC runtime access to a ROS 2 service. |
+| `ros2-gpu-x11-service` | `ros2-gpu-service` | Combines ROS 2, discrete NVIDIA GPU, and X11 access. |
+| `ros2-nvidia-soc-x11-service` | `ros2-nvidia-soc-service` | Combines ROS 2, NVIDIA SoC, and X11 access. |
+| `zenoh-router` | `base-service` | Defines the shared Zenoh router used by services running with the Zenoh RMW. |
 
-The stack-specific Compose files then focus on module-specific settings such as image tags, launch arguments, namespaces, topic names, and parameter files.
+Most headless OpenADServices extend `ros2-service`. Specialized variants should only be used when a module requires display or accelerator access. `zenoh-router` is a concrete infrastructure service rather than a base template.
 
-## General Environment Variables
+`ros2-service` resolves the selected middleware template. For example, `RMW=zenoh` selects `ros2-zenoh-service`, which sets `RMW_IMPLEMENTATION=rmw_zenoh_cpp` and connects to the default Zenoh router. `RMW=fastrtps` and `RMW=cyclone` select the corresponding DDS implementation. The selected RMW implementation must already be installed in the OpenADService container image.
 
-OpenADStack exposes a small set of environment variables that are relevant across many services. Some are defined by the shared Docker templates, while others are passed through to the service launch files. The goal is the same in both cases: integrations can adapt common runtime behavior without editing each service command.
+## Common Runtime Configuration
 
-| Variable | Defined in | Typical values | Effect |
-| -------- | ---------- | -------------- | ------ |
-| `RMW` | shared template | `zenoh`, `fastrtps`, `cyclone` | Selects the ROS 2 middleware service template. This maps to `rmw_zenoh_cpp`, `rmw_fastrtps_cpp`, or `rmw_cyclone_cpp`. |
-| `ROS_DOMAIN_ID` | shared template | `0`, custom domain ID | Sets the ROS 2 domain for all services extending `ros2-service`. Use this to isolate deployments on the same network. |
-| `LOG_LEVEL` | service Compose files | `debug`, `info`, `warn`, `error` | Passed into service launch files as `log_level`, controlling node logging verbosity. |
-| `USE_SIM_TIME` | service Compose files | `true`, `false` | Passed into service launch files as `use_sim_time`, switching nodes between wall-clock time and `/clock`. |
+The Compose templates and OpenADService Compose files expose a small set of consistent runtime variables. Deployments can set these variables without modifying module commands.
 
-### What Happens at Runtime
+| Variable | Defined by | Default | Purpose |
+| -------- | ---------- | ------- | ------- |
+| `RMW` | Compose templates | `zenoh` | Selects `zenoh`, `fastrtps`, or `cyclone` as the ROS 2 middleware implementation. |
+| `ROS_DOMAIN_ID` | Compose templates | `0` | Isolates ROS 2 communication domains on a shared network. |
+| `RESTART_POLICY` | Compose templates | `no` | Controls the Docker Compose restart policy. |
+| `ZENOH_SESSION_CONFIG_OVERRIDE` | Compose templates | Repository default | Overrides the Zenoh client session configuration. |
+| `LOG_LEVEL` | OpenADService Compose files | Usually `info` | Sets the ROS 2 node logging level. |
+| `USE_SIM_TIME` | OpenADService Compose files | Usually `false` | Selects wall-clock time or the ROS `/clock` topic. |
 
-`RMW` is resolved by Docker Compose before the service starts. For example, `RMW=zenoh` makes `ros2-service` extend the Zenoh-specific template, which sets `RMW_IMPLEMENTATION=rmw_zenoh_cpp` and the default Zenoh session configuration. `RMW=fastrtps` selects the Fast DDS template instead.
-
-`LOG_LEVEL` and `USE_SIM_TIME` are configured per service but follow the same convention across the stack. Most service Compose files define them with defaults:
-
-```yaml
-environment:
-  LOG_LEVEL: ${LOG_LEVEL:-info}
-  USE_SIM_TIME: ${USE_SIM_TIME:-false}
-```
-
-The service command then forwards them to the ROS 2 launch file:
-
-```bash
-ros2 launch <package> <launch-file> \
-  log_level:=$${LOG_LEVEL} \
-  use_sim_time:=$${USE_SIM_TIME}
-```
-
-Additional OpenADServices can be connected across middleware boundaries through the [ros_middleware_bridge](https://github.com/openads-project/ros_middleware_bridge) when an integration needs to bridge separate ROS 2 communication domains.
+Deployments can override these defaults project-wide through a `.env` file or for individual services through the Compose `environment` section. The [demo `.env` file](../demo/.env), for example, enables `USE_SIM_TIME` for all OpenADServices so they consume the published `/clock` topic.
