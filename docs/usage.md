@@ -1,8 +1,8 @@
 # Usage
 
-OpenADStack is designed to be integrated into a larger service composition that provides sensor or simulation inputs, vehicle interfaces, and deployment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
+OpenADStack is designed to be included in a larger deployment composition that provides sensor or simulation inputs, vehicle interfaces, and environment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
 
-To make OpenADStack directly accessible from this repository, the `demo` folder provides a self-contained open-loop setup. It replays recorded ROS 2 data, starts the stack with a predefined route, and opens the monitoring environment. This is a convenient way to explore the services, data flow, and outputs without connecting a vehicle or simulator.
+To make OpenADStack directly accessible from this repository, the `demo` folder provides a self-contained open-loop setup. It replays recorded ROS 2 data, starts the stack with a predefined route, and opens the monitoring environment. This is a convenient way to explore the OpenADServices, data flow, and outputs without connecting a vehicle or simulator.
 
 > [!IMPORTANT]
 > Make sure that the general [OpenADS requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
@@ -13,11 +13,11 @@ The demo provides two configurations corresponding to the processing paths shown
 
 ### Planning Demo
 
-The default configuration focuses on the right-hand, planning-oriented side of the A-model. A detected object list is replayed from the recording and passed to the downstream prediction, planning, and optimization services. This keeps the setup lightweight while exposing the central planning pipeline.
+The default configuration focuses on the right-hand, planning-oriented side of the A-model. A detected object list is replayed from the recording and passed to the downstream prediction, planning, and optimization OpenADServices. This keeps the setup lightweight while exposing the central planning pipeline.
 
 ### Perception and Planning Demo
 
-The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects into the same modules as before. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
+The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects to the same downstream OpenADServices. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
 
 ## Run the Demo
 
@@ -40,14 +40,14 @@ Alternatively, start the extended perception demonstration setup:
 export COMPOSE_FILE=docker-compose.perception.yml && docker compose up -d
 ```
 
-Inspect the active services:
+Inspect the active Compose services:
 
 ```bash
 docker compose ps
 docker compose config --services
 ```
 
-RViz starts as part of the monitoring service and visualizes the replayed inputs and generated stack outputs. Each bag playback cycle runs for approximately three and a half minutes; the demo service then starts it again automatically.
+RViz starts as part of the monitoring Compose service and visualizes the replayed inputs and generated stack outputs. Each bag playback cycle runs for approximately three and a half minutes. The bag-replay Compose service then starts it again automatically.
 
 Stop the selected demo configuration with:
 
@@ -98,18 +98,18 @@ exit
 
 ## Configuration
 
-Most stack settings are already configured through environment variables in the service Compose files:
+Most stack settings are already configured through environment variables in the OpenADService Compose files:
 
 - namespace and node name
 - input and output topic names
 - parameter file paths
 - `LOG_LEVEL`
 - `USE_SIM_TIME`
-- module-specific runtime options
+- OpenADService-specific runtime options
 
 For example, `planning/trajectory_optimization/docker-compose.yml` defines the ego-data input, predicted-object input, route input, reference trajectory input, and optimized trajectory output topic.
 
-To customize a deployment, prefer a small Compose override file instead of editing generated service files directly:
+To customize a deployment composition, prefer a small Compose override file instead of editing generated OpenADService Compose files directly:
 
 ```yaml
 services:
@@ -126,6 +126,6 @@ docker compose -f docker-compose.yml -f my-openadstack.override.yml up -d
 
 ## Development Process & Tools
 
-For developing new modules or modifying existing OpenADS services, follow the [OpenADSuite development workflow](https://openads-project.github.io/openadsuite/openadsuite.html). It describes the recommended template repositories, development containers, release workflow, and registry artifacts used by OpenADStack integrations.
+For developing or modifying OpenADServices, follow the [OpenADSuite development workflow](https://openads-project.github.io/openadsuite/openadsuite.html). It describes the recommended template repositories, development containers, release workflow, and registry artifacts used by OpenADStack.
 
 Additional helper tools are documented in the [OpenADSuite tools overview](https://openads-project.github.io/openadsuite/tools.html).
