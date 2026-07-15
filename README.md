@@ -55,14 +55,14 @@ OpenADStack covers the complete automated driving processing chain from sensing 
 
 OpenADStack is organized into functional domains:
 
-- [**Essentials:**](./essentials/) basic Compose services, e.g. for traffic routing or ML model serving
-- [**Localization:**](./localization/) map serving and vehicle dynamics state estimation
-- [**Perception:**](./perception/) object detection & tracking, scene interpretation & environment modeling
-- [**Understanding:**](./understanding/) environment prediction and scene enrichment
-- [**Planning:**](./planning/) route & trajectory planning
-- [**Control:**](./control/) trajectory optimization and vehicle dynamics control
-- [**Monitoring:**](./monitoring/) inspection and runtime visualization
-- [**Utilities:**](./utils/) shared Compose templates and helper scripts
+- **Essentials:** basic Compose services, e.g. for traffic routing or ML model serving
+- **Localization:** map serving and vehicle dynamics state estimation
+- **Perception:** object detection & tracking, scene interpretation & environment modeling
+- **Understanding:** environment prediction and scene enrichment
+- **Planning:** route & trajectory planning
+- **Control:** trajectory optimization and vehicle dynamics control
+- **Monitoring:** inspection and runtime visualization
+- **Utilities:** shared Compose templates and helper scripts
 
 The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the processing from raw sensor data to the tactical decision making with decreasing latency requirements. The right side described the way from top-level decision making to the actuation with increasing latency requirements. The horizontal bar describes a fall-back layer that allows the system to perform a minimum risk maneuver in case of a degradation in the higher levels.
 
@@ -122,12 +122,12 @@ The source code in this repository is licensed under Apache-2.0, see [LICENSE](h
 
 Development and maintenance of this repository are supported by the following projects. We acknowledge the funding of the respective institutions.
 
-| Project | Funding Institution | Grant Number |
-| --- | --- | --- |
-| [6GEM+](https://6gem.de) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 16KIS2409K |
-| [AIGGREGATE](https://aiggregate.eu/) | 🇪🇺 European Union | 101202457 |
-| [AIthena](https://aithena.eu/) | 🇪🇺 European Union | 101076754 |
-| [autotech.agil](https://www.autotechagil.de/en/) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 01IS22088A |
+| Project                                          | Funding Institution                                           | Grant Number |
+| ------------------------------------------------ | ------------------------------------------------------------- | ------------ |
+| [6GEM+](https://6gem.de)                         | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 16KIS2409K   |
+| [AIGGREGATE](https://aiggregate.eu/)             | 🇪🇺 European Union                                              | 101202457    |
+| [AIthena](https://aithena.eu/)                   | 🇪🇺 European Union                                              | 101076754    |
+| [autotech.agil](https://www.autotechagil.de/en/) | 🇩🇪 Federal Ministry for Research, Technology and Space (BMFTR) | 01IS22088A   |
 
 <p>
   <img src="https://www.drought.uni-freiburg.de/stressres/images/bmftr-logo/image" height=70>
