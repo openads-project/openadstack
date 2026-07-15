@@ -9,7 +9,7 @@
 
 **Baseline reference implementation for modular ROS 2 automated-driving stacks in OpenADS.**
 
-OpenADStack bundles reusable OpenADS services into a Docker Compose based reference stack. It is designed for different integrations: from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://github.com/openads-project/openadsim).
+OpenADStack bundles reusable OpenADS services into a Docker Compose based reference stack. It supports different deployment compositions, from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://github.com/openads-project/openadsim).
 
 **🚀 [Quick Start](#-quick-start)** | **🏗️ [Functional Overview & Architecture](#-functional-overview--architecture)** | **📝 [Documentation](#-documentation)** | **🙏 [Acknowledgements](#-acknowledgements)**
 
@@ -26,7 +26,7 @@ OpenADStack bundles reusable OpenADS services into a Docker Compose based refere
 > [!IMPORTANT]
 > Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a simulation setup. For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
+OpenADStack is usually part of an integration, for example with the [karl. research vehicle](https://karl.ac/) or in a [simulation setup](https://github.com/openads-project/openadsim). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle modules.
 
 - Two demos using different parts of OpenADStack are provided:
   - **Basic Demo:** Start a basic open-loop demo with planning components running on recorded detections:
@@ -77,7 +77,7 @@ The documentation contains:
 - [Usage](./docs/usage.md)
 - [Functional Architecture](./docs/functional-architecture.md)
 - [Technical Architecture](./docs/technical-architecture.md)
-- [Service Integration](./docs/service-integration.md)
+- [OpenADService Integration](./docs/service-integration.md)
 
 ## 🙏 Acknowledgements
 

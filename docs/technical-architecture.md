@@ -1,6 +1,6 @@
 # Technical Architecture
 
-OpenADStack integrates independently released ROS 2 modules into a reusable automated-driving stack. It defines how the modules are connected, but does not contain their source code or a deployment-specific environment. Module development and deployment integration remain separate concerns.
+OpenADStack integrates independently released ROS 2 modules into a reusable automated-driving stack. It defines how the modules are connected, but does not contain their source code or define a deployment composition. Source-level module development and the definition of deployment compositions remain separate concerns.
 
 ## Architectural Principles
 
@@ -12,36 +12,36 @@ OpenADStack integrates independently released ROS 2 modules into a reusable auto
 
 Reusable functional modules generally originate in dedicated OpenADService repositories and follow the [OpenADSuite development and release workflow](https://openads-project.github.io/openadsuite/openadsuite.html). Their release process publishes a container image and an OCI Compose artifact containing the launch command and module-level defaults. OpenADStack imports this artifact and adds the configuration required to connect that single functionality to the rest of the stack.
 
-The following artifact flow describes one OpenADService module, not the complete service composition. The same structure is repeated for modules imported through this workflow.
+The following artifact flow describes one OpenADService integration, not the complete OpenADStack. The same structure is repeated for modules imported through this workflow.
 
 ```mermaid
 flowchart LR
-    subgraph upstream["Outside OpenADStack: OpenADService Release"]
+    subgraph upstream["Upstream: OpenADService Release"]
         L1["1. OpenADService artifact<br/>Docker image and OCI Compose"]
     end
 
-    subgraph stack["OpenADStack: Module integration"]
+    subgraph stack["OpenADStack: OpenADService Integration"]
         direction LR
         L2["2. Stack override<br/>.docker-compose.oci-overrides.yml"]
         L3["3. Resolved Compose file<br/>docker-compose.yml"]
         L2 -->|rendered as| L3
     end
 
-    subgraph downstream["Outside OpenADStack: Deployment Environment"]
-        L4["4. Integration composition<br/>vehicle or OpenADSim"]
+    subgraph downstream["Downstream: Deployment Composition"]
+        L4["4. Deployment composition<br/>vehicle or OpenADSim"]
     end
 
     L1 -->|referenced as OCI include| L2
     L3 -->|included by| L4
 ```
 
-The OpenADStack boundary lies between the upstream service release and the downstream deployment. The service artifact in stage 1 is maintained by the respective OpenADService. Within OpenADStack, the maintained stack override in stage 2 and the automatically  generated Compose file in stage 3 are stored next to each other and describe the same module integration. The deployment in stage 4 consumes the generated definition and adds environment-specific configuration such as data sources, hardware access, and parameter mounts.
+The OpenADStack boundary lies between the upstream service release and the downstream deployment composition. The service artifact in stage 1 is maintained by the respective OpenADService. Within OpenADStack, the maintained stack override in stage 2 and the automatically generated Compose file in stage 3 are stored next to each other and describe the same OpenADService integration. The deployment composition in stage 4 consumes the generated definition and adds environment-specific configuration such as data sources, hardware access, and parameter mounts.
 
-Consequently, only stages 2 and 3 are part of the reference OpenADStack itself. Vehicle deployments and [OpenADSim](https://github.com/openads-project/openadsim) remain outside this boundary. The demo is co-located in this repository for convenience, but has the same architectural role as any other stage 4 integration. The following example applies this structure to a concrete module.
+Consequently, only stages 2 and 3 are part of the reference OpenADStack itself. Deployment compositions for vehicles or [OpenADSim](https://github.com/openads-project/openadsim) remain outside this boundary. The demo is co-located in this repository for convenience, but has the same architectural role as any other deployment composition. The following example applies this structure to a concrete module.
 
 ### Example
 
-The `trajectory_optimization` OpenADService publishes its image and Compose artifact independently. Its service-level defaults use module-local topic names because the service does not know the composition in which it will run.
+The `trajectory_optimization` OpenADService publishes its image and Compose artifact independently. Its service-level defaults use module-local topic names because the service does not know the deployment composition in which it will run.
 
 OpenADStack maintains the corresponding stack override in `planning/trajectory_optimization/.docker-compose.oci-overrides.yml`:
 
@@ -62,11 +62,11 @@ services:
       ROUTE_TOPIC: /planning/lanelet2_route_planning/route
 ```
 
-The generator resolves the upstream OCI include and this stack override into the adjacent `planning/trajectory_optimization/docker-compose.yml`. Higher-level compositions include the generated file and could overwrite or add configurations.
+The generator resolves the upstream OCI include and this stack override into the adjacent `planning/trajectory_optimization/docker-compose.yml`. Deployment compositions include the generated file and can override or extend its configuration.
 
 ## Compose Service Templates
 
-The definitions in `utils/compose/docker-compose.template.yml` centralize recurring container configuration. They are reusable Compose templates within OpenADStack, not an additional integration stage. An OpenADService selects the template that matches its middleware, GPU, and display requirements.
+The definitions in `utils/compose/docker-compose.template.yml` centralize recurring container configuration. They are reusable Compose templates within OpenADStack, not an additional layer in the OpenADService integration. An OpenADService selects the template that matches its middleware, GPU, and display requirements.
 
 | Definition | Extends | Purpose |
 | ---------- | ------- | ------- |
@@ -93,7 +93,7 @@ Most headless OpenADServices extend `ros2-service`. Specialized variants should 
 
 ## Common Runtime Configuration
 
-The Compose templates and OpenADService Compose files expose a small set of consistent runtime variables. Deployments can set these variables without modifying module commands.
+The Compose templates and OpenADService Compose files expose a small set of consistent runtime variables. Deployment compositions can set these variables without modifying module commands.
 
 | Variable | Defined by | Default | Purpose |
 | -------- | ---------- | ------- | ------- |
@@ -104,4 +104,4 @@ The Compose templates and OpenADService Compose files expose a small set of cons
 | `LOG_LEVEL` | OpenADService Compose files | Usually `info` | Sets the ROS 2 node logging level. |
 | `USE_SIM_TIME` | OpenADService Compose files | Usually `false` | Selects wall-clock time or the ROS `/clock` topic. |
 
-Deployments can override these defaults project-wide through a `.env` file or for individual services through the Compose `environment` section. The [demo `.env` file](../demo/.env), for example, enables `USE_SIM_TIME` for all OpenADServices so they consume the published `/clock` topic.
+Deployment compositions can override these defaults project-wide through a `.env` file or for individual services through the Compose `environment` section. The [demo `.env` file](../demo/.env), for example, enables `USE_SIM_TIME` for all OpenADServices so they consume the published `/clock` topic.

@@ -1,6 +1,6 @@
 # Usage
 
-OpenADStack is designed to be integrated into a larger service composition that provides sensor or simulation inputs, vehicle interfaces, and deployment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
+OpenADStack is designed to be included in a larger deployment composition that provides sensor or simulation inputs, vehicle interfaces, and environment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
 
 To make OpenADStack directly accessible from this repository, the `demo` folder provides a self-contained open-loop setup. It replays recorded ROS 2 data, starts the stack with a predefined route, and opens the monitoring environment. This is a convenient way to explore the services, data flow, and outputs without connecting a vehicle or simulator.
 
@@ -109,7 +109,7 @@ Most stack settings are already configured through environment variables in the 
 
 For example, `planning/trajectory_optimization/docker-compose.yml` defines the ego-data input, predicted-object input, route input, reference trajectory input, and optimized trajectory output topic.
 
-To customize a deployment, prefer a small Compose override file instead of editing generated service files directly:
+To customize a deployment composition, prefer a small Compose override file instead of editing generated service files directly:
 
 ```yaml
 services:
@@ -126,6 +126,6 @@ docker compose -f docker-compose.yml -f my-openadstack.override.yml up -d
 
 ## Development Process & Tools
 
-For developing new modules or modifying existing OpenADS services, follow the [OpenADSuite development workflow](https://openads-project.github.io/openadsuite/openadsuite.html). It describes the recommended template repositories, development containers, release workflow, and registry artifacts used by OpenADStack integrations.
+For developing new modules or modifying existing OpenADS services, follow the [OpenADSuite development workflow](https://openads-project.github.io/openadsuite/openadsuite.html). It describes the recommended template repositories, development containers, release workflow, and registry artifacts used by the OpenADStack.
 
 Additional helper tools are documented in the [OpenADSuite tools overview](https://openads-project.github.io/openadsuite/tools.html).
