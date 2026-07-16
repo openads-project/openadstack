@@ -12,7 +12,6 @@ include:
 
   # understanding
   - ../understanding/autoware_multi_object_tracker/docker-compose.yml
-  - ../understanding/simple_object_tracking/docker-compose.yml # TODO remove
   - ../understanding/lanelet2_object_list_prediction/docker-compose.yml
   
   # planning

@@ -556,7 +556,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /understanding/simple_object_tracking/object_list
+        Value: /understanding/autoware_multi_object_tracker/object_list
       Value: false
       Velocity arrow:
         Use velocity color: true
