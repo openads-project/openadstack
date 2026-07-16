@@ -11,11 +11,11 @@ To make OpenADStack directly accessible from this repository, the `demo` folder 
 
 The demo provides two configurations corresponding to the processing paths shown in the [functional architecture](./functional-architecture.md).
 
-### Planning Demo
+### Demo without Perception
 
 The default configuration focuses on the right-hand, planning-oriented side of the A-model. A detected object list is replayed from the recording and passed to the downstream prediction, planning, and optimization OpenADServices. This keeps the setup lightweight while exposing the central planning pipeline.
 
-### Perception and Planning Demo
+### Full Demo
 
 The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects to the same downstream OpenADServices. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
 
@@ -28,16 +28,16 @@ git clone --recurse-submodules git@github.com:openads-project/openadstack.git
 cd openadstack/demo
 ```
 
-Start the planning-focused demonstration setup:
+Start the demo without perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.yml && docker compose up -d
+export COMPOSE_FILE=docker-compose.demo.yml && docker compose up -d
 ```
 
-Alternatively, start the extended perception demonstration setup:
+Alternatively, start the full demo including perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.perception.yml && docker compose up -d
+export COMPOSE_FILE=docker-compose.demo-full.yml && docker compose up -d
 ```
 
 Inspect the active Compose services:
@@ -59,10 +59,10 @@ docker compose down
 
 The demo recording supplies the external runtime data that would normally come from a vehicle or simulator:
 
-- driver and sensor topics below `/drivers`, including the front-left and rear-right Ouster LiDAR point clouds used by the perception configuration
+- driver and sensor topics below `/drivers`, including the front-left and rear-right Ouster LiDAR point clouds used by the full demo
 - ego-state and navigation data below `/localization/ego_state_estimation`
 - the vehicle and sensor frame transforms on `/tf`
-- a recorded point-cloud detected object list for the planning-only configuration
+- a recorded point-cloud detected object list for the demo without perception
 - simulated ROS time through the bag player's `/clock` output
 
 The Lanelet2 map and visualization configuration are mounted from the `demo` folder rather than read from the bag. After the route-planning action becomes available, the demo also submits a predefined destination and intermediate destination. The setup is therefore deterministic and intended for inspection rather than closed-loop driving.
