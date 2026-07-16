@@ -17,10 +17,6 @@ services:
       - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
       - ./lanelet2_map_server/maps:/data/maps
 
-  autoware-multi-object-tracker:
-    volumes:
-      - ./autoware_multi_object_tracker:/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config
-
   monitoring:
     volumes:
       - ./utils/conf.rviz:/conf.rviz

@@ -13,32 +13,86 @@ services:
       # NAMESPACE: /
       NAMESPACE: /understanding
       NAME: autoware_multi_object_tracker
-      # --- inputs ----
-      # INPUT_OBJECT_LIST_TOPIC: ~/input_object_list
-      INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
-      INPUT_OBJECT_LIST_CHANNEL: detected_objects
-      # --- outputs ---
-      OBJECT_LIST_TOPIC: ~/object_list
       # --- other -----
-      SERVICE_TOPIC: ~/service
+      # INPUT_DETECTION01_OBJECTS: ~/input_detection01_objects
+      INPUT_DETECTION01_OBJECTS: /perception/point_cloud_object_detection/object_list
+      INPUT_DETECTION02_OBJECTS: ~/input_detection02_objects
+      INPUT_DETECTION03_OBJECTS: ~/input_detection03_objects
+      INPUT_DETECTION04_OBJECTS: ~/input_detection04_objects
+      INPUT_DETECTION05_OBJECTS: ~/input_detection05_objects
+      INPUT_DETECTION06_OBJECTS: ~/input_detection06_objects
+      INPUT_DETECTION07_OBJECTS: ~/input_detection07_objects
+      INPUT_DETECTION08_OBJECTS: ~/input_detection08_objects
+      INPUT_DETECTION09_OBJECTS: ~/input_detection09_objects
+      INPUT_DETECTION10_OBJECTS: ~/input_detection10_objects
+      INPUT_DETECTION11_OBJECTS: ~/input_detection11_objects
+      INPUT_DETECTION12_OBJECTS: ~/input_detection12_objects
+      INPUT_ODOMETRY: ~/input_odometry
+      # OUTPUT_OBJECTS: ~/output_objects
+      OUTPUT_OBJECTS: ~/object_list
+      # OUTPUT_MERGED_OBJECTS: ~/output_merged_objects
+      OUTPUT_MERGED_OBJECTS: ~/merged_object_list
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      PARAMS: ${PARAMS:-/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config/multi_object_tracker_node.param.yaml}
+      # INPUT_DETECTION01_CHANNEL: ${INPUT_DETECTION01_CHANNEL:-none}
+      INPUT_DETECTION01_CHANNEL: untracked_objects
+      INPUT_DETECTION02_CHANNEL: ${INPUT_DETECTION02_CHANNEL:-none}
+      INPUT_DETECTION03_CHANNEL: ${INPUT_DETECTION03_CHANNEL:-none}
+      INPUT_DETECTION04_CHANNEL: ${INPUT_DETECTION04_CHANNEL:-none}
+      INPUT_DETECTION05_CHANNEL: ${INPUT_DETECTION05_CHANNEL:-none}
+      INPUT_DETECTION06_CHANNEL: ${INPUT_DETECTION06_CHANNEL:-none}
+      INPUT_DETECTION07_CHANNEL: ${INPUT_DETECTION07_CHANNEL:-none}
+      INPUT_DETECTION08_CHANNEL: ${INPUT_DETECTION08_CHANNEL:-none}
+      INPUT_DETECTION09_CHANNEL: ${INPUT_DETECTION09_CHANNEL:-none}
+      INPUT_DETECTION10_CHANNEL: ${INPUT_DETECTION10_CHANNEL:-none}
+      INPUT_DETECTION11_CHANNEL: ${INPUT_DETECTION11_CHANNEL:-none}
+      INPUT_DETECTION12_CHANNEL: ${INPUT_DETECTION12_CHANNEL:-none}
+      TRACKER_SETTING_PATH: ${TRACKER_SETTING_PATH:-}
+      DATA_ASSOCIATION_MATRIX_PATH: ${DATA_ASSOCIATION_MATRIX_PATH:-}
+      INPUT_CHANNELS_PATH: ${INPUT_CHANNELS_PATH:-}
+      PUBLISH_MERGED_OBJECTS: ${PUBLISH_MERGED_OBJECTS:-false}
+      EGO_SOURCE: ${EGO_SOURCE:-tf}
     command:
       - /bin/bash
       - -ic
       - |
-        ros2 launch autoware_multi_object_tracker multi_object_tracker.launch.xml \
+        ros2 launch autoware_multi_object_tracker autoware_multi_object_tracker.launch.py \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
-          params:=$${PARAMS} \
-          input/detection01/objects:=$${INPUT_OBJECT_LIST_TOPIC} \
-          input/detection01/channel:=$${INPUT_OBJECT_LIST_CHANNEL} \
-          output/objects:=$${OBJECT_LIST_TOPIC}
-    # volumes:
-    #   - ./params.yml:/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config/multi_object_tracker_node.param.yaml
+          input_detection01_channel:=$${INPUT_DETECTION01_CHANNEL} \
+          input_detection02_channel:=$${INPUT_DETECTION02_CHANNEL} \
+          input_detection03_channel:=$${INPUT_DETECTION03_CHANNEL} \
+          input_detection04_channel:=$${INPUT_DETECTION04_CHANNEL} \
+          input_detection05_channel:=$${INPUT_DETECTION05_CHANNEL} \
+          input_detection06_channel:=$${INPUT_DETECTION06_CHANNEL} \
+          input_detection07_channel:=$${INPUT_DETECTION07_CHANNEL} \
+          input_detection08_channel:=$${INPUT_DETECTION08_CHANNEL} \
+          input_detection09_channel:=$${INPUT_DETECTION09_CHANNEL} \
+          input_detection10_channel:=$${INPUT_DETECTION10_CHANNEL} \
+          input_detection11_channel:=$${INPUT_DETECTION11_CHANNEL} \
+          input_detection12_channel:=$${INPUT_DETECTION12_CHANNEL} \
+          $${TRACKER_SETTING_PATH:+tracker_setting_path:=$${TRACKER_SETTING_PATH}} \
+          $${DATA_ASSOCIATION_MATRIX_PATH:+data_association_matrix_path:=$${DATA_ASSOCIATION_MATRIX_PATH}} \
+          $${INPUT_CHANNELS_PATH:+input_channels_path:=$${INPUT_CHANNELS_PATH}} \
+          publish_merged_objects:=$${PUBLISH_MERGED_OBJECTS} \
+          ego_source:=$${EGO_SOURCE} \
+          input_detection01_objects:=$${INPUT_DETECTION01_OBJECTS} \
+          input_detection02_objects:=$${INPUT_DETECTION02_OBJECTS} \
+          input_detection03_objects:=$${INPUT_DETECTION03_OBJECTS} \
+          input_detection04_objects:=$${INPUT_DETECTION04_OBJECTS} \
+          input_detection05_objects:=$${INPUT_DETECTION05_OBJECTS} \
+          input_detection06_objects:=$${INPUT_DETECTION06_OBJECTS} \
+          input_detection07_objects:=$${INPUT_DETECTION07_OBJECTS} \
+          input_detection08_objects:=$${INPUT_DETECTION08_OBJECTS} \
+          input_detection09_objects:=$${INPUT_DETECTION09_OBJECTS} \
+          input_detection10_objects:=$${INPUT_DETECTION10_OBJECTS} \
+          input_detection11_objects:=$${INPUT_DETECTION11_OBJECTS} \
+          input_detection12_objects:=$${INPUT_DETECTION12_OBJECTS} \
+          input_odometry:=$${INPUT_ODOMETRY} \
+          output_objects:=$${OUTPUT_OBJECTS} \
+          output_merged_objects:=$${OUTPUT_MERGED_OBJECTS}
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
