@@ -1,0 +1,64 @@
+x-demo-service: &demo-service
+  extends:
+    file: ../../utils/compose/docker-compose.template.yml
+    service: ros2-service
+  image: ghcr.io/openads-project/monitoring:v1.0.0
+
+services:
+
+  demo.bag-replay:
+    <<: *demo-service
+    image: ghcr.io/openads-project/openadstack/demo-data:v1.0.0
+    restart: unless-stopped
+    command: ros2 launch /replay.launch.py
+    volumes:
+      - ./replay.launch.py:/replay.launch.py
+
+  demo.topic-relay:
+    <<: *demo-service
+    command: ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
+
+  demo.robot-state-publisher:
+    <<: *demo-service
+    command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
+    volumes:
+      - ./urdf:/urdf
+
+  # workaround to avoid aerial map display z-offset
+  demo.aerial-map-workaround:
+    <<: *demo-service
+    restart: unless-stopped # requires incoming topic
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run tf2_ros static_transform_publisher \
+          --frame-id base_link \
+          --child-frame-id aerial_map_display_link \
+          --z 1.0 \
+          --ros-args -p use_sim_time:=true &
+
+        exec ros2 run topic_tools transform \
+          /localization/ego_state_estimation/nav_sat_fix /aerial_map/nav_sat_fix sensor_msgs/msg/NavSatFix \
+          "setattr(m.header, 'frame_id', 'aerial_map_display_link') or m" \
+          --import sensor_msgs \
+          --ros-args -p use_sim_time:=true
+
+  demo.ros2-graph-export:
+    profiles: [graph-export]
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2_graph_export:latest  # TODO: move to GitHub
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        timeout 20 ros2 run ros2_graph_export ros2_graph_export \
+          --ros-args \
+          -p output_path:=/docker-ros/ws/assets/ros2-graph-export.d2 \
+          -p export_interval_seconds:=10.0 \
+          -p ignore_topics_without_publishers:=true \
+          -p ignore_topics_without_subscribers:=true
+    volumes:
+      - ../../docs/assets:/docker-ros/ws/assets
