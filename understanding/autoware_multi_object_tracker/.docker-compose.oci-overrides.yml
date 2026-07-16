@@ -15,4 +15,7 @@ services:
       # --- name ------
       NAMESPACE: /understanding
       # --- inputs ----
-      INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      INPUT_DETECTION01_OBJECTS: /perception/point_cloud_object_detection/object_list
+      INPUT_DETECTION01_CHANNEL: untracked_objects
+      OUTPUT_OBJECTS: ~/object_list
+      OUTPUT_MERGED_OBJECTS: ~/merged_object_list
