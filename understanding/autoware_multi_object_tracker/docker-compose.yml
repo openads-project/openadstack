@@ -13,59 +13,32 @@ services:
       # NAMESPACE: /
       NAMESPACE: /understanding
       NAME: autoware_multi_object_tracker
+      # --- inputs ----
+      # INPUT_OBJECT_LIST_TOPIC: ~/input_object_list
+      INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      INPUT_OBJECT_LIST_CHANNEL: detected_objects
+      # --- outputs ---
+      OBJECT_LIST_TOPIC: ~/object_list
       # --- other -----
-      INPUT_OBJECT_LIST_TOPIC_01: ~/input/detection01/objects
-      INPUT_OBJECT_LIST_TOPIC_02: ~/input/detection02/objects
-      INPUT_OBJECT_LIST_TOPIC_03: ~/input/detection03/objects
-      INPUT_OBJECT_LIST_TOPIC_04: ~/input/detection04/objects
-      INPUT_OBJECT_LIST_TOPIC_05: ~/input/detection05/objects
-      INPUT_OBJECT_LIST_TOPIC_06: ~/input/detection06/objects
-      INPUT_OBJECT_LIST_TOPIC_07: ~/input/detection07/objects
-      INPUT_OBJECT_LIST_TOPIC_08: ~/input/detection08/objects
-      INPUT_OBJECT_LIST_TOPIC_09: ~/input/detection09/objects
-      INPUT_OBJECT_LIST_TOPIC_10: ~/input/detection10/objects
-      INPUT_OBJECT_LIST_TOPIC_11: ~/input/detection11/objects
-      INPUT_OBJECT_LIST_TOPIC_12: ~/input/detection12/objects
-      ODOMETRY_TOPIC: ~/input/odometry
-      OBJECTS_TOPIC: ~/output/objects
-      MERGED_OBJECTS_TOPIC: ~/output/merged_objects
+      SERVICE_TOPIC: ~/service
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      TRACKER_SETTING_PATH: ${TRACKER_SETTING_PATH:-}
-      DATA_ASSOCIATION_MATRIX_PATH: ${DATA_ASSOCIATION_MATRIX_PATH:-}
-      INPUT_CHANNELS_PATH: ${INPUT_CHANNELS_PATH:-}
-      PUBLISH_MERGED_OBJECTS: ${PUBLISH_MERGED_OBJECTS:-false}
-      EGO_SOURCE: ${EGO_SOURCE:-tf}
-      INPUT_OBJECT_LIST_TOPIC: /perception/point_cloud_object_detection/object_list
+      PARAMS: ${PARAMS:-/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config/multi_object_tracker_node.param.yaml}
     command:
       - /bin/bash
       - -ic
       - |
-        ros2 launch autoware_multi_object_tracker multi_object_tracker.launch.py \
+        ros2 launch autoware_multi_object_tracker multi_object_tracker.launch.xml \
           namespace:=$${NAMESPACE} \
           name:=$${NAME} \
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
-          $${TRACKER_SETTING_PATH:+tracker_setting_path:=$${TRACKER_SETTING_PATH}} \
-          $${DATA_ASSOCIATION_MATRIX_PATH:+data_association_matrix_path:=$${DATA_ASSOCIATION_MATRIX_PATH}} \
-          $${INPUT_CHANNELS_PATH:+input_channels_path:=$${INPUT_CHANNELS_PATH}} \
-          publish_merged_objects:=$${PUBLISH_MERGED_OBJECTS} \
-          ego_source:=$${EGO_SOURCE} \
-          input_object_list_topic_01:=$${INPUT_OBJECT_LIST_TOPIC_01} \
-          input_object_list_topic_02:=$${INPUT_OBJECT_LIST_TOPIC_02} \
-          input_object_list_topic_03:=$${INPUT_OBJECT_LIST_TOPIC_03} \
-          input_object_list_topic_04:=$${INPUT_OBJECT_LIST_TOPIC_04} \
-          input_object_list_topic_05:=$${INPUT_OBJECT_LIST_TOPIC_05} \
-          input_object_list_topic_06:=$${INPUT_OBJECT_LIST_TOPIC_06} \
-          input_object_list_topic_07:=$${INPUT_OBJECT_LIST_TOPIC_07} \
-          input_object_list_topic_08:=$${INPUT_OBJECT_LIST_TOPIC_08} \
-          input_object_list_topic_09:=$${INPUT_OBJECT_LIST_TOPIC_09} \
-          input_object_list_topic_10:=$${INPUT_OBJECT_LIST_TOPIC_10} \
-          input_object_list_topic_11:=$${INPUT_OBJECT_LIST_TOPIC_11} \
-          input_object_list_topic_12:=$${INPUT_OBJECT_LIST_TOPIC_12} \
-          odometry_topic:=$${ODOMETRY_TOPIC} \
-          objects_topic:=$${OBJECTS_TOPIC} \
-          merged_objects_topic:=$${MERGED_OBJECTS_TOPIC}
+          params:=$${PARAMS} \
+          input/detection01/objects:=$${INPUT_OBJECT_LIST_TOPIC} \
+          input/detection01/channel:=$${INPUT_OBJECT_LIST_CHANNEL} \
+          output/objects:=$${OBJECT_LIST_TOPIC}
+    # volumes:
+    #   - ./params.yml:/docker-ros/ws/install/autoware_multi_object_tracker/share/autoware_multi_object_tracker/config/multi_object_tracker_node.param.yaml
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
