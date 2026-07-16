@@ -15,7 +15,7 @@ services:
       NAME: lanelet2_object_list_prediction
       # --- inputs ----
       # TRACKED_OBJECT_LIST_TOPIC: ~/tracked_object_list
-      TRACKED_OBJECT_LIST_TOPIC: /understanding/simple_object_tracking/object_list
+      TRACKED_OBJECT_LIST_TOPIC: /understanding/autoware_multi_object_tracker/object_list
       # --- outputs ---
       OBJECT_LIST_TOPIC: ~/object_list
       # --- other -----
