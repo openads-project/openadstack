@@ -42,23 +42,24 @@ services:
           /localization/ego_state_estimation/nav_sat_fix /aerial_map/nav_sat_fix sensor_msgs/msg/NavSatFix \
           "setattr(m.header, 'frame_id', 'aerial_map_display_link') or m" \
           --import sensor_msgs \
-          --ros-args -p use_sim_time:=true
+          --ros-args -p use_sim_time:=true -r __node:=aerial_map_tf
 
   demo.ros2-graph-export:
     profiles: [graph-export]
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2_graph_export:latest  # TODO: move to GitHub
+    image: ghcr.io/openads-project/ros2_graph_export:latest_openads_ci  # TODO: switch to release tag once available
     command:
       - /bin/bash
       - -ic
       - |
-        timeout 20 ros2 run ros2_graph_export ros2_graph_export \
+        timeout 30 ros2 run ros2_graph_export ros2_graph_export \
           --ros-args \
           -p output_path:=/docker-ros/ws/assets/ros2-graph-export.d2 \
           -p export_interval_seconds:=10.0 \
           -p ignore_topics_without_publishers:=true \
-          -p ignore_topics_without_subscribers:=true
+          -p ignore_topics_without_subscribers:=true \
+          -p excluded_nodes:=[rosbag2_player,aerial_map_tf,relay,robot_state_publisher,static_transform_publisher*,monitoring]
     volumes:
       - ../../docs/assets:/docker-ros/ws/assets
