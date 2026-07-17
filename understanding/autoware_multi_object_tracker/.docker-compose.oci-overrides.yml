@@ -2,8 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/thinking-cars/autoware_multi_object_tracker/blob/TODO/docker/compose/docker-compose.yml
-  - oci://ghcr.io/cgeller/autoware_multi_object_tracker:compose-refactoring # revert to tag and thinking cars repo
+  - oci://ghcr.io/thinking-cars/autoware_multi_object_tracker:compose-main  # TODO: switch to release tag once available
 
 services:
 
