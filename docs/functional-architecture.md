@@ -32,7 +32,7 @@ For communication between nodes, [common interfaces](https://github.com/ros2/com
 | OpenADService | Description | Teaser |
 | --- | --- | --- |
 | [point_cloud_fusion](https://github.com/openads-project/point_cloud_fusion) | ROS 2 Point Cloud Fusion of Multiple Point Clouds into a Single Point Cloud | <video autoplay src="https://github.com/openads-project/point_cloud_fusion/raw/refs/heads/main/assets/pcl-fusion-teaser-video.mp4" width="300" style="max-width: 100%;" /> |
-| [point_cloud_object_detection](https://github.com/openads-project/point_cloud_object_detection) | ROS 2 Point Cloud Object Detection for Automated Driving | [Teaser](https://github.com/user-attachments/assets/89fc5c57-08b6-4e93-83ad-a2535a6f8a8b) |
+| [point_cloud_object_detection](https://github.com/openads-project/point_cloud_object_detection) | ROS 2 Point Cloud Object Detection for Automated Driving | <video autoplay src="https://github.com/openads-project/point_cloud_object_detection/raw/refs/heads/main/assets/pcod-teaser.mp4" width="300" style="max-width: 100%;" /> |
 
 ### Understanding
 
