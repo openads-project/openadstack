@@ -19,5 +19,5 @@ services:
 
   monitoring:
     volumes:
-      - ./utils/conf.rviz:/conf.rviz
+      - ./utils/rviz/conf.rviz:/conf.rviz
       - ./utils/mesh:/mesh
