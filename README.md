@@ -49,30 +49,19 @@ OpenADStack is usually part of a larger deployment composition, for example with
   docker compose down
   ```
 
-## 🏗️ Functional Overview & Architecture
+## 🏗️ Architecture
 
-OpenADStack covers the complete automated driving processing chain from sensing & perception, environment modeling & prediction to planning & control, as well as, monitoring tools and other essentials. OpenADStack is organized into functional domains, which are represented by ROS namespaces:
+OpenADStack is an L4 automated driving software stack built on ROS 2. It aims to enable suitably equipped vehicles to operate in traffic without human intervention.
 
-OpenADStack is organized into functional domains:
+The system is composed of services that primarily communicate through ROS messages. Each service uses a Docker image containing one or more ROS nodes. The services are composed and deployed using Docker Compose.
 
-- **Essentials:** basic Compose services, e.g. for traffic routing or ML model serving
-- **Localization:** map serving and vehicle dynamics state estimation
-- **Perception:** object detection & tracking, scene interpretation & environment modeling
-- **Understanding:** environment prediction and scene enrichment
-- **Planning:** route & trajectory planning
-- **Control:** trajectory optimization and vehicle dynamics control
-- **Monitoring:** inspection and runtime visualization
-- **Utilities:** shared Compose templates and helper scripts
+The modular architecture is organized into domains such as localization, perception, planning, and control.
 
-The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the processing from raw sensor data to the tactical decision making with decreasing latency requirements. The right side described the way from top-level decision making to the actuation with increasing latency requirements. The horizontal bar describes a fall-back layer that allows the system to perform a minimum risk maneuver in case of a degradation in the higher levels.
+The architecture is documented from three complementary perspectives:
 
-![OpenADStack functional architecture](./docs/assets/a-model.drawio.svg)
-
-The concrete ROS 2 packages realizing different parts of the *A Model* are assigned to the ROS namespaces *Localization*, *Perception*, *Understanding*, *Planning*, and *Control*. The concrete functional architecture and interfaces of the actual implementation in OpenADStack are described in the [**Functional Architecture**](./docs/functional-architecture.md) section.
-
-The [**Integration Architecture**](./docs/integration-architecture.md) section describes how the functional modules are integrated from individual services into the OpenADStack and in actual deployments.
-
-The [**Service Integration**](./docs/service-integration.md) section explains how new modules can be integrated into OpenADStack.
+- The [**Functional Architecture**](./docs/functional-architecture.md) describes the system's functional modules, their responsibilities, and the interfaces between them.
+- The [**Integration Architecture**](./docs/integration-architecture.md) explains how these services are assembled into the complete software stack and deployed on target systems.
+- The [**Service Integration**](./docs/service-integration.md) guide describes how to integrate new services into OpenADStack.
 
 ## 📝 Documentation
 
