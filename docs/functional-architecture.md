@@ -17,7 +17,6 @@ For communication between nodes, [common interfaces](https://github.com/ros2/com
 | --- | --- | --- |
 | [perception_interfaces](https://github.com/ika-rwth-aachen/perception_interfaces) 🔗 | ROS packages with common messages and tools relating to the perception task in automated driving and C-ITS | <img src="https://github.com/ika-rwth-aachen/perception_interfaces/raw/main/assets/teaser.png" alt="Teaser" width="300" /> |
 | [planning_interfaces](https://github.com/ika-rwth-aachen/planning_interfaces) 🔗 | ROS packages with common messages and tools relating to the behavior planning task of automated vehicles | <img src="https://github.com/ika-rwth-aachen/planning_interfaces/raw/main/assets/teaser.png" alt="Teaser" width="300" /> |
-| [etsi_its_messages](https://github.com/ika-rwth-aachen/etsi_its_messages) 🔗 | ROS 2 Support for ETSI ITS Messages for V2X Communication | <img src="https://github.com/ika-rwth-aachen/etsi_its_messages/raw/main/assets/teaser.gif" alt="Teaser" width="300" /> |
 
 ## Functional Modules - OpenADServices
 
