@@ -16,11 +16,11 @@ The following artifact flow describes one OpenADService integration, not the com
 
 ```mermaid
 flowchart LR
-    subgraph upstream["<b>Upstream: OpenADService Release</b>"]
+    subgraph upstream["<b>Upstream: OpenADService Blueprint</b>"]
         L1["<b>1. OpenADService Artifact</b><br/>Docker image and OCI Compose"]
     end
 
-    subgraph stack["<b>OpenADStack: OpenADService Integration</b>"]
+    subgraph stack["<b>OpenADStack: Composition Blueprint</b>"]
         direction LR
         L2["<b>2. Stack Override</b><br/>.docker-compose.oci-overrides.yml"]
         L3["<b>3. Resolved Compose File</b><br/>docker-compose.yml"]

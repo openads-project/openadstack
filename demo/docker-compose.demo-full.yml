@@ -14,6 +14,7 @@ services:
   point-cloud-object-detection:
     volumes:
       - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   triton-server:
     extends:
@@ -30,8 +31,6 @@ services:
     volumes:
       - perception.point-cloud-object-detection-model:/model
 
-
-
   lanelet2-map-server:
     volumes:
       - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
@@ -39,7 +38,7 @@ services:
   
   monitoring:
     volumes:
-      - ./utils/conf.rviz:/conf.rviz
+      - ./utils/rviz/conf.rviz:/conf.rviz
       - ./utils/mesh:/mesh
 
 volumes:
