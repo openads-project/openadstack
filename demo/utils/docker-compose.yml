@@ -60,6 +60,7 @@ services:
           -p export_interval_seconds:=10.0 \
           -p ignore_topics_without_publishers:=true \
           -p ignore_topics_without_subscribers:=true \
-          -p excluded_nodes:=[rosbag2_player,aerial_map_tf,relay,robot_state_publisher,static_transform_publisher*,monitoring]
+          -p excluded_nodes:=[rosbag2_player,aerial_map_tf,relay,robot_state_publisher,static_transform_publisher*,monitoring] \
+          -p graph_direction:=down
     volumes:
       - ../../docs/assets:/docker-ros/ws/assets
