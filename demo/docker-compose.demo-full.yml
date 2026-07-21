@@ -25,7 +25,7 @@ services:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   perception.point-cloud-object-detection-model-provisioning:
-    image: ghcr.io/openads-project/point_cloud_object_detection:model
+    image: ghcr.io/openads-project/point_cloud_object_detection/model:v3.0.0
     command: sleep infinity
     volumes:
       - perception.point-cloud-object-detection-model:/model
