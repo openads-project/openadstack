@@ -63,6 +63,10 @@ The architecture is documented from three complementary perspectives:
 - The [**Integration Architecture**](./docs/integration-architecture.md) explains how these services are assembled into the complete software stack and deployed on target systems.
 - The [**Service Integration**](./docs/service-integration.md) guide describes how to integrate new services into OpenADStack.
 
+The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems originally developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the world modeling while the right side describes planning and actuation. The horizontal bar describes safety fallbacks, e.g. to perform a minimum risk maneuver in case of a degradation in the higher levels. The on-board system is supported by remote operations, e.g. for technical supervision.
+
+![OpenADStack functional architecture](./docs/assets/A-Model.svg)
+
 ## 📝 Documentation
 
 The documentation contains:
