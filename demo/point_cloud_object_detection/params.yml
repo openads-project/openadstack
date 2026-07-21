@@ -28,12 +28,12 @@
     # Runtime overrides for exported manifest defaults.
     # preprocessing.detection_area.z_min: -1.0
     # preprocessing.detection_area.z_max: 4.0
-    preprocessing.point_feature.value_threshold: 100.0
+    preprocessing.point_feature.value_threshold: 100.0 # should be set to appriximately the 99% percentile of the expected point_feature_field values in the input point cloud.
                                        # car, bus, motorcycle, bicycle, utility, pedestrian, vru, micro, animal
     postprocessing.nms.score_threshold: [0.3, 0.3, 0.3,        0.4,     0.3,     0.6,        0.4, 0.4,   0.3]
     # postprocessing.class_score_threshold: 0.0
     postprocessing.nms.iou_threshold: 0.05
-    postprocessing.nms.max_num_objects: 128
+    postprocessing.nms.max_num_objects: 256
 
     # Rectangular no-detection zone in inference_frame
     preprocessing.no_detection_zone.enabled: true
@@ -63,12 +63,12 @@
 
     # Grid-map outputs
     output.grid_maps.publish_density: true
-    output.grid_maps.publish_occupancy: true
+    output.grid_maps.publish_dynamic: true
     output.grid_maps.publish_combined: true
     output.grid_maps.publish_static: true
     output.grid_maps.zero_in_no_detection_zone: true
     output.grid_maps.zero_outside_detection_area: true
-    output.grid_maps.density_gain: 1.0
-    output.grid_maps.occupancy_gain: 1.0
+    output.grid_maps.density_gain: 5.0
+    output.grid_maps.dynamic_gain: 1.0
     output.grid_maps.combined_gain: 1.0
-    output.grid_maps.static_gain: 1.0
+    output.grid_maps.static_gain: 5.0
