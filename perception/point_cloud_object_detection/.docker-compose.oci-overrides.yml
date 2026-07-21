@@ -2,8 +2,8 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/openads-project/point_cloud_object_detection/blob/v1.0.0/docker/compose/docker-compose.yml
-  - oci://ghcr.io/openads-project/point_cloud_object_detection:compose-main # TODO
+  # https://github.com/openads-project/point_cloud_object_detection/blob/v3.0.0/docker/compose/docker-compose.yml
+  - oci://ghcr.io/openads-project/point_cloud_object_detection:compose-v3.0.0
 
 services:
 
@@ -11,7 +11,6 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-service
-    image: ghcr.io/openads-project/point_cloud_object_detection:latest
     environment:
       # --- name ------
       NAMESPACE: /perception
