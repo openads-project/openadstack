@@ -2,9 +2,7 @@
 
 The following image is automatically generated from the current full demo compose file. It shows the ROS nodes assigned to different namespaces and their communication topics and types.
 
-[![ROS 2 Graph Export](./assets/ros2-graph-export.svg)](./assets/ros2-graph-export.svg)
-
-*Click the diagram to download the full-size image for zooming.*
+![ROS 2 Graph Export](./assets/ros2-graph-export.svg)
 
 > [!NOTE]
 > Repositories tagged with 🔗 are not hosted in the [openads-project](https://github.com/openads-project/) GitHub organization
