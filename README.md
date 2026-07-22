@@ -16,15 +16,13 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 > [!NOTE]
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
-![OpenADStack running on the karl. research vehicle](./docs/assets/teaser-openadstack.gif)
-
-<p align="center">
+<div align="center" style="text-align: center;">
   <a href="https://www.youtube.com/watch?v=XR2uBMVX1As" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/user-attachments/assets/82c760b2-202e-4e95-81a0-d65cdfb2510e" alt="Watch OpenADStack in karl." width="720">
+    <img src="https://github.com/user-attachments/assets/82c760b2-202e-4e95-81a0-d65cdfb2510e" alt="Watch OpenADStack in karl." width="720" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
   </a>
   <br>
   <em>Click the preview or <a href="https://www.youtube.com/watch?v=XR2uBMVX1As" target="_blank" rel="noopener noreferrer">here</a> to watch the full video.</em>
-</p>
+</div>
 
 ## 🚀 Quick Start
 
@@ -73,9 +71,11 @@ The architecture is documented from three complementary perspectives:
 
 The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems originally developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the world modeling while the right side describes planning and actuation. The horizontal bar describes safety fallbacks, e.g. to perform a minimum risk maneuver in case of a degradation in the higher levels. The on-board system is supported by remote operations, e.g. for technical supervision.
 
-<p align="center">
-  <img src="./docs/assets/A-Model.svg" alt="OpenADStack functional architecture" width="520">
-</p>
+<div align="center" style="text-align: center;">
+
+![OpenADStack functional architecture](./docs/assets/A-Model.svg)
+
+</div>
 
 ## 📝 Documentation
 
