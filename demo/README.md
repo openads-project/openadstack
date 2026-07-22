@@ -1,1 +1,1 @@
-See the [usage guide](../docs/usage.md) for detailed setup and usage instructions.
+See the [Getting Started guide](../docs/getting-started.md) for detailed setup and usage instructions.

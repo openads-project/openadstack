@@ -60,8 +60,8 @@ The modular architecture is organized into domains such as localization, percept
 The architecture is documented from three complementary perspectives:
 
 - The [**Functional Architecture**](./docs/functional-architecture.md) describes the system's functional modules, their responsibilities, and the interfaces between them.
-- The [**Integration Architecture**](./docs/integration-architecture.md) explains how these services are assembled into the complete software stack and deployed on target systems.
-- The [**Service Integration**](./docs/service-integration.md) guide describes how to integrate new services into OpenADStack.
+- The [**Integration Architecture**](./docs/integration-architecture.md) explains how released OpenADServices are assembled into the reference stack.
+- The [**Deployment Composition**](./docs/deployment-composition.md) describes how the stack or selected parts can be embedded in custom vehicle and simulation setups.
 
 The following image shows the so-called *A Model*, a functional reference architecture for automated driving systems originally developed in the [UNICARagil project](http://www.unicaragil.de/en/). The left side of the A describes the world modeling while the right side describes planning and actuation. The horizontal bar describes safety fallbacks, e.g. to perform a minimum risk maneuver in case of a degradation in the higher levels. The on-board system is supported by remote operations, e.g. for technical supervision.
 
@@ -71,10 +71,10 @@ The following image shows the so-called *A Model*, a functional reference archit
 
 The documentation contains:
 
-- [Usage](./docs/usage.md)
+- [Getting Started](./docs/getting-started.md)
 - [Functional Architecture](./docs/functional-architecture.md)
 - [Integration Architecture](./docs/integration-architecture.md)
-- [OpenADService Integration](./docs/service-integration.md)
+- [Deployment Composition](./docs/deployment-composition.md)
 
 ## 🙏 Acknowledgements
 
