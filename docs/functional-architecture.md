@@ -50,4 +50,4 @@ For communication between nodes, [common interfaces](https://github.com/ros2/com
 
 | OpenADService | Description |
 | --- | --- |
-| [ackermann_trajectory_control](https://github.com/openads-project/ackermann_trajectory_control) | This package contains a trajectory controller for Ackermann-steered vehicles. It is implemented as a ROS 2 C++ node that subscribes to trajectory_planning_msgs/Trajectory and publishes control commands as ackermann_msgs/AckermannDriveStamped. |
+| [ackermann_trajectory_control](https://github.com/openads-project/ackermann_trajectory_control) | Controls Ackermann-steered vehicles based on planned trajectories. |
