@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="370" viewBox="0 0 1400 370" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="280" viewBox="0 0 1400 280" role="img" aria-labelledby="title description">
   <title id="title">OpenADService integration artifact flow</title>
   <desc id="description">An OpenADService artifact is referenced as an OCI include by a stack override, rendered as a resolved Compose file, and included by a detailed vehicle or OpenADSim deployment specification.</desc>
   <defs>
@@ -8,53 +8,50 @@
     </marker>
   </defs>
 
-  <rect width="1400" height="370" fill="#ffffff"/>
+  <rect width="1400" height="280" fill="#ffffff"/>
 
   <g font-family="Arial, sans-serif" text-anchor="middle">
-    <rect x="20" y="35" width="300" height="300" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="170" y="76" fill="#334155" font-size="17" font-weight="700">OpenADService Blueprint</text>
+    <rect x="20" y="20" width="300" height="240" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="170" y="58" fill="#334155" font-size="17" font-weight="700">OpenADService Blueprint</text>
 
-    <rect x="375" y="35" width="650" height="300" rx="12" fill="#eff6ff" stroke="#22314e" stroke-width="2"/>
-    <text x="700" y="76" fill="#22314e" font-size="17" font-weight="700">OpenADStack: Composition Blueprint</text>
+    <rect x="375" y="20" width="650" height="240" rx="12" fill="#eff6ff" stroke="#22314e" stroke-width="2"/>
+    <text x="700" y="58" fill="#22314e" font-size="17" font-weight="700">OpenADStack: Composition Blueprint</text>
 
-    <rect x="1080" y="35" width="300" height="300" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="1230" y="76" fill="#334155" font-size="17" font-weight="700">Deployment Composition</text>
+    <rect x="1080" y="20" width="300" height="240" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="1230" y="58" fill="#334155" font-size="17" font-weight="700">Deployment Composition</text>
 
-    <rect x="40" y="125" width="260" height="125" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-    <text x="170" y="176" fill="#0f172a" font-size="18" font-weight="700">1. Service Artifact</text>
-    <text x="170" y="210" fill="#334155" font-size="15">Docker image and OCI Compose</text>
+    <rect x="50" y="95" width="240" height="120" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="170" y="142" fill="#0f172a" font-size="18" font-weight="700">1. Service Artifact</text>
+    <text x="170" y="178" fill="#334155" font-size="15">Docker image and OCI Compose</text>
 
-    <rect x="395" y="125" width="270" height="125" rx="9" fill="#22314e" stroke="#22314e" stroke-width="2"/>
-    <text x="530" y="176" fill="#ffffff" font-size="18" font-weight="700">2. Stack Override</text>
-    <text x="530" y="210" fill="#e2e8f0" font-size="14">.docker-compose.oci-overrides.yml</text>
+    <rect x="405" y="95" width="240" height="120" rx="9" fill="#22314e" stroke="#22314e" stroke-width="2"/>
+    <text x="525" y="142" fill="#ffffff" font-size="18" font-weight="700">2. Stack Override</text>
+    <text x="525" y="178" fill="#e2e8f0" font-size="13">.docker-compose.oci-overrides.yml</text>
 
-    <rect x="735" y="125" width="270" height="125" rx="9" fill="#22314e" stroke="#22314e" stroke-width="2"/>
-    <text x="870" y="176" fill="#ffffff" font-size="18" font-weight="700">3. Resolved Composition</text>
-    <text x="870" y="210" fill="#e2e8f0" font-size="15">docker-compose.yml</text>
+    <rect x="755" y="95" width="240" height="120" rx="9" fill="#22314e" stroke="#22314e" stroke-width="2"/>
+    <text x="875" y="142" fill="#ffffff" font-size="18" font-weight="700">3. Resolved Composition</text>
+    <text x="875" y="178" fill="#e2e8f0" font-size="15">docker-compose.yml</text>
 
-    <rect x="1100" y="125" width="260" height="125" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
-    <text x="1230" y="176" fill="#0f172a" font-size="18" font-weight="700">4. Detailed Specification</text>
-    <text x="1230" y="210" fill="#334155" font-size="15">in vehicle or OpenADSim</text>
+    <rect x="1110" y="95" width="240" height="120" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+    <text x="1230" y="142" fill="#0f172a" font-size="18" font-weight="700">4. Detailed Specification</text>
+    <text x="1230" y="178" fill="#334155" font-size="15">in vehicle or OpenADSim</text>
   </g>
 
   <g fill="none" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)">
-    <path d="M 300 188 L 385 188"/>
-    <path d="M 665 188 L 725 188"/>
-    <path d="M 1005 188 L 1090 188"/>
+    <path d="M 290 170 L 395 170"/>
+    <path d="M 645 170 L 745 170"/>
+    <path d="M 995 170 L 1100 170"/>
   </g>
 
-  <g fill="#475569" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">
-    <rect x="302" y="260" width="81" height="42" rx="5" fill="#ffffff" stroke="none"/>
-    <text x="342.5" y="276">referenced as</text>
-    <text x="342.5" y="293">OCI include</text>
-    <path d="M 342.5 260 L 342.5 198" fill="none" stroke="#94a3b8" stroke-width="1"/>
+  <g fill="#334155" font-family="Arial, sans-serif" font-size="13" font-weight="700" text-anchor="middle">
+    <rect x="300" y="116" width="90" height="43" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="345" y="133">referenced as</text>
+    <text x="345" y="151">OCI include</text>
 
-    <rect x="660" y="270" width="70" height="25" rx="5" fill="#eff6ff" stroke="none"/>
-    <text x="695" y="287">rendered as</text>
-    <path d="M 695 270 L 695 198" fill="none" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="658" y="127" width="79" height="29" rx="6" fill="#eff6ff" stroke="#94a3b8" stroke-width="1"/>
+    <text x="697.5" y="146">rendered as</text>
 
-    <rect x="1010" y="270" width="75" height="25" rx="5" fill="#ffffff" stroke="none"/>
-    <text x="1047.5" y="287">included by</text>
-    <path d="M 1047.5 270 L 1047.5 198" fill="none" stroke="#94a3b8" stroke-width="1"/>
+    <rect x="1007" y="127" width="86" height="29" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="1050" y="146">included by</text>
   </g>
 </svg>

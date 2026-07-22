@@ -80,7 +80,7 @@ The documentation contains:
 
 ### Citation
 
-We hope that OpenADStack can help your research. If this is the case, please cite it using the metadata specified in CITATION.cff, or click on Cite this repository in GitHub's About section on the top right.
+We hope that OpenADStack can help your research. If this is the case, please cite it using the metadata specified in [CITATION.cff](https://github.com/openads-project/openadstack/blob/main/CITATION.cff), or click on Cite this repository in GitHub's About section on the top right.
 
 ### Related Publications
 
