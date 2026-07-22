@@ -7,6 +7,9 @@
 services:
 
   simple-planner:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/openads-project/simple_planner:v1.3.0
     environment:
       # --- name ------
@@ -52,6 +55,3 @@ services:
           hazard_lights_service:=$${HAZARD_LIGHTS_SERVICE}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

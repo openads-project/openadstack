@@ -7,6 +7,9 @@
 services:
 
   trajectory-optimization:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/openads-project/trajectory_optimization:v1.3.0
     environment:
       # --- name ------
@@ -55,6 +58,3 @@ services:
           object_circles_topic:=$${OBJECT_CIRCLES_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

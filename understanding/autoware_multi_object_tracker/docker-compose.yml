@@ -7,6 +7,9 @@
 services:
 
   autoware-multi-object-tracker:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/thinking-cars/autoware_multi_object_tracker:v1.1.0
     environment:
       # --- name ------
@@ -93,6 +96,3 @@ services:
           input_odometry:=$${INPUT_ODOMETRY} \
           output_objects:=$${OUTPUT_OBJECTS} \
           output_merged_objects:=$${OUTPUT_MERGED_OBJECTS}
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

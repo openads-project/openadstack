@@ -7,6 +7,9 @@
 services:
 
   lanelet2-object-list-prediction:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/openads-project/lanelet2_object_list_prediction:v1.0.1
     environment:
       # --- name ------
@@ -36,6 +39,3 @@ services:
           object_list_topic:=$${OBJECT_LIST_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

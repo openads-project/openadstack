@@ -7,6 +7,9 @@
 services:
 
   monitoring:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-gpu-x11-service
     image: ghcr.io/openads-project/monitoring:v1.0.0
     environment:
       # --- name ------
@@ -28,6 +31,3 @@ services:
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
           config:=$${CONFIG}
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-gpu-x11-service

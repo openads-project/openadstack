@@ -17,6 +17,17 @@ from ruamel.yaml.comments import CommentedMap, CommentedSeq
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REMOTE_NAME = ".docker-compose.oci-overrides.yml"
 OUTPUT_NAME = "docker-compose.yml"
+SERVICE_KEY_ORDER = (
+    "profiles",
+    "depends_on",
+    "extends",
+    "restart",
+    "healthcheck",
+    "image",
+    "environment",
+    "command",
+    "volumes",
+)
 
 YAML_RT = YAML()
 YAML_RT.preserve_quotes = True
@@ -52,9 +63,11 @@ def render_compose(source: Path, client: OrasClient) -> str:
     local = copy.copy(local)
     local.pop("include", None)
     local.ca.items.pop("include", None)
+    rendered = merge(rendered, local)
+    order_service_keys(rendered)
     buffer = io.StringIO()
     buffer.write(header)
-    YAML_RT.dump(merge(rendered, local), buffer)
+    YAML_RT.dump(rendered, buffer)
     return buffer.getvalue()
 
 
@@ -66,6 +79,18 @@ def include_list(value: Any) -> list[Any]:
 
 def is_oci(value: Any) -> bool:
     return isinstance(value, str) and value.startswith("oci://")
+
+
+def order_service_keys(compose: CommentedMap) -> None:
+    services = compose.get("services")
+    if not isinstance(services, CommentedMap):
+        return
+    for service in services.values():
+        if not isinstance(service, CommentedMap):
+            continue
+        for key in reversed(SERVICE_KEY_ORDER):
+            if key in service:
+                service.move_to_end(key, last=False)
 
 
 def merge(base: Any, override: Any, indent: int = 0) -> Any:
@@ -178,10 +203,32 @@ def generated_header(source: Path, compose: CommentedMap) -> str:
         f"# based on `{REMOTE_NAME}` with resolved includes",
     ]
     if "include" in compose:
-        rendered = io.StringIO()
-        YAML_RT.dump(CommentedMap({"include": compose["include"]}), rendered)
-        lines += [f"#   {line}" for line in rendered.getvalue().rstrip().splitlines()]
+        lines.append("#   include:")
+        for include in include_list(compose["include"]):
+            if is_oci(include):
+                lines.append(f"#     # {oci_source_url(include)}")
+                lines.append(f"#     - {include}")
+            else:
+                rendered = io.StringIO()
+                YAML_RT.dump(CommentedSeq([uncommented(include)]), rendered)
+                lines += [f"#     {line}" for line in rendered.getvalue().rstrip().splitlines()]
     return "\n".join(lines) + "\n\n"
+
+
+def oci_source_url(uri: str) -> str:
+    """Derive the upstream compose source URL from an OpenADS OCI reference."""
+    reference = uri.removeprefix("oci://")
+    repository, separator, tag = reference.rpartition(":")
+    if not separator or "/" not in repository or not tag.startswith("compose-"):
+        raise ValueError(f"unsupported compose OCI reference: {uri}")
+    registry, github_repository = repository.split("/", 1)
+    if registry != "ghcr.io":
+        raise ValueError(f"cannot derive GitHub source URL from OCI registry: {uri}")
+    version = tag.removeprefix("compose-")
+    return (
+        f"https://github.com/{github_repository}/blob/{version}"
+        "/docker/compose/docker-compose.yml"
+    )
 
 
 def relative_path(path: Path) -> str:
