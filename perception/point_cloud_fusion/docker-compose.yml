@@ -7,6 +7,9 @@
 services:
 
   point-cloud-fusion:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/openads-project/point_cloud_fusion:v1.4.0
     environment:
       # --- name ------
@@ -34,6 +37,3 @@ services:
           point_cloud_topic:=$${POINT_CLOUD_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

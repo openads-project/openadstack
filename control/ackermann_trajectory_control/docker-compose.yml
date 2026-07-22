@@ -7,6 +7,9 @@
 services:
 
   ackermann-trajectory-control:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
     image: ghcr.io/openads-project/ackermann_trajectory_control:v1.5.0
     environment:
       # --- name ------
@@ -47,6 +50,3 @@ services:
           controls_topic:=$${CONTROLS_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml
-    extends:
-      file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service

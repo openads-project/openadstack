@@ -2,7 +2,6 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  # https://github.com/openads-project/point_cloud_fusion/blob/v1.4.0/docker/compose/docker-compose.yml
   - oci://ghcr.io/openads-project/point_cloud_fusion:compose-v1.4.0
 
 services:
