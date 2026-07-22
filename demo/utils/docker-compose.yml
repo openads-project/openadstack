@@ -49,7 +49,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/ros2_graph_export:latest_openads_ci  # TODO: switch to release tag once available
+    image: ghcr.io/openads-project/ros2_graph_export:v1.0.0
     command:
       - /bin/bash
       - -ic
