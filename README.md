@@ -80,17 +80,7 @@ The documentation contains:
 
 ### Citation
 
-We hope that OpenADStack can help your research. If this is the case, please cite it using the following metadata.
-
-```
-@misc{OpenADStack,
-  author = {Institute for Automotive Engineering (ika), RWTH Aachen University},
-  title = {{OpenADStack}},
-  url = {https://github.com/openads-project/openadstack},
-  year = {2026},
-  doi = {TODO}
-}
-```
+We hope that OpenADStack can help your research. If this is the case, please cite it using the metadata specified in CITATION.cff, or click on Cite this repository in GitHub's About section on the top right.
 
 ### Related Publications
 
