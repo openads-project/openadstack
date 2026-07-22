@@ -100,15 +100,6 @@ Leave the container shell with:
 exit
 ```
 
-## Export ROS 2 Graph
-
-Use the `graph-export` profile to update the [ROS 2 graph visualization](./assets/ros2-graph-export.svg):
-
-```bash
-export COMPOSE_FILE=docker-compose.demo-full.yml
-docker compose --profile graph-export up -d
-```
-
 ## Configuration
 
 Most stack settings are already configured through environment variables in the OpenADService Compose files:
