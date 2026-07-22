@@ -18,6 +18,12 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 
 ![OpenADStack running on the karl. research vehicle](./docs/assets/teaser-openadstack.gif)
 
+<video src="https://rwth-aachen.sciebo.de/s/tgW2GiQjTBpqaFn" width="720" style="max-width: 100%;">
+</video>
+
+<video src="https://rwth-aachen.sciebo.de/s/tgW2GiQjTBpqaFn/download" width="720" style="max-width: 100%;">
+</video>
+
 ## 🚀 Quick Start
 
 > [!NOTE]
