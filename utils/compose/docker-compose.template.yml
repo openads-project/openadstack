@@ -88,7 +88,7 @@ services:
       - ./config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5:/opt/ros/jazzy/share/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
-      memlock: # 4 GB = size of shared memory segment
+      memlock:
         soft: 4294967296
         hard: 4294967296
 
@@ -159,10 +159,8 @@ services:
   # === OTHER SERVICES =========================================================
 
   zenoh-router:
-    extends:
-      service: base-service
-    restart: ${RESTART_POLICY:-no}
     image: eclipse/zenoh:1.8.0
+    restart: ${RESTART_POLICY:-no}
     environment:
       RUST_LOG: zenoh=info,zenoh_transport=debug
       ZENOH_ROUTER_CONFIG_URI: /DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
@@ -176,6 +174,6 @@ services:
     ipc: shareable
     shm_size: 4gb
     ulimits:
-      memlock: # 4 GB = size of shared memory segment
+      memlock:
         soft: 4294967296
         hard: 4294967296
