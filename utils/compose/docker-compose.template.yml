@@ -47,8 +47,8 @@ services:
       service: base-service
     runtime: nvidia
     environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: all
 
   gpu-x11-service:
     extends:
@@ -96,13 +96,13 @@ services:
     extends:
       service: base-service
     environment:
-      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
 
   ros2-cyclone-service:
     extends:
       service: base-service
     environment:
-      - RMW_IMPLEMENTATION=rmw_cyclone_cpp
+      RMW_IMPLEMENTATION: rmw_cyclone_cpp
 
   ros2-x11-service:
     extends:
