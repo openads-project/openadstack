@@ -20,8 +20,8 @@ jobs:
         run: python utils/scripts/render_compose_sources.py
       - name: Check generated files
         run: |
-          git add -N .
-          if ! git diff --exit-code; then
+          if [[ ! -z "$(git status --porcelain)" ]]; then
             echo "::error::utils/scripts/render_compose_sources.py changed files. Run it locally and commit the result."
+            git diff
             exit 1
           fi
