@@ -1,3 +1,8 @@
+/// ============================================================================
+/// Changes from the default config are marked with below comment
+/// CHANGE FROM DEFAULT CONFIG
+/// ============================================================================
+
 /// This file attempts to list and document available configuration elements.
 /// For a more complete view of the configuration's structure, check out `zenoh/src/config.rs`'s `Config` structure.
 /// Note that the values here are correctly typed, but may not be sensible, so copying this file to change only the parts that matter to you is not good practice.
@@ -89,7 +94,8 @@
     ///
     /// See https://docs.rs/zenoh/latest/zenoh/config/struct.EndPoint.html
     endpoints: [
-      "tcp/[::]:7447"
+      "tcp/[::]:7447",
+      "udp/[::]:7447"   /// CHANGE FROM DEFAULT CONFIG
     ],
 
     /// Global listen configuration,
@@ -236,7 +242,7 @@
       /// and peers are configured with gossip target "router".
       /// ROS setting: disabled by default because it serves no purpose when each peer connects directly to all others,
       ///              and it introduces additional management overhead and extra messages during system startup.
-      peers_failover_brokering: false,
+      peers_failover_brokering: true,   /// CHANGE FROM DEFAULT CONFIG
       /// Linkstate mode configuration.
       linkstate: {
         /// Weights of the outgoing transports in linkstate mode.
@@ -759,7 +765,7 @@
       /// subscriber side. By doing so, the probing procedure will succeed and shared memory will operate as expected.
       ///
       /// ROS setting: disabled by default until fully tested
-      enabled: false,
+      enabled: true,  /// CHANGE FROM DEFAULT CONFIG
       /// SHM resources initialization mode (default "lazy").
       /// - "lazy": SHM subsystem internals will be initialized lazily upon the first SHM buffer
       /// allocation or reception. This setting provides better startup time and optimizes resource usage,

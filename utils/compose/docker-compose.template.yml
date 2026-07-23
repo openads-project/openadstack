@@ -82,13 +82,13 @@ services:
     extends:
       service: base-service
     environment:
-      - RMW_IMPLEMENTATION=rmw_zenoh_cpp
-      - ZENOH_CONFIG_OVERRIDE=${ZENOH_SESSION_CONFIG_OVERRIDE:-connect/endpoints=["tcp/zenoh-router:7447","udp/zenoh-router:7447"];transport/shared_memory/enabled=true}
-      - ZENOH_ROUTER_CHECK_ATTEMPTS=0
-      - RUST_LOG=zenoh=error
+      RMW_IMPLEMENTATION: rmw_zenoh_cpp
+      RUST_LOG: zenoh=warn
+    volumes:
+      - ./config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5:/opt/ros/jazzy/share/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
-      memlock: # 4 GB = size of shared memory segment defined for zenoh-router
+      memlock: # 4 GB = size of shared memory segment
         soft: 4294967296
         hard: 4294967296
 
@@ -164,10 +164,10 @@ services:
     restart: ${RESTART_POLICY:-no}
     image: eclipse/zenoh:1.8.0
     environment:
-      - ZENOH_ROUTER_CONFIG_URI=/config.json5
-      - ZENOH_CONFIG_OVERRIDE=${ZENOH_ROUTER_CONFIG_OVERRIDE:-routing/router/peers_failover_brokering=true;listen/endpoints=["tcp/[::]:7447","udp/[::]:7447"];transport/shared_memory/enabled=true}
+      RUST_LOG: zenoh=info,zenoh_transport=debug
+      ZENOH_ROUTER_CONFIG_URI: /DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
     volumes:
-      - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/config.json5
+      - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
     healthcheck:
       test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
       interval: 1s
@@ -176,6 +176,6 @@ services:
     ipc: shareable
     shm_size: 4gb
     ulimits:
-      memlock: # 4 GB = size of shared memory segment defined for zenoh-router
+      memlock: # 4 GB = size of shared memory segment
         soft: 4294967296
         hard: 4294967296
