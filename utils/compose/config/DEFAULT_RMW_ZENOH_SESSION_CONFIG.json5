@@ -14,7 +14,7 @@
   // id: "1234567890abcdef",
 
   /// The node's mode (router, peer or client)
-  mode: "peer",
+  mode: "client",   /// CHANGE FROM DEFAULT CONFIG
 
   /// Which endpoints to connect to. E.g. tcp/localhost:7447.
   /// By configuring the endpoints, it is possible to tell zenoh which router/peer to connect to at startup.
@@ -47,9 +47,7 @@
     ///
     /// ROS setting: By default connect to the Zenoh router on localhost on port 7447.
     endpoints: [
-      // "tcp/localhost:7447"   /// CHANGE FROM DEFAULT CONFIG
-      "tcp/zenoh-router:7447",  /// CHANGE FROM DEFAULT CONFIG
-      "udp/zenoh-router:7447"   /// CHANGE FROM DEFAULT CONFIG
+      "tcp/zenoh-router:7447"   /// CHANGE FROM DEFAULT CONFIG
     ],
 
     /// Global connect configuration,
@@ -787,7 +785,7 @@
           /// Implicitly puts large messages into shared memory for transports with SHM-compatible connection.
           enabled: true,
           /// SHM memory size in bytes used for transport optimization (default `48 * 1024 * 1024`).
-          pool_size: 50331648,
+          pool_size: 100663296,   /// 96 MiB /// CHANGE FROM DEFAULT CONFIG
           /// Allow optimization for messages equal or larger than this threshold in bytes (default `3072`).
           message_size_threshold: 512,
       },

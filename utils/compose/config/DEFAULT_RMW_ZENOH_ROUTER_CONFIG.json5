@@ -94,8 +94,7 @@
     ///
     /// See https://docs.rs/zenoh/latest/zenoh/config/struct.EndPoint.html
     endpoints: [
-      "tcp/[::]:7447",
-      "udp/[::]:7447"   /// CHANGE FROM DEFAULT CONFIG
+      "tcp/[::]:7447"
     ],
 
     /// Global listen configuration,
@@ -242,7 +241,7 @@
       /// and peers are configured with gossip target "router".
       /// ROS setting: disabled by default because it serves no purpose when each peer connects directly to all others,
       ///              and it introduces additional management overhead and extra messages during system startup.
-      peers_failover_brokering: true,   /// CHANGE FROM DEFAULT CONFIG
+      peers_failover_brokering: false,
       /// Linkstate mode configuration.
       linkstate: {
         /// Weights of the outgoing transports in linkstate mode.
@@ -779,7 +778,7 @@
           /// Implicitly puts large messages into shared memory for transports with SHM-compatible connection.
           enabled: true,
           /// SHM memory size in bytes used for transport optimization (default `48 * 1024 * 1024`).
-          pool_size: 50331648,
+          pool_size: 100663296,   /// 96 MiB /// CHANGE FROM DEFAULT CONFIG
           /// Allow optimization for messages equal or larger than this threshold in bytes (default `3072`).
           message_size_threshold: 512,
       },
