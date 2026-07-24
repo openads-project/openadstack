@@ -24,3 +24,35 @@ include:
 
   # monitoring
   - ../monitoring/monitoring/docker-compose.yml
+
+services:
+
+  monitoring:
+    volumes:
+      - ./utils/rviz/conf.rviz:/conf.rviz
+      - ./utils/mesh:/mesh
+
+  lanelet2-map-server:
+    volumes:
+      - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
+      - ./lanelet2_map_server/maps:/data/maps
+
+  # restart the autoware-multi-object-tracker container if the ROS clock restarts
+  autoware-multi-object-tracker:
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - /bin/bash
+        - -c
+        - |
+          set -o pipefail
+          source /opt/ros/"$${ROS_DISTRO}"/setup.bash
+          now="$$(timeout 5 ros2 topic echo /clock --once --field clock.sec 2>/dev/null | head -n 1)" || exit 1
+          previous="$$(cat /tmp/last-ros-clock 2>/dev/null || echo "$$now")"
+          echo "$$now" > /tmp/last-ros-clock
+          (( now >= previous )) || { kill -TERM 1; exit 1; }
+      interval: 1s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
