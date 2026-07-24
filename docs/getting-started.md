@@ -23,6 +23,26 @@ The default configuration focuses on the right-hand, planning-oriented side of t
 
 The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects to the same downstream OpenADServices. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
 
+### Recorded Data
+
+The basic and extended demos use different ROS 2 bag files. Both recordings
+cover the same time range and have the same playback duration, but contain
+different topics:
+
+| Configuration | Recorded data | Download and storage |
+| --- | --- | --- |
+| Basic demo | Only the data required for the planning-oriented pipeline | approximately X GB |
+| Extended demo | Additional LiDAR point clouds required by the perception pipeline | approximately X GB |
+| Full bag (optional) | All available LiDAR and camera topics for further experiments | approximately X GB |
+
+The reduced basic bag keeps the initial download and local storage requirements
+small. Running the extended demo requires the larger extended bag. The full bag
+is not required for either standard demo; it is an alternative for experiments
+that need the additional recorded sensor topics.
+
+See the [demo bag overview](https://github.com/openads-project/openadstack/blob/main/demo/utils/demo-data/README.md) for the exact
+topics included in each bag.
+
 ## Run the Demo
 
 Clone the repository including all submodules and run all commands from the OpenADStack demo folder.
