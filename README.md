@@ -35,18 +35,18 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 OpenADStack is usually part of a larger deployment composition, for example with the [karl. research vehicle](https://karl.ac/) or in a [simulation setup](https://github.com/openads-project/openadsim). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle components.
 
 - Two demos using different parts of OpenADStack are provided:
-  - **Basic Demo without Perception:** Start the open-loop demo using recorded detections:
+  - **Basic Demo** without Perception: Start the open-loop demo using recorded detections:
 
     ```bash
     cd demo
     docker compose up -d
     ```
 
-  - **Full Demo:** Start the open-loop demo including perception OpenADServices running on recorded raw sensor data:
+  - **Extended Demo:** Start the open-loop demo including perception OpenADServices running on recorded raw sensor data:
 
     ```bash
     cd demo
-    export COMPOSE_FILE=docker-compose.demo-full.yml && docker compose up -d
+    export COMPOSE_FILE=docker-compose.demo-extended.yml && docker compose up -d
     ```
 
 - **Stop** the demo with:

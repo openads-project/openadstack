@@ -8,7 +8,7 @@ sensor data required by their processing pipelines.
 
 ## Bag overview
 
-| Topic | Bag for Basic Demo (XGB) | Bag for Full Demo (XGB) | Bag for further Experiments (XGB) |
+| Topic | Bag for Basic Demo (XGB) | Bag for Extended Demo (XGB) | Full Bag for Extended Demo (XGB) |
 | --- | --- | --- | --- |
 | `/tf` | x | x | x |
 | `/localization/ego_state_estimation/ego_data` | x | x | x |
