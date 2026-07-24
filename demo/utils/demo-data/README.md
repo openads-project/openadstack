@@ -2,9 +2,10 @@
 
 Each OpenADStack demo requires a recorded ROS 2 bag as its input. All bag
 variants cover the same time range and therefore have the same playback
-duration. They differ only in the topics they contain. This keeps the regular
-demo small, while the full demo and experiment setup include the additional
-sensor data required by their processing pipelines.
+duration. They differ only in the topics they contain. This keeps the basic
+demo small, while the extended demo includes the additional sensor data
+required by its perception pipeline. An optional full bag contains the remaining
+recorded sensor topics for further experiments.
 
 ## Bag overview
 
@@ -44,9 +45,9 @@ the bag:
 
 | Bag variant | Image |
 | --- | --- |
-| Demo | `ghcr.io/openads-project/openadstack/data-demo:v1.0.0` |
-| Full demo | `ghcr.io/openads-project/openadstack/data-demo-full:v1.0.0` |
-| Experiments | `ghcr.io/openads-project/openadstack/data-demo-extended:v1.0.0` |
+| Basic demo | `ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0` |
+| Extended demo | `ghcr.io/openads-project/openadstack/data-demo-extended:v1.0.0` |
+| Full bag | `ghcr.io/openads-project/openadstack/data-demo-full:v1.0.0` |
 
 ```bash
 docker build \
