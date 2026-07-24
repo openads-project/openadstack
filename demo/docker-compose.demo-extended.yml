@@ -31,15 +31,5 @@ services:
     volumes:
       - perception.point-cloud-object-detection-model:/model
 
-  lanelet2-map-server:
-    volumes:
-      - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
-      - ./lanelet2_map_server/maps:/data/maps
-  
-  monitoring:
-    volumes:
-      - ./utils/rviz/conf.rviz:/conf.rviz
-      - ./utils/mesh:/mesh
-
 volumes:
   perception.point-cloud-object-detection-model:
