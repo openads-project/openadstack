@@ -3,6 +3,11 @@ include:
   - ./utils/docker-compose.yml
 
 services:
+
+  demo.bag-replay:
+    image: ghcr.io/openads-project/openadstack/data-demo-extended:v1.0.0
+    # image: ghcr.io/openads-project/openadstack/data-demo-full:v1.0.0
+
   demo.topic-relay:
     profiles:
       - do-not-use

@@ -3,7 +3,10 @@ include:
   - ./utils/docker-compose.yml
 
 services:
-
+  
+  demo.bag-replay:
+    image: ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0
+  
   point-cloud-fusion:
     profiles:
       - do-not-use

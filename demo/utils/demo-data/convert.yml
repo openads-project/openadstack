@@ -48,7 +48,5 @@ output_bags:
       - /drivers/zed_camera/front_center/left/color/rect/camera_info
       - /drivers/zed_camera/front_left/left/color/rect/image/compressed
       - /drivers/zed_camera/front_left/left/color/rect/camera_info
-      - /drivers/zed_camera/front_right/left/color/rect/image/compressed
-      - /drivers/zed_camera/front_right/left/color/rect/camera_info
-      - /drivers/zed_camera/rear_center/left/color/rect/image/compressed
-      - /drivers/zed_camera/rear_center/left/color/rect/camera_info
+      - /drivers/zed_camera/front_right/right/color/rect/image/compressed
+      - /drivers/zed_camera/front_right/right/color/rect/camera_info

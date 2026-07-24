@@ -9,7 +9,7 @@ recorded sensor topics for further experiments.
 
 ## Bag overview
 
-| Topic | Bag for Basic Demo (2,6 GB) | Bag for Extended Demo (16 GB) | Full Bag for Extended Demo (70 GB) |
+| Topic | Bag for Basic Demo (12.3 GB) | Bag for Extended Demo (25.1 GB) | Full Bag for Extended Demo (40.3 GB) |
 | --- | --- | --- | --- |
 | `/tf` | x | x | x |
 | `/localization/ego_state_estimation/ego_data` | x | x | x |
@@ -23,10 +23,8 @@ recorded sensor topics for further experiments.
 | `/drivers/zed_camera/front_center/left/color/rect/camera_info` | x | x | x |
 | `/drivers/zed_camera/front_left/left/color/rect/image/compressed` | | | x |
 | `/drivers/zed_camera/front_left/left/color/rect/camera_info` | | | x |
-| `/drivers/zed_camera/front_right/left/color/rect/image/compressed` | | | x |
-| `/drivers/zed_camera/front_right/left/color/rect/camera_info` | | | x |
-| `/drivers/zed_camera/rear_center/left/color/rect/image/compressed` | | | x |
-| `/drivers/zed_camera/rear_center/left/color/rect/camera_info` | | | x |
+| `/drivers/zed_camera/front_right/right/color/rect/image/compressed` | | | x |
+| `/drivers/zed_camera/front_right/right/color/rect/camera_info` | | | x |
 
 ## Create the bag variants
 
