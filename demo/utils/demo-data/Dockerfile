@@ -1,4 +1,4 @@
-FROM alpine:3.22
+FROM ghcr.io/openads-project/monitoring:v1.0.0
 
 WORKDIR /data
 

@@ -31,13 +31,8 @@ def generate_launch_description():
     bag_play = ExecuteProcess(
         cmd=[
             "ros2", "bag", "play",
-            "--start-offset", "20",
-            "--playback-duration", "210",
             "--input", "/data",
-            "--clock",
-            "--regex",
-            "/drivers.*|/localization/ego_state_estimation.*|"
-            "/perception/point_cloud_object_detection_ouster/object_list|/tf",
+            "--clock"
         ],
         output="screen",
     )
