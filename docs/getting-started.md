@@ -15,11 +15,11 @@ To make OpenADStack directly accessible from this repository, the `demo` folder 
 
 The demo provides two configurations corresponding to the processing paths shown in the [functional architecture](./functional-architecture.md).
 
-### Demo without Perception
+### Basic Demo (without Perception)
 
 The default configuration focuses on the right-hand, planning-oriented side of the A-model. A detected object list is replayed from the recording and passed to the downstream prediction, planning, and optimization OpenADServices. This keeps the setup lightweight while exposing the central planning pipeline.
 
-### Full Demo
+### Extended Demo (with Perception)
 
 The extended configuration also activates the left-hand perception side of the A-model. Instead of using the recorded object lists, it processes the recorded LiDAR point clouds through point-cloud fusion and point-cloud object detection before passing the resulting objects to the same downstream OpenADServices. This configuration requires a compatible NVIDIA GPU as described in the OpenADS requirements.
 
@@ -32,16 +32,16 @@ git clone --recurse-submodules git@github.com:openads-project/openadstack.git
 cd openadstack/demo
 ```
 
-Start the demo without perception:
+Start the basic demo without perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.demo.yml && docker compose up -d
+export COMPOSE_FILE=docker-compose.demo-basic.yml && docker compose up -d
 ```
 
-Alternatively, start the full demo including perception:
+Alternatively, start the extended demo including perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.demo-full.yml && docker compose up -d
+export COMPOSE_FILE=docker-compose.demo-extended.yml && docker compose up -d
 ```
 
 Inspect the active Compose services:
@@ -63,7 +63,7 @@ docker compose down
 
 The demo recording supplies the external runtime data that would normally come from a vehicle or simulator:
 
-- driver and sensor topics below `/drivers`, including the front-left and rear-right Ouster LiDAR point clouds used by the full demo
+- driver and sensor topics below `/drivers`, including the front-left and rear-right Ouster LiDAR point clouds used by the extended demo
 - ego-state and navigation data below `/localization/ego_state_estimation`
 - the vehicle and sensor frame transforms on `/tf`
 - a recorded point-cloud detected object list for the demo without perception
