@@ -45,7 +45,7 @@ Run the conversion from the `demo-data` directory:
 
 ```bash
 ros2 bag convert \
-  --input-options convert.yml \
+  --input openadstack_demo \
   --output-options convert.yml
 ```
 
