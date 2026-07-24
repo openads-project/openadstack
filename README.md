@@ -51,7 +51,7 @@ OpenADStack is usually part of a larger deployment composition, for example with
 
     > [!NOTE]
     > The extended demo requires a compatible NVIDIA GPU and additional disk
-    > space of 16GB for its larger bag files.
+    > space of 14GB for its larger bag files.
 
 - **Stop** the demo with:
 
