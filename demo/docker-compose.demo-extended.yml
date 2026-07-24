@@ -5,8 +5,8 @@ include:
 services:
 
   demo.bag-replay:
-    image: ghcr.io/openads-project/openadstack/data-demo-extended:v1.0.0
-    # image: ghcr.io/openads-project/openadstack/data-demo-full:v1.0.0
+    image: ghcr.io/openads-project/openadstack/demo-data:extended_v1.0.0
+    # image: ghcr.io/openads-project/openadstack/demo-data:full_v1.0.0
 
   demo.topic-relay:
     profiles:
