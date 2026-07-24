@@ -5,7 +5,7 @@ include:
 services:
   
   demo.bag-replay:
-    image: ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0
+    image: ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0
   
   point-cloud-fusion:
     profiles:

@@ -76,14 +76,14 @@ the bag:
 
 | Bag variant | Image |
 | --- | --- |
-| Basic demo | `ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0` |
-| Extended demo | `ghcr.io/openads-project/openadstack/data-demo-extended:v1.0.0` |
-| Full bag | `ghcr.io/openads-project/openadstack/data-demo-full:v1.0.0` |
+| Basic demo | `ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0` |
+| Extended demo | `ghcr.io/openads-project/openadstack/demo-data:extended_v1.0.0` |
+| Full bag | `ghcr.io/openads-project/openadstack/demo-data:full_v1.0.0` |
 
 ```bash
 docker build \
   --file Dockerfile \
-  --tag ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0 \
+  --tag ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0 \
   /absolute/path/to/rosbag-directory
 ```
 
