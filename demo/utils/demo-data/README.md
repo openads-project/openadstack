@@ -28,6 +28,38 @@ recorded sensor topics for further experiments.
 | `/drivers/zed_camera/rear_center/left/color/rect/image/compressed` | | | x |
 | `/drivers/zed_camera/rear_center/left/color/rect/camera_info` | | | x |
 
+## Create the bag variants
+
+Place the original bag in an `openadstack_demo` directory next to
+`convert.yml`:
+
+```text
+demo-data/
+├── convert.yml
+└── openadstack_demo/
+    ├── metadata.yaml
+    └── rosbag2.mcap
+```
+
+Run the conversion from the `demo-data` directory:
+
+```bash
+ros2 bag convert \
+  --input-options convert.yml \
+  --output-options convert.yml
+```
+
+The configuration extracts the common time range and applies the topic filters
+shown above. It creates three new ROS 2 bag directories:
+
+- `openadstack_demo_basic`
+- `openadstack_demo_extended`
+- `openadstack_demo_full`
+
+These output directories must not exist before running the command. Each
+generated directory can then be used as the Docker build context described
+below.
+
 ## Build a bag image
 
 Each bag is packaged as a separate, Alpine-based data image. The Rosbag
@@ -52,7 +84,7 @@ the bag:
 ```bash
 docker build \
   --file Dockerfile \
-  --tag ghcr.io/openads-project/openadstack/data-demo:v1.0.0 \
+  --tag ghcr.io/openads-project/openadstack/data-demo-basic:v1.0.0 \
   /absolute/path/to/rosbag-directory
 ```
 
@@ -67,15 +99,6 @@ this structure:
 /data/
 ├── metadata.yaml
 └── <storage-file>.db3  # or .mcap
-```
-
-Verify the packaged bag with:
-
-```bash
-docker run --rm \
-  --entrypoint ls \
-  ghcr.io/openads-project/openadstack/data-demo:v1.0.0 \
-  -lah /data
 ```
 
 > [!NOTE]
