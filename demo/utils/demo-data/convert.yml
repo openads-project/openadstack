@@ -1,17 +1,13 @@
 # Run from this directory with the input bag at openadstack_demo/:
 # ros2 bag convert \
-#   --input-options convert.yml \
+#   --input openadstack_demo \
 #   --output-options convert.yml
-
-input_bags:
-  - uri: openadstack_demo
-    storage_id: mcap
-    start_time_ns: 1778144223993589034
-    end_time_ns: 1778144433993589034
 
 output_bags:
   - uri: openadstack_demo_basic
     storage_id: mcap
+    start_time_ns: 1778144223993589034
+    end_time_ns: 1778144433993589034
     topics:
       - /tf
       - /localization/ego_state_estimation/ego_data
@@ -20,8 +16,11 @@ output_bags:
       - /drivers/zed_camera/front_center/left/color/rect/image/compressed
       - /drivers/zed_camera/front_center/left/color/rect/camera_info
 
+
   - uri: openadstack_demo_extended
     storage_id: mcap
+    start_time_ns: 1778144223993589034
+    end_time_ns: 1778144433993589034
     topics:
       - /tf
       - /localization/ego_state_estimation/ego_data
@@ -34,6 +33,8 @@ output_bags:
 
   - uri: openadstack_demo_full
     storage_id: mcap
+    start_time_ns: 1778144223993589034
+    end_time_ns: 1778144433993589034
     topics:
       - /tf
       - /localization/ego_state_estimation/ego_data
