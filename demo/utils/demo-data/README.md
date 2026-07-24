@@ -9,7 +9,7 @@ recorded sensor topics for further experiments.
 
 ## Bag overview
 
-| Topic | Bag for Basic Demo (XGB) | Bag for Extended Demo (XGB) | Full Bag for Extended Demo (XGB) |
+| Topic | Bag for Basic Demo (2,6 GB) | Bag for Extended Demo (16 GB) | Full Bag for Extended Demo (70 GB) |
 | --- | --- | --- | --- |
 | `/tf` | x | x | x |
 | `/localization/ego_state_estimation/ego_data` | x | x | x |
@@ -44,7 +44,8 @@ demo-data/
 Run the conversion from the `demo-data` directory:
 
 ```bash
-ros2 bag convert \
+docker-run --mwd rwthika/ros2:jazzy \
+  ros2 bag convert \
   --input openadstack_demo \
   --output-options convert.yml
 ```
