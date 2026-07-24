@@ -9,7 +9,7 @@ recorded sensor topics for further experiments.
 
 ## Bag overview
 
-| Topic | Bag for Basic Demo (12.3 GB) | Bag for Extended Demo (25.1 GB) | Full Bag for Extended Demo (40.3 GB) |
+| Topic | Bag for Basic Demo (2.3 GB) | Bag for Extended Demo (15.1 GB) | Full Bag for Extended Demo (30.3 GB) |
 | --- | --- | --- | --- |
 | `/tf` | x | x | x |
 | `/localization/ego_state_estimation/ego_data` | x | x | x |
