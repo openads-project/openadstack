@@ -6,8 +6,22 @@ x-demo-service: &demo-service
 
 services:
 
-  demo.bag-replay:
+  demo.bag-replay-basic:
     <<: *demo-service
+    profiles:
+      - demo-basic
+    image: ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0
+    restart: unless-stopped
+    command: ros2 launch /replay.launch.py
+    volumes:
+      - ./replay.launch.py:/replay.launch.py
+
+  demo.bag-replay-extended:
+    <<: *demo-service
+    profiles:
+      - demo-extended
+    image: ghcr.io/openads-project/openadstack/demo-data:extended_v1.0.0
+    # image: ghcr.io/openads-project/openadstack/demo-data:full_v1.0.0
     restart: unless-stopped
     command: ros2 launch /replay.launch.py
     volumes:
@@ -15,10 +29,15 @@ services:
 
   demo.topic-relay:
     <<: *demo-service
+    profiles:
+      - demo-basic
     command: ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
 
   demo.robot-state-publisher:
     <<: *demo-service
+    profiles:
+      - demo-basic
+      - demo-extended
     command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
     volumes:
       - ./urdf:/urdf
@@ -26,6 +45,9 @@ services:
   # workaround to avoid aerial map display z-offset
   demo.aerial-map-workaround:
     <<: *demo-service
+    profiles:
+      - demo-basic
+      - demo-extended
     restart: unless-stopped # requires incoming topic
     command:
       - /bin/bash
