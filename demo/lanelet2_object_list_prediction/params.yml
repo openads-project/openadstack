@@ -1,0 +1,8 @@
+/**/*:
+  ros__parameters:
+    ll2_map_server_name: /localization/lanelet2_map_server
+    lanelet_match_max_distance_m: 0.1
+    lanelet_match_max_yaw_diff_rad: 1.57079632679
+    prediction_horizon_s: 8.0
+    prediction_sample_interval_s: 0.5
+    unmatched_object_prediction_mode: static
