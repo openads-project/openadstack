@@ -14,7 +14,7 @@ recorded sensor topics for further experiments.
 | `/tf` | x | x | x |
 | `/localization/ego_state_estimation/ego_data` | x | x | x |
 | `/localization/ego_state_estimation/nav_sat_fix` | x | x | x |
-| `/perception/point_cloud_object_detection_ouster/object_list` | x | x | x |
+| `/perception/point_cloud_object_detection_ouster/object_list` | x | | |
 | `/drivers/ouster_lidar_fl/points/cloudini` | | x | x |
 | `/drivers/ouster_lidar_fr/points/cloudini` | | | x |
 | `/drivers/ouster_lidar_rl/points/cloudini` | | | x |

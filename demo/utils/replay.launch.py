@@ -32,7 +32,8 @@ def generate_launch_description():
         cmd=[
             "ros2", "bag", "play",
             "--input", "/data",
-            "--clock"
+            "--clock",
+            "--remap", "/perception/point_cloud_object_detection_ouster/object_list:=/perception/point_cloud_object_detection/object_list"
         ],
         output="screen",
     )
