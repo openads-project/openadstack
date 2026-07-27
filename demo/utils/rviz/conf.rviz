@@ -277,7 +277,7 @@ Visualization Manager:
           Value: " "
           max. acceleration [m/s²]: 5
           max. velocity  [km/h]: 50
-        Value: true
+        Value: false
       Text information:
         Char height: 4
         Value: false
@@ -825,6 +825,18 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /planning/trajectory_optimization/trajectory
       Value: false
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Optimized Trajectory
+      Namespaces:
+        ego-circles: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /planning/trajectory_optimization/visualization/ego_circles
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48

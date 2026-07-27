@@ -12,7 +12,7 @@ services:
       - demo-basic
     image: ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0
     restart: unless-stopped
-    command: ros2 launch /replay.launch.py
+    command: bash -ic 'sleep 1 && ros2 launch /replay.launch.py'
     volumes:
       - ./replay.launch.py:/replay.launch.py
 
@@ -23,7 +23,7 @@ services:
     image: ghcr.io/openads-project/openadstack/demo-data:extended_v1.0.0
     # image: ghcr.io/openads-project/openadstack/demo-data:full_v1.0.0
     restart: unless-stopped
-    command: ros2 launch /replay.launch.py
+    command: bash -ic 'sleep 1 && ros2 launch /replay.launch.py'
     volumes:
       - ./replay.launch.py:/replay.launch.py
 
