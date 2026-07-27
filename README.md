@@ -17,11 +17,11 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
 <div align="center" style="text-align: center;">
-  <a href="https://www.youtube.com/watch?v=XR2uBMVX1As" target="_blank" rel="noopener noreferrer">
+  <a href="https://www.youtube.com/watch?v=B0Lnu-1w9KE" target="_blank" rel="noopener noreferrer">
     <img src="https://github.com/user-attachments/assets/82c760b2-202e-4e95-81a0-d65cdfb2510e" alt="Watch OpenADStack in karl." width="720" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
   </a>
   <br>
-  <em>Click the preview or <a href="https://www.youtube.com/watch?v=XR2uBMVX1As" target="_blank" rel="noopener noreferrer">here</a> to watch the full video.</em>
+  <em>Click the preview or <a href="https://www.youtube.com/watch?v=B0Lnu-1w9KE" target="_blank" rel="noopener noreferrer">here</a> to watch the full video.</em>
 </div>
 
 ## 🚀 Quick Start
