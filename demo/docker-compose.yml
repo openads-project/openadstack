@@ -41,11 +41,11 @@ services:
   triton-server:
     profiles:
       - demo-extended
+    depends_on:
+      - perception.point-cloud-object-detection-model-provisioning
     extends:
       file: ../essentials/triton-server/docker-compose.yml
       service: triton-server
-    depends_on:
-      - perception.point-cloud-object-detection-model-provisioning
     volumes:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
@@ -92,6 +92,8 @@ services:
     extends:
       file: ../planning/lanelet2_route_planning/docker-compose.yml
       service: lanelet2-route-planning
+    volumes:
+      - ./lanelet2_route_planning/params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
 
   planning.simple-planner:
     extends:
