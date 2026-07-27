@@ -18,7 +18,7 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 
 <div align="center" style="text-align: center;">
   <a href="https://www.youtube.com/watch?v=B0Lnu-1w9KE" target="_blank" rel="noopener noreferrer">
-    <img src="https://github.com/user-attachments/assets/82c760b2-202e-4e95-81a0-d65cdfb2510e" alt="Watch OpenADStack in karl." width="720" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
+    <img src="https://github.com/user-attachments/assets/af4f9095-960a-43c5-a959-af4afa81243c" alt="Watch OpenADStack in karl." width="720" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
   </a>
   <br>
   <em>Click the preview or <a href="https://www.youtube.com/watch?v=B0Lnu-1w9KE" target="_blank" rel="noopener noreferrer">here</a> to watch the full video.</em>
