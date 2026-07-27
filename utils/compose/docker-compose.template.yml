@@ -84,6 +84,7 @@ services:
     environment:
       RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=warn
+      ZENOH_ROUTER_CHECK_ATTEMPS: 0
     volumes:
       - ./config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5:/opt/ros/jazzy/share/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
