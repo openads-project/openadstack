@@ -55,13 +55,13 @@ cd openadstack/demo
 Start the basic demo without perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.demo-basic.yml && docker compose up -d
+docker compose up -d
 ```
 
 Alternatively, start the extended demo including perception:
 
 ```bash
-export COMPOSE_FILE=docker-compose.demo-extended.yml && docker compose up -d
+export COMPOSE_PROFILES=demo-extended && docker compose up -d
 ```
 
 Inspect the active Compose services:

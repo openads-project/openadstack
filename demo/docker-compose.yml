@@ -1,0 +1,127 @@
+include:
+  - ./utils/docker-compose.yml
+
+services:
+
+  # essentials
+  zenoh-router:
+    extends:
+      file: ../essentials/zenoh-router/docker-compose.yml
+      service: zenoh-router
+
+  # localization
+  localization.lanelet2-map-server:
+    extends:
+      file: ../localization/lanelet2_map_server/docker-compose.yml
+      service: lanelet2-map-server
+    volumes:
+      - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
+      - ./lanelet2_map_server/maps:/data/maps
+
+  # perception
+  perception.point-cloud-fusion:
+    profiles:
+      - demo-extended
+    extends:
+      file: ../perception/point_cloud_fusion/docker-compose.yml
+      service: point-cloud-fusion
+    volumes:
+      - ./point_cloud_fusion/params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
+
+  perception.point-cloud-object-detection:
+    profiles:
+      - demo-extended
+    extends:
+      file: ../perception/point_cloud_object_detection/docker-compose.yml
+      service: point-cloud-object-detection
+    volumes:
+      - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
+
+  triton-server:
+    profiles:
+      - demo-extended
+    extends:
+      file: ../essentials/triton-server/docker-compose.yml
+      service: triton-server
+    depends_on:
+      - perception.point-cloud-object-detection-model-provisioning
+    volumes:
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
+
+  perception.point-cloud-object-detection-model-provisioning:
+    profiles:
+      - demo-extended
+    image: ghcr.io/openads-project/point_cloud_object_detection/model:v3.0.0
+    command: sleep infinity
+    volumes:
+      - perception.point-cloud-object-detection-model:/model
+
+  # understanding
+  understanding.autoware-multi-object-tracker:
+    extends:
+      file: ../understanding/autoware_multi_object_tracker/docker-compose.yml
+      service: autoware-multi-object-tracker
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - /bin/bash
+        - -c
+        - |
+          set -o pipefail
+          source /opt/ros/"$${ROS_DISTRO}"/setup.bash
+          now="$$(timeout 5 ros2 topic echo /clock --once --field clock.sec 2>/dev/null | head -n 1)" || exit 1
+          previous="$$(cat /tmp/last-ros-clock 2>/dev/null || echo "$$now")"
+          echo "$$now" > /tmp/last-ros-clock
+          (( now >= previous )) || { kill -TERM 1; exit 1; }
+      interval: 1s
+      timeout: 10s
+      start_period: 5s
+      retries: 3
+
+  understanding.lanelet2-object-list-prediction:
+    extends:
+      file: ../understanding/lanelet2_object_list_prediction/docker-compose.yml
+      service: lanelet2-object-list-prediction
+    volumes:
+      - ./lanelet2_object_list_prediction/params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
+
+  # planning
+  planning.lanelet2-route-planning:
+    extends:
+      file: ../planning/lanelet2_route_planning/docker-compose.yml
+      service: lanelet2-route-planning
+
+  planning.simple-planner:
+    extends:
+      file: ../planning/simple_planner/docker-compose.yml
+      service: simple-planner
+    volumes:
+      - ./simple_planner/params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
+
+  planning.trajectory-optimization:
+    extends:
+      file: ../planning/trajectory_optimization/docker-compose.yml
+      service: trajectory-optimization
+    volumes:
+      - ./trajectory_optimization/params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
+
+  # control
+  control.ackermann-trajectory-control:
+    extends:
+      file: ../control/ackermann_trajectory_control/docker-compose.yml
+      service: ackermann-trajectory-control
+  
+  # monitoring
+  monitoring.monitoring:
+    extends:
+      file: ../monitoring/monitoring/docker-compose.yml
+      service: monitoring
+    volumes:
+      - ./utils/rviz/conf.rviz:/conf.rviz
+      - ./utils/mesh:/mesh
+
+
+volumes:
+  perception.point-cloud-object-detection-model:
