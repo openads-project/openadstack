@@ -27,17 +27,8 @@ services:
     volumes:
       - ./replay.launch.py:/replay.launch.py
 
-  demo.topic-relay:
-    <<: *demo-service
-    profiles:
-      - demo-basic
-    command: ros2 run topic_tools relay /perception/point_cloud_object_detection_ouster/object_list /perception/point_cloud_object_detection/object_list
-
   demo.robot-state-publisher:
     <<: *demo-service
-    profiles:
-      - demo-basic
-      - demo-extended
     command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
     volumes:
       - ./urdf:/urdf
@@ -45,9 +36,6 @@ services:
   # workaround to avoid aerial map display z-offset
   demo.aerial-map-workaround:
     <<: *demo-service
-    profiles:
-      - demo-basic
-      - demo-extended
     restart: unless-stopped # requires incoming topic
     command:
       - /bin/bash

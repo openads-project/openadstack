@@ -25,7 +25,6 @@ output_bags:
       - /tf
       - /localization/ego_state_estimation/ego_data
       - /localization/ego_state_estimation/nav_sat_fix
-      - /perception/point_cloud_object_detection_ouster/object_list
       - /drivers/ouster_lidar_fl/points/cloudini
       - /drivers/ouster_lidar_rr/points/cloudini
       - /drivers/zed_camera/front_center/left/color/rect/image/compressed
@@ -39,7 +38,6 @@ output_bags:
       - /tf
       - /localization/ego_state_estimation/ego_data
       - /localization/ego_state_estimation/nav_sat_fix
-      - /perception/point_cloud_object_detection_ouster/object_list
       - /drivers/ouster_lidar_fl/points/cloudini
       - /drivers/ouster_lidar_fr/points/cloudini
       - /drivers/ouster_lidar_rl/points/cloudini
