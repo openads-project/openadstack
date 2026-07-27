@@ -46,7 +46,7 @@ OpenADStack is usually part of a larger deployment composition, for example with
 
     ```bash
     cd demo
-    export COMPOSE_FILE=docker-compose.demo-extended.yml && docker compose up -d
+    export COMPOSE_PROFILES=demo-extended && docker compose up -d
     ```
 
     > [!NOTE]
