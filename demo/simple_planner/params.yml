@@ -1,0 +1,68 @@
+/**:
+  ros__parameters:
+
+    #### general parameters
+    trajectory_frame_id: base_link  # Frame ID of output trajectory
+    fixed_over_time_frame_id: map   # Frame ID of frame that is fixed over time for finding temporal transforms
+    frequency: 10.0
+    route_timeout: 1.0              # time after which a received route is considered invalid (s) (use -1 for no timeout)
+    ego_data_timeout: 1.0           # time after which a received ego vehicle data is considered invalid (s) (use -1 for no timeout)
+
+    #### trajectory generation parameters
+    trajectory_horizon: 8.0        # covered time horizon of the published trajectory (s)
+    n_states: 51                    # number of states in published trajectory
+    interpolation_type: 1           # 0: linear, 1: cubic spline
+    v_ref: -1.0                     # reference velocity (m/s). Set to '-1.0' to use velocity from route.
+    a_decel: -0.5                   # desired deceleration for braking at stop lines or end of route (m/s^2) - must be < 0.0
+    a_max_decel: -1.0               # maximum deceleration for safe-stop trajectories (m/s^2) - must be < 0.0 and <= a_decel
+    trigger_turn_signals: False     # true: planner will request turn signal services; false: planner will not trigger turn signals
+
+    #### traffic light parameters
+    consider_traffic_lights: False  # true: planner will consider traffic lights; false: planner will ignore traffic lights
+    offset_to_stop_line: 0.0        # additional distance to stop in front of a stop line (m) (default: 0.0 -> stops with front of vehicle at stop line)
+    ignore_stop_line_threshold: 0.5 # a stop line will be ignored if the front of the vehicle has already passed the stop line by more than this threshold (m)
+    consider_future_states: False   # true: trajectory will consider forecast of traffic light states; false: trajectory will only consider current traffic light state
+
+    #### object parameters
+    consider_objects: True          # true: planner will consider perceived objects on the route; false: planner will ignore objects
+    object_timeout: 1.0             # time after which a received object list is considered invalid (s) (use -1 for no timeout)
+    min_prediction_prob: 0.0        # minimum probability for considering an object prediction branch; otherwise the most likely one is used
+    object_longitudinal_safety_distance: 1.5  # longitudinal clearance around ego/object boxes for conflict detection (m)
+    object_lateral_safety_distance: 0.0  # lateral clearance around ego/object boxes for conflict detection (m)
+    object_interaction_time_window: 0.5  # maximum time offset for counting a spatial overlap as interaction (s)
+    object_velocity_reduction_step: 0.1  # velocity decrement per object-avoidance iteration (m/s)
+    object_velocity_release_step: 0.5  # maximum velocity increase per cycle after hysteresis cleared object conflicts (m/s)
+    object_standstill_speed_threshold: 0.2  # publish standstill if object avoidance would require a lower speed cap (m/s)
+    object_velocity_release_hysteresis_cycles: 3  # number of conflict-free cycles required before increasing the remembered object speed cap
+    publish_object_interaction_markers: True  # publish RViz markers for the conflict explaining the final speed reduction
+
+    #### lane change parameters
+    lane_change_distance_factor: 6.0     # factor multiplied with the current velocity to determine the lane change distance (m)
+    lane_change_min_distance_factor: 2.0 # factor multiplied with the vehicle length to determine the minimum lane change distance (m)
+
+    #### diagnostic parameters
+    diagnostic_updater:
+      period: 1.0
+      use_fqn: false
+      topic_diagnostics:
+        ego_data:
+          min_frequency: 45.45 # 22ms
+          max_frequency: 55.55 # 18ms
+          min_acceptable_timestamp_delta: 0.0
+          max_acceptable_timestamp_delta: 0.002
+        object_list:
+          min_frequency: 9.09 # 110ms
+          max_frequency: 11.11 # 90ms
+          min_acceptable_timestamp_delta: 0.0
+          max_acceptable_timestamp_delta: 0.01
+        route:
+          min_frequency: 18.18 # 55ms
+          max_frequency: 22.22 # 45ms
+          min_acceptable_timestamp_delta: 0.0
+          max_acceptable_timestamp_delta: 0.005
+      diagnosed_publishers:
+        trajectory:
+          min_frequency: 9.09 # 110ms
+          max_frequency: 11.11 # 90ms
+          min_acceptable_timestamp_delta: 0.0
+          max_acceptable_timestamp_delta: 0.01

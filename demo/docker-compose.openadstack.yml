@@ -28,6 +28,15 @@ include:
 
 services:
 
+  trajectory-optimization:
+    image: ghcr.io/openads-project/trajectory_optimization:latest
+    volumes:
+      - ./trajectory_optimization/params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
+
+  lanelet2-object-list-prediction:
+    volumes:
+      - ./lanelet2_object_list_prediction/params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
+
   monitoring:
     volumes:
       - ./utils/rviz/conf.rviz:/conf.rviz
