@@ -55,7 +55,7 @@ cd openadstack/demo
 Start the basic demo without perception:
 
 ```bash
-docker compose up -d
+export COMPOSE_PROFILES=demo-basic && docker compose up -d
 ```
 
 Alternatively, start the extended demo including perception:
