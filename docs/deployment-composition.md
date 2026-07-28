@@ -6,7 +6,7 @@
 
 OpenADStack provides reusable blueprint compositions for a full reference stack. A custom deployment composition combines all or selected parts of OpenADStack with platform-specific overrides and additional services. There are different deployment compositions that actively use OpenADStack:
 
-- the [demo](../demo/) adds recorded inputs, maps, and monitoring to create an open-loop setup;
+- the [demo](https://github.com/openads-project/openadstack/tree/main/demo) adds recorded inputs, maps, and monitoring to create an open-loop setup;
 - the [karl. research vehicle](https://karl.ac/) adds sensor drivers, remote interfaces, and actuator interfaces;
 - [OpenADSim](https://github.com/openads-project/openadsim) provides simulator adapters and scenario-based testing.
 
@@ -68,7 +68,7 @@ services:
 ```
 
 ```{note}
-Make sure to integrate all relevant blueprint compositions. The demo's [docker-compose.openadstack.yml](../demo/docker-compose.openadstack.yml) provides an overview of the minimal reference composition.
+Make sure to integrate all relevant blueprint compositions. The demo's [docker-compose.yml](https://github.com/openads-project/openadstack/blob/main/demo/docker-compose.yml) provides an overview of the minimal reference composition.
 ```
 
 ## Add Platform Services
