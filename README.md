@@ -25,12 +25,12 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 ## 🚀 Quick Start
 
 > [!NOTE]
-> For closed-loop simulation, scenario execution, maps, and simulator adapters, [OpenADSim](https://github.com/openads-project/openadsim) is the recommended entry point.
+> For closed-loop simulation, scenario execution, maps, and simulator adapters, [OpenADSim](https://openads-project.github.io/openadsim/openadsim.html) is the recommended entry point.
 
 > [!IMPORTANT]
 > Make sure that the general [OpenADS system requirements](https://openads-project.github.io/start/start.html#requirements) are fulfilled.
 
-OpenADStack is usually part of a larger deployment composition, for example with the [karl. research vehicle](https://karl.ac/) or in a [simulation setup](https://github.com/openads-project/openadsim). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle components.
+OpenADStack is usually part of a larger deployment composition, for example with the [karl. research vehicle](https://karl.ac/) or in an [OpenADSim simulation setup](https://openads-project.github.io/openadsim/openadsim.html). For a first look at OpenADStack itself, a demo is provided in this repository. It runs the stack open-loop on recorded ROS 2 data, so you can inspect the stack behavior without starting additional simulation or vehicle components.
 
 - Two demos using different parts of OpenADStack are provided:
   - **Basic Demo** without Perception: Start the open-loop demo using recorded detections:
