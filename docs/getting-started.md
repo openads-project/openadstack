@@ -1,6 +1,6 @@
 # Getting Started
 
-OpenADStack is designed to be included in a larger deployment composition that provides sensor or simulation inputs, vehicle interfaces, and environment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://github.com/openads-project/openadsim). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
+OpenADStack is designed to be included in a larger deployment composition that provides sensor or simulation inputs, vehicle interfaces, and environment-specific configuration. Examples include operation on the [karl. research vehicle](https://karl.ac/) and closed-loop simulation with [OpenADSim](https://openads-project.github.io/openadsim/openadsim.html). OpenADSim is the recommended entry point for complete simulation workflows with scenarios, maps, and configurable OpenADStack setups.
 
 ```{note}
 See [Deployment Composition](./deployment-composition.md) for the intended boundary between OpenADStack and vehicle- or simulation-specific deployments.
