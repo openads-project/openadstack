@@ -26,7 +26,7 @@ A new integration defines the service's functional role, stable ROS 2 interfaces
 
 The override is the manually maintained source of truth, while the generated file resolves the upstream OCI artifact into a Compose definition that deployment compositions can consume directly.
 
-Shared Compose templates apply the common ROS 2 runtime configuration and, where required, enable X11 or GPU access. Each integrated OpenADService extends an appropriate template, documented in the [Compose Service Template Reference](../utils/compose/README.md).
+Shared Compose templates apply the common ROS 2 runtime configuration and, where required, enable X11 or GPU access. Each integrated OpenADService extends an appropriate template, documented in the [Compose Service Template Reference](https://github.com/openads-project/openadstack/blob/main/utils/compose/README.md).
 
 The override can then add or replace stack-specific values such as namespaces and topic mappings. The following `trajectory_optimization` example imports the released OCI artifact, selects the `ros2-service` template, and maps the upstream topic defaults to OpenADStack naming:
 
@@ -66,4 +66,4 @@ The Compose templates and OpenADService Compose files expose a small set of cons
 | `LOG_LEVEL` | OpenADService Compose files | Usually `info` | Sets the ROS 2 node logging level. |
 | `USE_SIM_TIME` | OpenADService Compose files | Usually `false` | Selects wall-clock time or the ROS `/clock` topic. |
 
-Deployment compositions can override these defaults project-wide through a `.env` file or for individual Compose services through the `environment` section. The [demo `.env` file](../demo/.env), for example, enables `USE_SIM_TIME` for all OpenADServices so they consume the published `/clock` topic.
+Deployment compositions can override these defaults project-wide through a `.env` file or for individual Compose services through the `environment` section. The [demo `.env` file](https://github.com/openads-project/openadstack/blob/main/demo/.env), for example, enables `USE_SIM_TIME` for all OpenADServices so they consume the published `/clock` topic.
