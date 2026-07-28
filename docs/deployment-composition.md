@@ -8,7 +8,7 @@ OpenADStack provides reusable blueprint compositions for a full reference stack.
 
 - the [demo](https://github.com/openads-project/openadstack/tree/main/demo) adds recorded inputs, maps, and monitoring to create an open-loop setup;
 - the [karl. research vehicle](https://karl.ac/) adds sensor drivers, remote interfaces, and actuator interfaces;
-- [OpenADSim](https://github.com/openads-project/openadsim) provides simulator adapters and scenario-based testing.
+- [OpenADSim](https://openads-project.github.io/openadsim/openadsim.html) provides simulator adapters and scenario-based testing.
 
 ## Customized Deployment Composition
 
