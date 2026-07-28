@@ -98,6 +98,7 @@ services:
     extends:
       file: ../planning/trajectory_optimization/docker-compose.yml
       service: trajectory-optimization
+    image: ghcr.io/openads-project/trajectory_optimization:latest
     volumes:
       - ./trajectory_optimization/params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
   
