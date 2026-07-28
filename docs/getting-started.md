@@ -71,7 +71,7 @@ docker compose ps
 docker compose config --services
 ```
 
-RViz starts as part of the monitoring Compose service and visualizes the replayed inputs and generated stack outputs. Each bag playback cycle runs for approximately three and a half minutes. The bag-replay Compose service then starts it again automatically.
+RViz starts as part of the monitoring Compose service and visualizes the replayed inputs and generated stack outputs. Each bag playback cycle runs for approximately three and a half minutes. The bag-replay Compose service then starts it again automatically. When the simulated clock jumps back at the beginning of the next cycle, RViz resets its displays and the Autoware tracker restarts to clear state from the previous cycle.
 
 Stop the selected demo configuration with:
 

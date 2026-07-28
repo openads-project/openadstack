@@ -64,21 +64,13 @@ services:
       service: autoware-multi-object-tracker
     restart: unless-stopped
     healthcheck:
-      test:
-        - CMD
-        - /bin/bash
-        - -c
-        - |
-          set -o pipefail
-          source /opt/ros/"$${ROS_DISTRO}"/setup.bash
-          now="$$(timeout 5 ros2 topic echo /clock --once --field clock.sec 2>/dev/null | head -n 1)" || exit 1
-          previous="$$(cat /tmp/last-ros-clock 2>/dev/null || echo "$$now")"
-          echo "$$now" > /tmp/last-ros-clock
-          (( now >= previous )) || { kill -TERM 1; exit 1; }
+      test: [CMD, /bin/bash, /restart-on-clock-reset.sh]
       interval: 1s
       timeout: 10s
       start_period: 5s
       retries: 3
+    volumes:
+      - ./utils/restart-on-clock-reset.sh:/restart-on-clock-reset.sh:ro
 
   understanding.lanelet2-object-list-prediction:
     extends:
@@ -114,7 +106,21 @@ services:
     extends:
       file: ../monitoring/monitoring/docker-compose.yml
       service: monitoring
+    environment:
+      RVIZ_RESET_SERVICE: /monitoring/monitoring/reset_time
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        python3 /opt/demo/reset_rviz_on_clock_jump.py -- \
+        ros2 launch monitoring monitoring.launch.py \
+          namespace:=$${NAMESPACE} \
+          name:=$${NAME} \
+          log_level:=$${LOG_LEVEL} \
+          use_sim_time:=$${USE_SIM_TIME} \
+          config:=$${CONFIG}
     volumes:
+      - ./utils/rviz/reset_rviz_on_clock_jump.py:/opt/demo/reset_rviz_on_clock_jump.py:ro
       - ./utils/rviz/conf.rviz:/conf.rviz
       - ./utils/mesh:/mesh
 
