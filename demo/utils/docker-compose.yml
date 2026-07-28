@@ -1,0 +1,75 @@
+x-demo-service: &demo-service
+  extends:
+    file: ../../utils/compose/docker-compose.template.yml
+    service: ros2-service
+  image: ghcr.io/openads-project/monitoring:v1.0.0
+
+services:
+
+  demo.bag-replay-basic:
+    <<: *demo-service
+    profiles:
+      - demo-basic
+    image: ghcr.io/openads-project/openadstack/demo-data:basic_v1.0.0
+    restart: unless-stopped
+    command: ros2 launch /replay.launch.py
+    volumes:
+      - ./replay.launch.py:/replay.launch.py
+
+  demo.bag-replay-extended:
+    <<: *demo-service
+    profiles:
+      - demo-extended
+    image: ghcr.io/openads-project/openadstack/demo-data:extended_v1.0.0
+    # image: ghcr.io/openads-project/openadstack/demo-data:full_v1.0.0
+    restart: unless-stopped
+    command: ros2 launch /replay.launch.py
+    volumes:
+      - ./replay.launch.py:/replay.launch.py
+
+  demo.robot-state-publisher:
+    <<: *demo-service
+    command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
+    volumes:
+      - ./urdf:/urdf
+
+  # workaround to avoid aerial map display z-offset
+  demo.aerial-map-workaround:
+    <<: *demo-service
+    restart: unless-stopped # requires incoming topic
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        ros2 run tf2_ros static_transform_publisher \
+          --frame-id base_link \
+          --child-frame-id aerial_map_display_link \
+          --z 1.0 \
+          --ros-args -p use_sim_time:=true &
+
+        exec ros2 run topic_tools transform \
+          /localization/ego_state_estimation/nav_sat_fix /aerial_map/nav_sat_fix sensor_msgs/msg/NavSatFix \
+          "setattr(m.header, 'frame_id', 'aerial_map_display_link') or m" \
+          --import sensor_msgs \
+          --ros-args -p use_sim_time:=true -r __node:=aerial_map_tf
+
+  demo.ros2-graph-export:
+    profiles: [graph-export]
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
+    image: ghcr.io/openads-project/ros2_graph_export:v1.0.0
+    command:
+      - /bin/bash
+      - -ic
+      - |
+        timeout 30 ros2 run ros2_graph_export ros2_graph_export \
+          --ros-args \
+          -p output_path:=/docker-ros/ws/assets/ros2-graph-export.d2 \
+          -p export_interval_seconds:=10.0 \
+          -p ignore_topics_without_publishers:=true \
+          -p ignore_topics_without_subscribers:=true \
+          -p excluded_nodes:=[rosbag2_player,aerial_map_tf,relay,robot_state_publisher,static_transform_publisher*,monitoring] \
+          -p graph_direction:=down
+    volumes:
+      - ../../docs/assets:/docker-ros/ws/assets

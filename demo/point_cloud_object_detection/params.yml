@@ -1,0 +1,74 @@
+/**:
+  ros__parameters:
+
+    # Core node configuration
+    prediction.server_url: "triton-server:8001"
+    prediction.model_repository: "point-cloud-object-detection"
+    prediction.model_version: "1"
+    preprocessing.backend: "cuda"
+    preprocessing.inference_frame: base_link
+    output.frame: map
+    output.grid_maps.frame: map
+    output.sensor_id: 0
+    point_cloud_transport: raw
+    prediction.use_shm: true
+    prediction.cuda_input_shm: true
+    prediction.triton_client_timeout_s: 5.0
+
+    # Output filtering and object metadata
+    postprocessing.class_score_threshold: 0.0
+
+    # Object covariance defaults
+    # CONTINUOUS_STATE_COVARIANCE_UNKNOWN = -1.0
+    output.variances: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
+
+    # Model input feature selection
+    input.point_feature_field: "reflectivity"
+
+    # Runtime overrides for exported manifest defaults.
+    # preprocessing.detection_area.z_min: -1.0
+    # preprocessing.detection_area.z_max: 4.0
+    preprocessing.point_feature.value_threshold: 100.0 # should be set to appriximately the 99% percentile of the expected point_feature_field values in the input point cloud.
+                                       # car, bus, motorcycle, bicycle, utility, pedestrian, vru, micro, animal
+    postprocessing.nms.score_threshold: [0.3, 0.3, 0.3,        0.4,     0.3,     0.3,        0.4, 0.4,   0.3]
+    # postprocessing.class_score_threshold: 0.0
+    postprocessing.nms.iou_threshold: 0.05
+    postprocessing.nms.max_num_objects: 256
+
+    # Rectangular no-detection zone in inference_frame
+    preprocessing.no_detection_zone.enabled: true
+    preprocessing.no_detection_zone.remove_points: true
+    preprocessing.no_detection_zone.x_min: -1.5
+    preprocessing.no_detection_zone.x_max: 4.2
+    preprocessing.no_detection_zone.y_min: -1.2
+    preprocessing.no_detection_zone.y_max: 1.2
+    preprocessing.no_detection_zone.publish_polygon: true
+    preprocessing.no_detection_zone.publish_points: true
+
+    # Circular-sector detection area in inference_frame
+    preprocessing.detection_area.enabled: true
+    preprocessing.detection_area.center_x: 0.0
+    preprocessing.detection_area.center_y: 0.0
+
+    preprocessing.detection_area.radius: 125.0
+    preprocessing.detection_area.bearing_deg: 0.0
+    preprocessing.detection_area.fov_deg: 360.0
+    preprocessing.detection_area.publish_polygon: true
+    preprocessing.detection_area.num_segments: 32
+    preprocessing.detection_area.filter_detections: true
+    preprocessing.detection_area.filter_mode: "center"
+
+    # Model bounds output
+    output.model_bounds.publish_polygon: true
+
+    # Grid-map outputs
+    output.grid_maps.publish_density: false
+    output.grid_maps.publish_dynamic: false
+    output.grid_maps.publish_combined: false
+    output.grid_maps.publish_static: false
+    output.grid_maps.zero_in_no_detection_zone: true
+    output.grid_maps.zero_outside_detection_area: true
+    output.grid_maps.density_gain: 5.0
+    output.grid_maps.dynamic_gain: 1.0
+    output.grid_maps.combined_gain: 1.0
+    output.grid_maps.static_gain: 5.0

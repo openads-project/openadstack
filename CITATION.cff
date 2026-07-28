@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use OpenADStack in your research, please cite it using the following metadata."
+
+title: OpenADStack
+type: software
+authors:
+  - name: "OpenADStack Development Team"
+  - name: "Institute for Automotive Engineering (ika), RWTH Aachen University"
+repository-code: "https://github.com/openads-project/openadstack"
+url: "https://github.com/openads-project/openadstack"
+version: 1.0.0
+date-released: 2026-08-01
+license: Apache-2.0

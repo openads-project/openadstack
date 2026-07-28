@@ -1,0 +1,180 @@
+# Auto-generated ROS graph from ros2_graph_export
+# generated_at: 2026-07-22 10:19:03+0200
+# nodes: 9, topics: 48, edges: 9
+
+direction: down
+
+vars: {
+  d2-legend: {
+    style.fill: "#f8f9ff"
+    style.font-color: "#334155"
+    style.border-radius: 8
+    style.font-size: 14
+    nodes: "Nodes: 9" {
+      style.fill: "#1f77b4"
+      style.font-color: white
+      style.border-radius: 6
+      style.font-size: 13
+    }
+    nodes -> nodes: "Topics: 9" {
+      style.stroke: "#17becf"
+      style.font-size: 12
+    }
+  }
+}
+
+*.style.border-radius: 6
+*.style.font-size: 14
+ns_control: "/control" {
+  style.fill: "#e8f5e9"
+  style.font-color: "#1b5e20"
+  style.border-radius: 8
+  style.font-size: 20
+  style.stroke: "#43a047"
+  style.stroke-width: 3
+  style.bold: true
+}
+ns_localization: "/localization" {
+  style.fill: "#ffebee"
+  style.font-color: "#b71c1c"
+  style.border-radius: 8
+  style.font-size: 20
+  style.stroke: "#d32f2f"
+  style.stroke-width: 3
+  style.bold: true
+}
+ns_perception: "/perception" {
+  style.fill: "#e3f2fd"
+  style.font-color: "#0d47a1"
+  style.border-radius: 8
+  style.font-size: 20
+  style.stroke: "#1976d2"
+  style.stroke-width: 3
+  style.bold: true
+}
+ns_planning: "/planning" {
+  style.fill: "#fff3e0"
+  style.font-color: "#e65100"
+  style.border-radius: 8
+  style.font-size: 20
+  style.stroke: "#f57c00"
+  style.stroke-width: 3
+  style.bold: true
+}
+ns_understanding: "/understanding" {
+  style.fill: "#e0f2f1"
+  style.font-color: "#004d40"
+  style.border-radius: 8
+  style.font-size: 20
+  style.stroke: "#00897b"
+  style.stroke-width: 3
+  style.bold: true
+}
+ns_control.ackermann_trajectory_control: "ackermann_trajectory_control" {
+  style.fill: "#43a047"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_localization.lanelet2_map_server: "lanelet2_map_server" {
+  style.fill: "#d32f2f"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_perception.point_cloud_fusion: "point_cloud_fusion" {
+  style.fill: "#1976d2"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_perception.point_cloud_object_detection: "point_cloud_object_detection" {
+  style.fill: "#1976d2"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_planning.lanelet2_route_planning: "lanelet2_route_planning" {
+  style.fill: "#f57c00"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_planning.simple_planner: "simple_planner" {
+  style.fill: "#f57c00"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_planning.trajectory_optimization: "trajectory_optimization" {
+  style.fill: "#f57c00"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_understanding.autoware_multi_object_tracker: "autoware_multi_object_tracker" {
+  style.fill: "#00897b"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_understanding.lanelet2_object_list_prediction: "lanelet2_object_list_prediction" {
+  style.fill: "#00897b"
+  style.font-color: white
+  style.border-radius: 6
+  style.font-size: 14
+  style.stroke-width: 1
+}
+ns_perception.point_cloud_fusion -> ns_perception.point_cloud_object_detection: "/perception/point_cloud_fusion/point_cloud\nsensor_msgs/msg/PointCloud2" {
+  style.stroke: "#1976d2"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_perception.point_cloud_object_detection -> ns_understanding.autoware_multi_object_tracker: "/perception/point_cloud_object_detection/object_list\nperception_msgs/msg/ObjectList" {
+  style.stroke: "#1976d2"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_planning.lanelet2_route_planning -> ns_planning.trajectory_optimization: "/planning/lanelet2_route_planning/route\nroute_planning_msgs/msg/Route" {
+  style.stroke: "#f57c00"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_planning.lanelet2_route_planning -> ns_planning.simple_planner: "/planning/lanelet2_route_planning/route\nroute_planning_msgs/msg/Route" {
+  style.stroke: "#f57c00"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_planning.simple_planner -> ns_planning.trajectory_optimization: "/planning/simple_planner/trajectory\ntrajectory_planning_msgs/msg/Trajectory" {
+  style.stroke: "#f57c00"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_planning.trajectory_optimization -> ns_control.ackermann_trajectory_control: "/planning/trajectory_optimization/trajectory\ntrajectory_planning_msgs/msg/Trajectory" {
+  style.stroke: "#f57c00"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_understanding.autoware_multi_object_tracker -> ns_understanding.lanelet2_object_list_prediction: "/understanding/autoware_multi_object_tracker/object_list\nperception_msgs/msg/ObjectList" {
+  style.stroke: "#00897b"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_understanding.lanelet2_object_list_prediction -> ns_planning.trajectory_optimization: "/understanding/lanelet2_object_list_prediction/object_list\nperception_msgs/msg/ObjectList" {
+  style.stroke: "#00897b"
+  style.stroke-width: 2
+  style.font-size: 12
+}
+ns_understanding.lanelet2_object_list_prediction -> ns_planning.simple_planner: "/understanding/lanelet2_object_list_prediction/object_list\nperception_msgs/msg/ObjectList" {
+  style.stroke: "#00897b"
+  style.stroke-width: 2
+  style.font-size: 12
+}
