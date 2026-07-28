@@ -108,12 +108,6 @@ services:
       service: trajectory-optimization
     volumes:
       - ./trajectory_optimization/params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
-
-  # control
-  control.ackermann-trajectory-control:
-    extends:
-      file: ../control/ackermann_trajectory_control/docker-compose.yml
-      service: ackermann-trajectory-control
   
   # monitoring
   monitoring.monitoring:
@@ -123,7 +117,6 @@ services:
     volumes:
       - ./utils/rviz/conf.rviz:/conf.rviz
       - ./utils/mesh:/mesh
-
 
 volumes:
   perception.point-cloud-object-detection-model:
