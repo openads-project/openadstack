@@ -1,0 +1,17 @@
+# Remote compose file with overrides defined here can be rendered by
+# `../../utils/scripts/render_compose_sources.py`
+
+include:
+  - oci://ghcr.io/openads-project/lanelet2_map_server:compose-v1.2.2
+
+services:
+
+  lanelet2-map-server:
+    extends:
+      file: ../../utils/compose/docker-compose.template.yml
+      service: ros2-service
+    environment:
+      # --- name ------
+      NAMESPACE: /localization
+      # --- inputs ----
+      NAV_SAT_FIX_TOPIC: /localization/ego_state_estimation/nav_sat_fix

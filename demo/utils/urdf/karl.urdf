@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+<robot name="karl">
+
+  <!-- BASE LINK =========================================================== -->
+
+  <link name="base_link"> <!-- middle (y) of rear axle (x) on the ground (z) -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file:///mesh/karl.obj" />
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- RADARS ============================================================== -->
+
+  <!-- smartmicro_radar/front_left -->
+  <link name="drivers/smartmicro_radar/front_left"/>
+  <joint name="drivers/smartmicro_radar/front_left" type="fixed">
+    <parent link="base_link" />
+    <child link="drivers/smartmicro_radar/front_left" />
+    <origin xyz="3.54 0.86 0.73" rpy="0.0 0.0 1.57079632679" />
+  </joint>
+
+  <!-- smartmicro_radar/front_right -->
+  <link name="drivers/smartmicro_radar/front_right"/>
+  <joint name="drivers/smartmicro_radar/front_right" type="fixed">
+    <parent link="base_link" />
+    <child link="drivers/smartmicro_radar/front_right" />
+    <origin xyz="3.54 -0.86 0.73" rpy="0.0 0.0 -1.57079632679" />
+  </joint>
+
+  <!-- smartmicro_radar/rear_left -->
+  <link name="drivers/smartmicro_radar/rear_left"/>
+  <joint name="drivers/smartmicro_radar/rear_left" type="fixed">
+    <parent link="base_link" />
+    <child link="drivers/smartmicro_radar/rear_left" />
+    <origin xyz="-1 0.83 0.86" rpy="0.0 0.0 2.5" />
+  </joint>
+
+  <!-- smartmicro_radar/rear_left -->
+  <link name="drivers/smartmicro_radar/rear_right"/>
+  <joint name="drivers/smartmicro_radar/rear_right" type="fixed">
+    <parent link="base_link" />
+    <child link="drivers/smartmicro_radar/rear_right" />
+    <origin xyz="-1 -0.83 0.86" rpy="0.0 0.0 -2.5" />
+  </joint>
+
+  <!-- altos_radar -->
+  <link name="altos_radar"/>
+  <joint name="drivers/altos_radar/center" type="fixed">
+    <parent link="base_link" />
+    <child link="altos_radar" />
+    <origin xyz="3.8 -0.3 0.25" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- RACK ================================================================ -->
+
+  <link name="rack"> <!-- rear (x) right (y) bottom (z) corner of sensor rack -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="file:///mesh/rack.obj" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="base_link_2_rack" type="fixed">
+    <parent link="base_link" />
+    <child link="rack" />
+    <origin xyz="-0.636 -0.695 1.910" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- LIDARS ============================================================== -->
+
+  <!-- aeva_lidar -->
+  <link name="drivers/aeva_lidar/front_left_screw_bottom"/>
+  <link name="aeva/aeries2/sensor"/> <!-- point cloud frame -->
+  <link name="aeva/vehicle"/> <!-- detections frame -->
+  <joint name="rack_2_drivers/aeva_lidar/front_left_screw_bottom" type="fixed">
+    <parent link="rack" />
+    <child link="drivers/aeva_lidar/front_left_screw_bottom" />
+    <origin xyz="2.878100857030257 0.8124954225048489 0.0243293610899449" rpy="-0.0014099288482456636 -0.012522111726213463 0.01780617303842479" />
+  </joint>
+  <joint name="drivers/aeva_lidar/front_left_screw_bottom_2_aeva/aeries2/sensor" type="fixed">
+    <parent link="drivers/aeva_lidar/front_left_screw_bottom" />
+    <child link="aeva/aeries2/sensor" />
+    <!-- <origin xyz="-0.04010 -0.08445 0.06135" rpy="0.0 0.0 0.0" /> from aeva -->
+    <origin xyz="-0.04010 -0.08445 0.06135" rpy="0.0 0.0 -0.06" /> <!-- manual calibration to other lidars -->
+  </joint>
+  <joint name="drivers/aeva_lidar/front_left_screw_bottom_2_aeva_vehicle" type="fixed">
+    <parent link="drivers/aeva_lidar/front_left_screw_bottom" />
+    <child link="aeva/vehicle" />
+    <origin xyz="-0.04010 -0.08445 0.06135" rpy="0.0 0.0 0.0" /> <!-- from aeva -->
+  </joint>
+
+  <!-- ouster_lidar/front_left -->
+  <link name="drivers/ouster_lidar_fl/sensor"/>
+  <link name="drivers/ouster_lidar_fl/lidar"/>
+  <joint name="drivers/ouster_lidar/ouster_lidar_fl/sensor" type="fixed">
+    <parent link="rack" />
+    <child link="drivers/ouster_lidar_fl/sensor" />
+    <origin xyz="2.868657363720639 1.4092181596270053 0.09646722214988167" rpy="0.0003318218631630105 0.3402987413067075 0.7947503206948755" />
+  </joint>
+  <joint name="drivers/ouster_lidar_fl/sensor_2_drivers/ouster_lidar_fl/lidar" type="fixed">
+    <parent link="drivers/ouster_lidar_fl/sensor" />
+    <child link="drivers/ouster_lidar_fl/lidar" />
+    <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 3.141593" /> <!-- from ouster -->
+  </joint>
+
+  <!-- ouster_lidar/front_right -->
+  <link name="drivers/ouster_lidar_fr/sensor"/>
+  <link name="drivers/ouster_lidar_fr/lidar"/>
+  <joint name="drivers/ouster_lidar/ouster_lidar_fr/sensor" type="fixed">
+    <parent link="rack" />
+    <child link="drivers/ouster_lidar_fr/sensor" />
+    <origin xyz="2.89 0.04 0.10"  rpy="0.0 0.349066 -0.785398"/>
+  </joint>
+  <joint name="drivers/ouster_lidar_fr/sensor_2_drivers/ouster_lidar_fr/lidar" type="fixed">
+    <parent link="drivers/ouster_lidar_fr/sensor" />
+    <child link="drivers/ouster_lidar_fr/lidar" />
+    <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 3.141593" /> <!-- from ouster -->
+  </joint>
+
+  <!-- ouster_lidar/rear_left -->
+  <link name="drivers/ouster_lidar_rl/sensor"/>
+  <link name="drivers/ouster_lidar_rl/lidar"/>
+  <joint name="drivers/ouster_lidar/ouster_lidar_rl/sensor" type="fixed">
+    <parent link="rack" />
+    <child link="drivers/ouster_lidar_rl/sensor" />
+    <origin xyz="0.04 1.444 0.10" rpy="0.0 0.349066 2.35619"/>
+  </joint>
+  <joint name="drivers/ouster_lidar_rl/sensor_2_drivers/ouster_lidar_rl/lidar" type="fixed">
+    <parent link="drivers/ouster_lidar_rl/sensor" />
+    <child link="drivers/ouster_lidar_rl/lidar" />
+    <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 3.141593" /> <!-- from ouster -->
+  </joint>
+
+  <!-- ouster_lidar/rear_right -->
+  <link name="drivers/ouster_lidar_rr/sensor"/>
+  <link name="drivers/ouster_lidar_rr/lidar"/>
+  <joint name="drivers/ouster_lidar/ouster_lidar_rr/sensor" type="fixed">
+    <parent link="rack" />
+    <child link="drivers/ouster_lidar_rr/sensor" />
+    <origin xyz="0.04 0.04 0.10" rpy="0.0 0.349066 -2.35619"/>
+  </joint>
+  <joint name="drivers/ouster_lidar_rr/sensor_2_drivers/ouster_lidar_rr/lidar" type="fixed">
+    <parent link="drivers/ouster_lidar_rr/sensor" />
+    <child link="drivers/ouster_lidar_rr/lidar" />
+    <origin xyz="0.0 0.0 0.038" rpy="0.0 0.0 3.141593" /> <!-- from ouster -->
+  </joint>
+
+  <!-- CAMERAS ============================================================= -->
+
+  <!-- zed_camera/front_left -->
+  <link name="front_left_camera_link"/>
+  <joint name="drivers/ouster_lidar_fl/lidar_2_front_left_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fl/lidar" />
+    <child link="front_left_camera_link" />
+    <origin xyz="-0.011343 -0.007279 -0.159530" rpy="-0.002999 -0.245490 -3.138792" />
+  </joint>
+
+  <!-- zed_camera/front_center -->
+  <link name="front_center_camera_link"/>
+  <joint name="drivers/ouster_lidar_fl/lidar_2_front_center_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fl/lidar" />
+    <child link="front_center_camera_link" />
+    <origin xyz="0.384475 0.559731 -0.295977" rpy="0.247557 -0.152446 2.355196" />
+  </joint>
+
+  <!-- zed_camera/front_right -->
+  <link name="front_right_camera_link"/>
+  <joint name="drivers/ouster_lidar_fr/lidar_2_front_right_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fr/lidar" />
+    <child link="front_right_camera_link" />
+    <origin xyz="-0.042832 -0.013720 -0.139901" rpy="-0.004876 -0.255442 -3.117570" />
+  </joint>
+
+  <!-- zed_camera/mid_left -->
+  <link name="mid_left_camera_link"/>
+  <joint name="drivers/ouster_lidar_fl/lidar_2_mid_left_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fl/lidar" />
+    <child link="mid_left_camera_link" />
+    <origin xyz="0.784896 -0.905747 -0.485045" rpy="-0.230374 0.095476 -2.400724" />
+  </joint>
+
+  <!-- zed_camera/mid_right -->
+  <link name="mid_right_camera_link"/>
+  <joint name="drivers/ouster_lidar_fr/lidar_2_mid_right_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fr/lidar" />
+    <child link="mid_right_camera_link" />
+    <origin xyz="0.772863 0.923757 -0.443542" rpy="0.248168 0.107991 2.426933" />
+  </joint>
+
+  <!-- zed_camera/rear_left -->
+  <link name="rear_left_camera_link"/>
+  <joint name="drivers/ouster_lidar_rl/lidar_2_rear_left_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_rl/lidar" />
+    <child link="rear_left_camera_link" />
+    <origin xyz="0.035913 0.005862 -0.168665" rpy="0.000909 0.006798 -3.135595" />
+  </joint>
+
+  <!-- zed_camera/rear_center -->
+  <link name="rear_center_camera_link"/>
+  <joint name="drivers/ouster_lidar_rr/lidar_2_rear_center_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_rr/lidar" />
+    <child link="rear_center_camera_link" />
+    <origin xyz="0.453255 0.589114 -0.214437" rpy="0.245342 -0.239220 2.330763" />
+  </joint>
+
+  <!-- zed_camera/rear_right -->
+  <link name="rear_right_camera_link"/>
+  <joint name="drivers/ouster_lidar_rr/lidar_2_rear_right_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_rr/lidar" />
+    <child link="rear_right_camera_link" />
+    <origin xyz="0.005634 -0.002011 -0.178748" rpy="0.007547 0.008888 3.113021" />
+  </joint>
+
+  <!-- zed_camera/mid_center -->
+  <link name="mid_center_camera_link"/>
+  <joint name="drivers/ouster_lidar_fl/lidar_2_mid_center_camera_link_calibrated" type="fixed">
+    <parent link="drivers/ouster_lidar_fl/lidar" />
+    <child link="mid_center_camera_link" />
+    <origin xyz="0.7036741954158618 0.0762292977368622 -0.34950870775157294" rpy="0.3324833533890233 -0.742867883777794 2.1615008090214745" />
+  </joint>
+
+</robot>

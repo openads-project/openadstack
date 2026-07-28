@@ -1,0 +1,49 @@
+/**:
+  ros__parameters:
+    ### ROS node parameters
+    vehicle_frame_id: base_link     # Frame ID of local vehicle frame (the ocp is defined in this frame)
+    trajectory_frame_id: map  # Frame ID of output trajectory
+    fixed_over_time_frame_id: map   # Frame ID of frame that is fixed over time for finding temporal transforms
+    ego_data_timeout: 1.0           # Time after which a received ego vehicle data is considered invalid [s]. Optimization will not be run if ego data is invalid.
+    optimization_frequency: 10.0    # frequency of the optimization loop [Hz]
+    standstill_threshold: 0.3       # threshold for standstill detection [m/s]. If all state velocities are below this threshold, publish standstill trajectory
+    high_level_stabilization: False # init first trajectory point with: current EgoData (True); interpolation of last trajectory -> bi-level (False)
+    consider_objects: 2             # consider objects in optimization: 0 = no, 1 = static (no prediction), 2 = dynamic (with prediction)
+    min_prediction_probability: 0.0 # consider only predictions with probability > this threshold
+    consider_boundaries: 1          # consider route boundaries in optimization: 0 = no, 1 = suggested lane, 2 = including adjacent, 3 = drivable space
+    verbose: False                  # print debug infromation and solver statistics
+    performance_logging: False      # write one CSV record for each completed solver run
+    debug_visualization: True       # publish debug visualization markers (e.g. obstacle circles)
+    run_as_callback: False          # run OCP once for each received reference trajectory (true) or on a timer (false)
+
+    #### thresholds for bi-level stabilization
+    bi_level_dV: 2.0                # maximum v difference before bi-level stabilization hits [m/s]
+    bi_level_dY: 0.3                # maximum y-offset before bi-level stabilization hits [m]
+    bi_level_dYaw: 89.0             # maximum yaw difference before bi-level stabilization hits [degree]
+
+    ### general parameters defining the ocp
+    model_name: 'karl'              # name of the acados model
+    optimization_horizon: 5.0       # optimization horizon [s] (also used as build parameter in OCP)
+    n_shots: 50                     # number of shooting intervals in optimization horizon (also used as build parameter in OCP)
+
+    #### cost weights
+    cost_weights:
+      - 0.02 # dlat (0)
+      - 0.0  # psi (1)       (considered if RWS model is used)
+      - 0.3  # overspeed (2)
+      - 0.1  # underspeed (3)
+      - 0.15 # a_lat (4)
+      - 0.2  # a_lon_pos (5)
+      - 0.1  # a_lon_neg (6)
+      - 0.2  # j_lat (7)
+      - 0.1  # j_lon_pos (8)
+      - 0.15 # j_lon_neg (9)
+      - 0.1  # alpha (10)
+      - 3.0  # endYaw (11)
+    dynamic_weight: 1.0         # base for exponential weight
+
+    # other cost params
+    thw: 2.0                    # time headway [s]
+    d_min_obstacle_long: 1.0    # minimum distance to keep to obstacles in longitudinal direction [m]
+    d_min_obstacle_lat: 0.1     # minimum distance to keep to obstacles in lateral direction [m]
+    d_min_boundary_lat: -0.5     # minimum distance to keep to boundaries in lateral direction [m]

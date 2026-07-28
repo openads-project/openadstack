@@ -1,0 +1,8 @@
+/**/*:
+  ros__parameters:
+    map_frame_id: map
+    use_automatic_map_selection: false
+    # map_directory: /data/maps/default-maps
+    map_filepath: /data/maps/wdr.osm
+    # origin_lat:
+    # origin_lon:

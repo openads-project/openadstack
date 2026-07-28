@@ -1,0 +1,96 @@
+# Blender 4.5.0 MTL File: 'karl.blend'
+# www.blender.org
+
+newmtl FX_Brakedisk
+Kd 0.7 0.7 0.7
+d 1.000000
+
+newmtl FX_Rim_Metallic
+Kd 0.590361 0.590361 0.590361
+d 1.000000
+
+newmtl FX_Rim_Metallic_Black
+Kd 0.013359 0.013359 0.013359
+d 1.000000
+
+newmtl FX_Tire_Rubber
+Kd 0.010000 0.010000 0.010000
+d 1.000000
+
+newmtl M_Aux_Matteblack_Karl
+Kd 0.024096 0.024096 0.024096
+d 1.000000
+
+newmtl M_Body_Black_Chrome_Karl
+Kd 0.054217 0.054217 0.054217
+d 1.000000
+
+newmtl M_Body_Blue_Karl
+Kd 0.023348 0.099027 0.188882
+d 1.000000
+
+newmtl M_Body_Chrome_Karl
+Kd 0.9 0.9 0.9
+d 1.000000
+
+newmtl M_Body_Plastic_Black_Gloss_Karl
+Kd 0.036722 0.036722 0.036722
+d 1.000000
+
+newmtl M_Body_Plastic_Matte_Midblack_Karl
+Kd 0.026700 0.026700 0.026700
+d 1.000000
+
+newmtl M_Bodywork_Base_Karl
+Kd 1 1 1
+map_Kd karl_pattern_decals.png
+d 1.0
+
+newmtl M_Bodywork_Highlights_Karl
+Kd 1.0 1.0 0.0
+d 1.000000
+
+newmtl M_Bodywork_Lower_Secondary_Karl
+Kd 0.6 0.6 0.6
+d 1.000000
+
+newmtl M_Bodywork_Roof_Karl
+Kd 0.9 0.9 0.9
+d 1.000000
+
+newmtl M_Glass_Ext_Dark_Karl
+Kd 0.100000 0.100000 0.100000
+d 1.000000
+
+newmtl M_Glass_Ext_White_Karl
+Kd 0.200000 0.200000 0.200000
+d 1.000000
+
+newmtl M_Interior_Metal_Glossy_Karl
+Kd 0.403614 0.403614 0.403614
+d 1.000000
+
+newmtl M_Interior_Plastic_DarkGrey_Gloss_Karl
+Kd 0.067780 0.067780 0.067780
+d 1.000000
+
+newmtl M_LightGlass_Ext_Red_Karl
+Kd 0.800000 0.000000 0.000000
+d 1.000000
+
+newmtl M_LightGlass_Ext_White_Karl.001
+Kd 0.600000 0.600000 0.600000
+d 1.000000
+
+newmtl M_Lights_Karl
+d 1.000000
+map_Kd lights.png
+map_Ke lights.png
+
+newmtl M_Metal_White_Karl
+Kd 0.668675 0.668675 0.668675
+d 1.000000
+
+newmtl paint_black
+Kd 0.138216 0.138216 0.138216
+d 1.000000
