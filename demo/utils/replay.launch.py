@@ -9,8 +9,9 @@ from launch.events import Shutdown
 
 ROUTE_ACTION_NAME = "/planning/lanelet2_route_planning/plan_route"
 ROUTE_ACTION_TYPE = "route_planning_msgs/action/PlanRoute"
+EGO_DATA_TOPIC = "/localization/ego_state_estimation/ego_data"
 
-# Route goal sent to the route planner once its action server is available.
+# Route goal sent once per replay cycle after the action server and ego data are available.
 ROUTE_GOAL = (
     "{"
         "destination: {"
@@ -28,6 +29,16 @@ ROUTE_GOAL = (
 
 
 def generate_launch_description():
+    wait_for_route_action = ExecuteProcess(
+        cmd=[
+            "/bin/bash", "-c",
+            "until ros2 action list | grep -Fxq -- \"$1\"; do sleep 1; done",
+            "wait-for-route-action",
+            ROUTE_ACTION_NAME,
+        ],
+        output="screen",
+    )
+
     bag_play = ExecuteProcess(
         cmd=[
             "ros2", "bag", "play",
@@ -38,17 +49,40 @@ def generate_launch_description():
         output="screen",
     )
 
-    send_route_goal = ExecuteProcess(
+    wait_for_ego_data = ExecuteProcess(
         cmd=[
             "/bin/bash", "-c",
-            "until ros2 action list | grep -Fxq -- \"$1\"; do sleep 1; done; "
-            "exec ros2 action send_goal \"$1\" \"$2\" \"$3\" --feedback",
-            "send-route-goal",
+            "until ros2 topic echo \"$1\" --once >/dev/null 2>&1; do sleep 1; done",
+            "wait-for-ego-data",
+            EGO_DATA_TOPIC,
+        ],
+        output="screen",
+    )
+
+    send_route_goal = ExecuteProcess(
+        cmd=[
+            "ros2", "action", "send_goal",
             ROUTE_ACTION_NAME,
             ROUTE_ACTION_TYPE,
             ROUTE_GOAL,
+            "--feedback",
         ],
         output="screen",
+    )
+
+    # Start the ego-data waiter before playback so the first message cannot be missed.
+    start_demo_when_ready = RegisterEventHandler(
+        OnProcessExit(
+            target_action=wait_for_route_action,
+            on_exit=[wait_for_ego_data, bag_play],
+        )
+    )
+
+    send_route_goal_on_first_ego_data = RegisterEventHandler(
+        OnProcessExit(
+            target_action=wait_for_ego_data,
+            on_exit=[send_route_goal],
+        )
     )
 
     # Shut the launch down (and let the container restart) once the bag finishes.
@@ -60,7 +94,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        send_route_goal,
-        bag_play,
         shutdown_on_bag_end,
+        send_route_goal_on_first_ego_data,
+        start_demo_when_ready,
+        wait_for_route_action,
     ])
