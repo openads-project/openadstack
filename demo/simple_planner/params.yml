@@ -2,7 +2,7 @@
   ros__parameters:
 
     #### general parameters
-    trajectory_frame_id: map  # Frame ID of output trajectory
+    trajectory_frame_id: base_link  # Frame ID of output trajectory
     fixed_over_time_frame_id: map   # Frame ID of frame that is fixed over time for finding temporal transforms
     frequency: 10.0
     route_timeout: 1.0              # time after which a received route is considered invalid (s) (use -1 for no timeout)
