@@ -17,7 +17,9 @@ OpenADStack bundles reusable OpenADServices into a Docker Compose based referenc
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
 
 <div align="center">
-  <video controls autoplay width="720" src="https://github.com/user-attachments/assets/af4f9095-960a-43c5-a959-af4afa81243c"></video>
+  <video controls autoplay width="720" style="max-width: 100%;">
+    <source src="https://rwth-aachen.sciebo.de/s/K98EokdTTBCyZA6/download" type="video/mp4" />
+  </video>
   <br>
   <em>Watch the preview above or <a href="https://www.youtube.com/watch?v=B0Lnu-1w9KE">open the full video on YouTube</a>.</em>
 </div>
