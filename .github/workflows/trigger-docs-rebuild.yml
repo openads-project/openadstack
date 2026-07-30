@@ -8,7 +8,8 @@ on:
     branches:
       - '**'
     paths:
-      - '**.md'
+      - 'README.md'
+      - 'docs/**.md'
   workflow_dispatch:
 
 permissions: {}
