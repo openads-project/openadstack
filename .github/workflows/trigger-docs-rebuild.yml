@@ -1,0 +1,66 @@
+name: Trigger docs rebuild
+
+# When Markdown sources change, rebuild the published documentation site by dispatching the sphinx.yml
+# workflow in the downstream openads-project/openads-project.github.io repository. Pushes to main also
+# deploy the result to GitHub Pages; pushes to other branches only build the docs (to validate them).
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'README.md'
+      - 'docs/**.md'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  trigger-docs-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch sphinx.yml in openads-project.github.io
+        env:
+          # PAT/App token with actions read+write on the downstream repo (dispatch the run and wait on it).
+          GH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+          # Deploy only when the change landed on main; other branches trigger a build-only run.
+          DEPLOY: ${{ github.ref == 'refs/heads/main' }}
+          # The branch that triggered this run, so the downstream build checks out the same branch of the
+          # openadstack submodule and builds the docs from exactly these changes.
+          OPENADSTACK_REF: ${{ github.ref_name }}
+          DOWNSTREAM_REPO: openads-project/openads-project.github.io
+          DOWNSTREAM_REF: main
+        run: |
+          set -eo pipefail
+
+          # Note the time just before dispatching so we can identify the run we create - workflow_dispatch
+          # does not return a run id.
+          since="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          gh workflow run sphinx.yml \
+            --repo "${DOWNSTREAM_REPO}" \
+            --ref "${DOWNSTREAM_REF}" \
+            --field deploy="${DEPLOY}" \
+            --field openadstack_ref="${OPENADSTACK_REF}"
+
+          # The run is created asynchronously, so poll for the newest sphinx.yml workflow_dispatch run on the
+          # target ref that started at or after the dispatch time.
+          run_id=""
+          for _ in $(seq 1 12); do
+            sleep 5
+            run_id="$(gh run list --repo "${DOWNSTREAM_REPO}" --workflow sphinx.yml \
+              --event workflow_dispatch --branch "${DOWNSTREAM_REF}" \
+              --json databaseId,createdAt \
+              --jq "[.[] | select(.createdAt >= \"${since}\")] | max_by(.createdAt) | .databaseId // empty")"
+            if [ -n "${run_id}" ]; then
+              break
+            fi
+          done
+
+          if [ -z "${run_id}" ]; then
+            echo "::error::Could not locate the dispatched ${DOWNSTREAM_REPO} run to wait on."
+            exit 1
+          fi
+
+          echo "Waiting on downstream run ${run_id} (${DOWNSTREAM_REPO} @ ${DOWNSTREAM_REF})"
+          # --exit-status makes this step (and the job) fail if the downstream run concludes unsuccessfully.
+          gh run watch "${run_id}" --repo "${DOWNSTREAM_REPO}" --exit-status
