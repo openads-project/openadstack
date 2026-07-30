@@ -13,7 +13,7 @@ TEST
 
 OpenADStack bundles reusable OpenADServices into a Docker Compose based reference stack. It supports different deployment compositions, from real-world automated-driving research with the [karl. research vehicle](https://karl.ac/) to lightweight and repeatable simulation tests in [OpenADSim](https://openads-project.github.io/openadsim/openadsim.html).
 
-**🚀 [Quick Start](#-quick-start)** | **📐 [Architecture](#-Barchitecture)** | **📝 [Documentation](#-documentation)** | **🙏 [Acknowledgements](#-acknowledgements)**
+**🚀 [Quick Start](#-quick-start)** | **📐 [Architecture](#-architecture)** | **📝 [Documentation](#-documentation)** | **🙏 [Acknowledgements](#-acknowledgements)**
 
 > [!NOTE]
 > This repository is part of [***OpenADS***](https://github.com/openads-project), the *Open Automated Driving Systems* project. *OpenADS* and its modules have been initiated and are currently being maintained by the [**Institute for Automotive Engineering (ika) at RWTH Aachen University**](https://www.ika.rwth-aachen.de/de/).
