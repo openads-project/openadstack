@@ -27,7 +27,7 @@ jobs:
           # openadstack submodule and builds the docs from exactly these changes.
           OPENADSTACK_REF: ${{ github.ref_name }}
           DOWNSTREAM_REPO: openads-project/openads-project.github.io
-          DOWNSTREAM_REF: downstream-pipeline  # TODO: switch to main
+          DOWNSTREAM_REF: main
         run: |
           set -eo pipefail
 
