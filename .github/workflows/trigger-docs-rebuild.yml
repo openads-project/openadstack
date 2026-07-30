@@ -1,0 +1,33 @@
+name: Trigger docs rebuild
+
+# When Markdown sources change, rebuild the published documentation site by dispatching the sphinx.yml
+# workflow in the downstream openads-project/openads-project.github.io repository. Pushes to main also
+# deploy the result to GitHub Pages; pushes to other branches only build the docs (to validate them).
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - '**.md'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  trigger-docs-rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch sphinx.yml in openads-project.github.io
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_DISPATCH_TOKEN }}
+          # Deploy only when the change landed on main; other branches trigger a build-only run.
+          DEPLOY: ${{ github.ref == 'refs/heads/main' }}
+          # The branch that triggered this run, so the downstream build checks out the same branch of the
+          # openadstack submodule and builds the docs from exactly these changes.
+          OPENADSTACK_REF: ${{ github.ref_name }}
+        run: |
+          gh workflow run sphinx.yml \
+            --repo openads-project/openads-project.github.io \
+            --ref main \
+            --field deploy="${DEPLOY}" \
+            --field openadstack_ref="${OPENADSTACK_REF}"
