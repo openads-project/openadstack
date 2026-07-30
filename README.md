@@ -1,7 +1,5 @@
 # OpenAD**Stack**
 
-TEST
-
 <p align="center">
   <a href="https://github.com/openads-project"><img src="https://img.shields.io/badge/OpenADS-ffff00"/></a>
   <a href="https://www.ros.org"><img src="https://img.shields.io/badge/ROS 2-jazzy-22314e"/></a>
