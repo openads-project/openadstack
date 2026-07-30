@@ -28,6 +28,6 @@ jobs:
         run: |
           gh workflow run sphinx.yml \
             --repo openads-project/openads-project.github.io \
-            --ref main \
+            --ref downstream-pipeline \
             --field deploy="${DEPLOY}" \
             --field openadstack_ref="${OPENADSTACK_REF}"
