@@ -1,7 +1,7 @@
 # OpenAD**Stack**
 
 <p align="center">
-  <a href="https://github.com/openads-project"><img src="https://img.shields.io/badge/OpenADS-ffff00"/></a>
+  <a href="https://openads-project.github.io"><img src="https://img.shields.io/badge/OpenADS-45ccc6"/></a>
   <a href="https://www.ros.org"><img src="https://img.shields.io/badge/ROS 2-jazzy-22314e"/></a>
   <a href="https://github.com/openads-project/openadstack/releases/latest"><img src="https://img.shields.io/github/v/release/openads-project/openadstack"/></a>
   <a href="https://github.com/openads-project/openadstack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/openads-project/openadstack"/></a>
@@ -98,9 +98,9 @@ We hope that OpenADStack can help your research. If this is the case, please cit
 
 <details>
 
-<summary><strong>karl. - A Research Vehicle for Automated and Connected Driving, 2026</strong></summary>
+<summary><strong>karl. – A Research Vehicle for Automated and Connected Driving, 2026</strong></summary>
 
-> *([IEEEXplore](https://ieeexplore.ieee.org/document/10588502), [arXiv](http://arxiv.org/abs/2404.01836), [ResearchGate](https://www.researchgate.net/publication/379484629_CARLOS_An_Open_Modular_and_Scalable_Simulation_Framework_for_the_Development_and_Testing_of_Software_for_C-ITS))*  
+> *([IEEEXplore](https://ieeexplore.ieee.org/document/11625211), [arXiv](https://arxiv.org/abs/2602.08842), [ResearchGate](https://www.researchgate.net/publication/400622171_karl_-_A_Research_Vehicle_for_Automated_and_Connected_Driving))*  
 >
 > Jean-Pierre Busch, Lukas Ostendorf, Guido Linden, Lennart Reiher, Till Beemelmanns, Bastian Lampe, Timo Woopen, Lutz Eckstein
 > [Institute for Automotive Engineering (ika), RWTH Aachen University](https://www.ika.rwth-aachen.de/en/)
