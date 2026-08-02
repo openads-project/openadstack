@@ -1,7 +1,7 @@
 # OpenAD**Stack**
 
 <p align="center">
-  <a href="https://github.com/openads-project"><img src="https://img.shields.io/badge/OpenADS-ffff00"/></a>
+  <a href="https://openads-project.github.io"><img src="https://img.shields.io/badge/OpenADS-45ccc6"/></a>
   <a href="https://www.ros.org"><img src="https://img.shields.io/badge/ROS 2-jazzy-22314e"/></a>
   <a href="https://github.com/openads-project/openadstack/releases/latest"><img src="https://img.shields.io/github/v/release/openads-project/openadstack"/></a>
   <a href="https://github.com/openads-project/openadstack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/openads-project/openadstack"/></a>
