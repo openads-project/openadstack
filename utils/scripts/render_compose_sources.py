@@ -5,6 +5,7 @@ import argparse
 import copy
 import io
 import os
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -217,17 +218,23 @@ def generated_header(source: Path, compose: CommentedMap) -> str:
 
 def oci_source_url(uri: str) -> str:
     """Derive the upstream compose source URL from an OpenADS OCI reference."""
-    reference = uri.removeprefix("oci://")
-    repository, separator, tag = reference.rpartition(":")
-    if not separator or "/" not in repository or not tag.startswith("compose-"):
+    match = re.fullmatch(
+        r"oci://ghcr\.io/(?P<owner>[^/:@]+)/(?P<repository>[^/:@]+)(?P<suffix>.*)",
+        uri,
+    )
+    if not match:
         raise ValueError(f"unsupported compose OCI reference: {uri}")
-    registry, github_repository = repository.split("/", 1)
-    if registry != "ghcr.io":
-        raise ValueError(f"cannot derive GitHub source URL from OCI registry: {uri}")
-    version = tag.removeprefix("compose-")
+
+    versions = re.findall(
+        r"(?<![0-9A-Za-z])v\d+\.\d+\.\d+(?![0-9A-Za-z.])", match["suffix"]
+    )
+    if len(versions) != 1:
+        raise ValueError(f"cannot derive exactly one version from OCI reference: {uri}")
+
+    github_repository = f"{match['owner']}/{match['repository']}"
     return (
-        f"https://github.com/{github_repository}/blob/{version}"
-        "/docker/compose/docker-compose.yml"
+        f"https://github.com/{github_repository}/blob/{versions[0]}"
+        "/deployment/compose/docker-compose.yml"
     )
 
 
