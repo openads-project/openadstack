@@ -49,12 +49,13 @@ def oci_compose(client: OrasClient, uri: str) -> CommentedMap:
 
 
 def pull_oci(client: OrasClient, reference: str, outdir: str) -> list[str]:
+    credentials_loaded = load_docker_credentials(client, reference)
     try:
         return client.pull(reference, outdir=outdir)
     except ValueError as error:
-        if "unauthorized" not in str(error).lower() or not load_docker_credentials(
-            client, reference
-        ):
+        if "unauthorized" not in str(error).lower() or credentials_loaded:
+            raise
+        if not load_docker_credentials(client, reference):
             raise
     return client.pull(reference, outdir=outdir)
 
@@ -63,7 +64,8 @@ def load_docker_credentials(client: OrasClient, reference: str) -> bool:
     registry = Container(reference).registry
     config = oras_auth_utils.load_configs()
     helper = config.get("credHelpers", {}).get(registry) or config.get("credsStore")
-    if not helper:
+    registry_config = config.get("auths", {}).get(registry)
+    if not helper or registry_config is None:
         return False
 
     binary = f"docker-credential-{helper}"
