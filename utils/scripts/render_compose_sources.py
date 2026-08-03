@@ -113,6 +113,7 @@ def render_compose(source: Path, client: OrasClient) -> str:
     for include in includes:
         if is_oci(include):
             rendered = merge(rendered, oci_compose(client, include))
+    apply_service_prefixes(rendered, local)
     local = copy.copy(local)
     local.pop("include", None)
     local.ca.items.pop("include", None)
@@ -122,6 +123,32 @@ def render_compose(source: Path, client: OrasClient) -> str:
     buffer.write(header)
     YAML_RT.dump(rendered, buffer)
     return buffer.getvalue()
+
+
+def apply_service_prefixes(rendered: CommentedMap, local: CommentedMap) -> None:
+    rendered_services = rendered.get("services")
+    local_services = local.get("services")
+    if not isinstance(rendered_services, CommentedMap) or not isinstance(
+        local_services, CommentedMap
+    ):
+        return
+
+    for local_name in local_services:
+        prefix, separator, source_name = local_name.rpartition(".")
+        if (
+            not prefix
+            or not separator
+            or local_name in rendered_services
+            or source_name not in rendered_services
+        ):
+            continue
+
+        index = list(rendered_services).index(source_name)
+        comments = rendered_services.ca.items.pop(source_name, None)
+        service = rendered_services.pop(source_name)
+        rendered_services.insert(index, local_name, service)
+        if comments is not None:
+            rendered_services.ca.items[local_name] = comments
 
 
 def include_list(value: Any) -> list[Any]:
