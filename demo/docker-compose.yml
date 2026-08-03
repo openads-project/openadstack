@@ -6,7 +6,7 @@ services:
   # essentials
   zenoh-router:
     extends:
-      file: ../essentials/zenoh-router/docker-compose.yml
+      file: ../utils/compose/docker-compose.template.yml
       service: zenoh-router
 
   # localization
@@ -44,8 +44,11 @@ services:
     depends_on:
       - perception.point-cloud-object-detection-model-provisioning
     extends:
-      file: ../essentials/triton-server/docker-compose.yml
+      file: ../utils/compose/docker-compose.template.yml
       service: triton-server
+    ipc: "service:zenoh-router"
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
     volumes:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 

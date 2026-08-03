@@ -159,6 +159,23 @@ services:
 
   # === OTHER SERVICES =========================================================
 
+  triton-server:
+    extends: gpu-service
+    image: nvcr.io/nvidia/tritonserver:26.01-py3
+    command: >
+      tritonserver
+      --model-repository=/models
+      --grpc-port=8001
+      --http-port=8000
+      --metrics-port=8002
+      --log-verbose=0
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/127.0.0.1/8001"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 120s
+
   zenoh-router:
     image: eclipse/zenoh:1.8.0
     restart: ${RESTART_POLICY:-no}
