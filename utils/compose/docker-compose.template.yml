@@ -161,12 +161,14 @@ services:
 
   triton-server:
     extends: gpu-service
-    image: nvcr.io/nvidia/tritonserver:26.01-py3
+    image: nvcr.io/nvidia/tritonserver:26.05-py3
+    ipc: "service:zenoh-router"
     environment:
       - CUDA_VISIBLE_DEVICES=0
     command: >
       tritonserver
       --model-repository=/models
+      --allow-client-shm=true
       --grpc-port=8001
       --http-port=8000
       --metrics-port=8002
