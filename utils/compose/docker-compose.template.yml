@@ -196,7 +196,7 @@ services:
         ;transport/shared_memory/transport_optimization/pool_size=100663296
     command: ros2 run rmw_zenoh_cpp rmw_zenohd
     healthcheck:
-      test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/127.0.0.1/7447"]
       interval: 1s
       timeout: 1s
       retries: 5
