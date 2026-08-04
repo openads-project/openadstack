@@ -84,9 +84,13 @@ services:
     environment:
       RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=warn
+      # https://github.com/ros2/rmw_zenoh/blob/jazzy/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
+      ZENOH_CONFIG_OVERRIDE: >-
+        mode="client"
+        ;connect/endpoints=["tcp/zenoh-router:7447"]
+        ;transport/shared_memory/enabled=true
+        ;transport/shared_memory/transport_optimization/pool_size=100663296
       ZENOH_ROUTER_CHECK_ATTEMPS: 0
-    volumes:
-      - ./config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5:/opt/ros/jazzy/share/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
       memlock:
@@ -186,9 +190,10 @@ services:
     environment:
       RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=info,zenoh_transport=debug
-      ZENOH_ROUTER_CONFIG_URI: /DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
-    volumes:
-      - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
+      # https://github.com/ros2/rmw_zenoh/blob/jazzy/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
+      ZENOH_CONFIG_OVERRIDE: >-
+        transport/shared_memory/enabled=true
+        ;transport/shared_memory/transport_optimization/pool_size=100663296
     command: ros2 run rmw_zenoh_cpp rmw_zenohd
     healthcheck:
       test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
