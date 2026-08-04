@@ -6,7 +6,7 @@
 
 services:
 
-  autoware-multi-object-tracker:
+  understanding.autoware-multi-object-tracker:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service

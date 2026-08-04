@@ -6,7 +6,7 @@
 
 services:
 
-  lanelet2-map-server:
+  localization.lanelet2-map-server:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
