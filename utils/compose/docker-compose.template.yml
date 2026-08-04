@@ -181,13 +181,15 @@ services:
       start_period: 120s
 
   zenoh-router:
-    image: eclipse/zenoh:1.8.0
+    image: rwthika/ros2:jazzy-ros-base-alternative-rmw
     restart: ${RESTART_POLICY:-no}
     environment:
+      RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=info,zenoh_transport=debug
       ZENOH_ROUTER_CONFIG_URI: /DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
     volumes:
       - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
+    command: ros2 run rmw_zenoh_cpp rmw_zenohd
     healthcheck:
       test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
       interval: 1s
