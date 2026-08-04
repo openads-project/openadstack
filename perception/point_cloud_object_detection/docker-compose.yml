@@ -6,7 +6,7 @@
 
 services:
 
-  point-cloud-object-detection:
+  perception.point-cloud-object-detection:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-service

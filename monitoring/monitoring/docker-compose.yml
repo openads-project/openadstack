@@ -6,7 +6,7 @@
 
 services:
 
-  monitoring:
+  monitoring.monitoring:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-x11-service

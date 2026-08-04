@@ -115,11 +115,11 @@ def render_compose(source: Path, client: OrasClient) -> str:
     for include in includes:
         if is_oci(include):
             rendered = merge(rendered, oci_compose(client, include))
-    apply_service_prefixes(rendered, local)
     local = copy.copy(local)
     local.pop("include", None)
     local.ca.items.pop("include", None)
     rendered = merge(rendered, local)
+    apply_service_names(rendered)
     order_service_keys(rendered)
     buffer = io.StringIO()
     buffer.write(header)
@@ -127,30 +127,48 @@ def render_compose(source: Path, client: OrasClient) -> str:
     return buffer.getvalue()
 
 
-def apply_service_prefixes(rendered: CommentedMap, local: CommentedMap) -> None:
-    rendered_services = rendered.get("services")
-    local_services = local.get("services")
-    if not isinstance(rendered_services, CommentedMap) or not isinstance(
-        local_services, CommentedMap
-    ):
+def apply_service_names(compose: CommentedMap) -> None:
+    services = compose.get("services")
+    if not isinstance(services, CommentedMap):
         return
 
-    for local_name in local_services:
-        prefix, separator, source_name = local_name.rpartition(".")
-        if (
-            not prefix
-            or not separator
-            or local_name in rendered_services
-            or source_name not in rendered_services
-        ):
-            continue
+    names = {
+        source_name: service_name(service) or source_name
+        for source_name, service in services.items()
+    }
+    duplicates = sorted(
+        name for name in set(names.values()) if list(names.values()).count(name) > 1
+    )
+    if duplicates:
+        raise ValueError(
+            "generated duplicate compose service name(s): " + ", ".join(duplicates)
+        )
 
-        index = list(rendered_services).index(source_name)
-        comments = rendered_services.ca.items.pop(source_name, None)
-        service = rendered_services.pop(source_name)
-        rendered_services.insert(index, local_name, service)
-        if comments is not None:
-            rendered_services.ca.items[local_name] = comments
+    entries = list(services.items())
+    comments = dict(services.ca.items)
+    services.clear()
+    services.ca.items.clear()
+    for source_name, service in entries:
+        final_name = names[source_name]
+        services[final_name] = service
+        if source_name in comments:
+            services.ca.items[final_name] = comments[source_name]
+
+
+def service_name(service: Any) -> str | None:
+    if not isinstance(service, CommentedMap):
+        return None
+    environment = service.get("environment")
+    if not isinstance(environment, CommentedMap):
+        return None
+
+    namespace = environment.get("NAMESPACE")
+    name = environment.get("NAME")
+    if not isinstance(namespace, str) or not isinstance(name, str) or not name:
+        return None
+
+    parts = [namespace.strip("/"), name]
+    return ".".join(part for part in parts if part).replace("_", "-").replace("/", ".")
 
 
 def include_list(value: Any) -> list[Any]:
