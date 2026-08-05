@@ -46,7 +46,6 @@ services:
     extends:
       file: ../utils/compose/docker-compose.template.yml
       service: triton-server
-    ipc: "service:zenoh-router"
     volumes:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 

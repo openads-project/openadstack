@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Render `.docker-compose.oci-overrides.yml` files next to their generated compose files."""
+"""Render offline-ready Compose files by resolving OCI includes.
+
+For each `.docker-compose.oci-overrides.yml`, merge OCI sources with local
+overrides, derive service names from `NAMESPACE` and `NAME`, preserve replaced
+values as comments, normalize service key order, and write an adjacent
+`docker-compose.yml` with source provenance.
+"""
 
 import argparse
 import copy
