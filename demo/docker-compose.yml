@@ -17,10 +17,10 @@ services:
       service: triton-server
     volumes:
       - type: image
-        source: ghcr.io/openads-project/point_cloud_object_detection/model:v3.0.0
+        source: ghcr.io/openads-project/point_cloud_object_detection-model:v1.0.0
         image:
-          subpath: model
-        target: /models/point-cloud-object-detection
+          subpath: models
+        target: /models
         read_only: true
 
   # localization
@@ -51,10 +51,10 @@ services:
     volumes:
       - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
       - type: image
-        source: ghcr.io/openads-project/point_cloud_object_detection/model:v3.0.0
+        source: ghcr.io/openads-project/point_cloud_object_detection-model:v1.0.0
         image:
-          subpath: model
-        target: /models/point-cloud-object-detection
+          subpath: models
+        target: /models
         read_only: true
 
   # understanding
