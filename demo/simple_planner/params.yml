@@ -2,6 +2,7 @@
   ros__parameters:
 
     #### general parameters
+    vehicle_frame_id: base_link     # Frame ID of local vehicle frame (trajectory is planned in this frame)
     trajectory_frame_id: base_link  # Frame ID of output trajectory
     fixed_over_time_frame_id: map   # Frame ID of frame that is fixed over time for finding temporal transforms
     frequency: 10.0
@@ -9,13 +10,21 @@
     ego_data_timeout: 1.0           # time after which a received ego vehicle data is considered invalid (s) (use -1 for no timeout)
 
     #### trajectory generation parameters
-    trajectory_horizon: 8.0        # covered time horizon of the published trajectory (s)
+    trajectory_horizon: 8.0         # covered time horizon of the published trajectory (s)
     n_states: 51                    # number of states in published trajectory
     interpolation_type: 1           # 0: linear, 1: cubic spline
     v_ref: -1.0                     # reference velocity (m/s). Set to '-1.0' to use velocity from route.
     a_decel: -0.5                   # desired deceleration for braking at stop lines or end of route (m/s^2) - must be < 0.0
     a_max_decel: -1.0               # maximum deceleration for safe-stop trajectories (m/s^2) - must be < 0.0 and <= a_decel
     trigger_turn_signals: False     # true: planner will request turn signal services; false: planner will not trigger turn signals
+
+    #### grid map parameters
+    consider_grid_map: False                # true: planner will consider grid map; false: planner will ignore grid map
+    grid_map_timeout: 1.0                   # time after which a received grid map is considered invalid (s) (use -1 for no timeout)
+    grid_occupied_threshold: 15             # minimum occupancy value that is considered blocked in the grid map
+    consider_out_of_grid: False             # true: points outside the grid map are treated as occupied; false: free
+    grid_longitudinal_safety_distance: 1.5  # longitudinal ego-box margin; negative values shrink the box (m)
+    grid_lateral_safety_distance: 0.0       # lateral ego-box margin; negative values shrink the box (m)
 
     #### traffic light parameters
     consider_traffic_lights: False  # true: planner will consider traffic lights; false: planner will ignore traffic lights
@@ -27,8 +36,8 @@
     consider_objects: True          # true: planner will consider perceived objects on the route; false: planner will ignore objects
     object_timeout: 1.0             # time after which a received object list is considered invalid (s) (use -1 for no timeout)
     min_prediction_prob: 0.0        # minimum probability for considering an object prediction branch; otherwise the most likely one is used
-    object_longitudinal_safety_distance: 1.5  # longitudinal clearance around ego/object boxes for conflict detection (m)
-    object_lateral_safety_distance: 0.0  # lateral clearance around ego/object boxes for conflict detection (m)
+    object_longitudinal_safety_distance: 1.5  # longitudinal ego-box margin; negative values shrink the box (m)
+    object_lateral_safety_distance: 0.0  # lateral ego-box margin; negative values shrink the box (m)
     object_interaction_time_window: 0.5  # maximum time offset for counting a spatial overlap as interaction (s)
     object_velocity_reduction_step: 0.1  # velocity decrement per object-avoidance iteration (m/s)
     object_velocity_release_step: 0.5  # maximum velocity increase per cycle after hysteresis cleared object conflicts (m/s)
@@ -60,6 +69,11 @@
           max_frequency: 22.22 # 45ms
           min_acceptable_timestamp_delta: 0.0
           max_acceptable_timestamp_delta: 0.005
+        grid_map:
+          min_frequency: 9.09 # 110ms
+          max_frequency: 11.11 # 90ms
+          min_acceptable_timestamp_delta: 0.0
+          max_acceptable_timestamp_delta: 0.01
       diagnosed_publishers:
         trajectory:
           min_frequency: 9.09 # 110ms
