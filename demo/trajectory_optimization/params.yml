@@ -2,7 +2,7 @@
   ros__parameters:
     ### ROS node parameters
     vehicle_frame_id: base_link     # Frame ID of local vehicle frame (the ocp is defined in this frame)
-    trajectory_frame_id: map  # Frame ID of output trajectory
+    trajectory_frame_id: map        # Frame ID of output trajectory
     fixed_over_time_frame_id: map   # Frame ID of frame that is fixed over time for finding temporal transforms
     ego_data_timeout: 1.0           # Time after which a received ego vehicle data is considered invalid [s]. Optimization will not be run if ego data is invalid.
     optimization_frequency: 10.0    # frequency of the optimization loop [Hz]

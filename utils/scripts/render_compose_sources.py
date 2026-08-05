@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
-"""Render `.docker-compose.oci-overrides.yml` files next to their generated compose files."""
+"""Render offline-ready Compose files by resolving OCI includes.
+
+For each `.docker-compose.oci-overrides.yml`, merge OCI sources with local
+overrides, derive service names from `NAMESPACE` and `NAME`, preserve replaced
+values as comments, normalize service key order, and write an adjacent
+`docker-compose.yml` with source provenance.
+"""
 
 import argparse
 import copy
 import io
+import json
 import os
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
 
+from oras.auth import utils as oras_auth_utils
 from oras.client import OrasClient
+from oras.container import Container
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap, CommentedSeq
 
@@ -37,11 +47,62 @@ YAML_RT.indent(mapping=2, sequence=4, offset=2)
 
 def oci_compose(client: OrasClient, uri: str) -> CommentedMap:
     with tempfile.TemporaryDirectory() as outdir:
-        for path in client.pull(uri.removeprefix("oci://"), outdir=outdir):
+        for path in pull_oci(client, uri.removeprefix("oci://"), outdir):
             document = load_yaml(Path(path))
             if any(key in document for key in ("services", "include", "networks", "volumes")):
                 return document
     raise RuntimeError(f"no compose YAML layer found in {uri}")
+
+
+def pull_oci(client: OrasClient, reference: str, outdir: str) -> list[str]:
+    credentials_loaded = load_docker_credentials(client, reference)
+    try:
+        return client.pull(reference, outdir=outdir)
+    except ValueError as error:
+        if "unauthorized" not in str(error).lower() or credentials_loaded:
+            raise
+        if not load_docker_credentials(client, reference):
+            raise
+    return client.pull(reference, outdir=outdir)
+
+
+def load_docker_credentials(client: OrasClient, reference: str) -> bool:
+    registry = Container(reference).registry
+    config = oras_auth_utils.load_configs()
+    helper = config.get("credHelpers", {}).get(registry) or config.get("credsStore")
+    registry_config = config.get("auths", {}).get(registry)
+    if not helper or registry_config is None:
+        return False
+
+    binary = f"docker-credential-{helper}"
+    try:
+        process = subprocess.run(
+            [binary, "get"],
+            input=f"{registry}\n",
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+        )
+        credentials = json.loads(process.stdout)
+        username = credentials["Username"]
+        secret = credentials["Secret"]
+        if not username or not secret:
+            raise ValueError("credential helper returned empty credentials")
+    except (
+        FileNotFoundError,
+        subprocess.CalledProcessError,
+        json.JSONDecodeError,
+        KeyError,
+        ValueError,
+    ) as error:
+        raise RuntimeError(
+            f"failed to load Docker credentials for {registry} using {binary}"
+        ) from error
+
+    client.auth.set_token_auth(None)
+    client.auth.set_basic_auth(username, secret)
+    return True
 
 
 def load_yaml(source: str | Path) -> CommentedMap:
@@ -64,11 +125,56 @@ def render_compose(source: Path, client: OrasClient) -> str:
     local.pop("include", None)
     local.ca.items.pop("include", None)
     rendered = merge(rendered, local)
+    apply_service_names(rendered)
     order_service_keys(rendered)
     buffer = io.StringIO()
     buffer.write(header)
     YAML_RT.dump(rendered, buffer)
     return buffer.getvalue()
+
+
+def apply_service_names(compose: CommentedMap) -> None:
+    services = compose.get("services")
+    if not isinstance(services, CommentedMap):
+        return
+
+    names = {
+        source_name: service_name(service) or source_name
+        for source_name, service in services.items()
+    }
+    duplicates = sorted(
+        name for name in set(names.values()) if list(names.values()).count(name) > 1
+    )
+    if duplicates:
+        raise ValueError(
+            "generated duplicate compose service name(s): " + ", ".join(duplicates)
+        )
+
+    entries = list(services.items())
+    comments = dict(services.ca.items)
+    services.clear()
+    services.ca.items.clear()
+    for source_name, service in entries:
+        final_name = names[source_name]
+        services[final_name] = service
+        if source_name in comments:
+            services.ca.items[final_name] = comments[source_name]
+
+
+def service_name(service: Any) -> str | None:
+    if not isinstance(service, CommentedMap):
+        return None
+    environment = service.get("environment")
+    if not isinstance(environment, CommentedMap):
+        return None
+
+    namespace = environment.get("NAMESPACE")
+    name = environment.get("NAME")
+    if not isinstance(namespace, str) or not isinstance(name, str) or not name:
+        return None
+
+    parts = [namespace.strip("/"), name]
+    return ".".join(part for part in parts if part).replace("_", "-").replace("/", ".")
 
 
 def include_list(value: Any) -> list[Any]:
@@ -217,18 +323,39 @@ def generated_header(source: Path, compose: CommentedMap) -> str:
 
 def oci_source_url(uri: str) -> str:
     """Derive the upstream compose source URL from an OpenADS OCI reference."""
-    reference = uri.removeprefix("oci://")
-    repository, separator, tag = reference.rpartition(":")
-    if not separator or "/" not in repository or not tag.startswith("compose-"):
+    if not uri.startswith("oci://"):
         raise ValueError(f"unsupported compose OCI reference: {uri}")
-    registry, github_repository = repository.split("/", 1)
-    if registry != "ghcr.io":
-        raise ValueError(f"cannot derive GitHub source URL from OCI registry: {uri}")
-    version = tag.removeprefix("compose-")
-    return (
-        f"https://github.com/{github_repository}/blob/{version}"
-        "/docker/compose/docker-compose.yml"
-    )
+
+    repository, separator, ref = uri.removeprefix("oci://").rpartition(":")
+    if not separator or not ref:
+        raise ValueError(f"unsupported compose OCI reference: {uri}")
+
+    if repository.endswith("/compose"):
+        repository = repository.removesuffix("/compose")
+    elif repository.startswith("ghcr.io/") and ref.startswith("compose-"):
+        # Backwards-compatible support for `<repository>:compose-<ref>`.
+        ref = ref.removeprefix("compose-")
+    else:
+        raise ValueError(f"unsupported compose OCI reference: {uri}")
+
+    registry, separator, project = repository.partition("/")
+    if not separator or not project or not ref:
+        raise ValueError(f"unsupported compose OCI reference: {uri}")
+
+    if registry == "ghcr.io" and project.count("/") == 1:
+        return (
+            f"https://github.com/{project}/blob/{ref}"
+            "/deployment/compose/docker-compose.yml"
+        )
+
+    if registry == "gitlab.ika.rwth-aachen.de:5050":
+        return (
+            f"https://gitlab.ika.rwth-aachen.de/{project}"
+            f"/-/blob/{ref}"
+            "/deployment/compose/docker-compose.yml"
+        )
+
+    raise ValueError(f"unsupported compose OCI reference: {uri}")
 
 
 def relative_path(path: Path) -> str:

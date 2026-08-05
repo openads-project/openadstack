@@ -19,9 +19,10 @@ The definitions in `docker-compose.template.yml` centralize shared lifecycle, mi
 | `ros2-nvidia-soc-service` | `ros2-service` | Adds NVIDIA SoC runtime access to the `ros2-service` template. |
 | `ros2-gpu-x11-service` | `ros2-gpu-service` | Combines ROS 2, discrete NVIDIA GPU, and X11 access. |
 | `ros2-nvidia-soc-x11-service` | `ros2-nvidia-soc-service` | Combines ROS 2, NVIDIA SoC, and X11 access. |
-| `zenoh-router` | `base-service` | Defines the shared Zenoh router used by Compose services running with the Zenoh RMW. |
+| `triton-server` | `gpu-service` | Defines a Triton Inference Server shared by Compose services that require GPU inference. |
+| `zenoh-router` | `-` | Defines the shared Zenoh router used by Compose services running with the Zenoh RMW. |
 
-`ros2-service` selects `zenoh`, `fastrtps`, or `cyclone` through `RMW`. The selected implementation must already be installed in the OpenADService container image. `zenoh-router` is a concrete infrastructure Compose service rather than a base template.
+`ros2-service` selects `zenoh`, `fastrtps`, or `cyclone` through `RMW`. The selected implementation must already be installed in the OpenADService container image. `triton-server` and `zenoh-router` are concrete infrastructure Compose services rather than base templates.
 
 ```mermaid
 flowchart BT

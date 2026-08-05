@@ -2,7 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  - oci://ghcr.io/openads-project/lanelet2_object_list_prediction:compose-v1.0.1
+  - oci://ghcr.io/openads-project/lanelet2_object_list_prediction/compose:v1.0.2
 
 services:
 
