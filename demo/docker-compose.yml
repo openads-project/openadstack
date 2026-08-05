@@ -12,13 +12,16 @@ services:
   triton-server:
     profiles:
       - demo-extended
-    depends_on:
-      - perception.point-cloud-object-detection-model-provisioning
     extends:
       file: ../utils/compose/docker-compose.template.yml
       service: triton-server
     volumes:
-      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
+      - type: image
+        source: ghcr.io/openads-project/point_cloud_object_detection/model:v1.0.0
+        image:
+          subpath: models
+        target: /models
+        read_only: true
 
   # localization
   localization.lanelet2-map-server:
@@ -47,15 +50,12 @@ services:
       service: perception.point-cloud-object-detection
     volumes:
       - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
-      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
-
-  perception.point-cloud-object-detection-model-provisioning:
-    profiles:
-      - demo-extended
-    image: ghcr.io/openads-project/point_cloud_object_detection/model:v3.0.0
-    command: sleep infinity
-    volumes:
-      - perception.point-cloud-object-detection-model:/model
+      - type: image
+        source: ghcr.io/openads-project/point_cloud_object_detection/model:v1.0.0
+        image:
+          subpath: models
+        target: /models
+        read_only: true
 
   # understanding
   understanding.autoware-multi-object-tracker:
@@ -123,6 +123,3 @@ services:
       - ./utils/rviz/reset_rviz_on_clock_jump.py:/opt/demo/reset_rviz_on_clock_jump.py:ro
       - ./utils/rviz/conf.rviz:/conf.rviz
       - ./utils/mesh:/mesh
-
-volumes:
-  perception.point-cloud-object-detection-model:
