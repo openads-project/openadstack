@@ -3,11 +3,22 @@ include:
 
 services:
 
-  # essentials
+  # utils
   zenoh-router:
     extends:
       file: ../utils/compose/docker-compose.template.yml
       service: zenoh-router
+
+  triton-server:
+    profiles:
+      - demo-extended
+    depends_on:
+      - perception.point-cloud-object-detection-model-provisioning
+    extends:
+      file: ../utils/compose/docker-compose.template.yml
+      service: triton-server
+    volumes:
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   # localization
   localization.lanelet2-map-server:
@@ -36,17 +47,6 @@ services:
       service: perception.point-cloud-object-detection
     volumes:
       - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
-      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
-
-  triton-server:
-    profiles:
-      - demo-extended
-    depends_on:
-      - perception.point-cloud-object-detection-model-provisioning
-    extends:
-      file: ../utils/compose/docker-compose.template.yml
-      service: triton-server
-    volumes:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   perception.point-cloud-object-detection-model-provisioning:
