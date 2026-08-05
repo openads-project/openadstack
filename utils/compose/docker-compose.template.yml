@@ -84,9 +84,13 @@ services:
     environment:
       RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=warn
+      # https://github.com/ros2/rmw_zenoh/blob/jazzy/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
+      ZENOH_CONFIG_OVERRIDE: >-
+        mode="client"
+        ;connect/endpoints=["tcp/zenoh-router:7447"]
+        ;transport/shared_memory/enabled=true
+        ;transport/shared_memory/transport_optimization/pool_size=100663296
       ZENOH_ROUTER_CHECK_ATTEMPS: 0
-    volumes:
-      - ./config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5:/opt/ros/jazzy/share/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_SESSION_CONFIG.json5
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
       memlock:
@@ -159,16 +163,40 @@ services:
 
   # === OTHER SERVICES =========================================================
 
+  triton-server:
+    extends: gpu-service
+    image: nvcr.io/nvidia/tritonserver:26.05-py3
+    ipc: "service:zenoh-router"
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    command: >
+      tritonserver
+      --model-repository=/models
+      --allow-client-shm=true
+      --grpc-port=8001
+      --http-port=8000
+      --metrics-port=8002
+      --log-verbose=0
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/127.0.0.1/8001"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+      start_period: 120s
+
   zenoh-router:
-    image: eclipse/zenoh:1.8.0
+    image: rwthika/ros2:jazzy-ros-base-alternative-rmw
     restart: ${RESTART_POLICY:-no}
     environment:
+      RMW_IMPLEMENTATION: rmw_zenoh_cpp
       RUST_LOG: zenoh=info,zenoh_transport=debug
-      ZENOH_ROUTER_CONFIG_URI: /DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
-    volumes:
-      - ./config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5:/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
+      # https://github.com/ros2/rmw_zenoh/blob/jazzy/rmw_zenoh_cpp/config/DEFAULT_RMW_ZENOH_ROUTER_CONFIG.json5
+      ZENOH_CONFIG_OVERRIDE: >-
+        transport/shared_memory/enabled=true
+        ;transport/shared_memory/transport_optimization/pool_size=100663296
+    command: ros2 run rmw_zenoh_cpp rmw_zenohd
     healthcheck:
-      test: ["CMD", "nc", "-z", "-w", "1", "127.0.0.1", "7447"]
+      test: ["CMD", "bash", "-c", "echo > /dev/tcp/127.0.0.1/7447"]
       interval: 1s
       timeout: 1s
       retries: 5

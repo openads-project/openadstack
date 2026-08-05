@@ -3,17 +3,28 @@ include:
 
 services:
 
-  # essentials
+  # utils
   zenoh-router:
     extends:
-      file: ../essentials/zenoh-router/docker-compose.yml
+      file: ../utils/compose/docker-compose.template.yml
       service: zenoh-router
+
+  triton-server:
+    profiles:
+      - demo-extended
+    depends_on:
+      - perception.point-cloud-object-detection-model-provisioning
+    extends:
+      file: ../utils/compose/docker-compose.template.yml
+      service: triton-server
+    volumes:
+      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   # localization
   localization.lanelet2-map-server:
     extends:
       file: ../localization/lanelet2_map_server/docker-compose.yml
-      service: lanelet2-map-server
+      service: localization.lanelet2-map-server
     volumes:
       - ./lanelet2_map_server/params.yml:/docker-ros/ws/install/lanelet2_map_server/share/lanelet2_map_server/config/params.yml
       - ./lanelet2_map_server/maps:/data/maps
@@ -24,7 +35,7 @@ services:
       - demo-extended
     extends:
       file: ../perception/point_cloud_fusion/docker-compose.yml
-      service: point-cloud-fusion
+      service: perception.point-cloud-fusion
     volumes:
       - ./point_cloud_fusion/params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
 
@@ -33,20 +44,9 @@ services:
       - demo-extended
     extends:
       file: ../perception/point_cloud_object_detection/docker-compose.yml
-      service: point-cloud-object-detection
+      service: perception.point-cloud-object-detection
     volumes:
       - ./point_cloud_object_detection/params.yml:/docker-ros/ws/install/point_cloud_object_detection/share/point_cloud_object_detection/config/params.yml
-      - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
-
-  triton-server:
-    profiles:
-      - demo-extended
-    depends_on:
-      - perception.point-cloud-object-detection-model-provisioning
-    extends:
-      file: ../essentials/triton-server/docker-compose.yml
-      service: triton-server
-    volumes:
       - perception.point-cloud-object-detection-model:/models/point-cloud-object-detection:ro
 
   perception.point-cloud-object-detection-model-provisioning:
@@ -61,7 +61,7 @@ services:
   understanding.autoware-multi-object-tracker:
     extends:
       file: ../understanding/autoware_multi_object_tracker/docker-compose.yml
-      service: autoware-multi-object-tracker
+      service: understanding.autoware-multi-object-tracker
     restart: unless-stopped
     healthcheck:
       test: [CMD, /bin/bash, /restart-on-clock-reset.sh]
@@ -75,7 +75,7 @@ services:
   understanding.lanelet2-object-list-prediction:
     extends:
       file: ../understanding/lanelet2_object_list_prediction/docker-compose.yml
-      service: lanelet2-object-list-prediction
+      service: understanding.lanelet2-object-list-prediction
     volumes:
       - ./lanelet2_object_list_prediction/params.yml:/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml
 
@@ -83,22 +83,21 @@ services:
   planning.lanelet2-route-planning:
     extends:
       file: ../planning/lanelet2_route_planning/docker-compose.yml
-      service: lanelet2-route-planning
+      service: planning.lanelet2-route-planning
     volumes:
       - ./lanelet2_route_planning/params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml
 
   planning.simple-planner:
     extends:
       file: ../planning/simple_planner/docker-compose.yml
-      service: simple-planner
+      service: planning.simple-planner
     volumes:
       - ./simple_planner/params.yml:/docker-ros/ws/install/simple_planner/share/simple_planner/config/params.yml
 
   planning.trajectory-optimization:
     extends:
       file: ../planning/trajectory_optimization/docker-compose.yml
-      service: trajectory-optimization
-    image: ghcr.io/openads-project/trajectory_optimization:latest # TODO: update to v1.4.0 once available
+      service: planning.trajectory-optimization
     volumes:
       - ./trajectory_optimization/params.yml:/docker-ros/ws/install/trajectory_optimization/share/trajectory_optimization/config/params.yml
   
@@ -106,7 +105,7 @@ services:
   monitoring.monitoring:
     extends:
       file: ../monitoring/monitoring/docker-compose.yml
-      service: monitoring
+      service: monitoring.monitoring
     environment:
       RVIZ_RESET_SERVICE: /monitoring/monitoring/reset_time
     command:
