@@ -109,6 +109,19 @@ We hope that OpenADStack can help your research. If this is the case, please cit
 
 </details>
 
+<details>
+
+<summary><strong>Learning-Based Behavior Planning for Automated Driving: Real-World Integration and Deployment, 2026</strong></summary>
+
+> *([FAS Workshop](https://arxiv.org/abs/2608.12198), [arXiv](https://arxiv.org/abs/2608.12198), [ResearchGate](https://arxiv.org/abs/2608.12198))*  
+>
+> Jean-Pierre Busch, Guido Linden, Jan Bergmann, Lutz Eckstein
+> [Institute for Automotive Engineering (ika), RWTH Aachen University](https://www.ika.rwth-aachen.de/en/)
+>
+> <sup>*Abstract* – Recent research in machine and deep learning has shown the potential of learningbased motion planning approaches to improve the driving behavior of automated vehicles, especially in complex environments. However, their complex nature and lack of transparency can hinder explainability and trustworthiness and complicate safety assurance. Motivated by these challenges, we propose a hybrid planning architecture that combines the advantages of machine learning with the verifiability and the determinism of classical approaches. Specifically, we developed a deep neural network to interpret complex traffic scenes and propose driving behavior, while an optimization-based supervision layer validates this proposal and enforces explicit drivability and safety constraints. We evaluate the learned planner's driving behavior in open-loop studies on real-world urban data, discuss system integration aspects for stable closed-loop operation, and report results from real-world deployment on our research vehicle karl.. </sup>
+
+</details>
+
 ### Licensing
 
 The source code in this repository is licensed under Apache-2.0, see [LICENSE](https://github.com/openads-project/openadstack/blob/main/LICENSE). Container images provided by this repository may contain third-party software shipped with their own license terms.
