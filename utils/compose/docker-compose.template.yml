@@ -90,7 +90,7 @@ services:
         ;connect/endpoints=["tcp/zenoh-router:7447"]
         ;transport/shared_memory/enabled=true
         ;transport/shared_memory/transport_optimization/pool_size=100663296
-      ZENOH_ROUTER_CHECK_ATTEMPS: 0
+      ZENOH_ROUTER_CHECK_ATTEMPTS: 0
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
       memlock:
