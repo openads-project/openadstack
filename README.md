@@ -79,6 +79,16 @@ The following image shows the so-called *A Model*, a functional reference archit
 
 </div>
 
+The OpenADStack architecture follows a [*Doer/Checker/Fallback* pattern](https://www.the-autonomous.com/wp-content/uploads/2023/12/wg-safetyarchitecture-full-report-a4.pdf), which continually evolves from a rule-based architecture into a hybrid architecture that combines a white-box safety *Checker* with an MLOps-driven end-to-end driving model. For more details, take a look at our proposed [architecture for learning-based behavior planning](https://arxiv.org/abs/2608.12198) and our proposed [MLOps architecture](https://arxiv.org/abs/2605.12719).
+
+![OpenADStack architecture roadmap](./docs/assets/openadstack-architecture.svg)
+
+In the initial release in **Phase I**, OpenADStack consists of lidar-based learned perception and a rule-based planner module, which initially acts as both *Doer* and *Checker*. The planned motion is converted into actuation signals by a model-based controller.
+
+In **Phase II** (until the end of 2026), the architecture is planned to be extended with a learned planning module acting as *Doer* while keeping the rule-based planner as *Checker*. This enables a data-driven MLOps process for continual improvement. In addition, camera- and radar-based perception, remote operations, and minimum-risk maneuvers are planned.
+
+As the collected database grows, **Phase III** (until the end of 2027) plans to replace the learned planner with an end-to-end driving model acting as *Doer*, while keeping the learned perception and rule-based planning path as *Checker*.
+
 ## 📝 Documentation
 
 The documentation contains:
