@@ -37,6 +37,7 @@ OpenADStack is usually part of a larger deployment composition, for example with
 
     ```bash
     cd demo
+    xhost +local:
     docker compose up -d
     ```
 
@@ -44,6 +45,7 @@ OpenADStack is usually part of a larger deployment composition, for example with
 
     ```bash
     cd demo
+    xhost +local:
     export COMPOSE_PROFILES=demo-extended && docker compose up -d
     ```
 
