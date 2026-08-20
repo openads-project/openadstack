@@ -113,7 +113,7 @@ We hope that OpenADStack can help your research. If this is the case, please cit
 
 <summary><strong>Learning-Based Behavior Planning for Automated Driving: Real-World Integration and Deployment, 2026</strong></summary>
 
-> *([FAS Workshop](https://arxiv.org/abs/2608.12198), [arXiv](https://arxiv.org/abs/2608.12198), [ResearchGate](https://arxiv.org/abs/2608.12198))*  
+> *([arXiv](https://arxiv.org/abs/2608.12198), [ResearchGate](https://www.researchgate.net/publication/412211767_Learning-Based_Behavior_Planning_for_Automated_Driving_Real-World_Integration_and_Deployment))*  
 >
 > Jean-Pierre Busch, Guido Linden, Jan Bergmann, Lutz Eckstein
 > [Institute for Automotive Engineering (ika), RWTH Aachen University](https://www.ika.rwth-aachen.de/en/)
