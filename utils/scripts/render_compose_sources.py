@@ -10,18 +10,14 @@ values as comments, normalize service key order, and write an adjacent
 import argparse
 import copy
 import io
-import json
 import os
 import re
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from typing import Any
 
-from oras.auth import utils as oras_auth_utils
 from oras.client import OrasClient
-from oras.container import Container
 from ruamel.yaml import YAML
 from ruamel.yaml.comments import CommentedMap, CommentedSeq
 
@@ -46,64 +42,16 @@ YAML_RT.width = 4096
 YAML_RT.indent(mapping=2, sequence=4, offset=2)
 
 
-def oci_compose(client: OrasClient, uri: str) -> CommentedMap:
+def oci_compose(uri: str) -> CommentedMap:
+    # Use a fresh client per OCI source so repository-scoped authentication state
+    # cannot leak into subsequent pulls. ORAS loads Docker credentials itself.
+    client = OrasClient()
     with tempfile.TemporaryDirectory() as outdir:
-        for path in pull_oci(client, uri.removeprefix("oci://"), outdir):
+        for path in client.pull(uri.removeprefix("oci://"), outdir=outdir):
             document = load_yaml(Path(path))
             if any(key in document for key in ("services", "include", "networks", "volumes")):
                 return document
     raise RuntimeError(f"no compose YAML layer found in {uri}")
-
-
-def pull_oci(client: OrasClient, reference: str, outdir: str) -> list[str]:
-    credentials_loaded = load_docker_credentials(client, reference)
-    try:
-        return client.pull(reference, outdir=outdir)
-    except ValueError as error:
-        if "unauthorized" not in str(error).lower() or credentials_loaded:
-            raise
-        if not load_docker_credentials(client, reference):
-            raise
-    return client.pull(reference, outdir=outdir)
-
-
-def load_docker_credentials(client: OrasClient, reference: str) -> bool:
-    registry = Container(reference).registry
-    config = oras_auth_utils.load_configs()
-    helper = config.get("credHelpers", {}).get(registry) or config.get("credsStore")
-    registry_config = config.get("auths", {}).get(registry)
-    if not helper or registry_config is None:
-        return False
-
-    binary = f"docker-credential-{helper}"
-    try:
-        process = subprocess.run(
-            [binary, "get"],
-            input=f"{registry}\n",
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=True,
-        )
-        credentials = json.loads(process.stdout)
-        username = credentials["Username"]
-        secret = credentials["Secret"]
-        if not username or not secret:
-            raise ValueError("credential helper returned empty credentials")
-    except (
-        FileNotFoundError,
-        subprocess.CalledProcessError,
-        json.JSONDecodeError,
-        KeyError,
-        ValueError,
-    ) as error:
-        raise RuntimeError(
-            f"failed to load Docker credentials for {registry} using {binary}"
-        ) from error
-
-    client.auth.set_token_auth(None)
-    client.auth.set_basic_auth(username, secret)
-    return True
 
 
 def load_yaml(source: str | Path) -> CommentedMap:
@@ -114,14 +62,14 @@ def load_yaml(source: str | Path) -> CommentedMap:
     return document
 
 
-def render_compose(source: Path, client: OrasClient) -> str:
+def render_compose(source: Path) -> str:
     local = load_yaml(source)
     header = generated_header(source, local)
     includes = include_list(local.get("include"))
     rendered = CommentedMap()
     for include in includes:
         if is_oci(include):
-            rendered = merge(rendered, oci_compose(client, include))
+            rendered = merge(rendered, oci_compose(include))
     local = copy.copy(local)
     local.pop("include", None)
     local.ca.items.pop("include", None)
@@ -401,12 +349,11 @@ def remote_files(root_dir: Path) -> list[Path]:
 
 
 def render_files(root_dir: Path, dry_run: bool) -> None:
-    client = OrasClient()
     for source in remote_files(root_dir):
         destination = source.with_name(OUTPUT_NAME)
         print(f"rendering {relative_path(source)} -> {relative_path(destination)}")
         if not dry_run:
-            destination.write_text(render_compose(source, client))
+            destination.write_text(render_compose(source))
 
 
 def parse_args() -> argparse.Namespace:
