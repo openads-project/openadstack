@@ -168,26 +168,10 @@ def merge(base: Any, override: Any, indent: int = 0) -> Any:
                         preserve_following_comment(base, key, following, indent)
             else:
                 base[key] = value
-                # Do not let a service separator move with a reordered field.
-                if indent >= 4:
-                    clear_trailing_blank_comment(value)
                 if key in override.ca.items:
                     base.ca.items[key] = override.ca.items[key]
         return base
     return override
-
-
-def clear_trailing_blank_comment(value: Any) -> None:
-    if not isinstance(value, (CommentedMap, CommentedSeq)) or not value:
-        return
-    key = next(reversed(value)) if isinstance(value, CommentedMap) else len(value) - 1
-    clear_trailing_blank_comment(value[key])
-    tokens = value.ca.items.get(key)
-    if tokens:
-        for index, token in enumerate(tokens):
-            token_value = getattr(token, "value", None)
-            if isinstance(token_value, str) and not token_value.strip():
-                tokens[index] = None
 
 
 def ensure_service_spacing(text: str) -> str:
@@ -195,6 +179,7 @@ def ensure_service_spacing(text: str) -> str:
     if not marker:
         return text
     services, *remainder = re.split(r"(?m)(?=^[^ #\n])", after, maxsplit=1)
+    services = re.sub(r"\n[ \t]*\n(?= {4}\S)", "\n", services)
     services = re.sub(
         r"(?m)(^ {4}.*\n)(?=(?: {2}#.*\n)* {2}[^ #\n].*:\n)",
         r"\1\n",
