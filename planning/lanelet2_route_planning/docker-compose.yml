@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/lanelet2_route_planning:v1.2.0
+    image: ghcr.io/openads-project/lanelet2_route_planning:latest_feature-separate-global-route_ci
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -21,6 +21,7 @@ services:
       EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       # --- outputs ---
       ROUTE_TOPIC: ~/route
+      GLOBAL_ROUTE_TOPIC: ~/global_route
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
@@ -36,6 +37,7 @@ services:
           use_sim_time:=$${USE_SIM_TIME} \
           params:=$${PARAMS} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
-          route_topic:=$${ROUTE_TOPIC}
+          route_topic:=$${ROUTE_TOPIC} \
+          global_route_topic:=$${GLOBAL_ROUTE_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/lanelet2_route_planning/share/lanelet2_route_planning/config/params.yml

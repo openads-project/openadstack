@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/simple_planner:v1.4.0
+    image: ghcr.io/openads-project/simple_planner:latest_feature-separate-global-route_ci
     environment:
       # --- name ------
       # NAMESPACE: /

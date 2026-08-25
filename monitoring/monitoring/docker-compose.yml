@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-x11-service
-    image: ghcr.io/openads-project/monitoring:v1.0.0
+    image: ghcr.io/openads-project/monitoring:latest_feature-separate-global-route_ci
     environment:
       # --- name ------
       # NAMESPACE: /
