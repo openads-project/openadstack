@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/lanelet2_object_list_prediction:v1.0.2
+    image: ghcr.io/openads-project/lanelet2_object_list_prediction:latest_tracing_ci
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -25,6 +25,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       PARAMS: ${PARAMS:-/docker-ros/ws/install/lanelet2_object_list_prediction/share/lanelet2_object_list_prediction/config/params.yml}
+      ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
       - -ic
@@ -35,6 +36,7 @@ services:
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
           params:=$${PARAMS} \
+          ros_tracing:=$${ROS_TRACING} \
           tracked_object_list_topic:=$${TRACKED_OBJECT_LIST_TOPIC} \
           object_list_topic:=$${OBJECT_LIST_TOPIC}
     # volumes:

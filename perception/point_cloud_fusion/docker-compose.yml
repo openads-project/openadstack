@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/point_cloud_fusion:v1.4.0
+    image: ghcr.io/openads-project/point_cloud_fusion:latest_tracing_ci
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -22,7 +22,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       PARAMS: ${PARAMS:-/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml}
-      TRACE: ${TRACE:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
       - -ic
@@ -33,7 +33,7 @@ services:
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
           params:=$${PARAMS} \
-          trace:=$${TRACE} \
+          ros_tracing:=$${ROS_TRACING} \
           point_cloud_topic:=$${POINT_CLOUD_TOPIC}
     # volumes:
     #   - ./params.yml:/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml

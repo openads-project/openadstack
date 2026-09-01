@@ -1,0 +1,11 @@
+services:
+
+  ros2-trace-analysis:
+    extends:
+      file: ../compose/docker-compose.template.yml
+      service: ros2-x11-service
+    image: gitlab.ika.rwth-aachen.de:5050/fb-fi/misc/ros2-tracing-analysis:v1.0.3
+    ipc: ""
+    volumes:
+      - ./trace:/trace
+    network_mode: host
