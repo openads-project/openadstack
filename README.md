@@ -99,6 +99,7 @@ The documentation contains:
 - [Functional Architecture](./docs/functional-architecture.md)
 - [Integration Architecture](./docs/integration-architecture.md)
 - [Deployment Composition](./docs/deployment-composition.md)
+- [System Analysis](./docs/system-analysis.md)
 
 ## 🙏 Acknowledgements
 
