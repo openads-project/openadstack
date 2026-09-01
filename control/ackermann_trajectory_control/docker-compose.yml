@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/ackermann_trajectory_control:v1.5.0
+    image: ghcr.io/openads-project/ackermann_trajectory_control:latest_tracing_ci
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -31,7 +31,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
       PARAMS: ${PARAMS:-/docker-ros/ws/install/ackermann_trajectory_control/share/ackermann_trajectory_control/config/params.yml}
-      TRACE: ${TRACE:-False}
+      ROS_TRACING: ${ROS_TRACING:-False}
     command:
       - /bin/bash
       - -ic
@@ -42,7 +42,7 @@ services:
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
           params:=$${PARAMS} \
-          trace:=$${TRACE} \
+          ros_tracing:=$${ROS_TRACING} \
           ego_data_topic:=$${EGO_DATA_TOPIC} \
           trajectory_topic:=$${TRAJECTORY_TOPIC} \
           lat_control_active_topic:=$${LAT_CONTROL_ACTIVE_TOPIC} \
