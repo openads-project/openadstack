@@ -2,7 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  - oci://ghcr.io/openads-project/simple_planner/compose:v1.4.0
+  - oci://ghcr.io/openads-project/simple_planner/compose:main
 
 services:
 
