@@ -31,7 +31,12 @@ services:
     <<: *demo-service
     command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
     volumes:
-      - ./urdf:/urdf
+      - type: image
+        source: ghcr.io/openads-project/openads-assets:v1.0.0
+        image:
+          subpath: urdf
+        target: /urdf
+        read_only: true
 
   # workaround to avoid aerial map display z-offset
   demo.aerial-map-workaround:
