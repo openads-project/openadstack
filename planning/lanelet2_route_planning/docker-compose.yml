@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/lanelet2_route_planning:v2.0.0
+    image: ghcr.io/openads-project/lanelet2_route_planning:improve-action-client
     environment:
       # --- name ------
       # NAMESPACE: /
