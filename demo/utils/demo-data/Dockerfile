@@ -1,4 +1,4 @@
-FROM ghcr.io/openads-project/monitoring:v1.0.0
+FROM ghcr.io/openads-project/monitoring:v26.9.4
 
 WORKDIR /data
 
