@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-service
-    image: ghcr.io/openads-project/point_cloud_fusion:v1.4.0
+    image: ghcr.io/openads-project/point_cloud_fusion:v1.5.0
     environment:
       # --- name ------
       # NAMESPACE: /
