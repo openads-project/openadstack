@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/thinking-cars/autoware_multi_object_tracker:v1.1.0
+    image: ghcr.io/thinking-cars/autoware_multi_object_tracker:latest_tracing_ci
     environment:
       # --- name ------
       # NAMESPACE: /
@@ -37,6 +37,7 @@ services:
       OUTPUT_MERGED_OBJECTS: ~/merged_object_list
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
+      ROS_TRACING: ${ROS_TRACING:-false}
       # INPUT_DETECTION01_CHANNEL: ${INPUT_DETECTION01_CHANNEL:-none}
       INPUT_DETECTION01_CHANNEL: untracked_objects
       INPUT_DETECTION02_CHANNEL: ${INPUT_DETECTION02_CHANNEL:-none}
@@ -64,6 +65,7 @@ services:
           name:=$${NAME} \
           log_level:=$${LOG_LEVEL} \
           use_sim_time:=$${USE_SIM_TIME} \
+          ros_tracing:=$${ROS_TRACING} \
           input_detection01_channel:=$${INPUT_DETECTION01_CHANNEL} \
           input_detection02_channel:=$${INPUT_DETECTION02_CHANNEL} \
           input_detection03_channel:=$${INPUT_DETECTION03_CHANNEL} \
