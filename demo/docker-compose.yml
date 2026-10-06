@@ -122,4 +122,9 @@ services:
     volumes:
       - ./utils/rviz/reset_rviz_on_clock_jump.py:/opt/demo/reset_rviz_on_clock_jump.py:ro
       - ./utils/rviz/conf.rviz:/conf.rviz
-      - ./utils/mesh:/mesh
+      - type: image
+        source: ghcr.io/openads-project/openads-assets:v1.0.0
+        image:
+          subpath: mesh
+        target: /mesh
+        read_only: true

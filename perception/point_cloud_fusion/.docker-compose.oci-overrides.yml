@@ -9,7 +9,7 @@ services:
   point-cloud-fusion:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
-      service: ros2-service
+      service: ros2-gpu-service
     environment:
       # --- name ------
       NAMESPACE: /perception

@@ -96,8 +96,8 @@ services:
     ipc: service:zenoh-router  # overwrite with `ipc: ""` in extending service when running on machine without zenoh-router
     ulimits:
       memlock:
-        soft: 4294967296
-        hard: 4294967296
+        soft: 17179869184
+        hard: 17179869184
 
   ros2-fastrtps-service:
     extends:
@@ -205,8 +205,8 @@ services:
       timeout: 1s
       retries: 5
     ipc: shareable
-    shm_size: 4gb
+    shm_size: 16gb
     ulimits:
       memlock:
-        soft: 4294967296
-        hard: 4294967296
+        soft: 17179869184
+        hard: 17179869184
