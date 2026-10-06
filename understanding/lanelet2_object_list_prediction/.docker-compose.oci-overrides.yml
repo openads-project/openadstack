@@ -2,7 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  - oci://ghcr.io/openads-project/lanelet2_object_list_prediction/compose:v1.0.2
+  - oci://ghcr.io/openads-project/lanelet2_object_list_prediction/compose:limit-kinematics-and-model-yielding
 
 services:
 
@@ -14,4 +14,5 @@ services:
       # --- name ------
       NAMESPACE: /understanding
       # --- inputs ----
+      EGO_DATA_TOPIC: /localization/ego_state_estimation/ego_data
       TRACKED_OBJECT_LIST_TOPIC: /understanding/autoware_multi_object_tracker/object_list
