@@ -13,8 +13,14 @@ Tracing lets you see how data and decisions flow through the automated driving s
 
 ## How to trace the automated driving stack
 
-1. Set the environment variable `ROS_TRACING="true"` befor running `docker compose up -d` to activate tracing in supported ROS nodes.
-2. Run the stack as usual. Trace data will be buffered but not written to disk.
+1. Enable tracing in supported ROS nodes using the `ROS_TRACING` environment variable before starting the stack.
+
+    ```bash
+    export ROS_TRACING=true
+    docker compose up -d
+    ```
+
+2. Use OpenADStack as usual. Trace data will be buffered but not written to disk.
 3. Execute the script `utils/tracing/tracing.sh start` to start capturing a trace snapshot on disk.
 4. Once finished, stop capturing trace data with `utils/tracing/tracing.sh stop`. This will write captured trace data into timestamped subfolders of this folder per container.
 5. Start the ROS 2 Trace Analysis tools with `docker compose -f utils/tracing/docker-compose.yml up`.
