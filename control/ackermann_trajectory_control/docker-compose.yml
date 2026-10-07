@@ -10,7 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
-    image: ghcr.io/openads-project/ackermann_trajectory_control:latest_tracing_ci
+    image: ghcr.io/openads-project/ackermann_trajectory_control:latest
     environment:
       # --- name ------
       # NAMESPACE: /
