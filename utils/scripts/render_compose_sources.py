@@ -24,7 +24,12 @@ from ruamel.yaml.comments import CommentedMap, CommentedSeq
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 REMOTE_SUFFIX = ".oci-overrides.yml"
 SERVICE_KEY_ORDER = (
+    "profiles",
+    "depends_on",
+    "extends",
+    "restart",
     "healthcheck",
+    "image",
     "environment",
     "command",
     "volumes",
