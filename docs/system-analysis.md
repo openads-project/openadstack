@@ -69,4 +69,4 @@ EXTRA_TRACING_CONTAINERS="my-container-1 my-other-container-1" utils/tracing/tra
 
 ## How to Analyze Trace Data
 
-The analysis container provides [Eclipse Trace Compass](https://eclipse.dev/tracecompass/) and Jupyter Notebooks for evaluating the recorded traces. See [ros2-tracing-analysis](https://gitlab.ika.rwth-aachen.de/fb-fi/misc/ros2-tracing-analysis) for usage details.
+The analysis container provides [Eclipse Trace Compass](https://eclipse.dev/tracecompass/) and Jupyter Notebooks for evaluating the recorded traces. See [ros2-trace-analysis](https://github.com/openads-project/ros2-trace-analysis) for usage details.
