@@ -2,7 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  - oci://ghcr.io/thinking-cars/autoware_multi_object_tracker:compose-v1.1.0
+  - oci://ghcr.io/thinking-cars/autoware_multi_object_tracker/compose:tracing
 
 services:
 
