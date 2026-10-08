@@ -10,6 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-service
+    image: ghcr.io/thinking-cars/autoware_multi_object_tracker:latest_tracing_ci
     environment:
       # --- name ------
       NAMESPACE: /understanding
