@@ -2,7 +2,7 @@
 # `../../utils/scripts/render_compose_sources.py`
 
 include:
-  - oci://ghcr.io/openads-project/monitoring/compose:v26.9.4
+  - oci://ghcr.io/openads-project/monitoring/compose:v26.10.20
 
 services:
 
