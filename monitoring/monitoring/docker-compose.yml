@@ -19,7 +19,7 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      # CONFIG: ${CONFIG:-/docker-ros/ws/install/monitoring/share/monitoring/config/conf.rviz}
+      # CONFIG: /docker-ros/ws/install/monitoring/share/monitoring/config/conf.rviz
       CONFIG: /conf.rviz
     command:
       - /bin/bash
