@@ -32,7 +32,7 @@ The override can then add or replace stack-specific values such as namespaces an
 
 ```yaml
 include:
-  - oci://ghcr.io/openads-project/trajectory_optimization:compose-v1.3.0
+  - oci://ghcr.io/openads-project/trajectory_optimization/compose:v1.5.0
 
 services:
   trajectory-optimization:

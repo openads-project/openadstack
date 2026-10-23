@@ -300,6 +300,22 @@ Visualization Manager:
         Velocity Color: 255; 0; 255
         Velocity scale: 1
       Visualize Z dimension: true
+    - Background Alpha: 0.5
+      Background Color: 20; 20; 20
+      Bottom: 10
+      Class: perception_msgs/EgoDataOverlay
+      Enabled: true
+      Height: 80
+      Left: 10
+      Name: Ego Overlay
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /localization/ego_state_estimation/ego_data
+      Value: true
+      Width: 350
     - Class: rviz_default_plugins/Image
       Enabled: true
       Max Value: 1
@@ -753,6 +769,23 @@ Visualization Manager:
         Opacity: 0.5
         Value: true
       Value: true
+    - Action Feedback Topic: /planning/lanelet2_route_planning/plan_route/_action/feedback
+      Background Alpha: 0.5
+      Background Color: 20; 20; 20
+      Class: route_planning_msgs/RouteOverlay
+      Enabled: true
+      Height: 125
+      Name: Route Overlay
+      Right: 10
+      Top: 10
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /planning/lanelet2_route_planning/route
+      Value: true
+      Width: 135
     - Alpha: 0.5
       Class: trajectory_planning_msgs/Trajectory
       Enabled: true
@@ -829,13 +862,13 @@ Visualization Manager:
       Enabled: true
       Name: Optimized Trajectory
       Namespaces:
-        ego-circles: true
+        ego-boxes: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /planning/trajectory_optimization/visualization/ego_circles
+        Value: /planning/trajectory_optimization/visualization/ego
       Value: true
   Enabled: true
   Global Options:

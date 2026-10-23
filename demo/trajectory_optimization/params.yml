@@ -9,11 +9,12 @@
     standstill_threshold: 0.3       # threshold for standstill detection [m/s]. If all state velocities are below this threshold, publish standstill trajectory
     high_level_stabilization: False # init first trajectory point with: current EgoData (True); interpolation of last trajectory -> bi-level (False)
     consider_objects: 2             # consider objects in optimization: 0 = no, 1 = static (no prediction), 2 = dynamic (with prediction)
+    ignore_objects_behind_ego: True # exclude objects with reference-point x <= 0 in vehicle_frame_id
     min_prediction_probability: 0.0 # consider only predictions with probability > this threshold
-    consider_boundaries: 1          # consider route boundaries in optimization: 0 = no, 1 = suggested lane, 2 = including adjacent, 3 = drivable space
+    consider_boundaries: 3          # consider route boundaries in optimization: 0 = no, 1 = suggested lane, 2 = including adjacent, 3 = drivable space
     verbose: False                  # print debug infromation and solver statistics
     performance_logging: False      # write one CSV record for each completed solver run
-    debug_visualization: True       # publish debug visualization markers (e.g. obstacle circles)
+    debug_visualization: True       # publish debug visualization markers for ego, objects and boundaries
     run_as_callback: False          # run OCP once for each received reference trajectory (true) or on a timer (false)
 
     #### thresholds for bi-level stabilization
@@ -22,28 +23,31 @@
     bi_level_dYaw: 89.0             # maximum yaw difference before bi-level stabilization hits [degree]
 
     ### general parameters defining the ocp
-    model_name: 'karl'              # name of the acados model
-    optimization_horizon: 5.0       # optimization horizon [s] (also used as build parameter in OCP)
-    n_shots: 50                     # number of shooting intervals in optimization horizon (also used as build parameter in OCP)
+    model_name: 'karl'                  # name of the acados model
+    optimization_horizon: 5.0           # optimization horizon [s] (also used as build parameter in OCP)
+    n_shots: 50                         # number of shooting intervals in optimization horizon (also used as build parameter in OCP)
+    two_stage_optimization: False       # initialize the constrained OCP with a solve without object and boundary constraints
+    relaxed_solve_timeout_ms: 100.0     # timeout of the relaxed initialization solve [ms]; 0 disables the timeout
+    constrained_solve_timeout_ms: 100.0 # timeout of the fully constrained solve [ms]; 0 disables the timeout
 
     #### cost weights
     cost_weights:
-      - 0.02 # dlat (0)
+      - 0.1  # dlat (0)
       - 0.0  # psi (1)       (considered if RWS model is used)
-      - 0.3  # overspeed (2)
-      - 0.1  # underspeed (3)
+      - 0.5  # overspeed (2)
+      - 0.4  # underspeed (3)
       - 0.15 # a_lat (4)
-      - 0.2  # a_lon_pos (5)
+      - 0.15 # a_lon_pos (5)
       - 0.1  # a_lon_neg (6)
       - 0.2  # j_lat (7)
       - 0.1  # j_lon_pos (8)
-      - 0.15 # j_lon_neg (9)
+      - 0.1  # j_lon_neg (9)
       - 0.1  # alpha (10)
       - 3.0  # endYaw (11)
     dynamic_weight: 1.0         # base for exponential weight
 
     # other cost params
-    thw: 2.0                    # time headway [s]
-    d_min_obstacle_long: 1.0    # minimum distance to keep to obstacles in longitudinal direction [m]
-    d_min_obstacle_lat: 0.1     # minimum distance to keep to obstacles in lateral direction [m]
-    d_min_boundary_lat: -0.5     # minimum distance to keep to boundaries in lateral direction [m]
+    thw: 2.0                    # desired time headway [s]; soft with object slacks
+    d_min_object_long: 3.0      # desired longitudinal object clearance [m]; soft with object slacks
+    d_min_object_lat: 0.75      # desired lateral object clearance [m]; soft with object slacks
+    d_min_boundary_lat: 0.0     # minimum distance to keep to boundaries in lateral direction [m]

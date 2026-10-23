@@ -8,11 +8,17 @@
       - "cloudini"
       - "cloudini"
 
-    sync_queue_size: 3 # Queue depth for approximate time synchronization
+    sync_queue_size: 5 # Queue depth for approximate time synchronization
     max_time_diff_sec: 0.05 # Maximum allowed timestamp difference (seconds) across inputs
     output_queue_size: 10 # Queue depth for fused output publisher
     age_penalty: 0.1 # Optional ApproximateTime tuning
     use_cuda: true # Runtime-reconfigurable CPU/CUDA backend selection (requires CUDA build for true)
+    motion_compensation:
+      enable: true # Compensate sensor capture skew and motion during each rotating scan
+      fixed_frame: map # World-fixed TF frame connecting target_frame and every sensor frame
+      time_field: t # UINT32 offset from header.stamp for each point
+      # time_scale_sec: 1.0e-9 # default: nanoseconds; override only for a nonstandard time field
+      tf_timeout_sec: 0.1 # Per-lookup timeout; unavailable motion TF falls back to rigid fusion
     fixed_points_per_input_cloud: 0 # 0=disabled
     range_limits:
       enable: false # Enable XYZ range filtering in target_frame

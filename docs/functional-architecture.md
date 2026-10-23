@@ -43,7 +43,7 @@ For communication between nodes, [common interfaces](https://github.com/ros2/com
 | OpenADService | Description |
 | --- | --- |
 | [lanelet2_route_planning](https://github.com/openads-project/lanelet2_route_planning) | Plans a route on a Lanelet2 map |
-| [simple_planner](https://github.com/openads-project/simple_planner) | Generates route-following reference trajectories with safe-stop, traffic-light, turn-signal, and object-aware speed handling. |
+| [simple_planner](https://github.com/openads-project/simple_planner) | Generates route-following reference trajectories with safe-stop, regulatory-element, occupancy-grid, turn-signal, and object-aware speed handling. |
 | [trajectory_optimization](https://github.com/openads-project/trajectory_optimization) | Periodically solves a nonlinear OCP to generate optimized trajectories for automated driving. |
 
 ### Control
