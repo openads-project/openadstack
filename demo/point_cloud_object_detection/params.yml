@@ -2,7 +2,6 @@
   ros__parameters:
 
     # Core node configuration
-    prediction.server_url: "triton-server:8001"
     prediction.model_repository: "point-cloud-object-detection"
     prediction.model_version: "1"
     preprocessing.backend: "cuda"
@@ -18,9 +17,10 @@
     # Output filtering and object metadata
     postprocessing.class_score_threshold: 0.0
 
-    # Object covariance defaults
-    # CONTINUOUS_STATE_COVARIANCE_UNKNOWN = -1.0
-    output.variances: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
+    # Object state covariances
+    # defaulting to CONTINUOUS_STATE_COVARIANCE_UNKNOWN=max(float64) for x, y, z, yaw, width, length, height as detected by detector
+    # defaulting to CONTINUOUS_STATE_COVARIANCE_INVALID=-1 for vel_lon, vel_lat, acc_lon, acc_lat as not detected by detector
+    output.variances: [1.7976931348623157e+308, 1.7976931348623157e+308, 1.7976931348623157e+308, -1.0, -1.0, -1.0, -1.0, 1.7976931348623157e+308, -1.0, 1.7976931348623157e+308, 1.7976931348623157e+308, 1.7976931348623157e+308]
 
     # Model input feature selection
     input.point_feature_field: "reflectivity"

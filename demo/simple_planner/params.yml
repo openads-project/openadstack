@@ -14,30 +14,33 @@
     n_states: 51                    # number of states in published trajectory
     interpolation_type: 1           # 0: linear, 1: cubic spline
     v_ref: -1.0                     # reference velocity (m/s). Set to '-1.0' to use velocity from route.
-    a_decel: -0.5                   # desired deceleration for braking at stop lines or end of route (m/s^2) - must be < 0.0
-    a_max_decel: -1.0               # maximum deceleration for safe-stop trajectories (m/s^2) - must be < 0.0 and <= a_decel
+    a_decel: -1.0                   # desired deceleration for braking at stop lines or end of route (m/s^2) - must be < 0.0
+    a_max_decel: -4.0               # maximum deceleration for safe-stop trajectories (m/s^2) - must be < 0.0 and <= a_decel
     trigger_turn_signals: False     # true: planner will request turn signal services; false: planner will not trigger turn signals
 
     #### grid map parameters
     consider_grid_map: False                # true: planner will consider grid map; false: planner will ignore grid map
     grid_map_timeout: 1.0                   # time after which a received grid map is considered invalid (s) (use -1 for no timeout)
-    grid_occupied_threshold: 15             # minimum occupancy value that is considered blocked in the grid map
+    grid_occupied_threshold: 50             # minimum occupancy value that is considered blocked in the grid map
     consider_out_of_grid: False             # true: points outside the grid map are treated as occupied; false: free
     grid_longitudinal_safety_distance: 1.5  # longitudinal ego-box margin; negative values shrink the box (m)
     grid_lateral_safety_distance: 0.0       # lateral ego-box margin; negative values shrink the box (m)
 
-    #### traffic light parameters
+    #### regulatory element parameters
     consider_traffic_lights: False  # true: planner will consider traffic lights; false: planner will ignore traffic lights
-    offset_to_stop_line: 0.0        # additional distance to stop in front of a stop line (m) (default: 0.0 -> stops with front of vehicle at stop line)
+    consider_stop_signs: True       # true: planner will consider stop signs; false: planner will ignore stop signs
+    consider_yield_signs: True      # true: planner will consider yield signs; false: planner will ignore yield signs
+    offset_to_stop_line: 0.0        # additional distance to stop in front of a regulatory-element stop line (m) (default: 0.0 -> stops with front of vehicle at stop line)
     ignore_stop_line_threshold: 0.5 # a stop line will be ignored if the front of the vehicle has already passed the stop line by more than this threshold (m)
-    consider_future_states: False   # true: trajectory will consider forecast of traffic light states; false: trajectory will only consider current traffic light state
+    consider_future_states: False   # true: trajectory will consider forecast states of supported regulatory elements; false: only current states
 
     #### object parameters
     consider_objects: True          # true: planner will consider perceived objects on the route; false: planner will ignore objects
+    ignore_objects_behind_ego: True # exclude objects with reference-point x < 0 in vehicle_frame_id
     object_timeout: 1.0             # time after which a received object list is considered invalid (s) (use -1 for no timeout)
-    min_prediction_prob: 0.0        # minimum probability for considering an object prediction branch; otherwise the most likely one is used
+    min_prediction_probability: 0.0 # consider predictions with probability > this threshold; otherwise use the most likely one
     object_longitudinal_safety_distance: 1.5  # longitudinal ego-box margin; negative values shrink the box (m)
-    object_lateral_safety_distance: 0.0  # lateral ego-box margin; negative values shrink the box (m)
+    object_lateral_safety_distance: -0.8  # lateral ego-box margin; negative values shrink the box (m)
     object_interaction_time_window: 0.5  # maximum time offset for counting a spatial overlap as interaction (s)
     object_velocity_reduction_step: 0.1  # velocity decrement per object-avoidance iteration (m/s)
     object_velocity_release_step: 0.5  # maximum velocity increase per cycle after hysteresis cleared object conflicts (m/s)

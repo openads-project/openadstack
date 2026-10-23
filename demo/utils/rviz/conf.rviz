@@ -753,6 +753,53 @@ Visualization Manager:
         Opacity: 0.5
         Value: true
       Value: true
+    - Adjacent Lanes:
+        Value: false
+      Class: route_planning_msgs/Route
+      Destination:
+        Color (final): 255; 0; 255
+        Color (intermediate): 150; 0; 255
+        Scale (final): 1
+        Scale (intermediate): 0.20000000298023224
+        Value: true
+      Drivable Space:
+        Value: false
+      Enabled: true
+      Name: Global Route
+      Suggested Lane:
+        Boundaries:
+          Value: false
+        Lane Change:
+          Value: false
+        Reference Line:
+          Line:
+            Color: 0; 255; 0
+            Scale: 0.05000000074505806
+            Value: true
+          Poses:
+            Value: false
+          Value: true
+        Regulatory Elements:
+          Value: false
+        Speed Limit:
+          Value: false
+        Turn Signals:
+          Value: false
+        Value: true
+      Timeout:
+        Duration: 2
+        Value: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /planning/lanelet2_route_planning/global_route
+      Traveled Route:
+        Opacity: 0.5
+        Value: true
+      Value: true
     - Alpha: 0.5
       Class: trajectory_planning_msgs/Trajectory
       Enabled: true
@@ -829,13 +876,13 @@ Visualization Manager:
       Enabled: true
       Name: Optimized Trajectory
       Namespaces:
-        ego-circles: true
+        ego-boxes: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /planning/trajectory_optimization/visualization/ego_circles
+        Value: /planning/trajectory_optimization/visualization/ego
       Value: true
   Enabled: true
   Global Options:
