@@ -29,7 +29,7 @@ services:
 
   demo.robot-state-publisher:
     <<: *demo-service
-    command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl.urdf
+    command: ros2 run robot_state_publisher robot_state_publisher /urdf/karl/karl.urdf
     volumes:
       - type: image
         source: ghcr.io/openads-project/openads-assets:v1.0.0
