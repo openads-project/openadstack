@@ -21,7 +21,7 @@ services:
       # --- other -----
       LOG_LEVEL: ${LOG_LEVEL:-info}
       USE_SIM_TIME: ${USE_SIM_TIME:-false}
-      PARAMS: ${PARAMS:-/docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml}
+      PARAMS: /docker-ros/ws/install/point_cloud_fusion/share/point_cloud_fusion/config/params.yml
       ROS_TRACING: ${ROS_TRACING:-false}
     command:
       - /bin/bash
