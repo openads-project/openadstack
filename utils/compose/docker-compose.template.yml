@@ -7,9 +7,6 @@ services:
     environment:
       - DOCKER_UID
       - DOCKER_GID
-      - LANG
-      - LANGUAGE
-      - LC_ALL
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
