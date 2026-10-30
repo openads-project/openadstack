@@ -16,11 +16,9 @@ Tracing records when callbacks run and when messages are published and received,
 1. Start the stack with tracing enabled by setting the `ROS_TRACING` environment variable:
 
     ```bash
-    export ROS_TRACING=true IMAGE_VARIANT=
+    export ROS_TRACING=true
     docker compose up -d
     ```
-
-    Tracing is disabled by default (`ROS_TRACING=false`). Setting `IMAGE_VARIANT` to an empty value selects the full images instead of the default `-slim` variants, which do not support tracing.
 
 2. Use OpenADStack as usual. Trace data is continuously recorded into an in-memory ring buffer, but not yet written to disk.
 

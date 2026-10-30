@@ -10,8 +10,7 @@ services:
     extends:
       file: ../../utils/compose/docker-compose.template.yml
       service: ros2-gpu-service
-    # image: ghcr.io/openads-project/point_cloud_object_detection:v3.1.1
-    image: ghcr.io/openads-project/point_cloud_object_detection:v3.1.1${IMAGE_VARIANT--slim}
+    image: ghcr.io/openads-project/point_cloud_object_detection:v3.1.1
     environment:
       # --- name ------
       # NAMESPACE: /
