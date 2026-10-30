@@ -1,0 +1,11 @@
+include:
+  - oci://ghcr.io/openads-project/ros2-trace-analysis/compose:v1.0.0
+
+services:
+
+  ros2-trace-analysis:
+    extends:
+      file: ../compose/docker-compose.template.yml
+      service: x11-service
+    volumes:
+      - ./trace:/trace
