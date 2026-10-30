@@ -1,11 +1,11 @@
+include:
+  - oci://ghcr.io/openads-project/ros2-trace-analysis/compose:v1.0.0
+
 services:
 
   ros2-trace-analysis:
     extends:
       file: ../compose/docker-compose.template.yml
-      service: ros2-x11-service
-    image: ghcr.io/openads-project/ros2-trace-analysis:latest_init_ci
-    ipc: ""
+      service: x11-service
     volumes:
       - ./trace:/trace
-    network_mode: host
