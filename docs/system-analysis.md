@@ -1,6 +1,6 @@
 # System Analysis
 
-OpenADStack is a distributed system: its modules run as separate ROS 2 nodes in individual containers and exchange data via topics. This makes it hard to tell, from the outside, how long a message takes to travel from sensor input to control output, or where time is lost along the way. This page describes how to record runtime traces of the stack with [ros2_tracing](https://github.com/ros2/ros2_tracing) and how to analyze them, so you can inspect timing and message flow across all modules of the automated driving stack.
+OpenADS is a distributed system: its modules run as separate ROS 2 nodes in individual containers and exchange data via topics. This makes it hard to tell, from the outside, how long a message takes to travel from sensor input to control output, or where time is lost along the way. This page describes how to record runtime traces of the stack with [ros2_tracing](https://github.com/ros2/ros2_tracing) and how to analyze them, so you can inspect timing and message flow across all modules of the automated driving stack.
 
 ## Why Trace the Message Flow?
 
