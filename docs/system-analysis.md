@@ -46,7 +46,7 @@ Tracing records when callbacks run and when messages are published and received,
 
 ### Traced Services
 
-By default, `tracing.sh` traces all running containers (Docker) or pods (Kubernetes) whose name contains one of the following:
+By default, `tracing.sh` traces all running containers whose name contains one of the following:
 
 - `perception.point-cloud-fusion`
 - `perception.point-cloud-object-detection`
