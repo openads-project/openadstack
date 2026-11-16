@@ -53,6 +53,9 @@ OpenADStack is usually part of a larger deployment composition, for example with
 > The extended demo requires an NVIDIA GPU with compute capability 8.0 or higher, and additional disk
 > space of 14GB for its larger bag files.
 
+> [!NOTE]
+> On machines with multiple GPUs where the display is not driven by the NVIDIA GPU (e.g., laptops with hybrid graphics), run `export __GLX_VENDOR_LIBRARY_NAME=nvidia` before starting the demo so that RViz renders on the NVIDIA GPU.
+
 - **Stop** the demo with:
 
   ```bash

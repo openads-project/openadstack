@@ -39,7 +39,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - __NV_PRIME_RENDER_OFFLOAD=1
-      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - __GLX_VENDOR_LIBRARY_NAME # taken from host: leave unset for auto-detection (required for remote setups, e.g., VNC), export as `nvidia` on multi-GPU machines
 
   nvidia-soc-service:
     extends:
@@ -132,7 +132,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - __NV_PRIME_RENDER_OFFLOAD=1
-      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - __GLX_VENDOR_LIBRARY_NAME # taken from host: leave unset for auto-detection (required for remote setups, e.g., VNC), export as `nvidia` on multi-GPU machines
 
   ros2-nvidia-soc-service:
     extends:

@@ -24,6 +24,8 @@ The definitions in `docker-compose.template.yml` centralize shared lifecycle, mi
 
 `ros2-service` selects `zenoh`, `fastrtps`, or `cyclone` through `RMW`. The selected implementation must already be installed in the OpenADService container image. `triton-server` and `zenoh-router` are concrete infrastructure Compose services rather than base templates.
 
+GPU services take `__GLX_VENDOR_LIBRARY_NAME` from the host. If it is unset, graphical applications such as RViz use the OpenGL vendor reported by the X server, which also works in remote setups such as VNC. On machines with multiple GPUs where the display is not driven by the NVIDIA GPU (e.g., laptops with hybrid graphics), run `export __GLX_VENDOR_LIBRARY_NAME=nvidia` before starting the services.
+
 ```mermaid
 flowchart BT
 
